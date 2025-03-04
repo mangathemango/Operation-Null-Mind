@@ -9,7 +9,8 @@ const InputEvent * const Input = &_input; // This ensures that the Input variabl
 ?   @param button The button to press. Can either be a key button or a mouse button.
 */
 void Press_Button(ButtonState *button) {
-    button->pressed = true;
+    // Pressed is only true if the button was not held on the previous frame.
+    if (!button->held) button->pressed = true;
     button->held = true; 
 }
 
