@@ -1,9 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <vec2.h>
+#include <stdbool.h>
 #include <SDL.h>
+#include <environment.h>
 typedef struct {
     Vec2 position;
+    bool moving;
+    SDL_Rect hitbox;
 } PlayerState;
 
 typedef struct {
@@ -31,15 +35,12 @@ int Player_Render();
 
 int Player_Start();
 int Player_PostUpdate();
+void Player_Post_Position();
+// void Update_Player(PlayerState *player, Wall *wall);
 
 // Actions
 int Player_Move(Vec2 direction);
-void Update_Position();
-void Handle_Collision();
-
-void Init_player(Player* player);
-void Handle_input(Player* player, const Uint8* keystate);
-void Update_player(Player* player);
-void Render_player(Player* player, SDL_Renderer* renderer);
+//Collision
+void Check_Collision(SDL_Rect a, SDL_Rect b,int *collisionFlag);
 
 #endif

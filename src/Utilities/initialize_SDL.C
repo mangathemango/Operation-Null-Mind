@@ -33,5 +33,6 @@ int Initialize_SDL() {
     }
 
     SDL_RenderSetLogicalSize(app.setup.renderer, app.config.screen_width, app.config.screen_height);
+    SDL_SetRenderTarget(app.setup.renderer, app.setup.screenTexture);
     return 0;
 }

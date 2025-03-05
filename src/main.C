@@ -1,11 +1,9 @@
 #define SDL_MAIN_HANDLED 1
-
 #include <windows.h>
 #include <SDL.h>
 #include <app.h>
 #include <player.h>
-#include <hitbox.h>
-#include <rectangle.h>
+#include <environment.h>
 /* 
 *    This is the entry point of the program. It's similar to the main() function in standard C.
 
