@@ -11,5 +11,4 @@ void Player_Input_Handler() {
     if (Input->keyboard.keys[SDL_SCANCODE_S].held) Player_Move(Vec2_Down);
     if (Input->keyboard.keys[SDL_SCANCODE_D].held) Player_Move(Vec2_Right);
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
-    SDL_Log("%d",Input->keyboard.keys[SDL_SCANCODE_A].pressed);
 }
