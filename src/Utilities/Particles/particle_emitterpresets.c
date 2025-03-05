@@ -1,6 +1,6 @@
 #include <particle_emitterpresets.h>
 
-ParticleEmitter Default_ParticleEmitter = {
+ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
 
     .direction = {0, -1},
@@ -35,19 +35,25 @@ ParticleEmitter Default_ParticleEmitter = {
 
 ParticleEmitter* test_emitter = NULL;
 
-ParticleEmitter* ParticleEmitter_CreateDefault() {
+ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
+    // Create emitter
     ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));
     if (!emitter) return NULL;
-    memcpy(emitter, &Default_ParticleEmitter, sizeof(ParticleEmitter));
+    memcpy(emitter, &preset, sizeof(ParticleEmitter));
+
+    // Set up emitter Timer
     emitter->emissionTimer = Timer_Create(emitter->emissionRate);
     Timer_Start(emitter->emissionTimer);
+
+    // Create particle array
     emitter->particles = malloc(sizeof(Particle) * emitter->maxParticles);
     if (!emitter->particles) {
         free(emitter);
         return NULL;
     }
+    // Set all particles to dead by default
     for (int i = 0; i < emitter->maxParticles; i++) {
-        emitter->particles[i].alive = false;
+        emitter->particles[i].alive = false; 
     }
     return emitter;
 }

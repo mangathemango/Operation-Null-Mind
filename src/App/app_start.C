@@ -11,7 +11,7 @@ int App_Start() {
     RandomInit();
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
-    test_emitter = ParticleEmitter_CreateDefault();
+    test_emitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Default);
     test_emitter->selfReference = &test_emitter;
     return 0;
 }
