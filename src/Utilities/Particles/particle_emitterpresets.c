@@ -9,20 +9,20 @@ ParticleEmitter Default_ParticleEmitter = {
     .maxParticles = 10000,
     .angleRange = 360,
 
-    .active = true,
+    .active = false,
     .emitterLifetime = 0,
     .emitterAge = 0,
-    .loopCount = -1,
-    .destroyWhenDone = true,
+    .loopCount = 1,
+    .destroyWhenDone = false,
 
-    .particleLifetime = 2,
-    .particleSpeed = 100,
+    .particleLifetime = 30,
+    .particleSpeed = 20,
     .custom_Movement = NULL,
 
-    .startColor = {255, 0, 0, 255},
+    .startColor = {255, 0, 0, 100},
     .endColor = {255, 255, 0, 0},
-    .startSize = {5, 5},
-    .endSize = {0, 0},
+    .startSize = {3, 3},
+    .endSize = {1, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 0},

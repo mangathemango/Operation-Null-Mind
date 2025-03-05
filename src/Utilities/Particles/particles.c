@@ -149,3 +149,14 @@ bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
     }
     return false;
 }
+
+void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter) {
+    emitter->active = true;
+    emitter->emitterAge = 0;
+    if (emitter->loopCount == 0) emitter->loopCount = 1;
+}
+
+void ParticleEmitter_Deactivate(ParticleEmitter* emitter) {
+    emitter->active = false;
+    emitter->emitterAge = 0;
+}

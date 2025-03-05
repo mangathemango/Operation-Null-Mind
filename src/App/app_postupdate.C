@@ -16,7 +16,14 @@ int App_PostUpdate() {
     SDL_RenderClear(app.setup.renderer);
     
     Player_PostUpdate();
-
+    if (test_emitter != NULL) {
+        if (Input->mouse.leftButton.held) {
+            ParticleEmitter_ActivateOnce(test_emitter);
+        }
+        test_emitter->position = Input->mouse.position;
+        ParticleEmitter_Update(test_emitter);
+        ParticleEmitter_Render(test_emitter);
+    }
     // Reset render target to window
     SDL_SetRenderTarget(app.setup.renderer, NULL);
     

@@ -79,6 +79,8 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter);
 int ParticleEmitter_GetNextReady(ParticleEmitter* emitter);
 void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter);
 void ParticleEmitter_Update(ParticleEmitter* emitter);
+void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter);
+void ParticleEmitter_Deactivate(ParticleEmitter* emitter);
 void ParticleEmitter_Render(ParticleEmitter* emitter);
 void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter);
 bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter);
