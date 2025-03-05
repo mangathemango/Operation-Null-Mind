@@ -8,9 +8,9 @@ int Player_Render() {
     Animation_Render(player.config.animation, 
                     Vec2_Subtract(
                         player.state.position,
-                        Vec2_Divide(player.anim.spriteSize, 2)
+                        Vec2_Divide(player.animData.spriteSize, 2)
                     ), 
-                    player.anim.spriteSize);
+                    player.animData.spriteSize);
     return 0;
 }
 
