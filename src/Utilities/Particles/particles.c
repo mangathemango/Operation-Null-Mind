@@ -85,20 +85,22 @@ void ParticleEmitter_Update(ParticleEmitter* emitter) {
         return;
     }
 
+    emitter->emitterAge += Time->deltaTimeSeconds;
+    if (emitter->emitterLifetime >= 0 && emitter->emitterAge >= emitter->emitterLifetime) {
+        emitter->emitterAge = 0;
+        if (emitter->loopCount == 0) {
+            emitter->active = false;
+            return;
+        }
+        emitter->loopCount--;
+    }
+
     // Emit particles based on timer
     if (Timer_IsFinished(emitter->emissionTimer)) {
         for (int i = 0; i < emitter->emissionNumber; i++) {
             ParticleEmitter_Emit(emitter);
         }
         Timer_Start(emitter->emissionTimer);
-    }
-    emitter->emitterAge += Time->deltaTimeSeconds;
-    if (emitter->emitterLifetime >= 0 && emitter->emitterAge >= emitter->emitterLifetime) {
-        emitter->loopCount--;
-        emitter->emitterAge = 0;
-        if (emitter->loopCount == 0) {
-            emitter->active = false;
-        }
     }
 }
 

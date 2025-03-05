@@ -9,13 +9,13 @@ ParticleEmitter Default_ParticleEmitter = {
     .maxParticles = 10000,
     .angleRange = 360,
 
-    .active = false,
+    .active = true,
     .emitterLifetime = 0,
     .emitterAge = 0,
-    .loopCount = 1,
+    .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 30,
+    .particleLifetime = 3,
     .particleSpeed = 20,
     .custom_Movement = NULL,
 
