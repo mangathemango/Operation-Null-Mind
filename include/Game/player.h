@@ -33,7 +33,7 @@ typedef struct {
     PlayerState state;
     PlayerStat stats;
     PlayerConfig config;
-    AnimationData anim;
+    AnimationData animData;
 } PlayerData;
 
 extern PlayerData player;

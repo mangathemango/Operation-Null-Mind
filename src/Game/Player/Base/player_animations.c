@@ -2,7 +2,7 @@
 #include <app.h>
 
 int Player_AnimationInit() {
-    player.config.animation = Animation_Create(&player.anim);
+    player.config.animation = Animation_Create(&player.animData);
     if (!player.config.animation) {
         SDL_Log("Failed to create player animation");
         return 1;
