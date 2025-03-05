@@ -1,5 +1,7 @@
 #include <particle_movement.h>
 #include <time_system.h>
+#include <math.h>
+#include <random.h>
 
 //* Completely linear movement - constant speed and direction
 void Particle_LinearMovement(Particle* particle) {
@@ -55,4 +57,11 @@ void Particle_RandomMovement(Particle* particle) {
     particle->position.y += velocity.y * Time->deltaTimeSeconds;
     particle->position.x += (rand() % 3 - 1);
     particle->position.y += (rand() % 3 - 1);
+}
+
+void Particle_SineMovement(Particle* particle) {
+    particle->position.x += particle->direction.x * particle->speed * Time->deltaTimeSeconds;
+    particle->position.y += particle->direction.y * particle->speed * Time->deltaTimeSeconds;
+    particle->position.x += sin(particle->timeAlive * RandInt(1, 5)) * Time->deltaTimeSeconds * 10;
+    particle->position.y += cos(particle->timeAlive * RandInt(1, 5)) * Time->deltaTimeSeconds * 10;
 }
