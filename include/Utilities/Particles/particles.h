@@ -1,3 +1,39 @@
+/*
+    @file particle_emitterpresets.h
+*   This file contains the particle system structs and functions.
+?   Particles are emitted from structs called ParticleEmitters.   
+?   Therefore, to generate particles, you have to, of course, create a Particle Emitter first.
+?   Emitters can be created based on a preset in particle_emitterpresets.c
+?   (Information on how to create a preset can be found inside particle_emitterpresets.h)
+?   After that, you can update and render the particles inside the game loop.
+?   This is how it's done:
+?
+?   Example:
+?
+?   Step 1: Look for a preset in particle_emitterpresets.c, for example ParticleEmitter_Default
+?
+?   Step 2: Create the emitter in the game loop
+?
+?   // Called somewhere inside App_Start()
+?       ParticleEmitter *emitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Default);
+!       emitter->selfReference = &emitter;    // YOU HAVE TO DO THIS OR YOU DIE
+?
+?   // Called somewhere inside App_PostUpdate()
+?       // You can modify the emitter's properties as needed.   
+?       emitter->position = ....; 
+?
+?       // Update and render the emitter
+?       ParticleEmitter_Update(emitter);            
+?       ParticleEmitter_Render(emitter);
+?   
+?   // For emitters that don't loop infinitely, add conditionals to activate the emitter
+?       if (...) {
+?           ParticleEmitter_ActivateOnce(gunSparksEmitter);  // Activate the emitter once
+?       }
+*/
+
+
+
 #pragma once
 
 #include <SDL.h>
@@ -22,8 +58,8 @@ typedef struct {
     // Visual properties
     SDL_Color color;            // Current color (interpolated between start/end)
     Vec2 size;                  // Current size (can change over lifetime)
-    float rotation;             // Current rotation angle
-    float rotationSpeed;        // Speed of rotation (degrees/second)
+    float rotation;             // Current rotation angle               (Not implemented)
+    float rotationSpeed;        // Speed of rotation (degrees/second)   (Not implemented)
     
     // Physics properties
     Vec2 velocity;              // Current velocity vector. Is calculated every frame via direction and speed
@@ -31,10 +67,10 @@ typedef struct {
     float drag;                 // Individual drag factor
     
     // Behavior
-    float initialSpeed;         // Starting speed (for reference/reset)
+    float initialSpeed;         // Starting speed (for reference/reset)-
     SDL_Color initialColor;     // Starting color (for reference/reset)
     Vec2 initialSize;           // Starting size (for reference/reset)
-    int bounceCount;            // Track number of bounces (Not implemented yet)
+    int bounceCount;            // Track number of bounces              (Not implemented)
 } Particle;
 
 /*

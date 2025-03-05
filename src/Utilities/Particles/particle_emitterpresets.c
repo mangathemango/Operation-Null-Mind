@@ -15,14 +15,14 @@ ParticleEmitter ParticleEmitter_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 3,
+    .particleLifetime = 0.5,
     .particleSpeed = 20,
-    .custom_Movement = NULL,
+    .custom_Movement = Particle_RandomMovement,
 
-    .startColor = {255, 0, 0, 100},
+    .startColor = {255, 0, 0, 50},
     .endColor = {255, 255, 0, 0},
     .startSize = {3, 3},
-    .endSize = {1, 1},
+    .endSize = {2, 2},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
