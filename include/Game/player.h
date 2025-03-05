@@ -51,4 +51,6 @@ int Player_HandleDash();
 
 // Animations
 int Player_AnimationInit();
+int Player_AnimationUpdate();
+
 #endif

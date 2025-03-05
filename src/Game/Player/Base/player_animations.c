@@ -19,3 +19,11 @@ int Player_AnimationInit() {
     Animation_Play(player.config.animation, "idle");
     return 0;
 }
+
+int Player_AnimationUpdate() {
+    if (player.state.moving)    Animation_Play(player.config.animation, "spin");
+    else                        Animation_Play(player.config.animation, "idle");
+    
+    Animation_Update(player.config.animation);
+    return 0;
+}

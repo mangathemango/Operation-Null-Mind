@@ -48,6 +48,7 @@ extern AppData app;
 int App_Start();
 int App_PreUpdate();
 int App_PostUpdate();
+int App_Render();
 int App_Event_Handler(SDL_Event *event);
 int App_Quit();
 

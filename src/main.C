@@ -25,6 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             if(App_Event_Handler(&event)) return 1;
         }
         if(App_PostUpdate()) return 1;
+        if(App_Render()) return 1;
     }
 
     App_Quit();
