@@ -2,14 +2,21 @@
 #include <particle_emitterpresets.h>
 #include <player.h>
 
-
+/*
+*   Handles the main rendering of the game, like players, game environments, etc.
+?   This function is called inside App_Render().
+*/
 int App_RenderMain() {
     Player_Render();
     ParticleEmitter_Render(test_emitter);
     return 0;
 }
 
-
+/*
+*   Renders the current frame of the game.
+?   Includes the main rendering function and the final rendering to the window.
+?   This function is called every frame after all the updating is complete
+*/
 int App_Render() {
     // Set render target to screen texture
     SDL_SetRenderTarget(app.setup.renderer, app.setup.screenTexture);

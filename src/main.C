@@ -8,7 +8,7 @@
 *    This is the entry point of the program. It's similar to the main() function in standard C.
 
 ?    Each program will call the following functions in this order:
-?       App_Start() -> loop [ App_PreUpdate() -> App_Event_Handler() -> App_PostUpdate() ] -> App_Quit()
+?       App_Start() -> loop [ App_PreUpdate() -> App_Event_Handler() -> App_PostUpdate() -> App_Render] -> App_Quit()
 ?    Each of these functions can be found inside src/App/
 
 !   This is a windows specific function. Also ignore all the WINAPI and HINSTANCE stuff it prolly does nothing.
