@@ -244,7 +244,8 @@ void Animation_Update(Animation* animation) {
     @param destPosition The position to draw
     @param destSize The size of the drawn image
 */
-void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize) {
+void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
+                        float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip) {
     // Make sure we have a valid clip
     if (animation->currentClip < 0 || animation->currentClip >= animation->clipCount) {
         return;
@@ -276,8 +277,8 @@ void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize) {
         animation->spritesheet,
         &srcRect,
         &dstRect,
-        0,      // No rotation
-        NULL,   // No rotation center (default)
-        SDL_FLIP_NONE  // Flip horizontally/vertically if needed
+        angle,      // No rotation
+        rotationCenter,   // No rotation center (default)
+        flip  // Flip horizontally/vertically if needed
     );
 }

@@ -89,6 +89,7 @@ void Animation_Resume(Animation* animation);
 
 // Update and render
 void Animation_Update(Animation* animation);
-void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize);
+void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
+                        float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip);
 
 #endif
