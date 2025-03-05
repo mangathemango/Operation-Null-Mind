@@ -24,7 +24,7 @@ endforeach()
 include_directories(Assets)
 
 # Find all source files in src directory
-file(GLOB_RECURSE SOURCES "src/*.c")
+file(GLOB_RECURSE SOURCES "src/*.c" "src/*.C")
 set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE C)
 
 # Create executable
