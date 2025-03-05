@@ -19,8 +19,8 @@ int Player_Move(Vec2 direction) {
     if (player.state.movementLocked) return 0;
     player.state.direction = Vec2_Add(player.state.direction, direction);
     player.state.moving = true;
-    player.state.position.x += direction.x * (player.config.speed * Time->deltaTimeSeconds);
-    player.state.position.y += direction.y * (player.config.speed * Time->deltaTimeSeconds);
+    player.state.position.x += direction.x * (player.stats.walkSpeed * Time->deltaTimeSeconds);
+    player.state.position.y += direction.y * (player.stats.walkSpeed * Time->deltaTimeSeconds);
     
     return 0;
 }

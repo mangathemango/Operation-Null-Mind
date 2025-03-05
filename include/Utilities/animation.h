@@ -42,6 +42,13 @@ typedef struct {
 } AnimationClip;
 
 typedef struct {
+    char* name;
+    int startFrameIndex;
+    int endFrameIndex;
+    float frameDuration;
+    bool looping;
+} AnimationClipData;
+typedef struct {
     SDL_Texture* spritesheet;   // Spritesheet texture
     AnimationClip* clips;  // Array of different animations
     int clipCount;          // Number of animation clips
@@ -56,9 +63,18 @@ typedef struct {
     int direction;          // 1 for forward, -1 for backward
 } Animation;
 
+typedef struct {
+    char* spritesheetPath;  // The path to the spriteSheet
+    Vec2 frameSize;         // The size of each frame in the sprite sheet
+    int frameCount;         // Number of frames inside the sprite sheet
+    AnimationClipData clips[5]; // Array of different animation clips
+    Vec2 spriteSize;        // The size of the rendered sprite
+    char* defaultClip;      // The default clip to play
+    bool playOnStart;
+} AnimationData;
 
 // Create and destroy animations
-Animation* Animation_Create(SDL_Texture* spritesheet, Vec2 frameSize, int frameCount);
+Animation* Animation_Create(AnimationData* data);
 void Animation_Destroy(Animation* animation);
 
 // Add animation clips

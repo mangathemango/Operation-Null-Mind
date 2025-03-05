@@ -15,18 +15,33 @@
     @param How many frames there are in the spritesheet. Don't count the blank frames btw.
 
 */
-Animation* Animation_Create(SDL_Texture* spritesheet, Vec2 frameSize, int frameCount) {
+Animation* Animation_Create(AnimationData* animData) {
     Animation* animation = malloc(sizeof(Animation));
     if (!animation) return NULL;
-    animation->spritesheet = spritesheet;
+
+    animation->spritesheet = IMG_LoadTexture(app.setup.renderer, animData->spritesheetPath);
     animation->clips = NULL;
     animation->clipCount = 0;
-    animation->frameSize = frameSize;
-    animation->frameCount = frameCount;
+    animation->frameSize = animData->frameSize;
+    animation->frameCount = animData->frameCount;
     animation->currentClip = -1;
     animation->currentFrame = 0;
     animation->isPlaying = false;
     animation->direction = 1;
+
+    // Set up clips
+    for (int i = 0; animData->clips[i].name != NULL; i++) {
+        Animation_AddClipFromGrid(animation, 
+            animData->clips[i].name, 
+            animData->clips[i].startFrameIndex, 
+            animData->clips[i].endFrameIndex, 
+            animData->clips[i].frameDuration, 
+            animData->clips[i].looping);
+    }
+
+    if (animData->playOnStart) {
+        Animation_Play(animation, animData->defaultClip);
+    }
     return animation;
 }
 

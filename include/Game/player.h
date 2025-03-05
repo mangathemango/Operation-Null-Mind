@@ -19,16 +19,21 @@ typedef struct {
 } PlayerState;
 
 typedef struct {
-    float speed;
-    float dashSpeed;
-    char* sprite;
-    Vec2 spriteSize;
     Animation* animation;
 } PlayerConfig;
 
 typedef struct {
+    float walkSpeed;
+    float dashSpeed;
+    float dashDuration;
+    float dashCooldown;
+} PlayerStat;
+
+typedef struct {
     PlayerState state;
+    PlayerStat stats;
     PlayerConfig config;
+    AnimationData anim;
 } PlayerData;
 
 extern PlayerData player;
