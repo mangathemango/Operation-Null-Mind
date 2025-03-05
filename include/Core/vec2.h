@@ -10,7 +10,6 @@ typedef struct
 {
     float x;
     float y;
-    float vx,vy; //Movement velocity    
 } Vec2;
 
 static const Vec2 Vec2_Zero = {0, 0};

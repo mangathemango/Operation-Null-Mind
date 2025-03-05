@@ -79,15 +79,10 @@
     "sdl_main.h": "c",
     "input.h": "c",
     "app.h": "c",
-
     "player.h": "c",
     "time.h": "c",
     "animation.h": "c",
     "particles.h": "c",
     "particle_movement.h": "c"
-  
-
-  },
-  "C_Cpp.errorSquiggles": "disabled"
-
+  }
 }
