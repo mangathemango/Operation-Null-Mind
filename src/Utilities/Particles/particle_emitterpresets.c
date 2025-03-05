@@ -5,7 +5,7 @@ ParticleEmitter ParticleEmitter_Default = {
 
     .direction = {0, -1},
     .emissionRate = 0.01,
-    .emissionNumber = 10,
+    .emissionNumber = 30,
     .maxParticles = 10000,
     .angleRange = 360,
 
@@ -15,14 +15,14 @@ ParticleEmitter ParticleEmitter_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 0.5,
-    .particleSpeed = 20,
-    .custom_Movement = Particle_RandomMovement,
+    .particleLifetime = 1,
+    .particleSpeed = 50,
+    .custom_Movement = Particle_SpiralMovement,
 
-    .startColor = {255, 0, 0, 50},
-    .endColor = {255, 255, 0, 0},
-    .startSize = {3, 3},
-    .endSize = {2, 2},
+    .startColor = {255, 0, 0, 0},
+    .endColor = {255, 255, 0, 255},
+    .startSize = {1, 1},
+    .endSize = {3, 3},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
