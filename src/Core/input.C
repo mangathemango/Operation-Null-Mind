@@ -1,4 +1,5 @@
 #include <input.h>
+#include <app.h>
 
 static InputEvent _input;
 const InputEvent * const Input = &_input; // This ensures that the Input variable is read-only to other files.
@@ -53,8 +54,12 @@ void Input_PreUpdate() {
     // Reset the mouse motion
     _input.mouse.motion = (Vec2) {0, 0};
     
-    // Get the mouse position
-    SDL_GetMouseState((int*) &_input.mouse.position.x, (int*) &_input.mouse.position.y);
+    // Get mouse position
+    int windowMouseX, windowMouseY;
+    SDL_GetMouseState(&windowMouseX, &windowMouseY);
+    float screenMouseX, screenMouseY;
+    SDL_RenderWindowToLogical(app.setup.renderer, windowMouseX, windowMouseY, &screenMouseX, &screenMouseY);
+    _input.mouse.position = (Vec2){screenMouseX, screenMouseY};
 }
 
 

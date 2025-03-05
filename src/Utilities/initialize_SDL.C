@@ -32,6 +32,8 @@ int Initialize_SDL() {
         return 1;
     }
 
+
     SDL_RenderSetLogicalSize(app.setup.renderer, app.config.screen_width, app.config.screen_height);
+    SDL_SetRenderDrawBlendMode(app.setup.renderer, SDL_BLENDMODE_BLEND);
     return 0;
 }

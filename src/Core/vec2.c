@@ -1,5 +1,8 @@
 #include <vec2.h>
 #include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846f
+#endif
 
 /*
 *   Returns the magnitude of a vector.
@@ -85,3 +88,21 @@ Vec2 Vec2_Lerp(Vec2 a, Vec2 b, float t) {
     return (Vec2) {a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t};
 }
 
+Vec2 Vec2_RotateRadians(Vec2 v, float angle) {
+    float x = v.x * cos(angle) - v.y * sin(angle);
+    float y = v.x * sin(angle) + v.y * cos(angle);
+    return (Vec2) {x, y};
+}
+
+Vec2 Vec2_RotateDegrees(Vec2 v, float angle) {
+    float angleRadians = angle * (M_PI / 180.0f);
+    return Vec2_RotateRadians(v, angleRadians);
+}
+
+Vec2 Vec2_RotateAround(Vec2 point, Vec2 center, float angle) {
+    Vec2 translated = Vec2_Subtract(point, center);
+    
+    Vec2 rotated = Vec2_RotateRadians(translated, angle);
+    
+    return Vec2_Add(rotated, center);
+}
