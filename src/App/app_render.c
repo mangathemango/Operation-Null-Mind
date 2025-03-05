@@ -8,6 +8,7 @@
 */
 int App_RenderMain() {
     Player_Render();
+    Gun_Render();
     ParticleEmitter_Render(test_emitter);
     return 0;
 }

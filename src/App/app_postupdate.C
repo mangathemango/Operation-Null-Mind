@@ -16,5 +16,6 @@ int App_PostUpdate() {
         test_emitter->position = Input->mouse.position;
         ParticleEmitter_Update(test_emitter);
     }
+    Gun_Update();
     return 0;
 }

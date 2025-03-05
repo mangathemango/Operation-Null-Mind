@@ -12,6 +12,7 @@ PlayerData player = {
         .dashing = false,   
         .movementLocked = false,
         .moving = false,
+        .currentGun = GUN_PISTOL,
     },
     .config = {
         .animation = NULL,
@@ -22,7 +23,7 @@ PlayerData player = {
         .dashCooldown = 1,
         .dashDuration = 0.1,
     },
-    .anim = {
+    .animData = {
         .spritesheetPath = "Assets/Images/robert.png",
         .frameSize = {26,32},
         .frameCount = 1,

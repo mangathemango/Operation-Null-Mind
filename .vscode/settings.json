@@ -84,6 +84,7 @@
     "animation.h": "c",
     "particles.h": "c",
     "particle_movement.h": "c",
-    "vec2.h": "c"
+    "vec2.h": "c",
+    "gun.h": "c"
   }
 }
