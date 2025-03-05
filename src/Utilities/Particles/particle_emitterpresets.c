@@ -1,4 +1,8 @@
 #include <particle_emitterpresets.h>
+#define BRASS_COLOR {238,209,131,255}
+#define BRASS_COLOR_FADE {238,209,131,0}
+#define SHOTSHELL_COLOR {207,43,33,255}
+#define SHOTSHELL_COLOR_FADE {207,43,33,0}
 
 ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
@@ -27,6 +31,105 @@ ParticleEmitter ParticleEmitter_Default = {
 
     .gravity = {0, 0},
     .drag = 4,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+};
+
+ParticleEmitter ParticleEmitter_PistolSMGCasing = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0.01,
+    .emissionNumber = 1,
+    .maxParticles = 10,
+    .angleRange = 10,
+
+    .active = false,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.5,
+    .particleSpeed = 30,
+    .custom_Movement = NULL,
+
+    .startColor = BRASS_COLOR,
+    .endColor = BRASS_COLOR_FADE,
+    .startSize = {1, 1},
+    .endSize = {1, 1},
+    .particleTexture = NULL,
+
+    .gravity = {0, 50},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+};
+
+ParticleEmitter ParticleEmitter_ARBRCasing = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0.01,
+    .emissionNumber = 1,
+    .maxParticles = 10,
+    .angleRange = 10,
+
+    .active = false,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.5,
+    .particleSpeed = 30,
+    .custom_Movement = NULL,
+
+    .startColor = BRASS_COLOR,
+    .endColor = BRASS_COLOR_FADE,
+    .startSize = {2, 1},
+    .endSize = {2, 1},
+    .particleTexture = NULL,
+
+    .gravity = {0, 50},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+};
+
+ParticleEmitter ParticleEmitter_ShotgunCasing = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0.01,
+    .emissionNumber = 1,
+    .maxParticles = 10,
+    .angleRange = 10,
+
+    .active = false,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.5,
+    .particleSpeed = 30,
+    .custom_Movement = NULL,
+
+    .startColor = SHOTSHELL_COLOR,
+    .endColor = SHOTSHELL_COLOR_FADE,
+    .startSize = {2, 1},
+    .endSize = {2, 1},
+    .particleTexture = NULL,
+
+    .gravity = {0, 50},
+    .drag = 0,
 
     .particles = NULL,
     .readyIndex = 0,
