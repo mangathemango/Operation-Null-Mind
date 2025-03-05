@@ -39,3 +39,7 @@ In that case, you can enter this command into terminal:
 ```
 Get-ChildItem -Path .\src -Filter *.C -Recurse | Rename-Item -NewName {$_.name -replace '\.C$','.c'}
 ```
+
+Ctrl + Alt + I = Open up Github copilot.
+
+Explaining errors = /explain #terminalLastComment

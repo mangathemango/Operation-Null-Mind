@@ -1,3 +1,10 @@
+/*
+    @file app.h
+*   This file contains the app struct and its functions.
+?   The app struct is used to keep track of the app's setup, state, and configuration.
+?   For example, the window, renderer, screen size, and a running state.
+*/
+
 #ifndef APP_H
 #define APP_H
 
@@ -25,9 +32,15 @@ typedef struct {
 } AppConfig;
 
 typedef struct {
+    // TODO: Might add time scale for slow motion stuff later
+    float deltaTime;
+} AppTime;
+
+typedef struct {
     AppSetup setup;
     AppState state;
     AppConfig config;
+    AppTime time;
 } AppData;
 
 extern AppData app;
@@ -35,6 +48,7 @@ extern AppData app;
 int App_Start();
 int App_PreUpdate();
 int App_PostUpdate();
+int App_Render();
 int App_Event_Handler(SDL_Event *event);
 int App_Quit();
 

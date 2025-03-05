@@ -2,6 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Turn .C files into .c files",
+            "type": "shell",
+            "command": "Get-ChildItem -Path .\\src -Filter *.C -Recurse | Rename-Item -NewName {$_.name -replace '\\.C$','.c'}",
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe"
+                }
+            }
+        },
+        {
             "label": "cmake build",
             "type": "shell",
             "command": "cmake",
@@ -40,7 +50,7 @@
         {
             "label": "cmake build and run",
             "dependsOrder": "sequence",
-            "dependsOn": ["cmake build", "cmake compile", "run"],
+            "dependsOn": ["Turn .C files into .c files","cmake build", "cmake compile", "run"],
             "group": {
                 "kind": "build",
                 "isDefault": true

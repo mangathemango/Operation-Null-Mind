@@ -1,3 +1,10 @@
+/*
+    @file input.h
+*   This file contains the input struct and its functions.
+?   This struct is used to keep track of the mouse and keyboard input.
+?   This is so that every other file can access the input data without using the SDL_Event parameter.
+*/
+
 #ifndef INPUT_H
 #define INPUT_H    
 #include <SDL.h>

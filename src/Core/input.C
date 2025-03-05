@@ -1,4 +1,5 @@
 #include <input.h>
+#include <app.h>
 
 static InputEvent _input;
 const InputEvent * const Input = &_input; // This ensures that the Input variable is read-only to other files.
@@ -8,7 +9,8 @@ const InputEvent * const Input = &_input; // This ensures that the Input variabl
 ?   @param button The button to press. Can either be a key button or a mouse button.
 */
 void Press_Button(ButtonState *button) {
-    button->pressed = true;
+    // Pressed is only true if the button was not held on the previous frame.
+    if (!button->held) button->pressed = true;
     button->held = true; 
 }
 
@@ -34,6 +36,7 @@ void Reset_Button(ButtonState *button) {
 
 /*
 *   This function is called inside App_PreUpdate().
+?   It retrieves the mouse's state and resets all the mouse/keyboard buttons.
 */
 void Input_PreUpdate() {
     // Reset all the buttons
@@ -51,13 +54,19 @@ void Input_PreUpdate() {
     // Reset the mouse motion
     _input.mouse.motion = (Vec2) {0, 0};
     
-    // Get the mouse position
-    SDL_GetMouseState((int*) &_input.mouse.position.x, (int*) &_input.mouse.position.y);
+    // Get mouse position
+    int windowMouseX, windowMouseY;
+    SDL_GetMouseState(&windowMouseX, &windowMouseY);
+    float screenMouseX, screenMouseY;
+    SDL_RenderWindowToLogical(app.setup.renderer, windowMouseX, windowMouseY, &screenMouseX, &screenMouseY);
+    _input.mouse.position = (Vec2){screenMouseX, screenMouseY};
 }
 
 
 /*
 *   This function is called inside App_Event_Handler().
+?   It updates the InputEvent struct based on the SDL_Event.
+    @param event The SDL_Event to update the InputEvent struct with.
 */
 void Input_Event_Handler(SDL_Event *event) {
     switch (event->type) {
