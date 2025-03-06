@@ -1,3 +1,8 @@
+/*
+    @file particle_emitterpresets.c
+*   [Data] This file contains all the data about particle emitter presets. Read particle_emitterpresets.h for more
+*/
+
 #include <particle_emitterpresets.h>
 #define BRASS_COLOR {238,209,131,255}
 #define BRASS_COLOR_FADE {238,209,131,0}
@@ -177,7 +182,7 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
 ParticleEmitter* test_emitter = NULL;
 
 /*
-*   Creates a particle emitter from a preset.
+*   [Start] Creates a particle emitter from a preset.
     @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
     @returns A pointer to the created emitter
 */

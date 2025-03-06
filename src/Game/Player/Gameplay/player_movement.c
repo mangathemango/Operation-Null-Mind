@@ -9,7 +9,7 @@
 #include <app.h>
 
 /*
-*   Move the player in a direction.
+*   [PostUpdate?] Move the player in a direction.
 ?   @param direction The direction to move the player in.
     TODO: Normalize direction before moving the player.
     TODO: Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
@@ -27,7 +27,7 @@ int Player_Move(Vec2 direction) {
 
 
 /* 
-*   Teleport the player to the other side of the screen if they go off-screen.
+*   [PostUpdate] Teleport the player to the other side of the screen if they go off-screen.
 !   This is just for temporary player movement debugging, and will be removed later.
 */
 void Player_WrapAroundScreen()

@@ -5,7 +5,7 @@
 #endif
 
 /*
-*   Returns the magnitude of a vector.
+*   [Utility] Returns the magnitude of a vector.
 
 ?   Magnitude is the length of a vector basically.
     @param v The vector to get the magnitude of.
@@ -15,7 +15,7 @@ float Vec2_Magnitude(Vec2 v) {
 }
 
 /*
-*   Returns the normalized vector of a vector.
+*   [Utility] Returns the normalized vector of a vector.
 
 ?   A normalized vector is a vector with a magnitude of 1, but faces the same direction as the input vector.
     @param v The vector to normalize.
@@ -26,7 +26,7 @@ Vec2 Vec2_Normalize(Vec2 v) {
 }
 
 /*
-*   Add two vectors together, and returns the result.
+*   [Utility] Add two vectors together, and returns the result.
     @param a The first vector to add.
     @param b The second vector to add.
 */
@@ -35,7 +35,7 @@ Vec2 Vec2_Add(Vec2 a, Vec2 b) {
 }
 
 /*
-*   Subtract two vectors, and returns the result.
+*   [Utility] Subtract two vectors, and returns the result.
     @param a The vector to subtract from.
     @param b The vector to subtract.
     @returns The result of the subtraction a - b.
@@ -45,7 +45,7 @@ Vec2 Vec2_Subtract(Vec2 a, Vec2 b) {
 }
 
 /*
-*   Multiply a vector by a scalar, and returns the result.
+*   [Utility] Multiply a vector by a scalar, and returns the result.
 
     @param v The vector to multiply.
     @param scalar The scalar to multiply the vector by.
@@ -55,7 +55,7 @@ Vec2 Vec2_Multiply(Vec2 v, float scalar) {
 }
 
 /*
-*   Divide a vector by a scalar, and returns the result.
+*   [Utility] Divide a vector by a scalar, and returns the result.
 
     @param v The vector to divide.
     @param scalar The scalar to divide the vector by.
@@ -66,7 +66,7 @@ Vec2 Vec2_Divide(Vec2 v, float scalar) {
 }
 
 /*
-*   Returns the dot product of two vectors.
+*   [Utility] Returns the dot product of two vectors.
 
     @param a The first vector.
     @param b The second vector.
@@ -77,7 +77,7 @@ float Vec2_Dot(Vec2 a, Vec2 b) {
 }
 
 /*
-*   Returns the Linear Interpolation between two vectors.
+*   [Utility] Returns the Linear Interpolation between two vectors.
 
     @param a The first vector.
     @param b The second vector.
@@ -89,7 +89,7 @@ Vec2 Vec2_Lerp(Vec2 a, Vec2 b, float t) {
 }
 
 /*
-*   Rotate a vector around the origin by a certain angle in radians.
+*   [Utility] Rotate a vector around the origin by a certain angle in radians.
 
     @param v The vector to rotate.
     @param angle The angle to rotate the vector by in radians.
@@ -102,7 +102,7 @@ Vec2 Vec2_RotateRadians(Vec2 v, float angle) {
 }
 
 /*
-*   Rotate a vector around the origin by a certain angle in degrees.
+*   [Utility] Rotate a vector around the origin by a certain angle in degrees.
 
     @param v The vector to rotate.
     @param angle The angle to rotate the vector by in degrees.
@@ -114,7 +114,7 @@ Vec2 Vec2_RotateDegrees(Vec2 v, float angle) {
 }
 
 /*
-*   Rotate a vector around a certain point by a certain angle in radians.
+*   [Utility] Rotate a vector around a certain point by a certain angle in radians.
 
     @param point The point to rotate.
     @param center The center to rotate around.

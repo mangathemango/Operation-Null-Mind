@@ -1,7 +1,7 @@
 #include <initialize_SDL.h>
 
 /*
-*   Initializes everything related to SDL: window, renderer, image loading, and so on.
+*   [Start] Initializes everything related to SDL: window, renderer, image loading, and so on.
 */
 int Initialize_SDL() {
     // Initialize SDL and SDL_image

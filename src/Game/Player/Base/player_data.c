@@ -2,7 +2,7 @@
 
 /*
     @file player_data.c
-*   This file contains the player's data initialization.
+*   [Data] This file contains the player's data initialization.
 */
 
 PlayerData player = {

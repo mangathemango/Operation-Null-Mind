@@ -2,7 +2,7 @@
 #include <particles.h>
 #include <particle_emitterpresets.h>
 /* 
-*   This function is called when the program is about to quit.
+*   [Quit] This function is called when the program is about to quit.
 */
 int App_Quit() {
     ParticleEmitter_DestroyEmitter(test_emitter);

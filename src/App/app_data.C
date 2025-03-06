@@ -2,7 +2,7 @@
 
 /*
 *   @file app_data.c
-*   This file contains the app's data initialization.
+*   [Data] This file contains the app's data initialization.
 */
 
 AppData app = {

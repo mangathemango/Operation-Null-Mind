@@ -4,7 +4,7 @@
 #include <random.h>
 #include <particle_emitterpresets.h>
 /*
-*   This function is called at the start of the program.
+*   [Start] This function is called at the start of the program.
 ?   It initializes everything needed for the program to run. Like the window, renderer, and later, the game.
 */
 int App_Start() {

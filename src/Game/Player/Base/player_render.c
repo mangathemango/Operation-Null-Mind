@@ -3,10 +3,11 @@
 #include <input.h>
 
 /*
-*   Renders the player sprite based on the player's position.
+*   [Render] Renders the player sprite based on the player's and cursor's position.
 */
 int Player_Render() {
     SDL_RendererFlip flip;
+    // Flip the sprite when mouse is on the left side of the player
     if (Input->mouse.position.x < player.state.position.x) {
         flip = SDL_FLIP_HORIZONTAL;
     } else {

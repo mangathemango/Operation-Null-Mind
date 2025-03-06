@@ -5,7 +5,69 @@
 #include <random.h>
 
 /*
-*   Emits a single particle and set its properties based on the emitter.
+*   [PostUpdate] Controls the particle emitter's particle emission, age, and rendering.
+    @param emitter A pointer to the particle emitter
+*/
+void ParticleEmitter_Update(ParticleEmitter* emitter) {
+    // Update every particles of the emitter
+    ParticleEmitter_UpdateParticles(emitter);
+
+    // Destroy emitter when all of its particles are gone
+    if (!emitter->active) {
+        if (ParticleEmitter_ParticlesAlive(emitter)) return;
+        if (emitter->destroyWhenDone) {
+            SDL_Log("Emitter Destroyed");
+            ParticleEmitter_DestroyEmitter(emitter);
+            return;
+        }
+        return;
+    }
+
+    emitter->emitterAge += Time->deltaTimeSeconds;
+    if (emitter->emitterLifetime >= 0 && emitter->emitterAge >= emitter->emitterLifetime) {
+        emitter->emitterAge = 0;
+        if (emitter->loopCount == 0) {
+            emitter->active = false;
+            return;
+        }
+        emitter->loopCount--;
+    }
+
+    // Emit particles based on timer
+    if (Timer_IsFinished(emitter->emissionTimer)) {
+        for (int i = 0; i < emitter->emissionNumber; i++) {
+            ParticleEmitter_Emit(emitter);
+        }
+        Timer_Start(emitter->emissionTimer);
+    }
+}
+
+/*
+*   [Render] Renders every particle of a particle emitter.
+    @param emitter A pointer to the particle emitter
+*/
+void ParticleEmitter_Render(ParticleEmitter* emitter) {
+    for (int i = 0; i < emitter->maxParticles; i++) {
+        Particle* particle = &emitter->particles[i];
+        if (!emitter->particles[i].alive || particle->color.a <= 0) continue;
+        
+        SDL_Rect rect = {
+            particle->position.x,
+            particle->position.y,
+            particle->size.x,
+            particle->size.y
+        };
+        SDL_SetRenderDrawColor(app.setup.renderer, 
+                                particle->color.r, 
+                                particle->color.g, 
+                                particle->color.b, 
+                                particle->color.a);
+        SDL_RenderFillRect(app.setup.renderer, &rect);
+    }
+}
+
+/*
+*   [Utility] Emits a single particle and set its properties based on the emitter.
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_Emit(ParticleEmitter* emitter) {
@@ -35,7 +97,7 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
 }
 
 /*
-*   Update the state, movement, color and size of every particles of a particle emitter.
+*   [Utility] Update the state, movement, color and size of every particles of a particle emitter.
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
@@ -80,69 +142,7 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
 }
 
 /*
-*   Controls the particle emitter's particle emission, age, and rendering.
-    @param emitter A pointer to the particle emitter
-*/
-void ParticleEmitter_Update(ParticleEmitter* emitter) {
-    ParticleEmitter_UpdateParticles(emitter);
-    ParticleEmitter_Render(emitter);    
-
-    // Destroy emitter when all of its particles are gone
-    if (!emitter->active) {
-        if (ParticleEmitter_ParticlesAlive(emitter)) return;
-        if (emitter->destroyWhenDone) {
-            SDL_Log("Emitter Destroyed");
-            ParticleEmitter_DestroyEmitter(emitter);
-            return;
-        }
-        return;
-    }
-
-    emitter->emitterAge += Time->deltaTimeSeconds;
-    if (emitter->emitterLifetime >= 0 && emitter->emitterAge >= emitter->emitterLifetime) {
-        emitter->emitterAge = 0;
-        if (emitter->loopCount == 0) {
-            emitter->active = false;
-            return;
-        }
-        emitter->loopCount--;
-    }
-
-    // Emit particles based on timer
-    if (Timer_IsFinished(emitter->emissionTimer)) {
-        for (int i = 0; i < emitter->emissionNumber; i++) {
-            ParticleEmitter_Emit(emitter);
-        }
-        Timer_Start(emitter->emissionTimer);
-    }
-}
-
-/*
-*   Renders every particle of a particle emitter.
-    @param emitter A pointer to the particle emitter
-*/
-void ParticleEmitter_Render(ParticleEmitter* emitter) {
-    for (int i = 0; i < emitter->maxParticles; i++) {
-        Particle* particle = &emitter->particles[i];
-        if (!emitter->particles[i].alive || particle->color.a <= 0) continue;
-        
-        SDL_Rect rect = {
-            particle->position.x,
-            particle->position.y,
-            particle->size.x,
-            particle->size.y
-        };
-        SDL_SetRenderDrawColor(app.setup.renderer, 
-                                particle->color.r, 
-                                particle->color.g, 
-                                particle->color.b, 
-                                particle->color.a);
-        SDL_RenderFillRect(app.setup.renderer, &rect);
-    }
-}
-
-/*
-*   Set the max particles property of an emitter.
+*   [Utility] Set the max particles property of an emitter.
 ?   This is probably never going to be used, since this is already set inside particle_emitterpreset.
 ?   Only use this if (for some reason) you want to change a particle emitter's max particles in the middle of a game
     @param emitter A pointer to the particle emitter
@@ -154,7 +154,7 @@ void ParticleEmitter_SetMaxParticles(ParticleEmitter* emitter, int maxParticles)
 }
 
 /*
-*   Gets the index of the next available particle inside an emitter's particle array.
+*   [Utility] Gets the index of the next available particle inside an emitter's particle array.
 ?   Particle is available of it's dead, basically
     @param emitter A pointer to the particle emitter
 */
@@ -166,7 +166,7 @@ int ParticleEmitter_GetNextReady(ParticleEmitter* emitter) {
 }
 
 /*
-*   Destroys a particle emitter.
+*   [Utility] Destroys a particle emitter.
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {
@@ -178,7 +178,7 @@ void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {
 }
 
 /*
-*   Check if there are any alive particles inside an emitter's particle array.
+*   [Utility] Check if there are any alive particles inside an emitter's particle array.
     @param emitter A pointer to the particle emitter
 */
 bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
@@ -189,7 +189,7 @@ bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
 }
 
 /*
-*   Allows a particle emitter to go through another loop.
+*   [Utility] Allows a particle emitter to go through another loop.
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter) {
@@ -199,7 +199,7 @@ void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter) {
 }
 
 /*
-*   Deactivates a particle emitter
+*   [Utility] Deactivates a particle emitter
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_Deactivate(ParticleEmitter* emitter) {

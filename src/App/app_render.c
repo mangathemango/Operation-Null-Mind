@@ -3,7 +3,7 @@
 #include <player.h>
 
 /*
-*   Handles the main rendering of the game, like players, game environments, etc.
+*   [Render] Handles the main rendering of the game, like players, game environments, etc.
 ?   This function is called inside App_Render().
 */
 int App_RenderMain() {
@@ -14,7 +14,7 @@ int App_RenderMain() {
 }
 
 /*
-*   Renders the current frame of the game.
+*   [Render] Renders the current frame of the game.
 ?   Includes the main rendering function and the final rendering to the window.
 ?   This function is called every frame after all the updating is complete
 */
