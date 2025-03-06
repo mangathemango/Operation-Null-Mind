@@ -91,8 +91,8 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
 
     .startColor = BRASS_COLOR,
     .endColor = BRASS_COLOR_FADE,
-    .startSize = {1, 1},
-    .endSize = {1, 1},
+    .startSize = {2, 1},
+    .endSize = {2, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 10},
@@ -124,8 +124,8 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
 
     .startColor = BRASS_COLOR,
     .endColor = BRASS_COLOR_FADE,
-    .startSize = {2, 1},
-    .endSize = {2, 1},
+    .startSize = {3, 1},
+    .endSize = {3, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 10},
@@ -157,8 +157,8 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
 
     .startColor = SHOTSHELL_COLOR,
     .endColor = SHOTSHELL_COLOR_FADE,
-    .startSize = {2, 1},
-    .endSize = {2, 1},
+    .startSize = {3, 1},
+    .endSize = {3, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 10},

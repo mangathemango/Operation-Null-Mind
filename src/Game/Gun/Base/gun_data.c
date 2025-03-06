@@ -3,7 +3,7 @@
 
 GunData Gun_Pistol = {
     .config = {
-        .muzzlePosition = {4, 0},
+        .muzzlePosition = {5, 0},
     },
     .state = {
         .position = {0, 0},
