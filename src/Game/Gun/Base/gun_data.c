@@ -16,7 +16,7 @@ GunData Gun_Pistol = {
 
 GunData Gun_SMG = {
     .config = {
-        .muzzlePosition = {7, 1},
+        .muzzlePosition = {8, 1},
     },
     .state = {
         .position = {0, 0},
@@ -29,7 +29,7 @@ GunData Gun_SMG = {
 
 GunData Gun_Shotgun = {
     .config = {
-        .muzzlePosition = {22, 0},
+        .muzzlePosition = {24, 0},
     },
     .state = {
         .position = {0, 0},
@@ -55,7 +55,7 @@ GunData Gun_AssaultRifle = {
 
 GunData Gun_BattleRifle = {
     .config = {
-        .muzzlePosition = {18, 0},
+        .muzzlePosition = {19, 0},
     },
     .state = {
         .position = {0, 0},
