@@ -42,8 +42,8 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
 
     .direction = {0, -1},
     .emissionRate = 0.1,
-    .emissionNumber = 3,
-    .maxParticles = 10000,
+    .emissionNumber = 10,
+    .maxParticles = 100,
     .angleRange = 30,
 
     .active = true,
