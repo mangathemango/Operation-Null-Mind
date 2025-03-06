@@ -1,5 +1,9 @@
 #include <gun.h>
 
+/*
+    @file gun.h
+*   [Data] This file contains the data configurations for guns in general 
+*/
 
 GunData Gun_Pistol = {
     .config = {

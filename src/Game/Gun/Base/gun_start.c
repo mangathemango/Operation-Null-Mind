@@ -1,5 +1,8 @@
 #include <gun.h>
 
+/*
+*   [Start]
+*/
 void Gun_Start() {
     Gun_AnimationInit();
     Gun_Pistol.config.casingParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);

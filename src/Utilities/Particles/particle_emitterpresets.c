@@ -4,6 +4,7 @@
 #define SHOTSHELL_COLOR {207,43,33,255}
 #define SHOTSHELL_COLOR_FADE {207,43,33,0}
 
+// Default particle emitter, mainly used for testing what looks good / messing around
 ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
 
@@ -37,6 +38,7 @@ ParticleEmitter ParticleEmitter_Default = {
     .selfReference = NULL,
 };
 
+// Particle emitter for muzzle flashes
 ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .position = {100, 100},
 
@@ -54,7 +56,7 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
 
     .particleLifetime = 0.1,
     .particleSpeed = 200,
-    .custom_Movement = NULL,
+    .custom_Movement = Particle_RandomMovement,
 
     .startColor = {255, 255, 0, 255},
     .endColor = {255, 0, 0, 0},
@@ -70,6 +72,7 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .selfReference = NULL,
 };
 
+// Particle emitter for Pistol and SMG bullet casings
 ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .position = {100, 100},
 
@@ -103,6 +106,7 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .selfReference = NULL,
 };
 
+// Particle emitter for Assault Rifle and Battle Rifle bullet casings
 ParticleEmitter ParticleEmitter_ARBRCasing = {
     .position = {100, 100},
 
@@ -136,6 +140,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .selfReference = NULL,
 };
 
+// Particle emitter for Shotgun shell casings
 ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .position = {100, 100},
 
@@ -171,6 +176,11 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
 
 ParticleEmitter* test_emitter = NULL;
 
+/*
+*   Creates a particle emitter from a preset.
+    @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
+    @returns A pointer to the created emitter
+*/
 ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     // Create emitter
     ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));

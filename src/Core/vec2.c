@@ -88,17 +88,39 @@ Vec2 Vec2_Lerp(Vec2 a, Vec2 b, float t) {
     return (Vec2) {a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t};
 }
 
+/*
+*   Rotate a vector around the origin by a certain angle in radians.
+
+    @param v The vector to rotate.
+    @param angle The angle to rotate the vector by in radians.
+    @returns The rotated vector.
+*/
 Vec2 Vec2_RotateRadians(Vec2 v, float angle) {
     float x = v.x * cos(angle) - v.y * sin(angle);
     float y = v.x * sin(angle) + v.y * cos(angle);
     return (Vec2) {x, y};
 }
 
+/*
+*   Rotate a vector around the origin by a certain angle in degrees.
+
+    @param v The vector to rotate.
+    @param angle The angle to rotate the vector by in degrees.
+    @returns The rotated vector.
+*/
 Vec2 Vec2_RotateDegrees(Vec2 v, float angle) {
     float angleRadians = angle * (M_PI / 180.0f);
     return Vec2_RotateRadians(v, angleRadians);
 }
 
+/*
+*   Rotate a vector around a certain point by a certain angle in radians.
+
+    @param point The point to rotate.
+    @param center The center to rotate around.
+    @param angle The angle to rotate the point by in radians.
+    @returns The rotated point.
+*/
 Vec2 Vec2_RotateAround(Vec2 point, Vec2 center, float angle) {
     Vec2 translated = Vec2_Subtract(point, center);
     
