@@ -14,28 +14,24 @@ void Gun_Update() {
 
     gun->state.position = Vec2_Subtract(
                             player.state.position, 
-                            (Vec2) {
-                                gunAnimData.spriteSize.x / 2, 
-                                gunAnimData.spriteSize.y / 2
-                            }
+                            (Vec2) {24, 12}
                         );
-
+    gun->state.rotationCenter = (SDL_Point) {25, 13};
+    
     if (Input->mouse.position.x < player.state.position.x) {
-        gun->state.rotationCenter = (SDL_Point) {gunAnimData.spriteSize.x / 2, gunAnimData.spriteSize.y / 2 - 6};
         gun->state.flip = SDL_FLIP_VERTICAL;
-        gun->state.position.y += 12;
     } else {
-        gun->state.rotationCenter = (SDL_Point) {gunAnimData.spriteSize.x / 2, gunAnimData.spriteSize.y / 2 + 6};
         gun->state.flip = SDL_FLIP_NONE;
     }
 
-    gun->config.casingParticleEmitter->position = player.state.position;
+    
     if (gun->state.flip == SDL_FLIP_NONE) {
         gun->config.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
     } else {
         gun->config.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
     }
     
+    gun->config.casingParticleEmitter->position = player.state.position;
     ParticleEmitter_Update(gun->config.casingParticleEmitter);
 
     Gun_AnimationUpdate();

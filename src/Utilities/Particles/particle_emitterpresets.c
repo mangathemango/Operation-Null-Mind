@@ -11,7 +11,7 @@ ParticleEmitter ParticleEmitter_Default = {
     .emissionRate = 0.2,
     .emissionNumber = 3,
     .maxParticles = 10000,
-    .angleRange = 360,
+    .angleRange = 30,
 
     .active = true,
     .emitterLifetime = 0,
@@ -23,8 +23,8 @@ ParticleEmitter ParticleEmitter_Default = {
     .particleSpeed = 500,
     .custom_Movement = NULL,
 
-    .startColor = {255, 255, 0, 255},
-    .endColor = {255, 0, 0, 100},
+    .startColor = {255, 255, 0, 100},
+    .endColor = {255, 0, 0, 0},
     .startSize = {1, 1},
     .endSize = {3, 3},
     .particleTexture = NULL,
@@ -41,7 +41,7 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .position = {100, 100},
 
     .direction = {-1, -1},
-    .emissionRate = 0.3,
+    .emissionRate = 0.1,
     .emissionNumber = 1,
     .maxParticles = 10,
     .angleRange = 20,
@@ -53,7 +53,7 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .destroyWhenDone = false,
 
     .particleLifetime = 0.3,
-    .particleSpeed = 200,
+    .particleSpeed = 150,
     .custom_Movement = NULL,
 
     .startColor = BRASS_COLOR,
@@ -86,7 +86,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .destroyWhenDone = false,
 
     .particleLifetime = 0.3,
-    .particleSpeed = 200,
+    .particleSpeed = 150,
     .custom_Movement = NULL,
 
     .startColor = BRASS_COLOR,
@@ -119,7 +119,7 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .destroyWhenDone = false,
 
     .particleLifetime = 0.3,
-    .particleSpeed = 200,
+    .particleSpeed = 150,
     .custom_Movement = NULL,
 
     .startColor = SHOTSHELL_COLOR,

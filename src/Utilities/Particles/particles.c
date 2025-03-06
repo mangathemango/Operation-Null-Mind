@@ -56,7 +56,7 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
             particle->speed -= Time->deltaTimeSeconds * particle->speed * particle->drag;
             particle->velocity = Vec2_Multiply(particle->direction, particle->speed);
             particle->velocity = Vec2_Add(particle->velocity, particle->acceleration);
-            particle->velocity = Vec2_Add(particle->velocity, emitter->gravity);
+            particle->velocity = Vec2_Add(particle->velocity, Vec2_Multiply(emitter->gravity, Time->deltaTimeSeconds));
             particle->speed = Vec2_Magnitude(particle->velocity);
             particle->direction = Vec2_Normalize(particle->velocity);
             particle->position.x += particle->velocity.x * Time->deltaTimeSeconds;
