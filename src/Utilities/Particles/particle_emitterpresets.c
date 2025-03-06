@@ -8,7 +8,7 @@ ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
 
     .direction = {0, -1},
-    .emissionRate = 0.2,
+    .emissionRate = 0.1,
     .emissionNumber = 3,
     .maxParticles = 10000,
     .angleRange = 30,
@@ -20,13 +20,46 @@ ParticleEmitter ParticleEmitter_Default = {
     .destroyWhenDone = false,
 
     .particleLifetime = 0.1,
-    .particleSpeed = 500,
+    .particleSpeed = 200,
     .custom_Movement = NULL,
 
-    .startColor = {255, 255, 0, 100},
+    .startColor = {255, 255, 0, 255},
     .endColor = {255, 0, 0, 0},
     .startSize = {1, 1},
-    .endSize = {3, 3},
+    .endSize = {1, 1},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 4,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+};
+
+ParticleEmitter ParticleEmitter_MuzzleFlash = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0.1,
+    .emissionNumber = 3,
+    .maxParticles = 10000,
+    .angleRange = 30,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.1,
+    .particleSpeed = 200,
+    .custom_Movement = NULL,
+
+    .startColor = {255, 255, 0, 255},
+    .endColor = {255, 0, 0, 0},
+    .startSize = {1, 1},
+    .endSize = {1, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 0},

@@ -20,5 +20,6 @@ void Player_Input_Handler() {
 
     if (Input->mouse.leftButton.held) {
         ParticleEmitter_ActivateOnce(player.state.currentGun->config.casingParticleEmitter);
+        ParticleEmitter_ActivateOnce(player.state.currentGun->config.muzzleFlashEmitter);
     }
 }

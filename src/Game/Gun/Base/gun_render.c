@@ -17,4 +17,5 @@ void Gun_Render() {
     if (gun->state.flip == SDL_FLIP_NONE) {
         ParticleEmitter_Render(player.state.currentGun->config.casingParticleEmitter);
     }   
+    ParticleEmitter_Render(player.state.currentGun->config.muzzleFlashEmitter);
 }

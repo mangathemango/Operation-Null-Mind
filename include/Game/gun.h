@@ -13,6 +13,7 @@
 typedef struct {
     ParticleEmitter* casingParticleEmitter;
     ParticleEmitter* muzzleFlashEmitter;
+    Vec2 muzzlePosition;
 } GunConfig;
 
 typedef struct {

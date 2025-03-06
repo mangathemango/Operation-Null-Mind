@@ -20,6 +20,8 @@
 #include <particle_movement.h>
 
 extern ParticleEmitter ParticleEmitter_Default;
+
+extern ParticleEmitter ParticleEmitter_MuzzleFlash;
 extern ParticleEmitter ParticleEmitter_PistolSMGCasing;
 extern ParticleEmitter ParticleEmitter_ShotgunCasing;
 extern ParticleEmitter ParticleEmitter_ARBRCasing;

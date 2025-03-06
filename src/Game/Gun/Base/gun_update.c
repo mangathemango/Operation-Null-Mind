@@ -23,7 +23,6 @@ void Gun_Update() {
     } else {
         gun->state.flip = SDL_FLIP_NONE;
     }
-
     
     if (gun->state.flip == SDL_FLIP_NONE) {
         gun->config.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
@@ -33,6 +32,8 @@ void Gun_Update() {
     
     gun->config.casingParticleEmitter->position = player.state.position;
     ParticleEmitter_Update(gun->config.casingParticleEmitter);
-
+    gun->config.muzzleFlashEmitter->position = Vec2_Add(player.state.position, Vec2_RotateDegrees(gun->config.muzzlePosition, gun->state.angle));
+    gun->config.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
+    ParticleEmitter_Update(gun->config.muzzleFlashEmitter);
     Gun_AnimationUpdate();
 }
