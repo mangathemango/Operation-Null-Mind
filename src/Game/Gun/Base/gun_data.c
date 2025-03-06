@@ -29,7 +29,7 @@ GunData Gun_SMG = {
 
 GunData Gun_Shotgun = {
     .config = {
-        .muzzlePosition = {20, 0},
+        .muzzlePosition = {22, 0},
     },
     .state = {
         .position = {0, 0},
