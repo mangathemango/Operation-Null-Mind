@@ -18,6 +18,8 @@ typedef struct {
 typedef struct {
     Vec2 position;
     float angle;
+    SDL_RendererFlip flip;
+    SDL_Point rotationCenter;
 } GunState;
 
 typedef struct {
