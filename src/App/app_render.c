@@ -23,7 +23,7 @@ int App_Render() {
     SDL_SetRenderTarget(app.setup.renderer, app.setup.screenTexture);
 
     // Clear the screen texture (This is also the background color btw)
-    SDL_SetRenderDrawColor(app.setup.renderer, 255, 255, 255, 50);
+    SDL_SetRenderDrawColor(app.setup.renderer, 50, 50, 50, 50);
     SDL_RenderClear(app.setup.renderer);
     
     App_RenderMain();

@@ -1,6 +1,7 @@
 #include <gun.h>
 #include <math.h>
 #include <input.h>
+#include <player.h>
 
 void Gun_Render() {
     float rotateAngle = atan2(
@@ -32,4 +33,6 @@ void Gun_Render() {
                     rotateAngle,
                     &rotationCenter,
                     flip);
+
+    ParticleEmitter_Render(player.state.currentGun->config.casingParticleEmitter);
 }

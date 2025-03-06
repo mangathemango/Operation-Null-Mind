@@ -1,6 +1,71 @@
 #include <gun.h>
 
 
+GunData Gun_Pistol = {
+    .config = {
+
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0
+    },
+    .stats = {
+        .name = GUN_PISTOL
+    }
+};
+
+GunData Gun_SMG = {
+    .config = {
+
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0
+    },
+    .stats = {
+        .name = GUN_SMG
+    }
+};
+
+GunData Gun_Shotgun = {
+    .config = {
+
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0
+    },
+    .stats = {
+        .name = GUN_SHOTGUN
+    }
+};
+
+GunData Gun_AssaultRifle = {
+    .config = {
+
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0
+    },
+    .stats = {
+        .name = GUN_ASSAULT_RIFLE
+    }
+};
+
+GunData Gun_BattleRifle = {
+    .config = {
+
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0
+    },
+    .stats = {
+        .name = GUN_BATTLE_RIFLE
+    }
+};
+
 Animation* gunAnimation = NULL;
 AnimationData gunAnimData = {
     .spritesheetPath = "Assets/Images/guns.png",

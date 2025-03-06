@@ -17,7 +17,7 @@ typedef struct {
     bool dashing; //This is added to know if the player is dashing
     bool movementLocked; //to know if the movement is locked
     bool moving;    
-    char* currentGun;
+    GunData* currentGun;
 } PlayerState;
 
 typedef struct {

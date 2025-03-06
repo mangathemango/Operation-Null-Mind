@@ -6,5 +6,6 @@
 */
 int Player_Start() {
     Player_AnimationInit();
+    player.state.currentGun = &Gun_Pistol;
     return 0;
 }

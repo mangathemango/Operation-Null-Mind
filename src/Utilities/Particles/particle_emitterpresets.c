@@ -8,8 +8,8 @@ ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
 
     .direction = {0, -1},
-    .emissionRate = 0.01,
-    .emissionNumber = 30,
+    .emissionRate = 0.2,
+    .emissionNumber = 3,
     .maxParticles = 10000,
     .angleRange = 360,
 
@@ -19,12 +19,12 @@ ParticleEmitter ParticleEmitter_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 1,
-    .particleSpeed = 50,
-    .custom_Movement = Particle_SpiralMovement,
+    .particleLifetime = 0.1,
+    .particleSpeed = 500,
+    .custom_Movement = NULL,
 
-    .startColor = {255, 0, 0, 0},
-    .endColor = {255, 255, 0, 255},
+    .startColor = {255, 255, 0, 255},
+    .endColor = {255, 0, 0, 100},
     .startSize = {1, 1},
     .endSize = {3, 3},
     .particleTexture = NULL,
@@ -40,8 +40,8 @@ ParticleEmitter ParticleEmitter_Default = {
 ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .position = {100, 100},
 
-    .direction = {0, -1},
-    .emissionRate = 0.01,
+    .direction = {-1, -1},
+    .emissionRate = 0.3,
     .emissionNumber = 1,
     .maxParticles = 10,
     .angleRange = 10,
@@ -52,8 +52,8 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 0.5,
-    .particleSpeed = 30,
+    .particleLifetime = 0.3,
+    .particleSpeed = 150,
     .custom_Movement = NULL,
 
     .startColor = BRASS_COLOR,
@@ -62,7 +62,7 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .endSize = {1, 1},
     .particleTexture = NULL,
 
-    .gravity = {0, 50},
+    .gravity = {0, 10},
     .drag = 0,
 
     .particles = NULL,
@@ -73,10 +73,10 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
 ParticleEmitter ParticleEmitter_ARBRCasing = {
     .position = {100, 100},
 
-    .direction = {0, -1},
-    .emissionRate = 0.01,
+    .direction = {-1, -1},
+    .emissionRate = 0.1,
     .emissionNumber = 1,
-    .maxParticles = 10,
+    .maxParticles = 30,
     .angleRange = 10,
 
     .active = false,
@@ -85,8 +85,8 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 0.5,
-    .particleSpeed = 30,
+    .particleLifetime = 0.3,
+    .particleSpeed = 150,
     .custom_Movement = NULL,
 
     .startColor = BRASS_COLOR,
@@ -95,7 +95,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .endSize = {2, 1},
     .particleTexture = NULL,
 
-    .gravity = {0, 50},
+    .gravity = {0, 10},
     .drag = 0,
 
     .particles = NULL,
@@ -106,8 +106,8 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
 ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .position = {100, 100},
 
-    .direction = {0, -1},
-    .emissionRate = 0.01,
+    .direction = {-1, -1},
+    .emissionRate = 0.3,
     .emissionNumber = 1,
     .maxParticles = 10,
     .angleRange = 10,
@@ -118,8 +118,8 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 0.5,
-    .particleSpeed = 30,
+    .particleLifetime = 0.3,
+    .particleSpeed = 150,
     .custom_Movement = NULL,
 
     .startColor = SHOTSHELL_COLOR,
@@ -128,7 +128,7 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .endSize = {2, 1},
     .particleTexture = NULL,
 
-    .gravity = {0, 50},
+    .gravity = {0, 10},
     .drag = 0,
 
     .particles = NULL,

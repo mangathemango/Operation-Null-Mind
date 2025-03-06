@@ -12,7 +12,6 @@ PlayerData player = {
         .dashing = false,   
         .movementLocked = false,
         .moving = false,
-        .currentGun = GUN_PISTOL,
     },
     .config = {
         .animation = NULL,
@@ -25,7 +24,7 @@ PlayerData player = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/robert.png",
-        .frameSize = {26,32},
+        .frameSize = {30,40},
         .frameCount = 1,
         .clips = {
             {
@@ -36,7 +35,7 @@ PlayerData player = {
                 .looping = false
             }
         },
-        .spriteSize = {26,32},
+        .spriteSize = {30,40},
         .defaultClip = "idle",
         .playOnStart = true,
     }
