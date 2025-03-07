@@ -70,6 +70,8 @@ GunData Gun_BattleRifle = {
     }
 };
 
+// Gun animations details
+
 Animation* gunAnimation = NULL;
 AnimationData gunAnimData = {
     .spritesheetPath = "Assets/Images/guns.png",

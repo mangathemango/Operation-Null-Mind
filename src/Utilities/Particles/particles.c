@@ -166,7 +166,7 @@ int ParticleEmitter_GetNextReady(ParticleEmitter* emitter) {
 }
 
 /*
-*   [Utility] Destroys a particle emitter.
+*   [Utility/Quit] Destroys a particle emitter.
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {

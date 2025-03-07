@@ -2,7 +2,7 @@
 #include <app.h>
 /*
 *   [Start] This function is called in App_Start().
-?   It initializes the player's sprite texture. That's about it.
+?   It initializes the player's animations and sets the player's current gun to the pistol.
 */
 int Player_Start() {
     Player_AnimationInit();

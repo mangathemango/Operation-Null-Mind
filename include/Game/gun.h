@@ -1,9 +1,16 @@
+/*
+    @file gun.h
+*   This file contains the gun data and its functions.
+?   This includes the gun's animations, rendering, and updating.
+*/
+
 #pragma once
 
 #include <animation.h>
 #include <vec2.h>
 #include <particle_emitterpresets.h>
 
+// The gun names (I'm not a gun guy so this will be easier to work with)
 #define GUN_SHOTGUN "Beretta 1301 Tactical"
 #define GUN_BATTLE_RIFLE "FN SCAR-H"
 #define GUN_SMG "KRISS Vector"
@@ -38,9 +45,11 @@ extern GunData Gun_SMG;
 extern GunData Gun_Shotgun;
 extern GunData Gun_AssaultRifle;
 extern GunData Gun_BattleRifle;
-extern AnimationData gunAnimData;
 
+// Gun animations
+extern AnimationData gunAnimData;
 extern Animation* gunAnimation;
+
 void Gun_AnimationInit();
 void Gun_AnimationUpdate();
 void Gun_Render();

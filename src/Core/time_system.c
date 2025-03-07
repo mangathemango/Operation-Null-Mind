@@ -1,5 +1,8 @@
 #include <time_system.h>
 
+/*
+*   [Data] the initialization of the time system
+*/
 TimeSystem time = {
     .deltaTimeSeconds = 0,
     .timeScale = 1,
