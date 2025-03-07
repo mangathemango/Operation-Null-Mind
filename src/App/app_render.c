@@ -7,8 +7,8 @@
 ?   This function is called inside App_Render().
 */
 int App_RenderMain() {
-    Player_Render();
     ParticleEmitter_Render(test_emitter);
+    Player_Render();
     return 0;
 }
 

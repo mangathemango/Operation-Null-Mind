@@ -19,10 +19,10 @@ ParticleEmitter ParticleEmitter_Default = {
     .particleSpeed = 50,
     .custom_Movement = Particle_SpiralMovement,
 
-    .startColor = {255, 0, 0, 0},
+    .startColor = {255, 255, 0, 255},
     .endColor = {255, 255, 0, 255},
-    .startSize = {1, 1},
-    .endSize = {3, 3},
+    .startSize = {1,1},
+    .endSize = {1, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
