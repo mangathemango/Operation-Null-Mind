@@ -1,6 +1,7 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 #include <SDL.h>
+#include <stdlib.h>
 
 typedef struct {
     SDL_Rect wallSize; //For rendering
@@ -19,5 +20,5 @@ void Environment_AddWall(Wall wall);
 void Environment_Destroy();
 int Environment_Start();
 void Environment_Update();
-int Environment_Render();
+void Environment_Render();
 #endif //ENVIRONMENT_H

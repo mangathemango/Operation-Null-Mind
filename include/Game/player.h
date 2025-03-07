@@ -44,7 +44,7 @@ int Player_Start();
 int Player_PostUpdate();
 
 int Player_Preupdate();
-bool Player_CollisionDetected();
+bool Player_DetectCollision();
 // void Update_Player(PlayerState *player, Wall *wall);
 
 

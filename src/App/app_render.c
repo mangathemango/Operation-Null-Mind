@@ -11,7 +11,7 @@ int App_RenderMain() {
     Player_Render();
     Environment_Render(app.setup.renderer);
     ParticleEmitter_Render(test_emitter);
-    Debug_DrawHitboxes();
+    Debug_RenderHitboxes();
     return 0;
 }
 

@@ -11,6 +11,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdbool.h>
+#include <debug.h>
 
 typedef struct {
     SDL_Window* window;

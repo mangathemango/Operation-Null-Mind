@@ -4,4 +4,4 @@
 #include <environment.h>
 #include <app.h>
 
-void Debug_DrawHitboxes();
+void Debug_RenderHitboxes();

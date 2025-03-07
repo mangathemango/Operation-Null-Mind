@@ -14,7 +14,7 @@ int Player_PostUpdate() {
         player.config.spriteSize.x,
         player.config.spriteSize.y
     };
-    if (!Player_CollisionDetected()) Player_Move();
+    if (!Player_DetectCollision()) Player_Move();
     //Basically, if the movement is locked, it dash,if not, its handles normally
     if(player.state.dashing) Player_HandleDash();
     else player.state.direction = Vec2_Zero;
