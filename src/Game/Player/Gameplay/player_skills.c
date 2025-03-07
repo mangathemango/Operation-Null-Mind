@@ -1,6 +1,7 @@
 #include <player.h>
 #include <time_system.h>
 #include <timer.h>
+#include <sound.h>
 
 /*
 *   [PostUpdate?] Dash the player in a direction.
@@ -20,6 +21,7 @@ int Player_Dash() {
         }
     }
 
+    Sound_Play_Effect(0);
     player.state.dashing = true; 
     player.state.movementLocked = true; // Player can't control movement during dash
 

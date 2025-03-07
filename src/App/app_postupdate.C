@@ -2,6 +2,7 @@
 #include <player.h>
 #include <particle_emitterpresets.h>
 #include <input.h>
+#include <sound.h>
 
 /* 
 *   [PostUpdate] This function is called every frame of the program AFTER App_Event_Handler().
@@ -10,10 +11,11 @@
 int App_PostUpdate() {
     Player_PostUpdate();
     if (test_emitter != NULL) {
-        if (Input->mouse.leftButton.held) {
+        if (player.state.dashing) {
             ParticleEmitter_ActivateOnce(test_emitter);
+            Sound_Play_Effect(0); //Testing for dashing
         }
-        test_emitter->position = Input->mouse.position;
+        test_emitter->position = player.state.position;
         ParticleEmitter_Update(test_emitter);
     }
     Gun_Update();

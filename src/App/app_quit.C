@@ -1,10 +1,13 @@
 #include <app.h>
 #include <particles.h>
 #include <particle_emitterpresets.h>
+#include <sound.h>
+
 /* 
 *   [Quit] This function is called when the program is about to quit.
 */
 int App_Quit() {
+    Sound_System_Cleanup();
     ParticleEmitter_DestroyEmitter(test_emitter);
     SDL_DestroyTexture(app.setup.screenTexture);
     SDL_DestroyRenderer(app.setup.renderer);

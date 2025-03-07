@@ -8,5 +8,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <app.h>
+#include <SDL_mixer.h>
 
 int Initialize_SDL();

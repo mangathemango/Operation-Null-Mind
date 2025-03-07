@@ -30,8 +30,8 @@ ParticleEmitter ParticleEmitter_Default = {
     .custom_Movement = NULL,
 
     .startColor = {255, 255, 0, 255},
-    .endColor = {255, 0, 0, 0},
-    .startSize = {1, 1},
+    .endColor = {255, 255, 0, 255},
+    .startSize = {1,1},
     .endSize = {1, 1},
     .particleTexture = NULL,
 
