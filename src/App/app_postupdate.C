@@ -5,7 +5,7 @@
 #include <sound.h>
 
 /* 
-*   This function is called every frame of the program AFTER App_Event_Handler().
+*   [PostUpdate] This function is called every frame of the program AFTER App_Event_Handler().
 ?   This is suitable for rendering and updating the game.
 */
 int App_PostUpdate() {
@@ -18,5 +18,6 @@ int App_PostUpdate() {
         test_emitter->position = player.state.position;
         ParticleEmitter_Update(test_emitter);
     }
+    Gun_Update();
     return 0;
 }

@@ -35,7 +35,7 @@
 
 /*
 *   The Timer struct.
-?   The Timer struct is used to keep track of time.
+?   The Timer struct is used to keep track of time, used for cooldowns, delays, etc.
 ?   It has a start time, an elapsed time, a duration, and flags to check if the timer is in progress or finished.
 */
 typedef struct {

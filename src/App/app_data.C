@@ -2,7 +2,7 @@
 
 /*
 *   @file app_data.c
-*   This file contains the app's data initialization.
+*   [Data] This file contains the app's data initialization.
 */
 
 AppData app = {
@@ -19,8 +19,8 @@ AppData app = {
         .window_width = 1024 ,
         .window_height = 768 ,
         .window_fullscreen = false ,
-        .screen_width = 240 ,
-        .screen_height = 144 
+        .screen_width = 480 ,
+        .screen_height = 288 
     },
 
     .time = {

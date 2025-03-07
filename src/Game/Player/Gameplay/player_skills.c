@@ -4,42 +4,52 @@
 #include <sound.h>
 
 /*
-*   Dash the player in a direction.
+*   [PostUpdate?] Dash the player in a direction.
 */
 int Player_Dash() {
+    // Doesn't dash when idle
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
-    static Timer* dashCooldown = NULL;
-    
-    if(dashCooldown != NULL) //Just dash cooldown timer
+
+    // Create dash cooldown timer
+    static Timer* dashCooldownTimer = NULL;
+    if(dashCooldownTimer != NULL) 
     {
-        if (!Timer_IsFinished(dashCooldown)) return 0;
+        if (!Timer_IsFinished(dashCooldownTimer)) return 0;
         else {
-            Timer_Destroy(dashCooldown);
-            dashCooldown = NULL;
+            Timer_Destroy(dashCooldownTimer);
+            dashCooldownTimer = NULL;
         }
     }
 
     Sound_Play_Effect(0);
     player.state.dashing = true; 
-    player.state.movementLocked = true;
+    player.state.movementLocked = true; // Player can't control movement during dash
 
-    dashCooldown = Timer_Create(1);
-    Timer_Start(dashCooldown);
+    // Set dash cooldown timer for next time
+    dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
+    Timer_Start(dashCooldownTimer);
     return 0;
 }
 
+/*
+*   [PostUpdate?] Handles the character dashing state.
+?   This calls every frame player.state.dashing is true.
+*/
 int Player_HandleDash()
 {
+    // Start dashDuration timer
     static Timer* dashDuration = NULL;
     if (dashDuration == NULL) {
-        dashDuration = Timer_Create(0.1);
+        dashDuration = Timer_Create(player.stats.dashDuration);
         Timer_Start(dashDuration);
     }
+
     if (!Timer_IsFinished(dashDuration))
     {
+        // Moves the player every frame player is still in dash state
         Vec2_Normalize(player.state.direction); //Normalize the direction
-        player.state.position.x += (player.state.direction.x) * (player.config.dashSpeed * Time->deltaTimeSeconds);
-        player.state.position.y += (player.state.direction.y) * (player.config.dashSpeed * Time->deltaTimeSeconds);
+        player.state.position.x += (player.state.direction.x) * (player.stats.dashSpeed * Time->deltaTimeSeconds);
+        player.state.position.y += (player.state.direction.y) * (player.stats.dashSpeed * Time->deltaTimeSeconds);
     }
     else {
         Timer_Destroy(dashDuration);

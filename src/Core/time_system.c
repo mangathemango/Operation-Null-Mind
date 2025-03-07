@@ -1,5 +1,8 @@
 #include <time_system.h>
 
+/*
+*   [Data] the initialization of the time system
+*/
 TimeSystem time = {
     .deltaTimeSeconds = 0,
     .timeScale = 1,
@@ -11,7 +14,7 @@ TimeSystem time = {
 const TimeSystem * const Time = &time; // This ensures that the Time variable is read-only to other files.
 
 /*
-*   This function is called inside App_PreUpdate().
+*   [PreUpdate] This function is called inside App_PreUpdate().
 ?   It updates the time system. Like the delta time, the scaled delta time, the program elapsed time etc.
 */
 void Time_PreUpdate() {
@@ -24,7 +27,7 @@ void Time_PreUpdate() {
 }
 
 /*
-*   Sets the time scale.
+*   [Utility] Sets the time scale.
 
 ?   Time scale is a value that can be used to speed up or slow down the game.
 ?   A time scale of 1 is normal speed, 2 is twice as fast, 0.5 is half as fast etc.
@@ -35,7 +38,7 @@ void Time_SetTimeScale(float scale) {
 }
 
 /*
-*   Resets the total time elapsed in the program.
+*   [Utility] Resets the total time elapsed in the program.
 */
 void Time_ResetTotalTime() {
     time.programElapsedTimeSeconds = 0;

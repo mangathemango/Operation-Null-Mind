@@ -1,0 +1,33 @@
+#include <gun.h>
+#include <input.h>
+#include <player.h>
+
+/*
+*   [Render] Renders the player's current gun and its corresponding particles
+*/
+void Gun_Render() {
+    GunData* gun = player.state.currentGun;
+
+    // If the gun is flipped, the gun casing particles go BEHIND the gun - According to Darrel
+    // Therefore, the casing particles will be rendered first...
+    if (gun->state.flip == SDL_FLIP_VERTICAL) {
+        ParticleEmitter_Render(gun->config.casingParticleEmitter);
+    }
+
+    // .. and then we render the gun...
+    Animation_Render(gunAnimation, 
+                    gun->state.position, 
+                    gunAnimData.spriteSize,
+                    gun->state.angle,
+                    &gun->state.rotationCenter,
+                    gun->state.flip);
+    
+    // ...But otherwise, the particles go in FRONT of the gun instead. 
+    // In other words, it gets rendered after the gun.
+    if (gun->state.flip == SDL_FLIP_NONE) {
+        ParticleEmitter_Render(gun->config.casingParticleEmitter);
+    }   
+
+    // Render muzzle flash particles
+    ParticleEmitter_Render(gun->config.muzzleFlashEmitter);
+}

@@ -12,6 +12,10 @@
 #include <SDL_image.h>
 #include <stdbool.h>
 
+#include <gun.h>
+#include <player.h>
+#include <time_system.h>
+#include <particle_emitterpresets.h>
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;

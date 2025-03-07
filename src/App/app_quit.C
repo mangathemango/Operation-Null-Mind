@@ -4,7 +4,7 @@
 #include <sound.h>
 
 /* 
-*   This function is called when the program is about to quit.
+*   [Quit] This function is called when the program is about to quit.
 */
 int App_Quit() {
     Sound_System_Cleanup();

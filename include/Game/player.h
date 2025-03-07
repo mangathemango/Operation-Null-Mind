@@ -9,6 +9,7 @@
 #include <vec2.h>
 #include <animation.h>
 #include <stdbool.h>
+#include <gun.h>
 
 typedef struct {
     Vec2 position;
@@ -16,19 +17,25 @@ typedef struct {
     bool dashing; //This is added to know if the player is dashing
     bool movementLocked; //to know if the movement is locked
     bool moving;    
+    GunData* currentGun;
 } PlayerState;
 
 typedef struct {
-    float speed;
-    float dashSpeed;
-    char* sprite;
-    Vec2 spriteSize;
     Animation* animation;
 } PlayerConfig;
 
 typedef struct {
+    float walkSpeed;
+    float dashSpeed;
+    float dashDuration;
+    float dashCooldown;
+} PlayerStat;
+
+typedef struct {
     PlayerState state;
+    PlayerStat stats;
     PlayerConfig config;
+    AnimationData animData;
 } PlayerData;
 
 extern PlayerData player;

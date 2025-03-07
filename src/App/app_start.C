@@ -5,13 +5,14 @@
 #include <particle_emitterpresets.h>
 #include <sound.h>
 /*
-*   This function is called at the start of the program.
+*   [Start] This function is called at the start of the program.
 ?   It initializes everything needed for the program to run. Like the window, renderer, and later, the game.
 */
 int App_Start() {
     RandomInit();
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
+    Gun_Start();
     test_emitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Default);
     test_emitter->selfReference = &test_emitter;
 

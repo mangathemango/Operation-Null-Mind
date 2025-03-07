@@ -20,6 +20,12 @@
 #include <particle_movement.h>
 
 extern ParticleEmitter ParticleEmitter_Default;
+
+extern ParticleEmitter ParticleEmitter_MuzzleFlash;
+extern ParticleEmitter ParticleEmitter_PistolSMGCasing;
+extern ParticleEmitter ParticleEmitter_ShotgunCasing;
+extern ParticleEmitter ParticleEmitter_ARBRCasing;
+
 extern ParticleEmitter* test_emitter; //! This is just for debugging purposes.
 
 ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset);
