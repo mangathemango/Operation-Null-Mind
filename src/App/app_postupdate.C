@@ -1,5 +1,6 @@
 #include <app.h>
 #include <player.h>
+#include <environment.h>
 #include <particle_emitterpresets.h>
 #include <input.h>
 
@@ -10,6 +11,8 @@
 */
 int App_PostUpdate() {
     Player_PostUpdate();
+    Update_Player(&player);
+    Environment_Update(); // Add this line to update the environment
     if (test_emitter != NULL) {
         if (Input->mouse.leftButton.held) {
             ParticleEmitter_ActivateOnce(test_emitter);
@@ -19,3 +22,4 @@ int App_PostUpdate() {
     }
     return 0;
 }
+

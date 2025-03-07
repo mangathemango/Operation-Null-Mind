@@ -36,7 +36,7 @@ typedef struct {
 
 typedef struct {
     SDL_FRect position;
-    SDL_Rect hitbox;
+    SDL_Rect hitbox;//HITBOX FOR PLAYER
     float move_speed;
 } Player;
 
@@ -50,8 +50,7 @@ int Player_Start();
 int Player_PostUpdate();
 
 int Player_Preupdate();
-
-void Player_Post_Position();
+void Update_Player(PlayerData *player);
 // void Update_Player(PlayerState *player, Wall *wall);
 
 
@@ -69,7 +68,8 @@ int Player_AnimationInit();
 int Player_AnimationUpdate();
 
 //Collision
-void Check_Collision(SDL_Rect a, SDL_Rect b,int *collisionFlag);
-
+void Check_Collision(SDL_Rect a, SDL_Rect b,int *collisionFlag);//collisionFlag is for detecting collision
+//Rendering player's hitbox
+void Render_PlayerHitbox(SDL_Renderer* renderer, PlayerData* player);
 
 #endif

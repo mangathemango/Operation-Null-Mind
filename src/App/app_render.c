@@ -1,14 +1,19 @@
 #include <app.h>
 #include <particle_emitterpresets.h>
 #include <player.h>
-
+#include <environment.h>
 /*
 *   Handles the main rendering of the game, like players, game environments, etc.
 ?   This function is called inside App_Render().
 */
 int App_RenderMain() {
     Player_Render();
+    Environment_Render(app.setup.renderer); // Add this line to render the environment
     ParticleEmitter_Render(test_emitter);
+
+    //Render hitboxes for debugging
+    Render_PlayerHitbox(app.setup.renderer, &player);
+    Render_WallHitboxes(app.setup.renderer);
     return 0;
 }
 

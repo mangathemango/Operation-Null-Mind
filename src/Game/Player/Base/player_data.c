@@ -8,6 +8,11 @@
 PlayerData player = {
     .state = {
         .position = {120,72},
+        .hitbox = {120,72,32,32},
+        .direction = {0,0},
+        .moving = false,
+        .dashing = false,
+        .movementLocked = false,
     },
     .config = {
         .speed = 100,
