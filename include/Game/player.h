@@ -58,6 +58,9 @@ void Player_WrapAroundScreen(); //! This is temporary and will be removed later.
 int Player_Dash();
 int Player_HandleDash();
 
+// Combat
+void Player_Shoot();
+
 // Animations
 int Player_AnimationInit();
 int Player_AnimationUpdate();
