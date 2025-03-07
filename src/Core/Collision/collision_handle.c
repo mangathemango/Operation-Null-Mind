@@ -3,19 +3,13 @@
 #include <app.h>
 #include <input.h>
 #include <time_system.h>
+#include <collision.h>
 
-bool Player_CollisionDetected() {
-    // Store previous position in case of collision
-    Vec2 previousPosition = {
-        player.state.position.x,
-        player.state.position.y
-    };
-
-    Vec2 newPosition = Vec2_Add(previousPosition, Vec2_Multiply(
+bool Player_DetectCollision() {
+    Vec2 newPosition = Vec2_Add(player.state.position, Vec2_Multiply(
         player.state.direction,
         player.config.speed * Time->deltaTimeSeconds
     ));
-
     // Create test hitbox for collision detection
     SDL_Rect testHitbox = {
         .x = (int)(newPosition.x - player.state.hitbox.w / 2),
@@ -28,7 +22,6 @@ bool Player_CollisionDetected() {
         Wall wall = environment.walls[i];
         int collisionFlag = 0;
         Check_Collision(testHitbox, wall.hitbox, &collisionFlag);
-        SDL_Log("%d",collisionFlag);
         if (collisionFlag) {
                 // Completely stop movement on collision
                 player.state.direction = Vec2_Zero;

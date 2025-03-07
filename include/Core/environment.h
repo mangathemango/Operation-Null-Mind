@@ -16,11 +16,8 @@ typedef struct {
 
 extern Environment environment;
 void Environment_AddWall(Wall wall);
-void Environment_Render();
 void Environment_Destroy();
 int Environment_Start();
 void Environment_Update();
-int Environment_AnimationInit();
-//For rendering hitboxes
-void Render_WallHitboxes(SDL_Renderer* renderer);
+int Environment_Render();
 #endif //ENVIRONMENT_H

@@ -1,7 +1,6 @@
-#include <player.h>
+#include <collision.h>
 #include <environment.h>
-#include <SDL2/SDL.h>
-#include <stdbool.h>
+
 
 typedef struct {
     bool top;

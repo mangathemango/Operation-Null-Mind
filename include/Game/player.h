@@ -34,12 +34,6 @@ typedef struct {
     PlayerConfig config;
 } PlayerData;
 
-typedef struct {
-    SDL_FRect position;
-    SDL_Rect hitbox;//HITBOX FOR PLAYER
-    float move_speed;
-} Player;
-
 extern PlayerData player;
 
 
@@ -67,10 +61,5 @@ int Player_HandleDash();
 // Animations
 int Player_AnimationInit();
 int Player_AnimationUpdate();
-
-//Collision
-void Check_Collision(SDL_Rect a, SDL_Rect b,int *collisionFlag);//collisionFlag is for detecting collision
-//Rendering player's hitbox
-void Render_PlayerHitbox(SDL_Renderer* renderer, PlayerData* player);
 
 #endif
