@@ -6,6 +6,8 @@
 *   [Render] Renders the player sprite based on the player's and cursor's position.
 */
 int Player_Render() {
+    ParticleEmitter_Render(player.config.dashParticleEmitter);
+    
     SDL_RendererFlip flip;
     // Flip the sprite when mouse is on the left side of the player
     if (Input->mouse.position.x < player.state.position.x) {

@@ -14,10 +14,10 @@ ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
 
     .direction = {0, -1},
-    .emissionRate = 0.1,
+    .emissionRate = 0,
     .emissionNumber = 3,
-    .maxParticles = 10000,
-    .angleRange = 30,
+    .maxParticles = 100,
+    .angleRange = 180,
 
     .active = true,
     .emitterLifetime = 0,
@@ -31,6 +31,39 @@ ParticleEmitter ParticleEmitter_Default = {
 
     .startColor = {255, 255, 0, 255},
     .endColor = {255, 255, 0, 255},
+    .startSize = {1,1},
+    .endSize = {1, 1},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 4,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+};
+
+ParticleEmitter ParticleEmitter_Dash = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0,
+    .emissionNumber = 10,
+    .maxParticles = 200,
+    .angleRange = 25,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.1,
+    .particleSpeed = 200,
+    .custom_Movement = Particle_RandomMovement,
+
+    .startColor = {61, 135, 255, 255},
+    .endColor = {255, 255, 255, 100},
     .startSize = {1,1},
     .endSize = {1, 1},
     .particleTexture = NULL,

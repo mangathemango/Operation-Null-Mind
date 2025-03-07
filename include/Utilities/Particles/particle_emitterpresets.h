@@ -21,6 +21,8 @@
 
 extern ParticleEmitter ParticleEmitter_Default;
 
+extern ParticleEmitter ParticleEmitter_Dash;
+
 extern ParticleEmitter ParticleEmitter_MuzzleFlash;
 extern ParticleEmitter ParticleEmitter_PistolSMGCasing;
 extern ParticleEmitter ParticleEmitter_ShotgunCasing;

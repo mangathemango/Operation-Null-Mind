@@ -13,8 +13,6 @@ int App_Start() {
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
     Gun_Start();
-    test_emitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Default);
-    test_emitter->selfReference = &test_emitter;
 
     // Initialize sound system
     if (!Sound_System_Initialize()) {

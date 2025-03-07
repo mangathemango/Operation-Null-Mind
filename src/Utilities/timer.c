@@ -41,6 +41,11 @@ bool Timer_IsFinished(Timer *timer) {
     return false;
 }
 
+float Timer_GetTimeLeft(Timer *timer) {
+    if (!timer->inProgress) return 0;
+    return timer->duration - timer->elapsedTime;
+}
+
 /*
 *   [Utility] Determines whether a timer is in progress
 */

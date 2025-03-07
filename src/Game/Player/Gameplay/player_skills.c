@@ -37,6 +37,10 @@ int Player_Dash() {
 */
 int Player_HandleDash()
 {
+    // Update dash particles
+    player.config.dashParticleEmitter->position = player.state.position;
+    player.config.dashParticleEmitter->direction = Vec2_RotateDegrees(player.state.direction, 180);
+
     // Start dashDuration timer
     static Timer* dashDuration = NULL;
     if (dashDuration == NULL) {
@@ -46,6 +50,9 @@ int Player_HandleDash()
 
     if (!Timer_IsFinished(dashDuration))
     {
+        float timeLeft = Timer_GetTimeLeft(dashDuration);
+        player.config.dashParticleEmitter->particleSpeed = 5000 * timeLeft + 200;
+        ParticleEmitter_ActivateOnce(player.config.dashParticleEmitter);
         // Moves the player every frame player is still in dash state
         Vec2_Normalize(player.state.direction); //Normalize the direction
         player.state.position.x += (player.state.direction.x) * (player.stats.dashSpeed * Time->deltaTimeSeconds);

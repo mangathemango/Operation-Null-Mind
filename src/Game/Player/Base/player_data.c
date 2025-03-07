@@ -15,6 +15,7 @@ PlayerData player = {
     },
     .config = {
         .animation = NULL,
+        .dashParticleEmitter = NULL,
     },
     .stats = {
         .walkSpeed = 100,

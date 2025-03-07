@@ -49,5 +49,6 @@ typedef struct {
 Timer* Timer_Create(float duration);
 void Timer_Start(Timer *timer);
 bool Timer_IsFinished(Timer *timer);
+float Timer_GetTimeLeft(Timer *timer);
 bool Timer_IsInProgress(Timer *timer);
 void Timer_Destroy(Timer *timer);

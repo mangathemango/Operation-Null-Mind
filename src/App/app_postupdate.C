@@ -10,14 +10,6 @@
 */
 int App_PostUpdate() {
     Player_PostUpdate();
-    if (test_emitter != NULL) {
-        if (player.state.dashing) {
-            ParticleEmitter_ActivateOnce(test_emitter);
-            Sound_Play_Effect(0); //Testing for dashing
-        }
-        test_emitter->position = player.state.position;
-        ParticleEmitter_Update(test_emitter);
-    }
     Gun_Update();
     return 0;
 }

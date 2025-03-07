@@ -10,6 +10,7 @@
 #include <animation.h>
 #include <stdbool.h>
 #include <gun.h>
+#include <particle_emitterpresets.h>
 
 typedef struct {
     Vec2 position;
@@ -21,6 +22,7 @@ typedef struct {
 } PlayerState;
 
 typedef struct {
+    ParticleEmitter* dashParticleEmitter;
     Animation* animation;
 } PlayerConfig;
 

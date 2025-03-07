@@ -8,7 +8,6 @@
 */
 int App_Quit() {
     Sound_System_Cleanup();
-    ParticleEmitter_DestroyEmitter(test_emitter);
     SDL_DestroyTexture(app.setup.screenTexture);
     SDL_DestroyRenderer(app.setup.renderer);
     SDL_DestroyWindow(app.setup.window);
