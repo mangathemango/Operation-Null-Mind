@@ -50,12 +50,13 @@ int Player_Start();
 int Player_PostUpdate();
 
 int Player_Preupdate();
-void Update_Player(PlayerData *player);
+bool Player_CollisionDetected();
 // void Update_Player(PlayerState *player, Wall *wall);
 
 
 // Movement
-int Player_Move(Vec2 direction);
+int Player_Move();
+int Player_Look(Vec2 direction);
 
 void Player_WrapAroundScreen(); //! This is temporary and will be removed later.
 

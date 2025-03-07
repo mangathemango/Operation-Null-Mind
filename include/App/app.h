@@ -32,15 +32,9 @@ typedef struct {
 } AppConfig;
 
 typedef struct {
-    // TODO: Might add time scale for slow motion stuff later
-    float deltaTime;
-} AppTime;
-
-typedef struct {
     AppSetup setup;
     AppState state;
     AppConfig config;
-    AppTime time;
 } AppData;
 
 extern AppData app;

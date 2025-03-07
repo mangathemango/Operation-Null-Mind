@@ -11,7 +11,6 @@
 */
 int App_PostUpdate() {
     Player_PostUpdate();
-    Update_Player(&player);
     Environment_Update(); // Add this line to update the environment
     if (test_emitter != NULL) {
         if (Input->mouse.leftButton.held) {

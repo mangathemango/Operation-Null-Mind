@@ -7,8 +7,14 @@
 */
 int Player_PostUpdate() {
     // Handle player input, i.e movement and dashing
-    Update_Player(&player); 
     Player_Input_Handler();
+    player.state.hitbox = (SDL_Rect) {
+        player.state.position.x - player.config.spriteSize.x / 2,
+        player.state.position.y - player.config.spriteSize.y / 2,
+        player.config.spriteSize.x,
+        player.config.spriteSize.y
+    };
+    if (!Player_CollisionDetected()) Player_Move();
     //Basically, if the movement is locked, it dash,if not, its handles normally
     if(player.state.dashing) Player_HandleDash();
     else player.state.direction = Vec2_Zero;
