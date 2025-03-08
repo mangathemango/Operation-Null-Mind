@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(Operation-Ruinam-Dei VERSION 1.0)
+project(Operation-Null-Mind VERSION 1.0)
 
 # Set compiler flags
 add_compile_options(-Wall)
@@ -28,14 +28,14 @@ file(GLOB_RECURSE SOURCES "src/*.c")
 set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE C)
 
 # Create executable
-add_executable(Operation-Ruinam-Dei ${SOURCES})
+add_executable(Operation-Null-Mind ${SOURCES})
 
 # Find all DLLs in lib folder and copy them
 file(COPY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION ${CMAKE_BINARY_DIR} FILES_MATCHING PATTERN "*.dll")
 
 
 # Link libraries
-target_link_libraries(Operation-Ruinam-Dei
+target_link_libraries(Operation-Null-Mind
     SDL2main
     SDL2
     SDL2_image

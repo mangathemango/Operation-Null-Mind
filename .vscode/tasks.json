@@ -36,7 +36,7 @@
         {
             "label": "run",
             "type": "shell",
-            "command": "${workspaceFolder}/build/Operation-Ruinam-Dei.exe",
+            "command": "${workspaceFolder}/build/Operation-Null-Mind.exe",
             "group": {
               "kind": "test"
             },
