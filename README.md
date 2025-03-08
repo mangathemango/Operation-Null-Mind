@@ -54,10 +54,13 @@ These functions are called basically anywhere - and acts as a helper function fo
 
 Some tags have this ? thing (like [PostUpdate?]), which says that they are called every frame only if a certain condition are met.
 
+## By the way
+
+The physical collision system is being worked on and is semi working right now! You can check out the branch tony_wall_collision for more info
 
 ## How to install & compile for Windows
 
-### Step 1: Clone repository 
+### Step 1: Clone repository
 
 You can either go File -> Download .zip to download the repository. Otherwise if you have Git, you can enter this command:
 ``git clone https://github.com/mangathemango/Operation-Null-Mind/``
