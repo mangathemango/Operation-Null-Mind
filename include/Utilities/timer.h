@@ -7,6 +7,7 @@
 ?   The way you use the timer is by creating a Timer object, setting its duration, and starting it.
 ?   You can check if the timer is finished or in progress by using Timer_IsFinished() and Timer_IsInProgress().
 ?
+!   The below example is deprecated and will be updated soon.
 ?   @example of how to use this in a cooldown system:
 ?
 ?   void foo() {
@@ -27,6 +28,8 @@
 ?       Timer* cooldown = Timer_Create(1); // 1 second cooldown
 ?       Timer_Start(cooldown); // Start the cooldown
 ?   }
+
+?   Written by Mango on 02/03/2025
 */
 
 #pragma once

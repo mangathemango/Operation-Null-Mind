@@ -1,6 +1,8 @@
 /*
     @file particle_emitterpresets.c
 *   [Data] This file contains all the data about particle emitter presets. Read particle_emitterpresets.h for more
+
+?   Updated by Mango on 08/03/2025
 */
 
 #include <particle_emitterpresets.h>

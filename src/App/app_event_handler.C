@@ -6,6 +6,8 @@
 *   Calls before App_PostUpdate() and after App_PreUpdate().
 *   
 ?   Note: Every child function of this function should also pass in (SDL_Event *event) as a parameter.
+
+?   Written by Mango on 28/02/2025
 */
 int App_Event_Handler(SDL_Event *event) {
     if (event->type == SDL_QUIT) {

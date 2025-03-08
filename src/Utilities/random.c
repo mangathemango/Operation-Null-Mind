@@ -1,3 +1,5 @@
+// Written by Mango on 05/03/2025
+
 #include <random.h>
 
 /*

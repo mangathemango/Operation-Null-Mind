@@ -1,3 +1,5 @@
+// Written by Mango on 28/02/2025
+
 #include <vec2.h>
 #include <math.h>
 #ifndef M_PI

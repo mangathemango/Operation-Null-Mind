@@ -3,6 +3,8 @@
 /*
 *   @file app_data.c
 *   [Data] This file contains the app's data initialization.
+
+?   Written by Mango on 28/02/2025
 */
 
 AppData app = {

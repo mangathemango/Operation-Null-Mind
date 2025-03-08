@@ -1,3 +1,12 @@
+/*
+    @file sound.h
+*   This file contains the sound system and its functions.
+?   The sound system is used to play music and sound effects.
+?   It uses SDL_mixer to play the music and sound effects.
+
+?   Written by Darren on 07/03/2025
+*/
+
 #ifndef sound
 #define sound
 

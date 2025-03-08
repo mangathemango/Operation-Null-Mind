@@ -1,3 +1,5 @@
+// Written by Mango on 02/03/2025
+
 #include <timer.h>
 #include <time_system.h>
 #include <stdlib.h>

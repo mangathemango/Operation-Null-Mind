@@ -5,6 +5,8 @@
 /*
 *   [Render] Handles the main rendering of the game, like players, game environments, etc.
 ?   This function is called inside App_Render().
+
+?   Updated by Mango on 05/03/2025
 */
 int App_RenderMain() {
     Player_Render();

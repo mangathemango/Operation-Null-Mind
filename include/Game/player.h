@@ -2,6 +2,8 @@
     @file player.h
 *   This file contains the player's data, actions, and functions.
     TODO: Add player stats and abilities struct as well.
+
+?   Written by Mango on 28/02/2025
 */
 
 #ifndef PLAYER_H

@@ -13,6 +13,7 @@
 ?       extern ParticleEmitter ParticleEmitter_GunSparks;       // in particle_emitterpresets.h
 ?       ParticleEmitter ParticleEmitter_GunSparks = { ... };    // in particle_emitterpresets.c
 ?   
+?   Written by Mango on 06/03/2025
 */
 
 #pragma once

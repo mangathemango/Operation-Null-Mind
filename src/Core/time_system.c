@@ -1,3 +1,5 @@
+//? Written by Mango on 01/03/2025
+
 #include <time_system.h>
 
 /*

@@ -85,6 +85,7 @@
     "particles.h": "c",
     "particle_movement.h": "c",
     "vec2.h": "c",
-    "gun.h": "c"
+    "gun.h": "c",
+    "stdbool.h": "c"
   }
 }

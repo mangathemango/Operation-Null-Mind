@@ -1,3 +1,5 @@
+//? Written by Mango on 03/03/2025
+
 #include <animation.h>
 #include <stdlib.h>
 #include <string.h>

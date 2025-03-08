@@ -2,6 +2,8 @@
     @file gun.h
 *   This file contains the gun data and its functions.
 ?   This includes the gun's animations, rendering, and updating.
+
+?   Written by Mango on 06/03/2025
 */
 
 #pragma once

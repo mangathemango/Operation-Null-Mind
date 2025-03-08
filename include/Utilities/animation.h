@@ -4,7 +4,8 @@
 ?   The spritesheet you select should have all of its states on it, like running, walking etc.
 !   This system doesn't support loading animation clips from multiple files into one animation.
 ?   To load an animation, you need 4 steps.
-?
+?   
+!   This tutorial is deprecated and will be updated soon.
 ?   Step 1: Create animation with frame size and frame number
 ?       *Animation animation = Animation_Create(animationTexture, (Vec2) {x, y}, n);
 ?   
@@ -16,7 +17,16 @@
 ?   Step 3: Play the animation:
 ?       Animation_Play(animation, "running");
 ?
-?   Step 4: 
+?   Step 4: Update and render the animation every frame:
+?       Animation_Update(animation);
+?       Animation_Render(animation, 
+?                       (Vec2) {x, y}, 
+?                       (Vec2) {w, h}, 
+?                       angle, 
+?                       NULL, 
+?                       SDL_FLIP_NONE);
+
+?   Written by Mango on 01/03/2025
 */
 
 

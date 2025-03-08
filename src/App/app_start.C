@@ -7,6 +7,8 @@
 /*
 *   [Start] This function is called at the start of the program.
 ?   It initializes everything needed for the program to run. Like the window, renderer, and later, the game.
+
+?   Updated by Mango on 08/03/2025
 */
 int App_Start() {
     RandomInit();

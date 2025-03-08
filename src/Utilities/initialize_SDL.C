@@ -1,3 +1,5 @@
+// Written by Mango on 28/02/2025
+
 #include <initialize_SDL.h>
 
 /*

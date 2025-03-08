@@ -4,6 +4,8 @@
 ?   The time system struct is used to keep track of the program's time, delta time, and time scale.
 ?   Time delta is the time between the current frame and the previous frame.
 ?   It's super useful for making sure that the game runs at the same speed on different fps.
+
+?   Written by Mango on 01/03/2025
 */
 
 #pragma once
