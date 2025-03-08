@@ -30,13 +30,6 @@ bool Sound_System_Initialize() {
 *   @return true if successful, false otherwise
 */
 bool Sound_Load_Resources() {
-    // Load background music
-    soundResources.backgroundMusic = Mix_LoadMUS("Assets/Audio/background.mp3");
-    if (soundResources.backgroundMusic == NULL) {
-        printf("Failed to load music! SDL_mixer Error: %s\n", Mix_GetError());
-        return false;
-    }
-    
     // Load sound effects
     // TODO: Maybe make this into a function?
     soundResources.soundEffects[soundResources.soundEffectCount] = Mix_LoadWAV("Assets/Audio/swoosh.wav");

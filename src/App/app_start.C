@@ -29,8 +29,6 @@ int App_Start() {
     }
 
     Sound_System_Initialize();
-
-    Sound_Play_Music("Assets/Audio/background.mp3", -1);
     
 
     return 0;
