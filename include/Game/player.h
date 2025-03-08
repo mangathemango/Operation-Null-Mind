@@ -24,6 +24,8 @@ typedef struct {
 typedef struct {
     ParticleEmitter* dashParticleEmitter;
     Animation* animation;
+    Timer* dashDurationTimer;
+    Timer* dashCooldownTimer;
 } PlayerConfig;
 
 typedef struct {

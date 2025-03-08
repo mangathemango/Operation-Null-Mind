@@ -9,5 +9,10 @@ int Player_Start() {
     player.state.currentGun = &Gun_Pistol;
     player.config.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
     player.config.dashParticleEmitter->selfReference = &player.config.dashParticleEmitter;
+
+    player.config.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
+    player.config.dashDurationTimer = Timer_Create(player.stats.dashDuration);
+    Timer_Start(player.config.dashCooldownTimer);
+    
     return 0;
 }
