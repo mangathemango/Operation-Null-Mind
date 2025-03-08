@@ -8,7 +8,7 @@
 bool Player_DetectCollision() {
     Vec2 newPosition = Vec2_Add(player.state.position, Vec2_Multiply(
         player.state.direction,
-        player.config.speed * Time->deltaTimeSeconds
+        player.stats.walkSpeed * Time->deltaTimeSeconds
     ));
     // Create test hitbox for collision detection
     SDL_Rect testHitbox = {

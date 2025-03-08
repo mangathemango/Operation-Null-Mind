@@ -21,6 +21,7 @@ typedef struct {
     bool movementLocked; //to know if the movement is locked
     bool moving;    
     GunData* currentGun;
+    SDL_Rect hitbox;
 } PlayerState;
 
 typedef struct {
