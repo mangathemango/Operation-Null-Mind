@@ -3,6 +3,8 @@
 *   This file contains the input struct and its functions.
 ?   This struct is used to keep track of the mouse and keyboard input.
 ?   This is so that every other file can access the input data without using the SDL_Event parameter.
+
+?   Written by Mango on 28/02/2025
 */
 
 #ifndef INPUT_H

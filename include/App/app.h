@@ -3,6 +3,8 @@
 *   This file contains the app struct and its functions.
 ?   The app struct is used to keep track of the app's setup, state, and configuration.
 ?   For example, the window, renderer, screen size, and a running state.
+
+?   Written by Mango on 28/02/2025
 */
 
 #ifndef APP_H
@@ -13,6 +15,10 @@
 #include <stdbool.h>
 #include <debug.h>
 
+#include <gun.h>
+#include <player.h>
+#include <time_system.h>
+#include <particle_emitterpresets.h>
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;

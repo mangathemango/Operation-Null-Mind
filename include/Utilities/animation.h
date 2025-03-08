@@ -4,7 +4,8 @@
 ?   The spritesheet you select should have all of its states on it, like running, walking etc.
 !   This system doesn't support loading animation clips from multiple files into one animation.
 ?   To load an animation, you need 4 steps.
-?
+?   
+!   This tutorial is deprecated and will be updated soon.
 ?   Step 1: Create animation with frame size and frame number
 ?       *Animation animation = Animation_Create(animationTexture, (Vec2) {x, y}, n);
 ?   
@@ -16,7 +17,16 @@
 ?   Step 3: Play the animation:
 ?       Animation_Play(animation, "running");
 ?
-?   Step 4: 
+?   Step 4: Update and render the animation every frame:
+?       Animation_Update(animation);
+?       Animation_Render(animation, 
+?                       (Vec2) {x, y}, 
+?                       (Vec2) {w, h}, 
+?                       angle, 
+?                       NULL, 
+?                       SDL_FLIP_NONE);
+
+?   Written by Mango on 01/03/2025
 */
 
 
@@ -42,6 +52,13 @@ typedef struct {
 } AnimationClip;
 
 typedef struct {
+    char* name;
+    int startFrameIndex;
+    int endFrameIndex;
+    float frameDuration;
+    bool looping;
+} AnimationClipData;
+typedef struct {
     SDL_Texture* spritesheet;   // Spritesheet texture
     AnimationClip* clips;  // Array of different animations
     int clipCount;          // Number of animation clips
@@ -56,9 +73,18 @@ typedef struct {
     int direction;          // 1 for forward, -1 for backward
 } Animation;
 
+typedef struct {
+    char* spritesheetPath;  // The path to the spriteSheet
+    Vec2 frameSize;         // The size of each frame in the sprite sheet
+    int frameCount;         // Number of frames inside the sprite sheet
+    AnimationClipData clips[5]; // Array of different animation clips
+    Vec2 spriteSize;        // The size of the rendered sprite
+    char* defaultClip;      // The default clip to play
+    bool playOnStart;
+} AnimationData;
 
 // Create and destroy animations
-Animation* Animation_Create(SDL_Texture* spritesheet, Vec2 frameSize, int frameCount);
+Animation* Animation_Create(AnimationData* data);
 void Animation_Destroy(Animation* animation);
 
 // Add animation clips
@@ -73,6 +99,7 @@ void Animation_Resume(Animation* animation);
 
 // Update and render
 void Animation_Update(Animation* animation);
-void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize);
+void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
+                        float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip);
 
 #endif

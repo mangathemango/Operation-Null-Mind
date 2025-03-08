@@ -2,6 +2,8 @@
     @file vec2.h
 *   This file contains the Vec2 struct and its functions.
 ?   The Vec2 struct is a 2D vector that can be used for positions, directions, velocities etc.
+
+?   Written by Mango on 28/02/2025
 */
 
 #ifndef VEC2_H
@@ -10,7 +12,6 @@ typedef struct
 {
     float x;
     float y;
-    float vx,vy; //Movement velocity    
 } Vec2;
 
 static const Vec2 Vec2_Zero = {0, 0};

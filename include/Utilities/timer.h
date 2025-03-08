@@ -7,6 +7,7 @@
 ?   The way you use the timer is by creating a Timer object, setting its duration, and starting it.
 ?   You can check if the timer is finished or in progress by using Timer_IsFinished() and Timer_IsInProgress().
 ?
+!   The below example is deprecated and will be updated soon.
 ?   @example of how to use this in a cooldown system:
 ?
 ?   void foo() {
@@ -27,6 +28,8 @@
 ?       Timer* cooldown = Timer_Create(1); // 1 second cooldown
 ?       Timer_Start(cooldown); // Start the cooldown
 ?   }
+
+?   Written by Mango on 02/03/2025
 */
 
 #pragma once
@@ -35,7 +38,7 @@
 
 /*
 *   The Timer struct.
-?   The Timer struct is used to keep track of time.
+?   The Timer struct is used to keep track of time, used for cooldowns, delays, etc.
 ?   It has a start time, an elapsed time, a duration, and flags to check if the timer is in progress or finished.
 */
 typedef struct {
@@ -49,5 +52,6 @@ typedef struct {
 Timer* Timer_Create(float duration);
 void Timer_Start(Timer *timer);
 bool Timer_IsFinished(Timer *timer);
+float Timer_GetTimeLeft(Timer *timer);
 bool Timer_IsInProgress(Timer *timer);
 void Timer_Destroy(Timer *timer);

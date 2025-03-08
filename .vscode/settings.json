@@ -84,7 +84,10 @@
     "animation.h": "c",
     "particles.h": "c",
     "particle_movement.h": "c",
-    "environment.h": "c"
+    "environment.h": "c",
+    "vec2.h": "c",
+    "gun.h": "c",
+    "stdbool.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 

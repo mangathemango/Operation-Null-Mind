@@ -1,8 +1,10 @@
+// Written by Mango on 03/02/2025
+
 #include <player.h>
 #include <app.h>
 #include <environment.h>
 /*
-*   This function is called inside App_PostUpdate().
+*   [PostUpdate] This function is called inside App_PostUpdate().
 ?   It updates the player's input, position, and rendering.
 */
 int Player_PostUpdate() {
@@ -18,6 +20,9 @@ int Player_PostUpdate() {
     //Basically, if the movement is locked, it dash,if not, its handles normally
     if(player.state.dashing) Player_HandleDash();
     else player.state.direction = Vec2_Zero;
+
+    ParticleEmitter_Update(player.config.dashParticleEmitter);
+
     Player_WrapAroundScreen();
 
     // Update player animation

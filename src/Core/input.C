@@ -1,3 +1,5 @@
+//? Updated by Mango on 06/03/2025
+
 #include <input.h>
 #include <app.h>
 
@@ -5,7 +7,7 @@ static InputEvent _input;
 const InputEvent * const Input = &_input; // This ensures that the Input variable is read-only to other files.
 
 /*
-*   Presses a button.
+*   [Utility] Presses a button.
 ?   @param button The button to press. Can either be a key button or a mouse button.
 */
 void Press_Button(ButtonState *button) {
@@ -15,7 +17,7 @@ void Press_Button(ButtonState *button) {
 }
 
 /*
-*   Releases a button.
+*   [Utility] Releases a button.
 ?   @param button The button to release. Can either be a key button or a mouse button.
 */
 void Release_Button(ButtonState *button) {
@@ -24,7 +26,7 @@ void Release_Button(ButtonState *button) {
 }
 
 /*
-*   Resets a button's pressed and released states.
+*   [Utility] Resets a button's pressed and released states.
 ?   This function is called every frame to ensure that the button's pressed and released states are only true for one frame.
 ?   @param button The button to release. Can either be a key button or a mouse button.
 */
@@ -35,7 +37,7 @@ void Reset_Button(ButtonState *button) {
 
 
 /*
-*   This function is called inside App_PreUpdate().
+*   [PreUpdate] This function is called inside App_PreUpdate().
 ?   It retrieves the mouse's state and resets all the mouse/keyboard buttons.
 */
 void Input_PreUpdate() {
@@ -64,7 +66,7 @@ void Input_PreUpdate() {
 
 
 /*
-*   This function is called inside App_Event_Handler().
+*   [Event Handler] This function is called inside App_Event_Handler().
 ?   It updates the InputEvent struct based on the SDL_Event.
     @param event The SDL_Event to update the InputEvent struct with.
 */

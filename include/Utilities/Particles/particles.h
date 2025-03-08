@@ -14,13 +14,14 @@
 ?
 ?   Step 2: Create the emitter in the game loop
 ?
-?   // Called somewhere inside App_Start()
+?   // These lines are called somewhere inside App_Start()
 ?       ParticleEmitter *emitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Default);
 !       emitter->selfReference = &emitter;    // YOU HAVE TO DO THIS OR YOU DIE
 ?
-?   // Called somewhere inside App_PostUpdate()
+?   // These lines are called somewhere inside App_PostUpdate()
 ?       // You can modify the emitter's properties as needed.   
 ?       emitter->position = ....; 
+?       emitter->direction = ....;
 ?
 ?       // Update and render the emitter
 ?       ParticleEmitter_Update(emitter);            
@@ -30,6 +31,8 @@
 ?       if (...) {
 ?           ParticleEmitter_ActivateOnce(gunSparksEmitter);  // Activate the emitter once
 ?       }
+
+?   Written by Mango on 05/03/2025
 */
 
 

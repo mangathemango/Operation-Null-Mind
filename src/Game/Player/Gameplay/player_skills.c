@@ -1,50 +1,52 @@
+// Written by Mango and Darren on 05/03/2025
+
 #include <player.h>
 #include <time_system.h>
 #include <timer.h>
+#include <sound.h>
 
 /*
-*   Dash the player in a direction.
+*   [PostUpdate?] Dash the player in a direction.
 */
 int Player_Dash() {
+    // Doesn't dash when idle
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
-    static Timer* dashCooldown = NULL;
+    if (!Timer_IsFinished(player.config.dashCooldownTimer)) return 0;
     
-    if(dashCooldown != NULL) //Just dash cooldown timer
-    {
-        if (!Timer_IsFinished(dashCooldown)) return 0;
-        else {
-            Timer_Destroy(dashCooldown);
-            dashCooldown = NULL;
-        }
-    }
-
+    Sound_Play_Effect(0);
     player.state.dashing = true; 
-    player.state.movementLocked = true;
+    player.state.movementLocked = true; // Player can't control movement during dash
 
-    dashCooldown = Timer_Create(1);
-    Timer_Start(dashCooldown);
+    Timer_Start(player.config.dashCooldownTimer);
+    Timer_Start(player.config.dashDurationTimer);
     return 0;
 }
 
+/*
+*   [PostUpdate?] Handles the character dashing state.
+?   This calls every frame player.state.dashing is true.
+*/
 int Player_HandleDash()
 {
-    static Timer* dashDuration = NULL;
-    if (dashDuration == NULL) {
-        dashDuration = Timer_Create(0.1);
-        Timer_Start(dashDuration);
-    }
-    if (!Timer_IsFinished(dashDuration))
+    if (Timer_IsFinished(player.config.dashDurationTimer))
     {
-        Vec2_Normalize(player.state.direction); //Normalize the direction
-        player.state.position.x += (player.state.direction.x) * (player.config.dashSpeed * Time->deltaTimeSeconds);
-        player.state.position.y += (player.state.direction.y) * (player.config.dashSpeed * Time->deltaTimeSeconds);
-    }
-    else {
-        Timer_Destroy(dashDuration);
-        dashDuration = NULL;
         player.state.dashing = false; //Just unchecks dashing
         player.state.movementLocked = false; //Just unchecks movementlock
+        return 0;
     }
-    
+
+    float timeLeft = Timer_GetTimeLeft(player.config.dashDurationTimer) / player.stats.dashDuration;
+
+    // Update dash particles
+    player.config.dashParticleEmitter->position = player.state.position;
+    player.config.dashParticleEmitter->direction = Vec2_RotateDegrees(player.state.direction, 180);
+    player.config.dashParticleEmitter->particleSpeed = 200 * timeLeft + 200;
+    ParticleEmitter_ActivateOnce(player.config.dashParticleEmitter);
+
+    // Moves the player every frame player is still in dash state
+    Vec2_Normalize(player.state.direction); //Normalize the direction
+    player.state.position.x += (player.state.direction.x) * (player.stats.dashSpeed * Time->deltaTimeSeconds);
+    player.state.position.y += (player.state.direction.y) * (player.stats.dashSpeed * Time->deltaTimeSeconds);
+
     return 0;
 }

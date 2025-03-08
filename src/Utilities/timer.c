@@ -1,7 +1,12 @@
+// Written by Mango on 02/03/2025
+
 #include <timer.h>
 #include <time_system.h>
 #include <stdlib.h>
 
+/*
+*   [Start/Utility] Creates a timer
+*/
 Timer* Timer_Create(float duration) {
     Timer *timer = malloc(sizeof(Timer));
     timer->startTime = Time->programElapsedTimeSeconds;
@@ -12,12 +17,19 @@ Timer* Timer_Create(float duration) {
     return timer;
 }
 
+/*
+*   [Utility] Starts the timer
+*/
 void Timer_Start(Timer *timer) {
     timer->startTime = Time->programElapsedTimeSeconds;
     timer->inProgress = true;
     timer->finished = false;
 }
 
+/*
+*   [Utility] Determines whether a timer is finished
+?   A timer is finished when  Current Time - Timer start time > Timer duration
+*/
 bool Timer_IsFinished(Timer *timer) {
     if (timer->finished) return true;
     if (timer->inProgress) {
@@ -31,10 +43,21 @@ bool Timer_IsFinished(Timer *timer) {
     return false;
 }
 
+float Timer_GetTimeLeft(Timer *timer) {
+    if (!timer->inProgress) return 0;
+    return timer->duration - timer->elapsedTime;
+}
+
+/*
+*   [Utility] Determines whether a timer is in progress
+*/
 bool Timer_IsInProgress(Timer *timer) {
     return timer->inProgress;
 }
 
+/*
+*   [Utility] Destroys a timer
+*/
 void Timer_Destroy(Timer *timer) {
     free(timer);
 }

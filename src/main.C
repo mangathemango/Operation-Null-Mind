@@ -1,6 +1,7 @@
 #define SDL_MAIN_HANDLED 1
+
 #include <windows.h>
-#include <SDL.h>
+#include <SDL_main.h>
 #include <app.h>
 #include <player.h>
 #include <environment.h>

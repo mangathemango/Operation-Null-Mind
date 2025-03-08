@@ -4,19 +4,21 @@
 #include <environment.h>
 #include <debug.h>
 /*
-*   Handles the main rendering of the game, like players, game environments, etc.
+*   [Render] Handles the main rendering of the game, like players, game environments, etc.
 ?   This function is called inside App_Render().
+
+?   Updated by Mango on 05/03/2025
 */
 int App_RenderMain() {
     Player_Render();
     Environment_Render(app.setup.renderer);
-    ParticleEmitter_Render(test_emitter);
+    Gun_Render();
     Debug_RenderHitboxes();
     return 0;
 }
 
 /*
-*   Renders the current frame of the game.
+*   [Render] Renders the current frame of the game.
 ?   Includes the main rendering function and the final rendering to the window.
 ?   This function is called every frame after all the updating is complete
 */
@@ -24,8 +26,8 @@ int App_Render() {
     // Set render target to screen texture
     SDL_SetRenderTarget(app.setup.renderer, app.setup.screenTexture);
 
-    // Clear the screen texture
-    SDL_SetRenderDrawColor(app.setup.renderer, 0, 0, 0, 255);
+    // Clear the screen texture (This is also the background color btw)
+    SDL_SetRenderDrawColor(app.setup.renderer, 100, 100, 100, 50);
     SDL_RenderClear(app.setup.renderer);
     
     App_RenderMain();

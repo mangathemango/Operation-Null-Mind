@@ -1,7 +1,9 @@
+// Written by Mango on 28/02/2025
+
 #include <initialize_SDL.h>
 
 /*
-*   Initializes everything related to SDL: window, renderer, image loading, and so on.
+*   [Start] Initializes everything related to SDL: window, renderer, image loading, and so on.
 */
 int Initialize_SDL() {
     // Initialize SDL and SDL_image
@@ -34,8 +36,6 @@ int Initialize_SDL() {
 
 
     SDL_RenderSetLogicalSize(app.setup.renderer, app.config.screen_width, app.config.screen_height);
-
     SDL_SetRenderDrawBlendMode(app.setup.renderer, SDL_BLENDMODE_BLEND);
-
     return 0;
 }

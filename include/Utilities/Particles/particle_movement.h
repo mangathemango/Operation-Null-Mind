@@ -7,6 +7,8 @@
 ?   Example:
 ?       emitter->custom_Movement = Particle_LinearMovement;
 ?   This will make the particles move in a linear direction.
+
+?   Written by Mango on 04/03/2025
 */
 
 #pragma once
