@@ -32,6 +32,7 @@ add_executable(Operation-Null-Mind ${SOURCES})
 
 # Find all DLLs in lib folder and copy them
 file(COPY ${CMAKE_SOURCE_DIR}/bin/ DESTINATION ${CMAKE_BINARY_DIR} FILES_MATCHING PATTERN "*.dll")
+file(COPY ${CMAKE_SOURCE_DIR}/Assets/ DESTINATION ${CMAKE_BINARY_DIR}/Assets)
 
 
 # Link libraries
