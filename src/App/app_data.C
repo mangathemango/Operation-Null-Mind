@@ -22,8 +22,4 @@ AppData app = {
         .screen_width = 480 ,
         .screen_height = 288 
     },
-
-    .time = {
-        .deltaTime = 0
-    }
 };
