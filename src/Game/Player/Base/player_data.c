@@ -26,7 +26,7 @@ PlayerData player = {
     .animData = {
         .spritesheetPath = "Assets/Images/robert.png",
         .frameSize = {30,40},
-        .frameCount = 1,
+        .frameCount = 9,
         .clips = {
             {
                 .name = "idle", 
@@ -34,7 +34,15 @@ PlayerData player = {
                 .endFrameIndex = 0, 
                 .frameDuration = 0.4f,
                 .looping = false
+            },
+            {
+                .name = "walk", 
+                .startFrameIndex = 1, 
+                .endFrameIndex = 8, 
+                .frameDuration = 0.1f,
+                .looping = true
             }
+            
         },
         .spriteSize = {30,40},
         .defaultClip = "idle",

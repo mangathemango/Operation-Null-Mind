@@ -17,6 +17,11 @@ int Player_AnimationInit() {
 *   [PostUpdate] Update's the player's animations
 */
 int Player_AnimationUpdate() {
+    if (player.state.moving) {
+        Animation_Play(player.config.animation, "walk");
+    } else {
+        Animation_Play(player.config.animation, "idle");
+    }
     Animation_Update(player.config.animation);
     return 0;
 }
