@@ -80,18 +80,6 @@ void Player_WrapAroundScreen()
     }
 }
 
-bool Player_DetectCollision() {
-    ColliderCheckResult collisions;
-    if (Collider_Check(&player.state.collider, &collisions)) {
-        for (int i = 0; i < collisions.count; i ++) {
-            if (collisions.objects[i]->layer == COLLISION_LAYER_ENVIRONMENT) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 void Player_UpdateHitbox() {
     player.state.collider.hitbox.x = player.state.position.x - player.animData.spriteSize.x / 2 + 5; 
     player.state.collider.hitbox.y = player.state.position.y - player.animData.spriteSize.y / 2 + 5;

@@ -18,11 +18,19 @@ typedef enum {
     COLLISION_LAYER_PLAYER_PROJECTILE   = 1 << 5,
 } CollisionLayer;
 
-// Each collidable object
+/*
+*   This struct represents a collider.
+?   A collider is a hitbox that can be used to detect collisions between objects.
+?   It is used to detect collisions between entities in the game.
+
+    TODO: Add a system to follow/attach colliders to entities.
+*/
 typedef struct {
-    SDL_Rect hitbox;
+    SDL_Rect hitbox;            // The hitbox of the collider
     CollisionLayer layer;      // What layer this object belongs to
     CollisionLayer collidesWith; // Bitmask of layers this can collide with
+
+    // These two fields are automatically set when you register them.
     void* owner;               // Pointer back to the entity
     bool active;               // Is this collidable active?
 } Collider;
@@ -30,9 +38,16 @@ typedef struct {
 extern Collider* ColliderList[MAX_COLLIDABLES];
 extern int ColliderCount;
 
+/*
+*   This struct is used to store the results of a Collider_Check call.
+*
+*    Members:
+*    -   objects: An array of detected colliders.
+*    -   count: Number of collisions detected
+*/
 typedef struct {
-    Collider* objects[MAX_COLLISIONS_PER_CHECK];
-    int count;
+    Collider* objects[MAX_COLLISIONS_PER_CHECK]; // An array of detected colliders
+    int count;                                  // Number of collisions detected
 } ColliderCheckResult;
 
 

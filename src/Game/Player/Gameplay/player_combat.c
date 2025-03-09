@@ -20,5 +20,4 @@ void Player_Shoot() {
         ParticleEmitter_ActivateOnce(player.state.currentGun->config.muzzleFlashEmitter);
         Timer_Start(shootTimer);
     }
-
 }
