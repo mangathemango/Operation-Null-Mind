@@ -13,6 +13,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdbool.h>
+#include <debug.h>
 
 #include <gun.h>
 #include <player.h>
@@ -48,8 +49,10 @@ extern AppData app;
 int App_Start();
 int App_PreUpdate();
 int App_PostUpdate();
+int App_Update();
 int App_Render();
 int App_Event_Handler(SDL_Event *event);
 int App_Quit();
 
-#endif
+
+#endif //APP_H

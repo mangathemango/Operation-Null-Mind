@@ -1,5 +1,6 @@
 #include <app.h>
 #include <player.h>
+#include <environment.h>
 #include <particle_emitterpresets.h>
 #include <input.h>
 #include <sound.h>
@@ -12,6 +13,14 @@
 */
 int App_PostUpdate() {
     Player_PostUpdate();
+    Environment_Update(); // Add this line to update the environment
+    if (test_emitter != NULL) {
+        if (Input->mouse.leftButton.held) {
+            ParticleEmitter_ActivateOnce(test_emitter);
+        }
+        test_emitter->position = Input->mouse.position;
+        ParticleEmitter_Update(test_emitter);
+    }
     Gun_Update();
     return 0;
 }

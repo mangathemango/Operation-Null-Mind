@@ -13,14 +13,17 @@
 #include <stdbool.h>
 #include <gun.h>
 #include <particle_emitterpresets.h>
+#include <colliders.h>
 
 typedef struct {
     Vec2 position;
     Vec2 direction; //This is added to know the players last direction
+    float currentSpeed;
     bool dashing; //This is added to know if the player is dashing
-    bool movementLocked; //to know if the movement is locked
+    bool directionLocked; //to know if the movement is locked
     bool moving;    
     GunData* currentGun;
+    Collider collider;
 } PlayerState;
 
 typedef struct {
@@ -53,9 +56,15 @@ int Player_Render();
 int Player_Start();
 int Player_PostUpdate();
 int Player_Preupdate();
+bool Player_DetectCollision();
+// void Update_Player(PlayerState *player, Wall *wall);
+
 
 // Movement
-int Player_Move(Vec2 direction);
+int Player_Move();
+int Player_Look(Vec2 direction);
+void Player_UpdateHitbox();
+
 void Player_WrapAroundScreen(); //! This is temporary and will be removed later.
 
 // Skills

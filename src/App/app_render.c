@@ -1,7 +1,8 @@
 #include <app.h>
 #include <particle_emitterpresets.h>
 #include <player.h>
-
+#include <environment.h>
+#include <debug.h>
 /*
 *   [Render] Handles the main rendering of the game, like players, game environments, etc.
 ?   This function is called inside App_Render().
@@ -10,7 +11,9 @@
 */
 int App_RenderMain() {
     Player_Render();
+    Environment_Render();
     Gun_Render();
+    Debug_RenderHitboxes();
     return 0;
 }
 

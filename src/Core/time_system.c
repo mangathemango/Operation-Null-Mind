@@ -25,7 +25,6 @@ void Time_PreUpdate() {
     time.previousTick = currentTick;
     time.scaledDeltaTimeSeconds = time.deltaTimeSeconds * time.timeScale;
     time.programElapsedTimeSeconds += time.deltaTimeSeconds;
-
 }
 
 /*

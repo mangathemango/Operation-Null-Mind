@@ -37,13 +37,36 @@ Vec2 Vec2_Add(Vec2 a, Vec2 b) {
 }
 
 /*
+*   [Utility] Increment a vector by another vector, and returns the result.
+    @param a The vector to increment. This vector will turn into a + b.
+    @param b The vector to increment by.
+    @returns The result of the increment a + b.
+*/
+Vec2 Vec2_Increment(Vec2* a, Vec2 b) {
+    a->x += b.x;
+    a->y += b.y;
+    return *a;
+}
+
+/*
 *   [Utility] Subtract two vectors, and returns the result.
-    @param a The vector to subtract from.
+    @param a The vector to subtract from. This vector will turn into a - b.
     @param b The vector to subtract.
     @returns The result of the subtraction a - b.
 */
 Vec2 Vec2_Subtract(Vec2 a, Vec2 b) {
     return (Vec2) {a.x - b.x, a.y - b.y};
+}
+
+/*
+*   [Utility] Decrement a vector by another vector, and returns the result.
+    @param a The vector to increment.
+    @param b The vector to increment by.
+*/
+Vec2 Vec2_Decrement(Vec2* a, Vec2 b) {
+    a->x += b.x;
+    a->y += b.y;
+    return *a;
 }
 
 /*
