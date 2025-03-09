@@ -16,5 +16,6 @@ int Player_Start() {
     player.config.dashDurationTimer = Timer_Create(player.stats.dashDuration);
     Timer_Start(player.config.dashCooldownTimer);
     
+    Collider_Register(&player.state.collision, &player)
     return 0;
 }

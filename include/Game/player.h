@@ -13,6 +13,7 @@
 #include <stdbool.h>
 #include <gun.h>
 #include <particle_emitterpresets.h>
+#include <collision.h>
 
 typedef struct {
     Vec2 position;
@@ -22,7 +23,7 @@ typedef struct {
     bool directionLocked; //to know if the movement is locked
     bool moving;    
     GunData* currentGun;
-    SDL_Rect hitbox;
+    Collider collision;
 } PlayerState;
 
 typedef struct {

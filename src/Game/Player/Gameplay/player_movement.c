@@ -88,7 +88,6 @@ bool Player_DetectCollision() {
     for (int i = 0; i < environment.wallCount; i++) {
         Wall wall = environment.walls[i];
         int collisionFlag = 0;
-        Check_Collision(testHitbox, wall.hitbox, &collisionFlag);
         if (collisionFlag) return true;
     }
     return false;

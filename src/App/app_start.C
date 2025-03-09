@@ -14,6 +14,7 @@
 */
 int App_Start() {
     RandomInit();
+    Collider_Start();
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
     if (Environment_Start()) return 1;
