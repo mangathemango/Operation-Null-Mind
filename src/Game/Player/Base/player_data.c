@@ -29,7 +29,7 @@ PlayerData player = {
             }
         }
     },
-    .config = {
+    .resources = {
         .animation = NULL,
         .dashParticleEmitter = NULL,
         .dashCooldownTimer = NULL,

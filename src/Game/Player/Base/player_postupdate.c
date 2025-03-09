@@ -16,7 +16,7 @@ int Player_PostUpdate() {
     Player_Move();
     Player_UpdateHitbox();
     
-    ParticleEmitter_Update(player.config.dashParticleEmitter);
+    ParticleEmitter_Update(player.resources.dashParticleEmitter);
 
     // Update player animation
     Player_AnimationUpdate();

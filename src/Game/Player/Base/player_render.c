@@ -8,7 +8,7 @@
 *   [Render] Renders the player sprite based on the player's and cursor's position.
 */
 int Player_Render() {
-    ParticleEmitter_Render(player.config.dashParticleEmitter);
+    ParticleEmitter_Render(player.resources.dashParticleEmitter);
     
     SDL_RendererFlip flip;
     // Flip the sprite when mouse is on the left side of the player
@@ -17,7 +17,7 @@ int Player_Render() {
     } else {
         flip = SDL_FLIP_NONE;
     }
-    Animation_Render(player.config.animation, 
+    Animation_Render(player.resources.animation, 
                     Vec2_Subtract(
                         player.state.position,
                         Vec2_Divide(player.animData.spriteSize, 2)

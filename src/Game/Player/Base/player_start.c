@@ -9,12 +9,12 @@
 int Player_Start() {
     Player_AnimationInit();
     player.state.currentGun = &Gun_Pistol;
-    player.config.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
-    player.config.dashParticleEmitter->selfReference = &player.config.dashParticleEmitter;
+    player.resources.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
+    player.resources.dashParticleEmitter->selfReference = &player.resources.dashParticleEmitter;
 
-    player.config.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
-    player.config.dashDurationTimer = Timer_Create(player.stats.dashDuration);
-    Timer_Start(player.config.dashCooldownTimer);
+    player.resources.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
+    player.resources.dashDurationTimer = Timer_Create(player.stats.dashDuration);
+    Timer_Start(player.resources.dashCooldownTimer);
     
     Collider_Register(&player.state.collider, &player);
     return 0;

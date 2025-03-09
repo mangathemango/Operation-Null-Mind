@@ -31,7 +31,7 @@ typedef struct {
     Animation* animation;
     Timer* dashDurationTimer;
     Timer* dashCooldownTimer;
-} PlayerConfig;
+} PlayerResources;
 
 typedef struct {
     float walkSpeed;
@@ -43,7 +43,7 @@ typedef struct {
 typedef struct {
     PlayerState state;
     PlayerStat stats;
-    PlayerConfig config;
+    PlayerResources resources;
     AnimationData animData;
 } PlayerData;
 

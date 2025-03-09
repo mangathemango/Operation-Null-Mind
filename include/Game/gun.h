@@ -22,8 +22,7 @@
 typedef struct {
     ParticleEmitter* casingParticleEmitter;
     ParticleEmitter* muzzleFlashEmitter;
-    Vec2 muzzlePosition;
-} GunConfig;
+} GunResources;
 
 typedef struct {
     Vec2 position;
@@ -33,12 +32,18 @@ typedef struct {
 } GunState;
 
 typedef struct {
-    char* name;
+    Vec2 muzzlePosition;
+} GunConfig;
+
+typedef struct {
+
 } GunStats;
 
 typedef struct {
-    GunConfig config;
+    char* name;
+    GunResources resources;
     GunState state;
+    GunConfig config;
     GunStats stats;
 } GunData;
 

@@ -8,7 +8,7 @@
 */
 
 AppData app = {
-    .setup = {
+    .resources = {
         .window = NULL,
         .renderer = NULL,
         .screenTexture = NULL,

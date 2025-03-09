@@ -9,10 +9,10 @@ void Environment_Render() {
     for (int i = 0; i < environment.wallCount; i++) {
         Wall wall = environment.walls[i];
         if (wall.texture) {
-            SDL_RenderCopy(app.setup.renderer, wall.texture, NULL, &wall.wallSize);
+            SDL_RenderCopy(app.resources.renderer, wall.texture, NULL, &wall.wallSize);
         } else {
-            SDL_SetRenderDrawColor(app.setup.renderer, 255, 255, 255, 255);
-            SDL_RenderFillRect(app.setup.renderer, &wall.wallSize);
+            SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+            SDL_RenderFillRect(app.resources.renderer, &wall.wallSize);
         }
     }
 }

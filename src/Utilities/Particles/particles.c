@@ -59,12 +59,12 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
             particle->size.x,
             particle->size.y
         };
-        SDL_SetRenderDrawColor(app.setup.renderer, 
+        SDL_SetRenderDrawColor(app.resources.renderer, 
                                 particle->color.r, 
                                 particle->color.g, 
                                 particle->color.b, 
                                 particle->color.a);
-        SDL_RenderFillRect(app.setup.renderer, &rect);
+        SDL_RenderFillRect(app.resources.renderer, &rect);
     }
 }
 
