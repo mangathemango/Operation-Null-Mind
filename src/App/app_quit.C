@@ -10,9 +10,9 @@
 */
 int App_Quit() {
     Sound_System_Cleanup();
-    SDL_DestroyTexture(app.setup.screenTexture);
-    SDL_DestroyRenderer(app.setup.renderer);
-    SDL_DestroyWindow(app.setup.window);
+    SDL_DestroyTexture(app.resources.screenTexture);
+    SDL_DestroyRenderer(app.resources.renderer);
+    SDL_DestroyWindow(app.resources.window);
     SDL_Quit();
     return 0;
 }

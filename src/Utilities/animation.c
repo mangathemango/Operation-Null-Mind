@@ -21,7 +21,7 @@ Animation* Animation_Create(AnimationData* animData) {
     Animation* animation = malloc(sizeof(Animation));
     if (!animation) return NULL;
 
-    animation->spritesheet = IMG_LoadTexture(app.setup.renderer, animData->spritesheetPath);
+    animation->spritesheet = IMG_LoadTexture(app.resources.renderer, animData->spritesheetPath);
     animation->clips = NULL;
     animation->clipCount = 0;
     animation->frameSize = animData->frameSize;
@@ -275,7 +275,7 @@ void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
     
     // Render the frame with the specified flip
     SDL_RenderCopyEx(
-        app.setup.renderer,
+        app.resources.renderer,
         animation->spritesheet,
         &srcRect,
         &dstRect,

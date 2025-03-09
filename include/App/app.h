@@ -1,7 +1,7 @@
 /*
     @file app.h
 *   This file contains the app struct and its functions.
-?   The app struct is used to keep track of the app's setup, state, and configuration.
+?   The app struct is used to keep track of the app's resources, state, and configuration.
 ?   For example, the window, renderer, screen size, and a running state.
 
 ?   Written by Mango on 28/02/2025
@@ -23,7 +23,7 @@ typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* screenTexture;
-} AppSetup;
+} AppResources;
 
 typedef struct {
     bool running;
@@ -39,7 +39,7 @@ typedef struct {
 } AppConfig;
 
 typedef struct {
-    AppSetup setup;
+    AppResources resources;
     AppState state;
     AppConfig config;
 } AppData;

@@ -16,8 +16,8 @@ void Player_Shoot() {
     }
     if (Timer_IsFinished(shootTimer)) {
         Sound_Play_Effect(1);
-        ParticleEmitter_ActivateOnce(player.state.currentGun->config.casingParticleEmitter);
-        ParticleEmitter_ActivateOnce(player.state.currentGun->config.muzzleFlashEmitter);
+        ParticleEmitter_ActivateOnce(player.state.currentGun->resources.casingParticleEmitter);
+        ParticleEmitter_ActivateOnce(player.state.currentGun->resources.muzzleFlashEmitter);
         Timer_Start(shootTimer);
     }
 }

@@ -7,8 +7,8 @@
 *   [Start] Initializes the player's animations
 */
 int Player_AnimationInit() {
-    player.config.animation = Animation_Create(&player.animData);
-    if (!player.config.animation) {
+    player.resources.animation = Animation_Create(&player.animData);
+    if (!player.resources.animation) {
         SDL_Log("Failed to create player animation");
         return 1;
     }
@@ -20,10 +20,10 @@ int Player_AnimationInit() {
 */
 int Player_AnimationUpdate() {
     if (player.state.moving) {
-        Animation_Play(player.config.animation, "walk");
+        Animation_Play(player.resources.animation, "walk");
     } else {
-        Animation_Play(player.config.animation, "idle");
+        Animation_Play(player.resources.animation, "idle");
     }
-    Animation_Update(player.config.animation);
+    Animation_Update(player.resources.animation);
     return 0;
 }

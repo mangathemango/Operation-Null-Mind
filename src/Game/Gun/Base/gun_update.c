@@ -40,13 +40,13 @@ void Gun_Update() {
     
     // Update casing particles
     if (gun->state.flip == SDL_FLIP_NONE) {
-        gun->config.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
+        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
     } else {
-        gun->config.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
+        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
     }
     
-    gun->config.casingParticleEmitter->position = player.state.position;
-    ParticleEmitter_Update(gun->config.casingParticleEmitter);
+    gun->resources.casingParticleEmitter->position = player.state.position;
+    ParticleEmitter_Update(gun->resources.casingParticleEmitter);
 
     // Get muzzle position
     Vec2 muzzlePosition = gun->config.muzzlePosition;
@@ -56,12 +56,12 @@ void Gun_Update() {
     }
     
     // Update muzzle flash particles
-    gun->config.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-    gun->config.muzzleFlashEmitter->position = Vec2_Add(
+    gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
+    gun->resources.muzzleFlashEmitter->position = Vec2_Add(
         player.state.position, 
         Vec2_RotateDegrees(
             muzzlePosition, 
             gun->state.angle
         ));
-    ParticleEmitter_Update(gun->config.muzzleFlashEmitter);
+    ParticleEmitter_Update(gun->resources.muzzleFlashEmitter);
 }

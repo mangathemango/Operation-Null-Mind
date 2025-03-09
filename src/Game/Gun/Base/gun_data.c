@@ -8,6 +8,7 @@
 */
 
 GunData Gun_Pistol = {
+    .name = GUN_PISTOL,
     .config = {
         .muzzlePosition = {5, 0},
     },
@@ -16,11 +17,12 @@ GunData Gun_Pistol = {
         .angle = 0
     },
     .stats = {
-        .name = GUN_PISTOL
+
     }
 };
 
 GunData Gun_SMG = {
+    .name = GUN_SMG,
     .config = {
         .muzzlePosition = {8, 1},
     },
@@ -29,11 +31,12 @@ GunData Gun_SMG = {
         .angle = 0
     },
     .stats = {
-        .name = GUN_SMG
+
     }
 };
 
 GunData Gun_Shotgun = {
+    .name = GUN_SHOTGUN,
     .config = {
         .muzzlePosition = {24, 0},
     },
@@ -42,11 +45,12 @@ GunData Gun_Shotgun = {
         .angle = 0
     },
     .stats = {
-        .name = GUN_SHOTGUN
+
     }
 };
 
 GunData Gun_AssaultRifle = {
+    .name = GUN_ASSAULT_RIFLE,
     .config = {
         .muzzlePosition = {22, 0},
     },
@@ -55,11 +59,12 @@ GunData Gun_AssaultRifle = {
         .angle = 0
     },
     .stats = {
-        .name = GUN_ASSAULT_RIFLE
+
     }
 };
 
 GunData Gun_BattleRifle = {
+    .name = GUN_BATTLE_RIFLE,
     .config = {
         .muzzlePosition = {19, 0},
     },
@@ -68,7 +73,7 @@ GunData Gun_BattleRifle = {
         .angle = 0
     },
     .stats = {
-        .name = GUN_BATTLE_RIFLE
+
     }
 };
 

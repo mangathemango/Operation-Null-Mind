@@ -60,7 +60,7 @@ void Input_PreUpdate() {
     int windowMouseX, windowMouseY;
     SDL_GetMouseState(&windowMouseX, &windowMouseY);
     float screenMouseX, screenMouseY;
-    SDL_RenderWindowToLogical(app.setup.renderer, windowMouseX, windowMouseY, &screenMouseX, &screenMouseY);
+    SDL_RenderWindowToLogical(app.resources.renderer, windowMouseX, windowMouseY, &screenMouseX, &screenMouseY);
     _input.mouse.position = (Vec2){screenMouseX, screenMouseY};
 }
 

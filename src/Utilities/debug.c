@@ -19,27 +19,27 @@ void Debug_RenderHitboxes() {
         SDL_Rect hitbox = collider->hitbox;
         switch (collider->layer) {
             case COLLISION_LAYER_PLAYER:
-                SDL_SetRenderDrawColor(app.setup.renderer, PLAYER_HITBOX_COLOR);
+                SDL_SetRenderDrawColor(app.resources.renderer, PLAYER_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_ENVIRONMENT:
-                SDL_SetRenderDrawColor(app.setup.renderer, WALL_HITBOX_COLOR);
+                SDL_SetRenderDrawColor(app.resources.renderer, WALL_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_ENEMY:
-                SDL_SetRenderDrawColor(app.setup.renderer, ENEMY_HITBOX_COLOR);
+                SDL_SetRenderDrawColor(app.resources.renderer, ENEMY_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_ITEM:
-                SDL_SetRenderDrawColor(app.setup.renderer, ITEM_HITBOX_COLOR);
+                SDL_SetRenderDrawColor(app.resources.renderer, ITEM_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_ENEMY_PROJECTILE:
-                SDL_SetRenderDrawColor(app.setup.renderer, ENEMY_PROJECTILE_HITBOX_COLOR);
+                SDL_SetRenderDrawColor(app.resources.renderer, ENEMY_PROJECTILE_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_PLAYER_PROJECTILE:
-                SDL_SetRenderDrawColor(app.setup.renderer, PLAYER_PROJECTILE_HITBOX_COLOR);
+                SDL_SetRenderDrawColor(app.resources.renderer, PLAYER_PROJECTILE_HITBOX_COLOR);
                 break;
             default:
-                SDL_SetRenderDrawColor(app.setup.renderer, 255, 255, 255, 255);
+                SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
                 break;
         }
-        SDL_RenderDrawRect(app.setup.renderer, &hitbox);
+        SDL_RenderDrawRect(app.resources.renderer, &hitbox);
     }
 }

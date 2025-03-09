@@ -7,16 +7,16 @@
 */
 void Gun_Start() {
     Gun_AnimationInit();
-    Gun_Pistol.config.casingParticleEmitter =       ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
-    Gun_SMG.config.casingParticleEmitter =          ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
-    Gun_AssaultRifle.config.casingParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_ARBRCasing);
-    Gun_BattleRifle.config.casingParticleEmitter =  ParticleEmitter_CreateFromPreset(ParticleEmitter_ARBRCasing);
-    Gun_Shotgun.config.casingParticleEmitter =      ParticleEmitter_CreateFromPreset(ParticleEmitter_ShotgunCasing);
+    Gun_Pistol.resources.casingParticleEmitter =       ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    Gun_SMG.resources.casingParticleEmitter =          ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    Gun_AssaultRifle.resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_ARBRCasing);
+    Gun_BattleRifle.resources.casingParticleEmitter =  ParticleEmitter_CreateFromPreset(ParticleEmitter_ARBRCasing);
+    Gun_Shotgun.resources.casingParticleEmitter =      ParticleEmitter_CreateFromPreset(ParticleEmitter_ShotgunCasing);
     
     ParticleEmitter* muzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
-    Gun_Pistol.config.muzzleFlashEmitter =          muzzleFlashEmitter;
-    Gun_SMG.config.muzzleFlashEmitter =             muzzleFlashEmitter;
-    Gun_AssaultRifle.config.muzzleFlashEmitter =    muzzleFlashEmitter;
-    Gun_BattleRifle.config.muzzleFlashEmitter =     muzzleFlashEmitter;
-    Gun_Shotgun.config.muzzleFlashEmitter =         muzzleFlashEmitter;
+    Gun_Pistol.resources.muzzleFlashEmitter =          muzzleFlashEmitter;
+    Gun_SMG.resources.muzzleFlashEmitter =             muzzleFlashEmitter;
+    Gun_AssaultRifle.resources.muzzleFlashEmitter =    muzzleFlashEmitter;
+    Gun_BattleRifle.resources.muzzleFlashEmitter =     muzzleFlashEmitter;
+    Gun_Shotgun.resources.muzzleFlashEmitter =         muzzleFlashEmitter;
 }

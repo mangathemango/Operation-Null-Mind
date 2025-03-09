@@ -13,7 +13,7 @@ void Gun_Render() {
     // If the gun is flipped, the gun casing particles go BEHIND the gun - According to Darrel
     // Therefore, the casing particles will be rendered first...
     if (gun->state.flip == SDL_FLIP_VERTICAL) {
-        ParticleEmitter_Render(gun->config.casingParticleEmitter);
+        ParticleEmitter_Render(gun->resources.casingParticleEmitter);
     }
 
     // .. and then we render the gun...
@@ -27,9 +27,9 @@ void Gun_Render() {
     // ...But otherwise, the particles go in FRONT of the gun instead. 
     // In other words, it gets rendered after the gun.
     if (gun->state.flip == SDL_FLIP_NONE) {
-        ParticleEmitter_Render(gun->config.casingParticleEmitter);
+        ParticleEmitter_Render(gun->resources.casingParticleEmitter);
     }   
 
     // Render muzzle flash particles
-    ParticleEmitter_Render(gun->config.muzzleFlashEmitter);
+    ParticleEmitter_Render(gun->resources.muzzleFlashEmitter);
 }

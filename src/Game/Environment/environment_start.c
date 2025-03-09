@@ -6,7 +6,7 @@
 
  int Environment_Start() {
     // Load the brick texture
-    SDL_Texture* brickTexture = IMG_LoadTexture(app.setup.renderer, "Assets/Images/wall.png");
+    SDL_Texture* brickTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/wall.png");
     if (!brickTexture) {
         SDL_Log("Failed to load brick texture: %s", SDL_GetError());
         return 0; // Initialization failed
