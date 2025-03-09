@@ -12,9 +12,10 @@ int Player_PostUpdate() {
     Player_Input_Handler();
     //Basically, if the movement is locked, it dash,if not, its handles normally
     if(player.state.dashing) Player_HandleDash();
-    
-    Player_Move();
 
+    Player_Move();
+    Player_UpdateHitbox();
+    
     ParticleEmitter_Update(player.config.dashParticleEmitter);
 
     // Update player animation

@@ -11,7 +11,7 @@
 */
 int App_RenderMain() {
     Player_Render();
-    Environment_Render(app.setup.renderer);
+    Environment_Render();
     Gun_Render();
     Debug_RenderHitboxes();
     return 0;

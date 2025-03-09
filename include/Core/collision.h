@@ -6,7 +6,6 @@
 
 #define MAX_COLLISIONS_PER_CHECK 10
 #define MAX_COLLIDABLES 256
-extern Collider* Collidables[MAX_COLLIDABLES];
 
 // Collision layers as bitmasks for efficient checking
 typedef enum {
@@ -28,6 +27,7 @@ typedef struct {
     bool active;               // Is this collidable active?
 } Collider;
 
+extern Collider* ColliderList[MAX_COLLIDABLES];
 
 typedef struct {
     Collider* objects[MAX_COLLISIONS_PER_CHECK];
@@ -36,10 +36,10 @@ typedef struct {
 
 
 // Initialize the collision manager
-bool Collider_Start();
+void Collider_Start();
 
 // Register a new collidable and return its ID for later reference
-int Collider_Register(Collider* collidable, void* owner);
+void Collider_Register(Collider* collidable, void* owner);
 
 bool Collider_Check(Collider* collidableObject, ColliderCheckResult* result);
 

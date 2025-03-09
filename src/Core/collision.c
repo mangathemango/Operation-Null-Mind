@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 // Global collision registry
-Collider* Colliders[MAX_COLLIDABLES];
+Collider* ColliderList[MAX_COLLIDABLES];
 int ColliderCount = 0;
 
 /*
@@ -14,7 +14,7 @@ int ColliderCount = 0;
 */
 void Collider_Start() {
     for (int i = 0; i < MAX_COLLIDABLES; i++) {
-        Collider_Reset(Colliders[i]);
+        ColliderList[i] = NULL;
     }
     ColliderCount = 0;
 }
@@ -33,17 +33,22 @@ void Collider_Register(Collider* collider, void* owner) {
 
     // Find first available slot
     int id = 0;
-    while (id < MAX_COLLIDABLES && Colliders[id].active) id++;
-    
+    while (id < MAX_COLLIDABLES) {
+        if (ColliderList[id] == NULL) break;
+        if (!ColliderList[id]->active) break;
+        id++;
+    }
     collider->active = true;
     collider->owner = owner;
-    Colliders[id] = collider;
+    ColliderList[id] = collider;
+    if (id > ColliderCount) ColliderCount = id + 1;
+    SDL_Log("Added collider %d\n. Total count: %d\n", id, ColliderCount);
 }
 
 /*
 *   [PostUpdate] Checks if a collider is intersecting with any of its collider layers.
 ?   This function checks for collision between a collider and everything else in the
-?   Colliders array. Any colliders whose layer is not in the input collider's 
+?   ColliderList array. Any colliders whose layer is not in the input collider's 
 ?   collidesWith section will be ignored. 
     @param collider The input collider
 *   @param checkResult The checkResult of the collider, which includes 2 members:
@@ -56,19 +61,22 @@ bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
     if (!collider->active) return false;
     
     bool selfFound = false;
-    checkResult->count = 0;
+    if (checkResult!=NULL) {
+        checkResult->count = 0;
+    }
+
     // Check against all other collidables
     for (int i = 0; i < ColliderCount; i++) {
-        if (Colliders[i] == collider) {
+        if (ColliderList[i] == collider) {
             selfFound = true;
             continue;
         } // Skip input collider
-        if (!Colliders[i]->active) continue; // Skip inactive colliders
-        if ((collider->collidesWith & Colliders[i]->layer) == 0) continue; // Skip non intersecting layers
+        if (!ColliderList[i]->active) continue; // Skip inactive colliders
+        if ((collider->collidesWith & ColliderList[i]->layer) == 0) continue; // Skip non intersecting layers
         
-        if (SDL_HasIntersection(collider->hitbox, Colliders[i].hitbox)) {
+        if (SDL_HasIntersection(&collider->hitbox, &ColliderList[i]->hitbox)) {
             if (checkResult == NULL) return true;
-            checkResult->objects[checkResult->count++] = Colliders[i];
+            checkResult->objects[checkResult->count++] = ColliderList[i];
         }
 
         if (checkResult->count >= MAX_COLLISIONS_PER_CHECK) break;

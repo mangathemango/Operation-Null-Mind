@@ -9,10 +9,18 @@ void Environment_Destroy() {
 void Environment_AddWall(Wall wall) {
     if (!environment.walls) {
         environment.walls = malloc(sizeof(Wall));
-        if (!environment.walls) return;
+        if (!environment.walls) {
+            SDL_Log("Failed to allocate memory for walls");
+            return;
+        }
     } else {
         environment.walls = realloc(environment.walls, sizeof(Wall) * (environment.wallCount + 1));
-        if (!environment.walls) return;
+        if (!environment.walls) {
+            SDL_Log("Failed to reallocate memory for walls");
+            return;
+        }
     }
-    memcpy(&environment.walls[environment.wallCount++], &wall, sizeof(Wall));
+    memcpy(&environment.walls[environment.wallCount], &wall, sizeof(Wall));
+    Wall *addedWall = &environment.walls[environment.wallCount++];
+    Collider_Register(&addedWall->collider, addedWall);
 }

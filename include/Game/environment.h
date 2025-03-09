@@ -2,10 +2,11 @@
 #define ENVIRONMENT_H
 #include <SDL.h>
 #include <stdlib.h>
+#include <collision.h>
 
 typedef struct {
     SDL_Rect wallSize; //For rendering
-    SDL_Rect hitbox; //For collision detection
+    Collider collider;
     SDL_Texture* texture;
 } Wall;
 

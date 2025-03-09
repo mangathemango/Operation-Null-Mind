@@ -23,7 +23,7 @@ typedef struct {
     bool directionLocked; //to know if the movement is locked
     bool moving;    
     GunData* currentGun;
-    Collider collision;
+    Collider collider;
 } PlayerState;
 
 typedef struct {
@@ -63,6 +63,7 @@ bool Player_DetectCollision();
 // Movement
 int Player_Move();
 int Player_Look(Vec2 direction);
+void Player_UpdateHitbox();
 
 void Player_WrapAroundScreen(); //! This is temporary and will be removed later.
 

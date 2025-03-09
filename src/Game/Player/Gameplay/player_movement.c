@@ -35,16 +35,15 @@ int Player_Look(Vec2 direction) {
 */
 int Player_Move() {
     if (player.state.currentSpeed == 0) return 0;
-    player.state.hitbox = (SDL_Rect) {
-        player.state.position.x - player.animData.spriteSize.x / 2,
-        player.state.position.y - player.animData.spriteSize.y / 2,
-        player.animData.spriteSize.x,
-        player.animData.spriteSize.y
-    };
     if (Player_DetectCollision()) return 0;
-    player.state.moving = true;
+
+    Vec2 oldPosition = player.state.position;
     Vec2_Increment(&player.state.position,
                     Vec2_Multiply(player.state.direction, player.state.currentSpeed * Time->deltaTimeSeconds));
+    Player_UpdateHitbox();
+    if (Player_DetectCollision()) {
+        player.state.position = oldPosition;
+    }    
     Player_WrapAroundScreen();
 
     return 0;
@@ -52,7 +51,7 @@ int Player_Move() {
 
 
 /* 
-*   [PostUpdate] Teleport the player to the other side of the screen if they go off-screen.
+*   [PostUpdate] Teleport the player t other side of the screen if they go off-screen.
 !   This is just for temporary player movement debugging, and will be removed later.
 */
 void Player_WrapAroundScreen()
@@ -73,22 +72,18 @@ void Player_WrapAroundScreen()
 }
 
 bool Player_DetectCollision() {
-    Vec2 newPosition = Vec2_Add(player.state.position, Vec2_Multiply(
-        player.state.direction,
-        player.state.currentSpeed * Time->deltaTimeSeconds
-    ));
-    // Create test hitbox for collision detection
-    SDL_Rect testHitbox = {
-        .x = (int)(newPosition.x - player.state.hitbox.w / 2),
-        .y = (int)(newPosition.y - player.state.hitbox.h / 2),
-        .w = player.state.hitbox.w,
-        .h = player.state.hitbox.h
-    };
-
-    for (int i = 0; i < environment.wallCount; i++) {
-        Wall wall = environment.walls[i];
-        int collisionFlag = 0;
-        if (collisionFlag) return true;
+    ColliderCheckResult collisions;
+    if (Collider_Check(&player.state.collider, &collisions)) {
+        for (int i = 0; i < collisions.count; i ++) {
+            if (collisions.objects[i]->layer == COLLISION_LAYER_ENVIRONMENT) {
+                return true;
+            }
+        }
     }
     return false;
+}
+
+void Player_UpdateHitbox() {
+    player.state.collider.hitbox.x = player.state.position.x - player.animData.spriteSize.x / 2 + player.animData.spriteSize.x / 4; 
+    player.state.collider.hitbox.y = player.state.position.y - player.animData.spriteSize.y / 2 + player.animData.spriteSize.y / 4;
 }

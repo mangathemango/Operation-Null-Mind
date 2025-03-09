@@ -15,9 +15,16 @@
     // Add the wall to the environment
     Environment_AddWall((Wall) {
         .wallSize = {100, 100, 50, 20}, // Position (100, 100), width 200, height 50
-        .hitbox =   {100, 100, 50, 20}, // Use the same size for the hitbox
+        .collider =   {
+            .active = true,
+            .collidesWith = COLLISION_LAYER_NONE,
+            .layer = COLLISION_LAYER_ENVIRONMENT,
+            .hitbox = {100, 100, 50, 20},
+        }, // Use the same size for the hitbox
         .texture = brickTexture
     });
+
+    
 
     return 0; // Initialization successful
 }

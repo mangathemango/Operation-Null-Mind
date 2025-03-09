@@ -10,12 +10,25 @@
 PlayerData player = {
     .state = {
         .position = {120,72},
-        .hitbox = {120,72,32,32},
         .direction = {0,0},
         .currentSpeed = 0,
         .moving = false,
         .dashing = false,
         .directionLocked = false,
+        .collider = {
+            .active = true,
+            .collidesWith = COLLISION_LAYER_ENEMY | 
+                            COLLISION_LAYER_ENVIRONMENT |
+                            COLLISION_LAYER_ITEM,
+            .layer = COLLISION_LAYER_PLAYER,
+            .hitbox = {
+                .x = 0,
+                .y = 0,
+                .w = 15,
+                .h = 20
+            }
+
+        }
     },
     .config = {
         .animation = NULL,

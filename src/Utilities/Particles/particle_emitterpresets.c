@@ -148,7 +148,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .emissionRate = 0.1,
     .emissionNumber = 1,
     .maxParticles = 30,
-    .angleRange = 60,
+    .angleRange = 20,
 
     .active = false,
     .emitterLifetime = 0,
