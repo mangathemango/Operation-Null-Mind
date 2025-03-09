@@ -2,7 +2,7 @@
 #define ENVIRONMENT_H
 #include <SDL.h>
 #include <stdlib.h>
-#include <collision.h>
+#include <colliders.h>
 
 typedef struct {
     SDL_Rect wallSize; //For rendering

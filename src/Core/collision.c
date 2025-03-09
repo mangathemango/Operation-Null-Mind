@@ -1,8 +1,8 @@
-#include <collision.h>
+#include <colliders.h>
 #include <environment.h>
 
 
-#include <collision.h>
+#include <colliders.h>
 #include <stdio.h>
 
 // Global collision registry

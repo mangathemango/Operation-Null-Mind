@@ -13,7 +13,7 @@
 #include <stdbool.h>
 #include <gun.h>
 #include <particle_emitterpresets.h>
-#include <collision.h>
+#include <colliders.h>
 
 typedef struct {
     Vec2 position;

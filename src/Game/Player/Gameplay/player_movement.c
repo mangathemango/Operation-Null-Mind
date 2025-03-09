@@ -11,7 +11,7 @@
 #include <app.h>
 #include <environment.h>
 #include <input.h>
-#include <collision.h>
+#include <colliders.h>
 
 /*
 *   [PostUpdate?] Move the player in a direction.
@@ -35,15 +35,27 @@ int Player_Look(Vec2 direction) {
 */
 int Player_Move() {
     if (player.state.currentSpeed == 0) return 0;
+    if (Vec2_Magnitude(player.state.direction) == 0) return 0;
     if (Player_DetectCollision()) return 0;
 
+    player.state.direction = Vec2_Normalize(player.state.direction);
+
     Vec2 oldPosition = player.state.position;
-    Vec2_Increment(&player.state.position,
-                    Vec2_Multiply(player.state.direction, player.state.currentSpeed * Time->deltaTimeSeconds));
+
+    player.state.position.x += player.state.direction.x * player.state.currentSpeed * Time->deltaTimeSeconds;
     Player_UpdateHitbox();
-    if (Player_DetectCollision()) {
-        player.state.position = oldPosition;
-    }    
+    if (Player_DetectCollision()) player.state.position.x = oldPosition.x;
+    
+    player.state.position.y += player.state.direction.y * player.state.currentSpeed * Time->deltaTimeSeconds;
+    Player_UpdateHitbox();
+    if (Player_DetectCollision()) player.state.position.y = oldPosition.y;
+
+    if (player.state.position.x != oldPosition.x || player.state.position.y != oldPosition.y) {
+        player.state.moving = true;
+    } else {
+        player.state.moving = false;
+    }
+    
     Player_WrapAroundScreen();
 
     return 0;
@@ -84,6 +96,6 @@ bool Player_DetectCollision() {
 }
 
 void Player_UpdateHitbox() {
-    player.state.collider.hitbox.x = player.state.position.x - player.animData.spriteSize.x / 2 + player.animData.spriteSize.x / 4; 
-    player.state.collider.hitbox.y = player.state.position.y - player.animData.spriteSize.y / 2 + player.animData.spriteSize.y / 4;
+    player.state.collider.hitbox.x = player.state.position.x - player.animData.spriteSize.x / 2 + 5; 
+    player.state.collider.hitbox.y = player.state.position.y - player.animData.spriteSize.y / 2 + 5;
 }

@@ -28,6 +28,7 @@ typedef struct {
 } Collider;
 
 extern Collider* ColliderList[MAX_COLLIDABLES];
+extern int ColliderCount;
 
 typedef struct {
     Collider* objects[MAX_COLLISIONS_PER_CHECK];

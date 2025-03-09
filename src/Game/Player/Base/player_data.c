@@ -24,10 +24,9 @@ PlayerData player = {
             .hitbox = {
                 .x = 0,
                 .y = 0,
-                .w = 15,
-                .h = 20
+                .w = 20,
+                .h = 25
             }
-
         }
     },
     .config = {
