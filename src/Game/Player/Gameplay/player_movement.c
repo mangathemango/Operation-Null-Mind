@@ -9,7 +9,9 @@
 #include <player.h>
 #include <time_system.h>
 #include <app.h>
-
+#include <environment.h>
+#include <input.h>
+#include <collision.h>
 
 /*
 *   [PostUpdate?] Move the player in a direction.
@@ -18,8 +20,9 @@
     TODO: Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
 */
 int Player_Look(Vec2 direction) {
-    if (player.state.movementLocked) return 0;
-    player.state.direction = Vec2_Add(player.state.direction, direction); 
+    if (player.state.directionLocked) return 0;
+    Vec2_Increment(&player.state.direction, direction); 
+    player.state.currentSpeed = player.stats.walkSpeed;
     return 0;
 }
 
@@ -31,13 +34,13 @@ int Player_Look(Vec2 direction) {
     TODO: Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
 */
 int Player_Move() {
-    if (Vec2_Magnitude(player.state.direction) == 0) return 0;
-    if (player.state.movementLocked) return 0;
-    player.state.direction = Vec2_Normalize(player.state.direction);
+    if (player.state.currentSpeed == 0) return 0;
+    if (Player_DetectCollision()) return 0;
     player.state.moving = true;
-    player.state.position.x += player.state.direction.x * (player.stats.walkSpeed * Time->deltaTimeSeconds);
-    player.state.position.y += player.state.direction.y * (player.stats.walkSpeed * Time->deltaTimeSeconds);
-    
+    Vec2_Increment(&player.state.position,
+                    Vec2_Multiply(player.state.direction, player.state.currentSpeed * Time->deltaTimeSeconds));
+    Player_WrapAroundScreen();
+
     return 0;
 }
 
@@ -61,4 +64,36 @@ void Player_WrapAroundScreen()
     else if (player.state.position.y <= -10) {
         player.state.position.y = app.config.screen_height;
     }
+}
+
+bool Player_DetectCollision() {
+    Vec2 newPosition = Vec2_Add(player.state.position, Vec2_Multiply(
+        player.state.direction,
+        player.state.currentSpeed * Time->deltaTimeSeconds
+    ));
+    // Create test hitbox for collision detection
+    SDL_Rect testHitbox = {
+        .x = (int)(newPosition.x - player.state.hitbox.w / 2),
+        .y = (int)(newPosition.y - player.state.hitbox.h / 2),
+        .w = player.state.hitbox.w,
+        .h = player.state.hitbox.h
+    };
+
+    for (int i = 0; i < environment.wallCount; i++) {
+        Wall wall = environment.walls[i];
+        int collisionFlag = 0;
+        Check_Collision(testHitbox, wall.hitbox, &collisionFlag);
+        if (collisionFlag) {
+                // Completely stop movement on collision
+                player.state.direction = Vec2_Zero;
+
+                player.state.moving = false;  // Ensure moving state is false
+                return true;
+        }
+    }
+
+    // Update moving state
+    player.state.moving = (player.state.direction.x != 0 || player.state.direction.y != 0);
+
+    return false;
 }

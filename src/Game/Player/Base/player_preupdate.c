@@ -7,7 +7,7 @@
 */
 int Player_Preupdate() {
     player.state.moving = false;
-    if(!player.state.dashing) player.state.movementLocked = false;
-    player.state.direction = Vec2_Zero;
+    if (!player.state.directionLocked)   player.state.direction = Vec2_Zero;
+    if (!player.state.dashing) player.state.currentSpeed = 0;
     return 0;
 }

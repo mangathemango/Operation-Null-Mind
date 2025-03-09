@@ -15,7 +15,7 @@ int Player_Dash() {
     
     Sound_Play_Effect(0);
     player.state.dashing = true; 
-    player.state.movementLocked = true; // Player can't control movement during dash
+    player.state.directionLocked = true; // Player can't control movement during dash
 
     Timer_Start(player.config.dashCooldownTimer);
     Timer_Start(player.config.dashDurationTimer);
@@ -28,25 +28,22 @@ int Player_Dash() {
 */
 int Player_HandleDash()
 {
+    // Ends the dash state when the timer is finished
     if (Timer_IsFinished(player.config.dashDurationTimer))
     {
         player.state.dashing = false; //Just unchecks dashing
-        player.state.movementLocked = false; //Just unchecks movementlock
+        player.state.directionLocked = false; //Just unchecks movementlock
         return 0;
     }
 
-    float timeLeft = Timer_GetTimeLeft(player.config.dashDurationTimer) / player.stats.dashDuration;
-
     // Update dash particles
+    float timeLeft = Timer_GetTimeLeft(player.config.dashDurationTimer) / player.stats.dashDuration;
     player.config.dashParticleEmitter->position = player.state.position;
     player.config.dashParticleEmitter->direction = Vec2_RotateDegrees(player.state.direction, 180);
     player.config.dashParticleEmitter->particleSpeed = 200 * timeLeft + 200;
     ParticleEmitter_ActivateOnce(player.config.dashParticleEmitter);
 
-    // Moves the player every frame player is still in dash state
-    Vec2_Normalize(player.state.direction); //Normalize the direction
-    player.state.position.x += (player.state.direction.x) * (player.stats.dashSpeed * Time->deltaTimeSeconds);
-    player.state.position.y += (player.state.direction.y) * (player.stats.dashSpeed * Time->deltaTimeSeconds);
+    player.state.currentSpeed = player.stats.dashSpeed;
 
     return 0;
 }

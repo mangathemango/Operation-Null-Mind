@@ -17,8 +17,9 @@
 typedef struct {
     Vec2 position;
     Vec2 direction; //This is added to know the players last direction
+    float currentSpeed;
     bool dashing; //This is added to know if the player is dashing
-    bool movementLocked; //to know if the movement is locked
+    bool directionLocked; //to know if the movement is locked
     bool moving;    
     GunData* currentGun;
     SDL_Rect hitbox;

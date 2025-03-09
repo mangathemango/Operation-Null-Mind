@@ -12,9 +12,10 @@ PlayerData player = {
         .position = {120,72},
         .hitbox = {120,72,32,32},
         .direction = {0,0},
+        .currentSpeed = 0,
         .moving = false,
         .dashing = false,
-        .movementLocked = false,
+        .directionLocked = false,
     },
     .config = {
         .animation = NULL,
