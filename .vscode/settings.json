@@ -87,7 +87,8 @@
     "environment.h": "c",
     "vec2.h": "c",
     "gun.h": "c",
-    "stdbool.h": "c"
+    "stdbool.h": "c",
+    "particle_emitterpresets.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 

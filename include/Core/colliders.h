@@ -39,7 +39,6 @@ typedef struct {
 // Initialize the collision manager
 void Collider_Start();
 
-// Register a new collidable and return its ID for later reference
 void Collider_Register(Collider* collidable, void* owner);
 
 bool Collider_Check(Collider* collidableObject, ColliderCheckResult* result);

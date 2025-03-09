@@ -30,13 +30,10 @@ int Player_Look(Vec2 direction) {
 /*
 *   Move the player in a direction.
 ?   @param direction The direction to move the player in.
-    TODO: Normalize direction before moving the player.
-    TODO: Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
 */
 int Player_Move() {
     if (player.state.currentSpeed == 0) return 0;
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
-    if (Player_DetectCollision()) return 0;
 
     player.state.direction = Vec2_Normalize(player.state.direction);
 
