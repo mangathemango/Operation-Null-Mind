@@ -35,6 +35,12 @@ int Player_Look(Vec2 direction) {
 */
 int Player_Move() {
     if (player.state.currentSpeed == 0) return 0;
+    player.state.hitbox = (SDL_Rect) {
+        player.state.position.x - player.animData.spriteSize.x / 2,
+        player.state.position.y - player.animData.spriteSize.y / 2,
+        player.animData.spriteSize.x,
+        player.animData.spriteSize.y
+    };
     if (Player_DetectCollision()) return 0;
     player.state.moving = true;
     Vec2_Increment(&player.state.position,
@@ -83,17 +89,7 @@ bool Player_DetectCollision() {
         Wall wall = environment.walls[i];
         int collisionFlag = 0;
         Check_Collision(testHitbox, wall.hitbox, &collisionFlag);
-        if (collisionFlag) {
-                // Completely stop movement on collision
-                player.state.direction = Vec2_Zero;
-
-                player.state.moving = false;  // Ensure moving state is false
-                return true;
-        }
+        if (collisionFlag) return true;
     }
-
-    // Update moving state
-    player.state.moving = (player.state.direction.x != 0 || player.state.direction.y != 0);
-
     return false;
 }

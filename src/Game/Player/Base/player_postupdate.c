@@ -12,13 +12,7 @@ int Player_PostUpdate() {
     Player_Input_Handler();
     //Basically, if the movement is locked, it dash,if not, its handles normally
     if(player.state.dashing) Player_HandleDash();
-    SDL_Log("%d", player.state.dashing);
-    player.state.hitbox = (SDL_Rect) {
-        player.state.position.x - player.animData.spriteSize.x / 2,
-        player.state.position.y - player.animData.spriteSize.y / 2,
-        player.animData.spriteSize.x,
-        player.animData.spriteSize.y
-    };
+    
     Player_Move();
 
     ParticleEmitter_Update(player.config.dashParticleEmitter);
