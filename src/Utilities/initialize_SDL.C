@@ -39,7 +39,7 @@ int Initialize_SDL() {
     SDL_SetRenderDrawBlendMode(app.resources.renderer, SDL_BLENDMODE_BLEND);
 
     // Load font
-    app.resources.textFont = TTF_OpenFont(app.config.textFontPath, 16);
+    app.resources.textFont = TTF_OpenFont(app.config.textFontPath, 20);
     if (app.resources.textFont == NULL) {
         SDL_Log("Failed to load font! TTF_Error: %s\n", TTF_GetError());
         return -1;

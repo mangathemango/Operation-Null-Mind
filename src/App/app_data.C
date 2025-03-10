@@ -24,6 +24,6 @@ AppData app = {
         .screen_width = 480 ,
         .screen_height = 288 ,
         
-        .textFontPath = "Assets/Fonts/Micro5-Regular.ttf",
+        .textFontPath = "Assets/Fonts/PixelifySans-Regular.ttf",
     },
 };
