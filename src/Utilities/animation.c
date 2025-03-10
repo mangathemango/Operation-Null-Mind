@@ -181,6 +181,7 @@ int Animation_AddClipFromGrid(Animation* animation, const char* name,
 */
 static int Animation_FindClipIndex(Animation* animation, const char* clipName) {
     for (int i = 0; i < animation->clipCount; i++) {
+        SDL_Log("Looking at clip name: %s", animation->clips[i].name);
         if (strcmp(animation->clips[i].name, clipName) == 0) {
             return i;
         }

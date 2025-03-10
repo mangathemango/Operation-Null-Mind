@@ -38,6 +38,8 @@ typedef struct {
     Vec2 muzzlePosition;
     Vec2 ejectionPosition;
     Vec2 gripPosition;
+    ParticleEmitter muzzleFlashPreset;
+    ParticleEmitter casingPreset;
 } GunConfig;
 
 typedef struct {
@@ -59,9 +61,8 @@ extern GunData Gun_Shotgun;
 extern GunData Gun_AssaultRifle;
 extern GunData Gun_BattleRifle;
 
-extern GunData GunList[GUN_COUNT];
+extern GunData* GunList[GUN_COUNT];
 
-void Gun_AnimationInit();
 void Gun_AnimationUpdate();
 void Gun_Render();
 void Gun_Start();

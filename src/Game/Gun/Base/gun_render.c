@@ -17,9 +17,9 @@ void Gun_Render() {
     }
 
     // .. and then we render the gun...
-    Animation_Render(gunAnimation, 
+    Animation_Render(gun->resources.animation, 
                     gun->state.position, 
-                    gunAnimData.spriteSize,
+                    gun->animData.spriteSize,
                     gun->state.angle,
                     &gun->state.rotationCenter,
                     gun->state.flip);

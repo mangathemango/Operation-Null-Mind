@@ -12,7 +12,8 @@ GunData Gun_Pistol = {
     .config = {
         .muzzlePosition = {9, 2},
         .ejectionPosition = {5, 2},
-        .gripPosition = {4, 4}
+        .gripPosition = {4, 4},
+    },
     .state = {
         .position = {0, 0},
         .angle = 0
@@ -53,7 +54,7 @@ GunData Gun_Pistol = {
                 .frameDuration = 0.1f,
                 .looping = true
             },
-        }
+        },
         .spriteSize = {9, 11},   
         .defaultClip = "left side idle",
         .playOnStart = true
@@ -107,7 +108,7 @@ GunData Gun_SMG = {
                 .frameDuration = 0.1f,
                 .looping = true
             },
-        }
+        },
         .spriteSize = {23, 15},   
         .defaultClip = "left side idle",
         .playOnStart = true
@@ -161,7 +162,7 @@ GunData Gun_Shotgun = {
                 .frameDuration = 0.1f,
                 .looping = true
             },
-        }
+        },
         .spriteSize = {35, 9},   
         .defaultClip = "left side idle",
         .playOnStart = true
@@ -215,7 +216,7 @@ GunData Gun_AssaultRifle = {
                 .frameDuration = 0.1f,
                 .looping = true
             },
-        }
+        },
         .spriteSize = {31, 19},   
         .defaultClip = "left side idle",
         .playOnStart = true
@@ -269,9 +270,11 @@ GunData Gun_BattleRifle = {
                 .frameDuration = 0.1f,
                 .looping = true
             },
-        }
+        },
         .spriteSize = {35, 19},   
         .defaultClip = "left side idle",
         .playOnStart = true
     }
 };
+
+GunData *GunList[GUN_COUNT];
