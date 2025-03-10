@@ -23,7 +23,7 @@ GunData Gun_Pistol = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/Pistol.png",
-        .frameSize = {9, 11},
+        .frameSize = {8, 10},
         .frameCount = 20,
         .clips = {
             {
@@ -35,8 +35,8 @@ GunData Gun_Pistol = {
             },
             {
                 .name = "right side idle",
-                .startFrameIndex = 9,
-                .endFrameIndex = 9,
+                .startFrameIndex = 10,
+                .endFrameIndex = 10,
                 .frameDuration = 0.4f,
                 .looping = false
             },
@@ -49,7 +49,7 @@ GunData Gun_Pistol = {
             },
             {
                 .name = "right side reload",
-                .startFrameIndex = 9,
+                .startFrameIndex = 10,
                 .endFrameIndex = 19,
                 .frameDuration = 0.1f,
                 .looping = true
@@ -89,8 +89,8 @@ GunData Gun_SMG = {
             },
             {
                 .name = "right side idle",
-                .startFrameIndex = 9,
-                .endFrameIndex = 9,
+                .startFrameIndex = 10,
+                .endFrameIndex = 10,
                 .frameDuration = 0.4f,
                 .looping = false
             },
@@ -103,7 +103,7 @@ GunData Gun_SMG = {
             },
             {
                 .name = "right side reload",
-                .startFrameIndex = 9,
+                .startFrameIndex = 10,
                 .endFrameIndex = 19,
                 .frameDuration = 0.1f,
                 .looping = true
@@ -173,7 +173,7 @@ GunData Gun_AssaultRifle = {
     .name = GUN_ASSAULT_RIFLE,
     .config = {
         .muzzlePosition = {31, 4},
-        .ejectionPosition = {14, 4},
+        .ejectionPosition = {12, 3},
         .gripPosition = {11, 6},
     },
     .state = {
@@ -197,22 +197,22 @@ GunData Gun_AssaultRifle = {
             },
             {
                 .name = "right side idle",
-                .startFrameIndex = 5,
-                .endFrameIndex = 5,
+                .startFrameIndex = 10,
+                .endFrameIndex = 10,
                 .frameDuration = 0.4f,
                 .looping = false
             },
             {
                 .name = "left side reload",
                 .startFrameIndex = 0,
-                .endFrameIndex = 4,
+                .endFrameIndex = 9,
                 .frameDuration = 0.1f,
                 .looping = true
             },
             {
                 .name = "right side reload",
-                .startFrameIndex = 5,
-                .endFrameIndex = 9,
+                .startFrameIndex = 10,
+                .endFrameIndex = 19,
                 .frameDuration = 0.1f,
                 .looping = true
             },
@@ -226,8 +226,8 @@ GunData Gun_AssaultRifle = {
 GunData Gun_BattleRifle = {
     .name = GUN_BATTLE_RIFLE,
     .config = {
-        .muzzlePosition = {32, 4},
-        .ejectionPosition = {14, 4},
+        .muzzlePosition = {34, 4},
+        .ejectionPosition = {13, 3},
         .gripPosition = {11, 6},
     },
     .state = {
@@ -251,22 +251,22 @@ GunData Gun_BattleRifle = {
             },
             {
                 .name = "right side idle",
-                .startFrameIndex = 5,
-                .endFrameIndex = 5,
+                .startFrameIndex = 10,
+                .endFrameIndex = 10,
                 .frameDuration = 0.4f,
                 .looping = false
             },
             {
                 .name = "left side reload",
                 .startFrameIndex = 0,
-                .endFrameIndex = 4,
+                .endFrameIndex = 9,
                 .frameDuration = 0.1f,
                 .looping = true
             },
             {
                 .name = "right side reload",
-                .startFrameIndex = 5,
-                .endFrameIndex = 9,
+                .startFrameIndex = 10,
+                .endFrameIndex = 19,
                 .frameDuration = 0.1f,
                 .looping = true
             },

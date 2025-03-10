@@ -10,6 +10,10 @@
 */
 void Gun_AnimationUpdate() {
     GunData* gun = player.state.currentGun;
-    Animation_Play(gun->resources.animation, "left side idle");
+    if (gun->state.flip == SDL_FLIP_NONE)       
+        Animation_Play(gun->resources.animation, "left side idle");
+    else                                       
+        Animation_Play(gun->resources.animation, "right side idle");
+
     Animation_Update(gun->resources.animation);
 }
