@@ -7,11 +7,10 @@
 *   [Start] Initializes the gun's animations
 */
 void Gun_AnimationInit() {
-    gunAnimation = Animation_Create(&gunAnimData);
-    if (!gunAnimation) {
-        SDL_Log("Failed to create gun animation");
+    for (int i = 0; i < GUN_COUNT; i++) {
+        GunData* gun = &GunList[i];
+        gun->resources.animation = Animation_Create(&gun->animData);
     }
-
 }
 
 /*
@@ -20,6 +19,7 @@ void Gun_AnimationInit() {
 ?   This function will play the animation clip based on what gun the player is holding
 */
 void Gun_AnimationUpdate() {
+    GunData* gun = player.state.currentGun;
     Animation_Play(gunAnimation, player.state.currentGun->name);
     Animation_Update(gunAnimation);
 }

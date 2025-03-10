@@ -12,6 +12,8 @@
 #include <vec2.h>
 #include <particle_emitterpresets.h>
 
+#define GUN_COUNT 5
+
 // The gun names (I'm not a gun guy so this will be easier to work with)
 #define GUN_SHOTGUN "Beretta 1301 Tactical"
 #define GUN_BATTLE_RIFLE "FN SCAR-H"
@@ -22,6 +24,7 @@
 typedef struct {
     ParticleEmitter* casingParticleEmitter;
     ParticleEmitter* muzzleFlashEmitter;
+    Animation* animation;
 } GunResources;
 
 typedef struct {
@@ -33,6 +36,8 @@ typedef struct {
 
 typedef struct {
     Vec2 muzzlePosition;
+    Vec2 ejectionPosition;
+    Vec2 gripPosition;
 } GunConfig;
 
 typedef struct {
@@ -45,6 +50,7 @@ typedef struct {
     GunState state;
     GunConfig config;
     GunStats stats;
+    AnimationData animData;
 } GunData;
 
 extern GunData Gun_Pistol;
@@ -53,9 +59,7 @@ extern GunData Gun_Shotgun;
 extern GunData Gun_AssaultRifle;
 extern GunData Gun_BattleRifle;
 
-// Gun animations
-extern AnimationData gunAnimData;
-extern Animation* gunAnimation;
+extern GunData GunList[GUN_COUNT];
 
 void Gun_AnimationInit();
 void Gun_AnimationUpdate();
