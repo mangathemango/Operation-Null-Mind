@@ -10,10 +10,19 @@
 ?   Updated by Mango on 05/03/2025
 */
 int App_RenderMain() {
-    Player_Render();
-    Environment_Render();
-    Gun_Render();
-    Debug_RenderHitboxes();
+    switch (app.state.currentScene)
+    {
+        case SCENE_MENU:
+            break;
+        
+        case SCENE_GAME:
+            Player_Render();
+            Environment_Render();
+            Gun_Render();
+            Debug_RenderHitboxes();
+            break;
+    }
+
     Debug_RenderFPSCount();
     return 0;
 }

@@ -20,6 +20,12 @@
 #include <player.h>
 #include <time_system.h>
 #include <particle_emitterpresets.h>
+
+typedef enum {
+    SCENE_MENU,
+    SCENE_GAME
+} AppScene;
+
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -30,6 +36,7 @@ typedef struct {
 typedef struct {
     bool running;
     int fps;
+    AppScene currentScene;
 } AppState;
 
 typedef struct {

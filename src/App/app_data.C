@@ -15,6 +15,8 @@ AppData app = {
     },
     .state = {
         .running = true,
+        .fps = 0,
+        .currentScene = SCENE_MENU,
     },
     .config = {
         .window_title = "Operation Ruinam Dei" ,
