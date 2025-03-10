@@ -146,10 +146,23 @@ Vec2 Vec2_RotateDegrees(Vec2 v, float angle) {
     @param angle The angle to rotate the point by in radians.
     @returns The rotated point.
 */
-Vec2 Vec2_RotateAround(Vec2 point, Vec2 center, float angle) {
+Vec2 Vec2_RotateAroundRadians(Vec2 point, Vec2 center, float angle) {
     Vec2 translated = Vec2_Subtract(point, center);
     
     Vec2 rotated = Vec2_RotateRadians(translated, angle);
     
     return Vec2_Add(rotated, center);
+}
+
+/*
+*   [Utility] Rotate a vector around a certain point by a certain angle in degrees.
+
+    @param point The point to rotate.
+    @param center The center to rotate around.
+    @param angle The angle to rotate the point by in radians.
+    @returns The rotated point.
+*/
+Vec2 Vec2_RotateAroundDegrees(Vec2 point, Vec2 center, float angle) {
+    float angleRadians = angle * (M_PI / 180.0f);
+    return Vec2_RotateAroundRadians(point, center, angleRadians);
 }

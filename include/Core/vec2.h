@@ -32,5 +32,6 @@ float Vec2_Dot(Vec2 a, Vec2 b);
 Vec2 Vec2_Lerp(Vec2 a, Vec2 b, float t);
 Vec2 Vec2_RotateDegrees(Vec2 v, float angle);
 Vec2 Vec2_RotateRadians(Vec2 v, float angle);
-Vec2 Vec2_RotateAround(Vec2 point, Vec2 center, float angle);
+Vec2 Vec2_RotateAroundRadians(Vec2 point, Vec2 center, float angle);
+Vec2 Vec2_RotateAroundDegrees(Vec2 point, Vec2 center, float angle);
 #endif
