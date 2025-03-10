@@ -33,8 +33,6 @@ int App_Start() {
     }
 
     Sound_System_Initialize();
-    test_emitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Default);
-    test_emitter->selfReference = &test_emitter;
     return 0;
     
 }
