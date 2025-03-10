@@ -22,6 +22,8 @@ AppData app = {
         .window_height = 768 ,
         .window_fullscreen = false ,
         .screen_width = 480 ,
-        .screen_height = 288 
+        .screen_height = 288 ,
+        
+        .textFontPath = "Assets/Fonts/Micro5-Regular.ttf",
     },
 };

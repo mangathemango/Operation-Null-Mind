@@ -14,6 +14,7 @@ int App_RenderMain() {
     Environment_Render();
     Gun_Render();
     Debug_RenderHitboxes();
+    Debug_RenderFPSCount();
     return 0;
 }
 

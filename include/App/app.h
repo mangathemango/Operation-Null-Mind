@@ -12,6 +12,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdbool.h>
 #include <debug.h>
 
@@ -23,10 +24,12 @@ typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* screenTexture;
+    TTF_Font* textFont;
 } AppResources;
 
 typedef struct {
     bool running;
+    int fps;
 } AppState;
 
 typedef struct {
@@ -36,6 +39,8 @@ typedef struct {
     bool window_fullscreen;
     int screen_width;
     int screen_height;
+
+    char* textFontPath;
 } AppConfig;
 
 typedef struct {

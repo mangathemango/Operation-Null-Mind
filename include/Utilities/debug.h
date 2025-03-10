@@ -5,3 +5,4 @@
 #include <app.h>
 
 void Debug_RenderHitboxes();
+void Debug_RenderFPSCount();

@@ -22,5 +22,6 @@ typedef struct {
 extern const TimeSystem * const Time;
 
 void Time_PreUpdate();
+void Time_UpdateFPS();
 void Time_SetTimeScale(float scale);
 void Time_ResetTotalTime();

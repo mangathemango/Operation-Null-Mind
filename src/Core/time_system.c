@@ -1,6 +1,7 @@
 //? Written by Mango on 01/03/2025
 
 #include <time_system.h>
+#include <app.h>
 
 /*
 *   [Data] the initialization of the time system
@@ -25,6 +26,22 @@ void Time_PreUpdate() {
     time.previousTick = currentTick;
     time.scaledDeltaTimeSeconds = time.deltaTimeSeconds * time.timeScale;
     time.programElapsedTimeSeconds += time.deltaTimeSeconds;
+    Time_UpdateFPS();
+}
+
+void Time_UpdateFPS() {
+    static int frameCount = 0;
+    static float fpsTimer = 0.0f;
+    
+    frameCount++;
+    fpsTimer += Time->deltaTimeSeconds;
+    
+    // Update FPS once per second
+    if (fpsTimer >= 1.0f) {
+        app.state.fps = (int)(frameCount / fpsTimer);
+        frameCount = 0;
+        fpsTimer = 0.0f;
+    }
 }
 
 /*
