@@ -16,13 +16,14 @@ void Gun_Update() {
     Vec2 casingPosition = gun->config.ejectionPosition;
 
     // Flip the gun's sprite if mouse is on the left side of the player
+    // This also flips the gun's particles and muzzle flash particles.
     if (Input->mouse.position.x < player.state.position.x) {
         gun->state.flip = SDL_FLIP_VERTICAL;
         gun->state.rotationCenter = (SDL_Point) {
             gun->config.gripPosition.x, 
             gun->animData.spriteSize.y - gun->config.gripPosition.y,
         };
-        muzzlePosition.y = gun->animData.spriteSize.y - muzzlePosition.y;
+        muzzlePosition.y = gun->animData.spriteSize.y - muzzlePosition.y; 
         casingPosition.y = gun->animData.spriteSize.y - casingPosition.y;
         gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
     } else {
@@ -40,14 +41,16 @@ void Gun_Update() {
         Vec2_Subtract(Input->mouse.position, player.state.position).x
     ) * 180 / M_PI;
 
+    // Update gun's position
     gun->state.position = Vec2_Subtract(
         player.state.position,
         (Vec2) {
             gun->state.rotationCenter.x,
-            gun->state.rotationCenter.y - 5
+            gun->state.rotationCenter.y - 5 // This -5 moves the gun down a bit for aesthetics.
         }
     );
 
+    // Update casing particles
     gun->resources.casingParticleEmitter->position = Vec2_Add(
         gun->state.position, 
         Vec2_RotateAroundDegrees(

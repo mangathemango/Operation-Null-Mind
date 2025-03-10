@@ -5,8 +5,7 @@
 
 /*
 *   [PostUpdate] Manages the gun's animation clips 
-?   The gun is actually an animation with 5 different clips, each clip represeting a gun
-?   This function will play the animation clip based on what gun the player is holding
+!   Note that the reloading animations aren't implemented yet.
 */
 void Gun_AnimationUpdate() {
     GunData* gun = player.state.currentGun;
