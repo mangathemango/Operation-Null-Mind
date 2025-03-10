@@ -10,26 +10,26 @@
 void Gun_Render() {
     GunData* gun = player.state.currentGun;
 
-    // If the gun is flipped, the gun casing particles go BEHIND the gun - According to Darrel
+    // Render muzzle flash particles
+    ParticleEmitter_Render(gun->resources.muzzleFlashEmitter);
+    
+    // (According to Darrel) If the gun is flipped, the gun casing particles go BEHIND the gun 
     // Therefore, the casing particles will be rendered first...
     if (gun->state.flip == SDL_FLIP_VERTICAL) {
         ParticleEmitter_Render(gun->resources.casingParticleEmitter);
     }
 
     // .. and then we render the gun...
-    Animation_Render(gunAnimation, 
+    Animation_Render(gun->resources.animation, 
                     gun->state.position, 
-                    gunAnimData.spriteSize,
+                    gun->animData.spriteSize,
                     gun->state.angle,
                     &gun->state.rotationCenter,
                     gun->state.flip);
     
     // ...But otherwise, the particles go in FRONT of the gun instead. 
-    // In other words, it gets rendered after the gun.
+    // In other words, it gets rendered AFTER the gun.
     if (gun->state.flip == SDL_FLIP_NONE) {
         ParticleEmitter_Render(gun->resources.casingParticleEmitter);
     }   
-
-    // Render muzzle flash particles
-    ParticleEmitter_Render(gun->resources.muzzleFlashEmitter);
 }

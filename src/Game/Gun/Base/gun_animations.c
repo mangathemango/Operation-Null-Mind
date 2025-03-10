@@ -4,22 +4,15 @@
 #include <player.h>
 
 /*
-*   [Start] Initializes the gun's animations
-*/
-void Gun_AnimationInit() {
-    gunAnimation = Animation_Create(&gunAnimData);
-    if (!gunAnimation) {
-        SDL_Log("Failed to create gun animation");
-    }
-
-}
-
-/*
 *   [PostUpdate] Manages the gun's animation clips 
-?   The gun is actually an animation with 5 different clips, each clip represeting a gun
-?   This function will play the animation clip based on what gun the player is holding
+!   Note that the reloading animations aren't implemented yet.
 */
 void Gun_AnimationUpdate() {
-    Animation_Play(gunAnimation, player.state.currentGun->name);
-    Animation_Update(gunAnimation);
+    GunData* gun = player.state.currentGun;
+    if (gun->state.flip == SDL_FLIP_NONE)       
+        Animation_Play(gun->resources.animation, "left side idle");
+    else                                       
+        Animation_Play(gun->resources.animation, "right side idle");
+
+    Animation_Update(gun->resources.animation);
 }
