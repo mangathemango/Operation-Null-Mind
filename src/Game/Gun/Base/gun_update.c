@@ -20,24 +20,31 @@ void Gun_Update() {
         Vec2_Subtract(Input->mouse.position, player.state.position).x
     ) * 180 / M_PI;
 
-    gun->state.position = Vec2_Subtract(
-                            player.state.position, 
-                            (Vec2) {24, 12} // This is the position of every gun's ammo dispenser.
-                        );
 
-    // I don't know why the rotationCenter it has to go up by {1, 1}, but it works
-    gun->state.rotationCenter = (SDL_Point) {25, 13}; 
-    
+
     // Flip the gun's sprite if mouse is on the left side of the player
     if (Input->mouse.position.x < player.state.position.x) {
         gun->state.flip = SDL_FLIP_VERTICAL;
+        gun->state.rotationCenter = (SDL_Point) {
+            gun->config.gripPosition.x, 
+            gun->animData.spriteSize.y - gun->config.gripPosition.y,
+        };
     } else {
         gun->state.flip = SDL_FLIP_NONE;
+        gun->state.rotationCenter = (SDL_Point) {
+            gun->config.gripPosition.x,
+            gun->config.gripPosition.y
+        }; 
     }
 
-    // Update gun's animations
-    Gun_AnimationUpdate();
-    
+    gun->state.position = Vec2_Subtract(
+        player.state.position,
+        (Vec2) {
+            gun->state.rotationCenter.x,
+            gun->state.rotationCenter.y - 5
+        }
+    );
+
     // Update casing particles
     if (gun->state.flip == SDL_FLIP_NONE) {
         gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
@@ -45,7 +52,18 @@ void Gun_Update() {
         gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
     }
     
-    gun->resources.casingParticleEmitter->position = player.state.position;
+    Vec2 casingPosition = gun->config.ejectionPosition;
+    if (gun->state.flip == SDL_FLIP_VERTICAL) {
+        // Flip the position's y when gun is flipped
+        casingPosition.y *= -1;
+    }
+
+    gun->resources.casingParticleEmitter->position = Vec2_Add(
+        gun->state.position, 
+        Vec2_RotateDegrees(
+            casingPosition, 
+            gun->state.angle
+        ));
     ParticleEmitter_Update(gun->resources.casingParticleEmitter);
 
     // Get muzzle position
@@ -58,10 +76,14 @@ void Gun_Update() {
     // Update muzzle flash particles
     gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
     gun->resources.muzzleFlashEmitter->position = Vec2_Add(
-        player.state.position, 
+        gun->state.position, 
         Vec2_RotateDegrees(
             muzzlePosition, 
             gun->state.angle
         ));
     ParticleEmitter_Update(gun->resources.muzzleFlashEmitter);
+
+
+    // Update gun's animations
+    Gun_AnimationUpdate();
 }
