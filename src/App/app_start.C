@@ -33,6 +33,7 @@ int App_Start() {
     }
 
     Sound_System_Initialize();
+    Menu_PrepareTextures();
     return 0;
     
 }

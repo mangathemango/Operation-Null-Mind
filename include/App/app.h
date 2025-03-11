@@ -20,6 +20,8 @@
 #include <player.h>
 #include <time_system.h>
 #include <particle_emitterpresets.h>
+#include <UI.h>
+#include <menu.h>
 
 typedef enum {
     SCENE_MENU,

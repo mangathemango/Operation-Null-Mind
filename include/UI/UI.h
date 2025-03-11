@@ -1,5 +1,9 @@
+#pragma once
+
 #include <SDL.h>
 #include <vec2.h>
+
+
 
 SDL_Texture* UI_CreateTextTexture(const char* text, SDL_Color color);
 void UI_RenderTextureText(SDL_Texture* texture, Vec2 destPosition, float scale);
