@@ -3,7 +3,8 @@
 #include <input.h>
 #include <app.h>
 
-UIElement* UI_CreateText(SDL_Rect rect, const char* text, SDL_Color color) {
+UIElement* UI_CreateText(const char* text, SDL_Rect rect, 
+                SDL_Color color, float scale, UI_TextAlignment alignment) {
     UIElement* element = malloc(sizeof(UIElement));
     if (!element) return NULL;
     
@@ -15,7 +16,7 @@ UIElement* UI_CreateText(SDL_Rect rect, const char* text, SDL_Color color) {
     
     data->text = strdup(text);
     data->textTexture = UI_CreateTextTexture(text, color);
-    data->alignment = UI_TEXT_ALIGN_LEFT;
+    data->alignment = alignment;
     
     element->type = UI_ELEMENT_TEXT;
     element->rect = rect;
@@ -24,8 +25,11 @@ UIElement* UI_CreateText(SDL_Rect rect, const char* text, SDL_Color color) {
     element->hovered = false;
     element->pressed = false;
     element->srcRect = (SDL_Rect) {0,0,0,0};
+    element->dstRect = (SDL_Rect) {0,0,0,0};
+    element->textureSize = (SDL_Rect) {0,0,0,0};
+    SDL_QueryTexture(data->textTexture, NULL, NULL, &element->textureSize.w, &element->textureSize.h);
     element->color = color;
-    element->scale = 1.0f;
+    element->scale = scale;
     element->parent = NULL;
     element->children = NULL;
     element->childCount = 0;
@@ -49,7 +53,54 @@ SDL_Texture* UI_CreateTextTexture(const char* text, SDL_Color color) {
 
 void UI_UpdateText(UIElement* element) {
     UI_TextData* data = element->data;
-    if (!data->textTexture) {
-        data->textTexture = UI_CreateTextTexture(data->text, element->color);
+    SDL_QueryTexture(data->textTexture, NULL, NULL, &element->textureSize.w, &element->textureSize.h);
+    element->dstRect = (SDL_Rect) {
+        element->rect.x,
+        element->rect.y,
+        element->textureSize.w * element->scale,
+        element->textureSize.h * element->scale
+    };
+    switch (data->alignment)
+    {
+    case UI_TEXT_ALIGN_CENTER:
+        element->dstRect.x -= element->dstRect.w / 2;
+        break;
+    case UI_TEXT_ALIGN_RIGHT:
+        element->dstRect.x -= element->dstRect.w;
+        break;
+    case UI_TEXT_ALIGN_LEFT:
+        break;
     }
+    if (Input_MouseIsOnRect(element->dstRect)) {
+        element->hovered = true;
+        element->pressed = Input->mouse.leftButton.pressed;
+    } else {
+        element->hovered = false;
+        element->pressed = false;
+    }
+}
+
+void UI_RenderText(UIElement* element) {
+    UI_TextData* data = element->data;
+    SDL_RenderCopy(app.resources.renderer, data->textTexture, NULL, &element->dstRect);
+}
+
+void UI_ChangeText(UIElement* element, const char* text) {
+    UI_TextData* data = element->data;
+    if (strcmp(text, data->text) == 0) return;
+    free(data->text);
+    data->text = strdup(text);
+    SDL_DestroyTexture(data->textTexture);
+    data->textTexture = UI_CreateTextTexture(text, element->color);
+}
+
+void UI_ChangeTextColor(UIElement* element, SDL_Color color) {
+    if (element->color.r == color.r && 
+        element->color.g == color.g && 
+        element->color.b == color.b && 
+        element->color.a == color.a) return;
+    UI_TextData* data = element->data;
+    element->color = color;
+    SDL_DestroyTexture(data->textTexture);
+    data->textTexture = UI_CreateTextTexture(data->text, color);
 }

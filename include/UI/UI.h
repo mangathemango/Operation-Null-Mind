@@ -43,6 +43,8 @@ struct UIElement {
     
     // Rendering properties
     SDL_Rect srcRect;          // Source rectangle for texture (NULL for entire texture)
+    SDL_Rect dstRect;          // Destination rectangle for rendering
+    SDL_Rect textureSize;      // Texture size
     SDL_Color color;           // Color tint/modulation
     float scale;               // Scale factor for the texture
 

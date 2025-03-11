@@ -15,6 +15,7 @@ int App_PostUpdate() {
     switch (app.state.currentScene) 
     {
         case SCENE_MENU:
+            Menu_Update();
             break;
             
         case SCENE_GAME:

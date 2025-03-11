@@ -1,24 +1,41 @@
 #include <UI.h>
+#include <UI_text.h>
+#include <app.h>
 
-static SDL_Texture* startButtonTexture = NULL;
-static SDL_Texture* exitButtonTexture = NULL;
-static SDL_Texture* titleTexture1 = NULL;
-static SDL_Texture* titleTexture2 = NULL;
+static UIElement* startButtonElement = NULL;
+static UIElement* exitButtonElement = NULL;
+static UIElement* title1Element = NULL;
+static UIElement* title2Element = NULL;
 
 void Menu_PrepareTextures() {
     SDL_Color textColor = {255, 255, 255, 255};
-    startButtonTexture = UI_CreateTextTexture("Start", textColor);
-    exitButtonTexture = UI_CreateTextTexture("Exit", textColor);
-    titleTexture1 = UI_CreateTextTexture("Operation", textColor);
-    titleTexture2 = UI_CreateTextTexture("Null Mind", textColor);
+
+    title1Element = UI_CreateText("OPERATION", (SDL_Rect) {125, 75 , 0, 0}, textColor, 3.0f, UI_TEXT_ALIGN_CENTER);
+    title2Element = UI_CreateText("NULL MIND", (SDL_Rect) {125, 100, 0, 0}, textColor, 1.5f, UI_TEXT_ALIGN_CENTER);
+    startButtonElement = UI_CreateText("Start",(SDL_Rect) {125, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_CENTER);
+    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {125, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_CENTER);
+}
+
+void Menu_Update() {
+    UI_UpdateText(startButtonElement);
+    UI_UpdateText(exitButtonElement);
+    UI_UpdateText(title1Element);
+    UI_UpdateText(title2Element);
+
+    float targetY;
+    if (startButtonElement->hovered) {
+        UI_ChangeTextColor(startButtonElement, (SDL_Color) {255, 0, 0, 255});
+    } else {
+        UI_ChangeTextColor(startButtonElement, (SDL_Color) {255, 255, 255, 255});
+    }
+    if (startButtonElement->pressed) {
+        app.state.currentScene = SCENE_GAME;
+    }
 }
 
 void Menu_Render() {
-    // Render titleArbata Compact
-    UI_RenderTextureText(titleTexture1, (Vec2){50, 50}, 3.0f);
-    UI_RenderTextureText(titleTexture2, (Vec2){90, 100}, 1.5f);
-
-    // Render buttons
-    UI_RenderTextureText(startButtonTexture, (Vec2){105, 180}, 1.0f);
-    UI_RenderTextureText(exitButtonTexture, (Vec2){110, 200}, 1.0f);
+    UI_RenderText(title1Element);
+    UI_RenderText(title2Element);
+    UI_RenderText(startButtonElement);
+    UI_RenderText(exitButtonElement);
 }
