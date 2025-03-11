@@ -72,7 +72,5 @@ void UI_UpdateElement(UIElement* element);
 // Element creation helpers
 UIElement* UI_CreateButton(SDL_Rect rect, const char* text, void (*onClick)(void));
 
-// Existing text rendering functions
-SDL_Texture* UI_CreateTextTexture(const char* text, SDL_Color color);
 void UI_RenderTextureText(SDL_Texture* texture, Vec2 destPosition, float scale);
 void UI_InefficientlyRenderText(const char* text, SDL_Rect rect, SDL_Color color);

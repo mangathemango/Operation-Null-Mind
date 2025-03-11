@@ -4,7 +4,8 @@
 #include <app.h>
 
 UIElement* UI_CreateText(const char* text, SDL_Rect rect, 
-                SDL_Color color, float scale, UI_TextAlignment alignment) {
+                SDL_Color color, float scale, UI_TextAlignment alignment,
+                TTF_Font* font) {
     UIElement* element = malloc(sizeof(UIElement));
     if (!element) return NULL;
     
@@ -15,8 +16,9 @@ UIElement* UI_CreateText(const char* text, SDL_Rect rect,
     }
     
     data->text = strdup(text);
-    data->textTexture = UI_CreateTextTexture(text, color);
+    data->textTexture = UI_CreateTextTexture(text, color, font);
     data->alignment = alignment;
+    data->font = font;
     
     element->type = UI_ELEMENT_TEXT;
     element->rect = rect;
@@ -41,8 +43,9 @@ UIElement* UI_CreateText(const char* text, SDL_Rect rect,
     return element;
 }
 
-SDL_Texture* UI_CreateTextTexture(const char* text, SDL_Color color) {
-    SDL_Surface* surface = TTF_RenderText_Solid(app.resources.textFont, text, color);
+
+SDL_Texture* UI_CreateTextTexture(const char* text, SDL_Color color, TTF_Font* font) {
+    SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
     if (!surface) return NULL;
     
     SDL_Texture* texture = SDL_CreateTextureFromSurface(app.resources.renderer, surface);
@@ -91,7 +94,7 @@ void UI_ChangeText(UIElement* element, const char* text) {
     free(data->text);
     data->text = strdup(text);
     SDL_DestroyTexture(data->textTexture);
-    data->textTexture = UI_CreateTextTexture(text, element->color);
+    data->textTexture = UI_CreateTextTexture(text, element->color, data->font);
 }
 
 void UI_ChangeTextColor(UIElement* element, SDL_Color color) {
@@ -102,5 +105,5 @@ void UI_ChangeTextColor(UIElement* element, SDL_Color color) {
     UI_TextData* data = element->data;
     element->color = color;
     SDL_DestroyTexture(data->textTexture);
-    data->textTexture = UI_CreateTextTexture(data->text, color);
+    data->textTexture = UI_CreateTextTexture(data->text, color, data->font);
 }

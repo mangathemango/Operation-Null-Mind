@@ -61,7 +61,7 @@ void Debug_RenderFPSCount() {
         float textScale = 1;
         UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
 
-        fpsTextElement = UI_CreateText(fpsText, renderRect, textColor, textScale, alignment);
+        fpsTextElement = UI_CreateText(fpsText, renderRect, textColor, textScale, alignment, app.resources.textFont);
 
     } else {
         UI_ChangeText(fpsTextElement, fpsText);
