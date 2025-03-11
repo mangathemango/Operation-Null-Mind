@@ -11,7 +11,7 @@ void Menu_PrepareTextures() {
     SDL_Color textColor = {255, 255, 255, 255};
 
     title1Element = UI_CreateText("OPERATION", (SDL_Rect) {125, 75 , 0, 0}, textColor, 3.0f, UI_TEXT_ALIGN_CENTER);
-    title2Element = UI_CreateText("NULL MIND", (SDL_Rect) {125, 100, 0, 0}, textColor, 1.5f, UI_TEXT_ALIGN_CENTER);
+    title2Element = UI_CreateText("NULL MIND", (SDL_Rect) {125, 110, 0, 0}, textColor, 1.5f, UI_TEXT_ALIGN_CENTER);
     startButtonElement = UI_CreateText("Start",(SDL_Rect) {125, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_CENTER);
     exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {125, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_CENTER);
 }
