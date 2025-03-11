@@ -65,6 +65,6 @@ void Debug_RenderFPSCount() {
     
     // Render the texture if it exists
     if (fpsTexture) {
-        UI_RenderTextureText(fpsTexture, (Vec2){10, 10}, 0.5f);
+        UI_RenderTextureText(fpsTexture, (Vec2){10, 10}, 1);
     }
 }

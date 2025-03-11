@@ -3,17 +3,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-// Create texture once, and store it for reuse
-SDL_Texture* UI_CreateTextTexture(const char* text, SDL_Color color) {
-    SDL_Surface* surface = TTF_RenderText_Solid(app.resources.textFont, text, color);
-    if (!surface) return NULL;
-    
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(app.resources.renderer, surface);
-    SDL_FreeSurface(surface);
-    
-    return texture;  // Caller is responsible for freeing
-}
-
 // Render from existing texture (very fast)
 void UI_RenderTextureText(SDL_Texture* texture, Vec2 destPosition, float scale) {
     SDL_Rect rect = {0, 0, 0, 0};
