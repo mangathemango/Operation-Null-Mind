@@ -2,6 +2,7 @@
 #include <app.h>
 #include <colliders.h>
 #include <stdio.h>
+#include <UI_text.h>
 
 #define PLAYER_HITBOX_COLOR 0, 255, 0, 255
 #define WALL_HITBOX_COLOR 255, 255, 0, 255
@@ -46,46 +47,27 @@ void Debug_RenderHitboxes() {
 }
 
 void Debug_RenderFPSCount() {
-    static SDL_Texture* fpsTexture = NULL;
-    static int lastRenderedFPS = -1;
-    // Only recreate texture when FPS changes
-    if (app.state.fps != lastRenderedFPS) {
-        // Free old texture if it exists
-        if (fpsTexture) {
-            SDL_DestroyTexture(fpsTexture);
-            fpsTexture = NULL;
-        }
-        
-        // Format FPS text
-        char fpsText[16];
-        sprintf(fpsText, "FPS: %d", app.state.fps);
-        
-        // Create text surface
+    static UIElement* fpsTextElement = NULL;
+
+    // Format FPS text
+    char fpsText[16];
+    sprintf(fpsText, "FPS: %d", app.state.fps);
+
+
+
+    if (!fpsTextElement) {
         SDL_Color textColor = {255, 255, 255, 255};
-        SDL_Surface* textSurface = TTF_RenderText_Solid(
-            app.resources.textFont, 
-            fpsText, 
-            textColor
-        );
-        
-        if (textSurface) {
-            // Convert to texture
-            fpsTexture = SDL_CreateTextureFromSurface(
-                app.resources.renderer, 
-                textSurface
-            );
-            SDL_FreeSurface(textSurface);  // Don't need this anymore
-            
-            // Update last rendered FPS
-            lastRenderedFPS = app.state.fps;
-        }
+        SDL_Rect renderRect = {10, 10, 0, 0};
+        float textScale = 1;
+        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
+
+        fpsTextElement = UI_CreateText(fpsText, renderRect, textColor, textScale, alignment, app.resources.textFont);
+
+    } else {
+        UI_ChangeText(fpsTextElement, fpsText);
     }
-    
-    // Render the texture if it exists
-    if (fpsTexture) {
-        int w, h;
-        SDL_QueryTexture(fpsTexture, NULL, NULL, &w, &h);
-        SDL_Rect destRect = {10, 10, w, h};  // Position in top-left corner
-        SDL_RenderCopy(app.resources.renderer, fpsTexture, NULL, &destRect);
-    }
+
+    UI_UpdateText(fpsTextElement);
+
+    UI_RenderText(fpsTextElement);
 }

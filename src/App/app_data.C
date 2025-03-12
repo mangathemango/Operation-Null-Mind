@@ -15,15 +15,19 @@ AppData app = {
     },
     .state = {
         .running = true,
+        .fps = 0,
+        .currentScene = SCENE_MENU,
     },
     .config = {
-        .window_title = "Operation Ruinam Dei" ,
+        .window_title = "Operation Null Mind" ,
         .window_width = 1024 ,
         .window_height = 768 ,
         .window_fullscreen = false ,
         .screen_width = 480 ,
         .screen_height = 288 ,
         
-        .textFontPath = "Assets/Fonts/PixelifySans-Regular.ttf",
+        .title1FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
+        .title2FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
+        .textFontPath = "Assets/Fonts/monogram.ttf",
     },
 };

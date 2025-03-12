@@ -98,3 +98,8 @@ void Input_Event_Handler(SDL_Event *event) {
         break;
     }
 }
+
+bool Input_MouseIsOnRect(SDL_Rect rect) {
+    return (_input.mouse.position.x >= rect.x && _input.mouse.position.x <= rect.x + rect.w &&
+            _input.mouse.position.y >= rect.y && _input.mouse.position.y <= rect.y + rect.h);
+}

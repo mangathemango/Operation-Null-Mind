@@ -10,10 +10,21 @@
 ?   Updated by Mango on 05/03/2025
 */
 int App_RenderMain() {
-    Player_Render();
-    Environment_Render();
-    Gun_Render();
-    Debug_RenderHitboxes();
+    switch (app.state.currentScene)
+    {
+        case SCENE_MENU:
+            Menu_Render();
+            break;
+        
+        case SCENE_GAME:
+            Player_Render();
+            SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
+            SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {300, 100, 25, 30});
+            Environment_Render();
+            Gun_Render();
+            Debug_RenderHitboxes();
+            break;
+    }
     Debug_RenderFPSCount();
     return 0;
 }
@@ -28,7 +39,7 @@ int App_Render() {
     SDL_SetRenderTarget(app.resources.renderer, app.resources.screenTexture);
 
     // Clear the screen texture (This is also the background color btw)
-    SDL_SetRenderDrawColor(app.resources.renderer, 100, 100, 100, 50);
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 50);
     SDL_RenderClear(app.resources.renderer);
     
     App_RenderMain();

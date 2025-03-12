@@ -12,8 +12,17 @@
 ?   Updated by Mango on 03/03/2025
 */
 int App_PostUpdate() {
-    Player_PostUpdate();
-    Environment_Update(); // Add this line to update the environment
-    Gun_Update();
+    switch (app.state.currentScene) 
+    {
+        case SCENE_MENU:
+            Menu_Update();
+            break;
+            
+        case SCENE_GAME:
+            Player_PostUpdate();
+            Environment_Update();
+            Gun_Update();
+            break;
+    }
     return 0;
 }
