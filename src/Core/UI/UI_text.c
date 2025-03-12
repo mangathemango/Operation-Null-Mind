@@ -3,6 +3,13 @@
 #include <input.h>
 #include <app.h>
 
+/*
+*   [Start] Creates a text UIElement based on some parameters.
+    @param text The text content
+    @param rect The position and size of the text (x, y, w, h). (Actually right now the w and h doesnt matter lmao)
+    @param color The color of the text
+
+*/
 UIElement* UI_CreateText(const char* text, SDL_Rect rect, 
                 SDL_Color color, float scale, UI_TextAlignment alignment,
                 TTF_Font* font) {
@@ -32,14 +39,12 @@ UIElement* UI_CreateText(const char* text, SDL_Rect rect,
     SDL_QueryTexture(data->textTexture, NULL, NULL, &element->textureSize.w, &element->textureSize.h);
     element->color = color;
     element->scale = scale;
-    element->parent = NULL;
-    element->children = NULL;
-    element->childCount = 0;
     element->data = data;
     element->render = NULL;
     element->update = UI_UpdateText;
     element->cleanup = NULL;
     
+    UI_UpdateText(element);
     return element;
 }
 

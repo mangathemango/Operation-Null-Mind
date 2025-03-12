@@ -18,12 +18,13 @@ int App_RenderMain() {
         
         case SCENE_GAME:
             Player_Render();
+            SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
+            SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {300, 100, 25, 30});
             Environment_Render();
             Gun_Render();
             Debug_RenderHitboxes();
             break;
     }
-
     Debug_RenderFPSCount();
     return 0;
 }

@@ -1,4 +1,3 @@
-#include <UI.h>
 #include <UI_text.h>
 #include <app.h>
 
@@ -19,8 +18,6 @@ void Menu_PrepareTextures() {
 void Menu_Update() {
     UI_UpdateText(startButtonElement);
     UI_UpdateText(exitButtonElement);
-    UI_UpdateText(title1Element);
-    UI_UpdateText(title2Element);
 
     SDL_Color defaultButtonColor = {255, 255, 255, 255};
     SDL_Color hoverButtonColor = {255, 0, 0, 255};
