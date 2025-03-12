@@ -1,3 +1,51 @@
+/*
+    @file colliders.h
+*   This file contains the declarations for the collision manager.
+*   The collision manager is responsible for detecting collisions between entities in the game.
+
+?   How to use the collider system:
+?   TLDR: Create Collider struct somewhere, register it, check for collisions, and handle them.
+? 
+?   Step 1: Create a collider struct for your entity.
+?       This doesn't have to be inside an entity struct. (Though, this would be good for organization)
+?       But yeah, it just needs to exist in a memory that's reusable. (i.e static/global variables)
+?   Example:
+?       static Collider playerCollider = {
+?           // (If you're making the hitbox follow something, only the last two values (width and height) matter)
+?           .hitbox = {0, 0, 20, 20}, 
+?           .layer = COLLISION_LAYER_PLAYER,
+?           .collidesWith = COLLISION_LAYER_ENVIRONMENT 
+?                         | COLLISION_LAYER_ENEMY,
+?       };
+?   This collider will check for collision with environment and enemies.
+?
+?   Step 2: Register the collider with the collision manager.
+?       Collider_Register(&playerCollider, playerEntity);
+?   This will add the collider to the list of colliders that the collision manager checks.
+?
+?   Step 3: Check for collisions with the collider.
+?       ColliderCheckResult result;
+?       Collider_Check(&playerCollider, &result); 
+?
+?   This will check for collisions with the collider and store the results in the result struct.
+?   After that, you can do something with the detected collisions.
+?
+?       for (int i = 0; i < result.count; i++) {
+?           Collider* collisionObject = result.objects[i];
+?           // Do something with the collision object
+?           switch(collisionObject->layer) {
+?               case COLLISION_LAYER_ENVIRONMENT:
+?                   // Handle collision with environment, for example stopping movement
+?                   break;
+?               case COLLISION_LAYER_ENEMY:
+?                   // Handle collision with enemy, for example taking damage
+?                   break;
+?           }
+?       }
+?       
+?   This will check for collisions with the collider and store the results in the result struct.
+*/
+
 #ifndef COLLISION_MANAGER_H
 #define COLLISION_MANAGER_H
 
