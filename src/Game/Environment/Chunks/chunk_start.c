@@ -2,7 +2,11 @@
 #include <random.h>
 
 void Chunk_Start() {
-    testChunk = Chunk_Create((Vec2) {20, 20}, ROOM_FLOOR_PATTERN_1, HALLWAY_NONE);
+    testChunk = Chunk_Create(
+        (Vec2) {12, 12}, 
+        ROOM_FLOOR_PATTERN_1, 
+        HALLWAY_UP | HALLWAY_DOWN | HALLWAY_LEFT | HALLWAY_RIGHT
+    );
 }
 
 EnvironmentChunk Chunk_Create(Vec2 roomSize, RoomFloorPattern floorPattern, RoomHallways hallways) {
@@ -13,10 +17,19 @@ EnvironmentChunk Chunk_Create(Vec2 roomSize, RoomFloorPattern floorPattern, Room
         .empty = false
     };
 
-    int roomStartX = (CHUNK_SIZE_TILE - roomSize.x) / 2;
-    int roomStartY = (CHUNK_SIZE_TILE - roomSize.y) / 2;
-    int roomEndX = roomStartX + roomSize.x;
-    int roomEndY = roomStartY + roomSize.y;
+    Chunk_GenerateFloorTiles(&chunk);
+    Chunk_GenerateWallTiles(&chunk);
+    Chunk_GenerateHallways(&chunk);
+    Chunk_GenerateHallwayWallTiles(&chunk);
+    return chunk;
+}
+
+void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk) {
+    
+    int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
+    int roomStartY = (CHUNK_SIZE_TILE - chunk->roomSize.y) / 2;
+    int roomEndX = roomStartX + chunk->roomSize.x;
+    int roomEndY = roomStartY + chunk->roomSize.y;
 
     // Generate floor tiles
     for (int x = 0; x < CHUNK_SIZE_TILE; x++) {
@@ -24,7 +37,7 @@ EnvironmentChunk Chunk_Create(Vec2 roomSize, RoomFloorPattern floorPattern, Room
             TileType type = TILE_VOID;
             TileRotation rotation = TILE_ROTATE_NONE;
             if (x >= roomStartX && x < roomEndX && y >= roomStartY && y < roomEndY) {
-                switch (floorPattern) {
+                switch (chunk->floorPattern) {
                     case ROOM_FLOOR_PATTERN_RANDOM:
                         type = RandInt(TILE_FLOOR_1, TILE_FLOOR_VENT_3);
                         break;
@@ -33,35 +46,102 @@ EnvironmentChunk Chunk_Create(Vec2 roomSize, RoomFloorPattern floorPattern, Room
                         break;
                 }
             }
-            if (x == roomStartX - 1 && (y >= (roomStartY - 2) && y < roomEndY)) {
-                type = TILE_WALL_SIDE_BORDER;
-                rotation = TILE_ROTATE_COUNTERCLOCKWISE;
+            chunk->tiles[x][y] = Tile_Create(type, rotation);
+        }
+    }
+}
+
+void Chunk_GenerateHallways(EnvironmentChunk* chunk) {
+    int roomStartX = ROOM_STARTX(chunk->roomSize);
+    int roomStartY = ROOM_STARTY(chunk->roomSize);
+    int roomEndX = ROOM_ENDX(chunk->roomSize);
+    int roomEndY = ROOM_ENDY(chunk->roomSize);
+
+    for (int x = HALLWAY_START; x < HALLWAY_END; x++) {
+        if (chunk->hallways & HALLWAY_UP) {
+            for (int y = 0; y < roomStartY; y++) {
+                chunk->tiles[x][y] = Tile_Create(TILE_FLOOR_1, TILE_ROTATE_NONE);
             }
-            if (x >= roomStartX && x < roomEndX) {
-                if (y == roomStartY - 1) type = TILE_WALL_BOTTOM;
-                if (y == roomStartY - 2) type = TILE_WALL_TOP;
+        }
+        if (chunk->hallways & HALLWAY_DOWN) {
+            for (int y = roomEndY; y < CHUNK_SIZE_TILE; y++) {
+                chunk->tiles[x][y] = Tile_Create(TILE_FLOOR_1, TILE_ROTATE_NONE);
             }
-            chunk.tiles[x][y] = Tile_Create(type, rotation);
         }
     }
 
-    // // Generate colliders
-    // for (int x = 0; x < CHUNK_SIZE_TILE; x++) {
-    //     for (int y = 0; y < CHUNK_SIZE_TILE; y++) {
-    //         Collider* collider = (Collider*) malloc(sizeof(Collider));
-    //         collider->hitbox = (SDL_Rect) {
-    //             .x = x * TILE_SIZE_PIXELS,
-    //             .y = y * TILE_SIZE_PIXELS,
-    //             .w = TILE_SIZE_PIXELS,
-    //             .h = TILE_SIZE_PIXELS
-    //         };
-    //         collider->layer = COLLISION_LAYER_ENVIRONMENT;
-    //         collider->collidesWith = 0;
-    //         collider->active = true;
-    //         collider->owner = &chunk;
-    //         chunk.colliders[x + y * CHUNK_SIZE_TILE] = collider;
-    //         Collider_Register(collider, &chunk);
-    //     }
+    for (int y = HALLWAY_START; y < HALLWAY_END; y++) {
+        if (chunk->hallways & HALLWAY_LEFT) {
+            for (int x = 0; x < roomStartX; x++) {
+                chunk->tiles[x][y] = Tile_Create(TILE_FLOOR_1, TILE_ROTATE_NONE);
+            }
+        }
+        if (chunk->hallways & HALLWAY_RIGHT) {
+            for (int x = roomEndX; x < CHUNK_SIZE_TILE; x++) {
+                chunk->tiles[x][y] = Tile_Create(TILE_FLOOR_1, TILE_ROTATE_NONE);
+            }
+        }
+    }
+}
 
-    return chunk;
+void Chunk_GenerateWallTiles(EnvironmentChunk* chunk) {
+
+    int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
+    int roomStartY = (CHUNK_SIZE_TILE - chunk->roomSize.y) / 2;
+    int roomEndX = roomStartX + chunk->roomSize.x;
+    int roomEndY = roomStartY + chunk->roomSize.y;
+
+    for (int x = roomStartX; x < roomEndX; x++) {
+        chunk->tiles[x][roomStartY - 1] = Tile_Create(TILE_WALL_BOTTOM, TILE_ROTATE_NONE);
+        chunk->tiles[x][roomStartY - 2] = Tile_Create(TILE_WALL_TOP, TILE_ROTATE_NONE);
+        chunk->tiles[x][roomStartY - 3] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_NONE);
+    }
+
+    for (int y = roomStartY - 2; y < roomEndY; y++) {
+        chunk->tiles[roomStartX - 1][y] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_COUNTERCLOCKWISE);
+        chunk->tiles[roomEndX][y]   = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_CLOCKWISE);
+    }
+    chunk->tiles[roomStartX - 1][roomStartY - 3] = Tile_Create(TILE_WALL_CORNER_BORDER_SMALL, TILE_ROTATE_COUNTERCLOCKWISE);
+    chunk->tiles[roomEndX][roomStartY - 3] = Tile_Create(TILE_WALL_CORNER_BORDER_SMALL, TILE_ROTATE_NONE);
+}
+
+void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk) {
+    int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
+    int roomStartY = (CHUNK_SIZE_TILE - chunk->roomSize.y) / 2;
+    int roomEndX = roomStartX + chunk->roomSize.x;
+    int roomEndY = roomStartY + chunk->roomSize.y;
+
+    if (chunk->hallways & HALLWAY_UP) {
+        for (int y = 0; y < roomStartY - 2; y++) {
+            chunk->tiles[HALLWAY_START - 1][y] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_COUNTERCLOCKWISE);
+            chunk->tiles[HALLWAY_END][y] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_CLOCKWISE);
+        } 
+        chunk->tiles[HALLWAY_START - 1][roomStartY - 3] = Tile_Create(TILE_WALL_CORNER_BORDER, TILE_ROTATE_COUNTERCLOCKWISE);
+        chunk->tiles[HALLWAY_END][roomStartY - 3] = Tile_Create(TILE_WALL_CORNER_BORDER, TILE_ROTATE_NONE);
+    }
+
+    if (chunk->hallways & HALLWAY_LEFT) {
+        for (int x = 0; x < roomStartX; x ++) {
+            chunk->tiles[x][HALLWAY_START - 1] = Tile_Create(TILE_WALL_BOTTOM, TILE_ROTATE_NONE);
+            chunk->tiles[x][HALLWAY_START - 2] = Tile_Create(TILE_WALL_TOP, TILE_ROTATE_NONE);
+            chunk->tiles[x][HALLWAY_START - 3] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_NONE);
+        }
+        chunk->tiles[roomStartX - 1][HALLWAY_START - 3] = Tile_Create(TILE_WALL_CORNER_BORDER, TILE_ROTATE_COUNTERCLOCKWISE);
+    }
+
+    if (chunk->hallways & HALLWAY_RIGHT) {
+        for (int x = roomEndX; x < CHUNK_SIZE_TILE; x ++) {
+            chunk->tiles[x][HALLWAY_START - 1] = Tile_Create(TILE_WALL_BOTTOM, TILE_ROTATE_NONE);
+            chunk->tiles[x][HALLWAY_START - 2] = Tile_Create(TILE_WALL_TOP, TILE_ROTATE_NONE);
+            chunk->tiles[x][HALLWAY_START - 3] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_NONE);
+        }
+        chunk->tiles[roomEndX][HALLWAY_START - 3] = Tile_Create(TILE_WALL_CORNER_BORDER, TILE_ROTATE_NONE);
+    }
+    
+    if (chunk->hallways & HALLWAY_DOWN) {
+        for (int y = roomEndY; y < CHUNK_SIZE_TILE; y++) {
+            chunk->tiles[HALLWAY_START - 1][y] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_COUNTERCLOCKWISE);
+            chunk->tiles[HALLWAY_END][y] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_CLOCKWISE);
+        } 
+    }
 }

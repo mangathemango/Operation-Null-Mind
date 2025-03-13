@@ -23,6 +23,7 @@ typedef enum {
     // Wall tiles
     TILE_WALL_TOP,
     TILE_WALL_BOTTOM,
+    TILE_WALL_CORNER_BORDER_SMALL,
     TILE_WALL_CORNER_BORDER,
     TILE_WALL_SIDE_BORDER,
     

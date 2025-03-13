@@ -3,10 +3,15 @@
 #include <tiles.h>
 #include <colliders.h>
 
-#define HALLWAY_SIZE_TILE 6
+#define HALLWAY_SIZE_TILE 4
 #define CHUNK_SIZE_TILE 30
 #define CHUNK_SIZE_PIXEL (CHUNK_SIZE_TILE * TILE_SIZE_PIXELS)
-
+#define HALLWAY_START (CHUNK_SIZE_TILE - HALLWAY_SIZE_TILE) / 2
+#define HALLWAY_END HALLWAY_START + HALLWAY_SIZE_TILE
+#define ROOM_STARTX(roomsize) (CHUNK_SIZE_TILE - (roomsize).x) / 2
+#define ROOM_STARTY(roomsize) (CHUNK_SIZE_TILE - (roomsize).y) / 2
+#define ROOM_ENDX(roomsize) ROOM_STARTX(roomsize) + (roomsize).x
+#define ROOM_ENDY(roomsize) ROOM_STARTY(roomsize) + (roomsize).y
 
 typedef enum {
     HALLWAY_NONE    = 0,
@@ -30,6 +35,11 @@ typedef struct {
 } EnvironmentChunk;
 
 EnvironmentChunk Chunk_Create(Vec2 roomSize ,RoomFloorPattern floorPattern, RoomHallways hallways);
+void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk);
+void Chunk_GenerateWallTiles(EnvironmentChunk* chunk);
+void Chunk_GenerateHallways(EnvironmentChunk* chunk);
+void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
+void Chunk_GenerateColliders(EnvironmentChunk* chunk);
 void Chunk_Start();
 void Chunk_Render(EnvironmentChunk chunk, Vec2 chunkPosition);
 extern EnvironmentChunk testChunk;

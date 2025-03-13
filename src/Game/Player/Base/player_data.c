@@ -9,7 +9,7 @@
 
 PlayerData player = {
     .state = {
-        .position = {120,72},
+        .position = {300,300},
         .direction = {0,0},
         .currentSpeed = 0,
         .moving = false,

@@ -2,22 +2,7 @@
 
 EnvironmentTileData tiles = {
     .resources = {
-        .textures = {
-            [TILE_VOID] = NULL,
-            [TILE_FLOOR_1] = NULL,
-            [TILE_FLOOR_2] = NULL,
-            [TILE_FLOOR_3] = NULL,
-            [TILE_FLOOR_VENT_1] = NULL,
-            [TILE_FLOOR_VENT_2] = NULL,
-            [TILE_FLOOR_VENT_3] = NULL,
-            [TILE_FLOOR_SCRATCHED_1] = NULL,
-            [TILE_FLOOR_SCRATCHED_2] = NULL,
-            [TILE_FLOOR_SCRATCHED_3] = NULL,
-            [TILE_WALL_TOP] = NULL,
-            [TILE_WALL_BOTTOM] = NULL,
-            [TILE_WALL_CORNER_BORDER] = NULL,
-            [TILE_WALL_SIDE_BORDER] = NULL,
-        }
+        .textures = {}
     },
     .config = {
         .texturePaths = {
@@ -33,7 +18,8 @@ EnvironmentTileData tiles = {
             [TILE_WALL_TOP] = "Assets/Images/Tiles/Wall/wall_top.png",
             [TILE_WALL_BOTTOM] = "Assets/Images/Tiles/Wall/wall_bottom.png",
             [TILE_WALL_CORNER_BORDER] = "Assets/Images/Tiles/Wall/wall_corner_border.png",
-            [TILE_WALL_SIDE_BORDER] = "Assets/Images/Tiles/Wall/wall_side_border.png"
+            [TILE_WALL_SIDE_BORDER] = "Assets/Images/Tiles/Wall/wall_side_border.png",
+            [TILE_WALL_CORNER_BORDER_SMALL] = "Assets/Images/Tiles/Wall/wall_corner_border_small.png",
         }
     }
 };
