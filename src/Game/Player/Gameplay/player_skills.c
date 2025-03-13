@@ -4,7 +4,7 @@
 #include <time_system.h>
 #include <timer.h>
 #include <sound.h>
-
+#include <camera.h>
 /*
 *   [PostUpdate?] Dash the player in a direction.
 */

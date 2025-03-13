@@ -54,6 +54,7 @@ ParticleEmitter ParticleEmitter_Dash = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.1,
     .particleSpeed = 200,
     .custom_Movement = Particle_RandomMovement,
@@ -88,6 +89,7 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.1,
     .particleSpeed = 200,
     .custom_Movement = Particle_RandomMovement,
@@ -122,6 +124,7 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.3,
     .particleSpeed = 150,
     .custom_Movement = NULL,
@@ -156,6 +159,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.3,
     .particleSpeed = 150,
     .custom_Movement = NULL,
@@ -190,6 +194,7 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.3,
     .particleSpeed = 150,
     .custom_Movement = NULL,
@@ -224,6 +229,7 @@ ParticleEmitter ParticleEmitter_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.1,
     .particleSpeed = 200,
     .custom_Movement = NULL,

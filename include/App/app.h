@@ -23,6 +23,7 @@
 #include <UI.h>
 #include <menu.h>
 #include <tiles.h>
+#include <camera.h>
 
 typedef enum {
     SCENE_MENU,

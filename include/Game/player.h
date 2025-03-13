@@ -65,8 +65,6 @@ int Player_Move();
 int Player_Look(Vec2 direction);
 void Player_UpdateHitbox();
 
-void Player_WrapAroundScreen(); //! This is temporary and will be removed later.
-
 // Skills
 int Player_Dash();
 int Player_HandleDash();

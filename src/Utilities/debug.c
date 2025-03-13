@@ -3,6 +3,7 @@
 #include <colliders.h>
 #include <stdio.h>
 #include <UI_text.h>
+#include <camera.h>
 
 #define PLAYER_HITBOX_COLOR 0, 255, 0, 255
 #define WALL_HITBOX_COLOR 255, 255, 0, 255
@@ -19,6 +20,8 @@ void Debug_RenderHitboxes() {
         Collider* collider = ColliderList[i];
         if (!collider->active) continue;
         SDL_Rect hitbox = collider->hitbox;
+        hitbox.x = Camera_WorldToScreen((Vec2) {hitbox.x, hitbox.y}).x;
+        hitbox.y = Camera_WorldToScreen((Vec2) {hitbox.x, hitbox.y}).y;
         switch (collider->layer) {
             case COLLISION_LAYER_PLAYER:
                 SDL_SetRenderDrawColor(app.resources.renderer, PLAYER_HITBOX_COLOR);

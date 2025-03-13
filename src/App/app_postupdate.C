@@ -21,6 +21,7 @@ int App_PostUpdate() {
         case SCENE_GAME:
             Player_PostUpdate();
             Gun_Update();
+            camera.position = player.state.position;
             break;
     }
     return 0;

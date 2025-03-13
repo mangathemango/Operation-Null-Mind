@@ -15,9 +15,11 @@ void Gun_Update() {
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 
+    Vec2 mouseWorldPosition = Camera_ScreenToWorld(Input->mouse.position);
+
     // Flip the gun's sprite if mouse is on the left side of the player
     // This also flips the gun's particles and muzzle flash particles.
-    if (Input->mouse.position.x < player.state.position.x) {
+    if (mouseWorldPosition.x < player.state.position.x) {
         gun->state.flip = SDL_FLIP_VERTICAL;
         gun->state.rotationCenter = (SDL_Point) {
             gun->config.gripPosition.x, 
@@ -37,8 +39,8 @@ void Gun_Update() {
 
     // Calculate angle between gun -> mouse position
     gun->state.angle = atan2(
-        Vec2_Subtract(Input->mouse.position, player.state.position).y, 
-        Vec2_Subtract(Input->mouse.position, player.state.position).x
+        Vec2_Subtract(mouseWorldPosition, player.state.position).y, 
+        Vec2_Subtract(mouseWorldPosition, player.state.position).x
     ) * 180 / M_PI;
 
     // Update gun's position
