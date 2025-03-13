@@ -3,6 +3,7 @@
 #include <app.h>
 
 void Tile_Render(EnvironmentTile tile, Vec2 tilePosition) {
+    if (!tile.texture) return;
     SDL_Rect dest = {
         .x = tilePosition.x * TILE_SIZE_PIXELS,
         .y = tilePosition.y * TILE_SIZE_PIXELS,

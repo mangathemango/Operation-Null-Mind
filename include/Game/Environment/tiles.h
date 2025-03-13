@@ -9,6 +9,7 @@
 // Define tile types with enum
 typedef enum {
     // Floor tiles
+    TILE_VOID,
     TILE_FLOOR_1,
     TILE_FLOOR_2,
     TILE_FLOOR_3,

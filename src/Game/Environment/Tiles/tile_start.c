@@ -4,7 +4,7 @@
 
 void Tile_Start() {
     // Load textures
-    for (int i = 0; i < TILE_TYPE_COUNT; i++) {
+    for (int i = 1; i < TILE_TYPE_COUNT; i++) {
         SDL_Surface* surface = IMG_Load(tiles.config.texturePaths[i]);
         if (!surface) {
             SDL_Log("Failed to load image: %s", IMG_GetError());

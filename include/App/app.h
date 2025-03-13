@@ -22,7 +22,7 @@
 #include <particle_emitterpresets.h>
 #include <UI.h>
 #include <menu.h>
-#include <tiles.h>
+#include <chunks.h>
 #include <camera.h>
 
 typedef enum {

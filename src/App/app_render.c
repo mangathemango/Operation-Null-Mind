@@ -17,11 +17,7 @@ int App_RenderMain() {
             break;
         
         case SCENE_GAME:
-            for (int x = 5; x < 15; x++) {
-                for (int y = 3; y < 10; y++) {
-                    Tile_Render(Tile_Create(TILE_FLOOR_1, TILE_ROTATE_NONE), (Vec2) {x, y});
-                }
-            }
+            Chunk_Render(testChunk, (Vec2) {0, 0});
             Player_Render();
             Gun_Render();
             Debug_RenderHitboxes();

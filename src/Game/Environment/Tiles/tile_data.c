@@ -3,6 +3,7 @@
 EnvironmentTileData tiles = {
     .resources = {
         .textures = {
+            [TILE_VOID] = NULL,
             [TILE_FLOOR_1] = NULL,
             [TILE_FLOOR_2] = NULL,
             [TILE_FLOOR_3] = NULL,
