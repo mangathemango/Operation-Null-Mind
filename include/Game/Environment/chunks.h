@@ -28,6 +28,7 @@ typedef enum {
 typedef struct {
     EnvironmentTile tiles[CHUNK_SIZE_TILE][CHUNK_SIZE_TILE];
     Collider* colliders[CHUNK_SIZE_TILE];
+    int colliderCount;
     Vec2 roomSize;
     RoomHallways hallways;
     RoomFloorPattern floorPattern;
@@ -40,6 +41,7 @@ void Chunk_GenerateWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateHallways(EnvironmentChunk* chunk);
 void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateColliders(EnvironmentChunk* chunk);
+void Chunk_AddCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
 void Chunk_Start();
 void Chunk_Render(EnvironmentChunk chunk, Vec2 chunkPosition);
 extern EnvironmentChunk testChunk;

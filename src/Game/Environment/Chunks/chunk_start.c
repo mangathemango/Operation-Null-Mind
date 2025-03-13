@@ -21,6 +21,7 @@ EnvironmentChunk Chunk_Create(Vec2 roomSize, RoomFloorPattern floorPattern, Room
     Chunk_GenerateWallTiles(&chunk);
     Chunk_GenerateHallways(&chunk);
     Chunk_GenerateHallwayWallTiles(&chunk);
+    Chunk_GenerateColliders(&chunk);
     return chunk;
 }
 
@@ -144,4 +145,146 @@ void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk) {
             chunk->tiles[HALLWAY_END][y] = Tile_Create(TILE_WALL_SIDE_BORDER, TILE_ROTATE_CLOCKWISE);
         } 
     }
+}
+
+void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
+    int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
+    int roomStartY = (CHUNK_SIZE_TILE - chunk->roomSize.y) / 2;
+    int roomEndX = roomStartX + chunk->roomSize.x;
+    int roomEndY = roomStartY + chunk->roomSize.y;
+
+    if (chunk->hallways & HALLWAY_UP) {
+        Chunk_AddCollider(
+            (Vec2) {HALLWAY_START - 1, 0}, 
+            (Vec2) {HALLWAY_START - 1, roomStartY - 3}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {HALLWAY_END, 0}, 
+            (Vec2) {HALLWAY_END, roomStartY - 3}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {roomStartX, roomStartY - 2}, 
+            (Vec2) {HALLWAY_START - 1, roomStartY - 2}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {HALLWAY_END, roomStartY - 2}, 
+            (Vec2) {roomEndY - 1, roomStartY - 2}, 
+            chunk
+        );
+    } else {
+        Chunk_AddCollider(
+            (Vec2) {roomStartX, roomStartY - 2},
+            (Vec2) {roomEndX - 1, roomStartY - 2},
+            chunk
+        );
+    }
+
+    if (chunk->hallways & HALLWAY_LEFT) {
+        Chunk_AddCollider(
+            (Vec2) {0 , HALLWAY_START - 2}, 
+            (Vec2) {roomStartX - 1, HALLWAY_START - 2}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {0 , HALLWAY_END}, 
+            (Vec2) {roomStartX - 1, HALLWAY_END}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {roomStartX - 1, roomStartY - 1}, 
+            (Vec2) {roomStartX - 1, HALLWAY_START - 3}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {roomStartX - 1, HALLWAY_END + 1}, 
+            (Vec2) {roomStartX - 1, roomEndY - 1}, 
+            chunk
+        );
+    } else {
+        Chunk_AddCollider(
+            (Vec2) {roomStartX - 1, roomStartY - 1},
+            (Vec2) {roomStartX - 1, roomEndY - 1},
+            chunk
+        );
+    }
+
+    if (chunk->hallways & HALLWAY_DOWN) {
+        Chunk_AddCollider(
+            (Vec2) {roomStartX, roomEndY}, 
+            (Vec2) {HALLWAY_START - 2, roomEndY}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {HALLWAY_START - 1, roomEndY}, 
+            (Vec2) {HALLWAY_START - 1, CHUNK_SIZE_TILE - 1}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {HALLWAY_END, roomEndY}, 
+            (Vec2) {HALLWAY_END, CHUNK_SIZE_TILE - 1}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {HALLWAY_END + 1, roomEndY}, 
+            (Vec2) {roomEndX - 1, roomEndY}, 
+            chunk
+        );
+    } else {
+        Chunk_AddCollider(
+            (Vec2) {roomStartX, roomEndY},
+            (Vec2) {roomEndX - 1, roomEndY},
+            chunk
+        );
+    }
+
+    if (chunk->hallways & HALLWAY_RIGHT) {
+        Chunk_AddCollider(
+            (Vec2) {roomEndX, roomStartY - 1}, 
+            (Vec2) {roomEndX, HALLWAY_START - 3}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {roomEndX, HALLWAY_START - 2}, 
+            (Vec2) {CHUNK_SIZE_TILE - 1, HALLWAY_START - 2}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {roomEndX, HALLWAY_END}, 
+            (Vec2) {CHUNK_SIZE_TILE - 1, HALLWAY_END}, 
+            chunk
+        );
+        Chunk_AddCollider(
+            (Vec2) {roomEndX, HALLWAY_END + 1}, 
+            (Vec2) {roomEndX, roomEndY - 1}, 
+            chunk
+        );
+    } else {
+        Chunk_AddCollider(
+            (Vec2) {roomEndX, roomStartY - 1},
+            (Vec2) {roomEndX, roomEndY - 1},
+            chunk
+        );
+    }
+}
+
+void Chunk_AddCollider(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
+    Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
+    Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
+    Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
+    Vec2 colliderSizePixels = Vec2_Multiply(colliderSizeTiles, TILE_SIZE_PIXELS);
+    
+    Collider* collider = malloc(sizeof(Collider));
+    collider->hitbox = (SDL_Rect) {
+        startPixel.x,
+        startPixel.y,
+        colliderSizePixels.x,
+        colliderSizePixels.y,
+    };
+    collider->collidesWith = COLLISION_LAYER_NONE;
+    collider->layer = COLLISION_LAYER_ENVIRONMENT;
+    Collider_Register(collider, NULL);
+    chunk->colliders[chunk->colliderCount++] = collider;
 }

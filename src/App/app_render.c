@@ -20,7 +20,7 @@ int App_RenderMain() {
             Chunk_Render(testChunk, (Vec2) {0, 0});
             Player_Render();
             Gun_Render();
-            Debug_RenderHitboxes();
+            // Debug_RenderHitboxes();
             break;
     }
     Debug_RenderFPSCount();
