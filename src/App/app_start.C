@@ -18,8 +18,8 @@ int App_Start() {
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
     Gun_Start();
-    Tile_Start();
-    Chunk_Start();
+    
+    Map_Start();
 
     // Initialize sound system
     if (!Sound_System_Initialize()) {

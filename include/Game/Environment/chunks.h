@@ -26,16 +26,21 @@ typedef enum {
     ROOM_FLOOR_PATTERN_RANDOM,
 } RoomFloorPattern;
 typedef struct {
+    Vec2 position;
+
     EnvironmentTile tiles[CHUNK_SIZE_TILE][CHUNK_SIZE_TILE];
-    Collider* colliders[CHUNK_SIZE_TILE];
-    int colliderCount;
+
     Vec2 roomSize;
     RoomHallways hallways;
     RoomFloorPattern floorPattern;
+    
     bool empty;
+
+    Collider* colliders[CHUNK_SIZE_TILE];
+    int colliderCount;
 } EnvironmentChunk;
 
-EnvironmentChunk Chunk_Create(Vec2 roomSize ,RoomFloorPattern floorPattern, RoomHallways hallways);
+EnvironmentChunk Chunk_Create(Vec2 position, Vec2 roomSize ,RoomFloorPattern floorPattern, RoomHallways hallways);
 void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateHallways(EnvironmentChunk* chunk);
@@ -43,5 +48,6 @@ void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateColliders(EnvironmentChunk* chunk);
 void Chunk_AddCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
 void Chunk_Start();
-void Chunk_Render(EnvironmentChunk chunk, Vec2 chunkPosition);
+void Chunk_Render(EnvironmentChunk chunk);
 extern EnvironmentChunk testChunk;
+extern EnvironmentChunk testChunk2;

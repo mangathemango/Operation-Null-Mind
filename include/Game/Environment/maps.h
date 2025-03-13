@@ -10,3 +10,7 @@ typedef struct {
 } EnvironmentMap;
 
 extern EnvironmentMap testMap;
+
+void Map_Start();
+void Map_Render();
+RoomHallways Map_GetChunkHallways(EnvironmentChunk chunk, EnvironmentMap map);

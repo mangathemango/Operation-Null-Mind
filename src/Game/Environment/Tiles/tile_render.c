@@ -4,15 +4,21 @@
 
 void Tile_Render(EnvironmentTile tile, Vec2 tilePosition) {
     if (!tile.texture) return;
+    Vec2 screenPos = Camera_WorldToScreen(
+        (Vec2){
+            tilePosition.x * TILE_SIZE_PIXELS, 
+            tilePosition.y * TILE_SIZE_PIXELS
+        }
+    );
+
     SDL_Rect dest = {
-        .x = tilePosition.x * TILE_SIZE_PIXELS,
-        .y = tilePosition.y * TILE_SIZE_PIXELS,
+        .x = screenPos.x,
+        .y = screenPos.y,
         .w = TILE_SIZE_PIXELS,
         .h = TILE_SIZE_PIXELS
     };
-    dest.x = Camera_WorldToScreen((Vec2) {dest.x, dest.y}).x;
-    dest.y = Camera_WorldToScreen((Vec2) {dest.x, dest.y}).y;
-
+    if (dest.x > app.config.screen_width || dest.y > app.config.screen_height) return;
+    if (dest.x + dest.w < 0 || dest.y + dest.h < 0) return;
     float angle;
     switch (tile.rotation) {
         case TILE_ROTATE_CLOCKWISE:
