@@ -90,7 +90,8 @@
     "stdbool.h": "c",
     "particle_emitterpresets.h": "c",
     "debug.h": "c",
-    "colliders.h": "c"
+    "colliders.h": "c",
+    "ui_text.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 

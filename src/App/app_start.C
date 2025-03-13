@@ -17,8 +17,8 @@ int App_Start() {
     Collider_Start();
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
-    if (Environment_Start()) return 1;
     Gun_Start();
+    Tile_Start();
 
     // Initialize sound system
     if (!Sound_System_Initialize()) {

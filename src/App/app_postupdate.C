@@ -20,7 +20,6 @@ int App_PostUpdate() {
             
         case SCENE_GAME:
             Player_PostUpdate();
-            Environment_Update();
             Gun_Update();
             break;
     }

@@ -17,10 +17,12 @@ int App_RenderMain() {
             break;
         
         case SCENE_GAME:
+            for (int x = 5; x < 15; x++) {
+                for (int y = 3; y < 10; y++) {
+                    Tile_Render(Tile_Create(TILE_FLOOR_1, TILE_ROTATE_NONE), (Vec2) {x, y});
+                }
+            }
             Player_Render();
-            SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
-            SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {300, 100, 25, 30});
-            Environment_Render();
             Gun_Render();
             Debug_RenderHitboxes();
             break;
