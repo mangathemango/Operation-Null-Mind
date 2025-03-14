@@ -7,15 +7,16 @@
 ?   It's just trying to draw stuff on the screen. With code.
 ?   It's like trying to paint a picture with a toothbrush.
 
-?   Anyways, just use Chunk_Create() to create a chunk.
+?   Anyways, just use Chunk_GenerateTiles() to create a chunk.
 */
 
-EnvironmentChunk Chunk_Create(Vec2 position, Vec2 roomSize, RoomFloorPattern floorPattern, RoomHallways hallways) {
+EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 roomSize, RoomFloorPattern floorPattern, RoomHallways hallways) {
     EnvironmentChunk chunk = {
         .position = position,
         .roomSize = roomSize,
         .hallways = hallways,
         .floorPattern = floorPattern,
+        .roomType = roomType,
         .empty = false
     };
 
@@ -173,7 +174,7 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
         );
         Chunk_AddCollider(
             (Vec2) {HALLWAY_END, roomStartY - 2}, 
-            (Vec2) {roomEndY - 1, roomStartY - 2}, 
+            (Vec2) {roomEndX - 1, roomStartY - 2}, 
             chunk
         );
     } else {

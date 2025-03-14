@@ -1,5 +1,5 @@
 #include <maps.h>
 
-extern EnvironmentMap testMap = {
+EnvironmentMap testMap = {
     .chunks = {}
 };
