@@ -21,7 +21,7 @@ void Gun_Render() {
 
     // .. and then we render the gun...
     Animation_Render(gun->resources.animation, 
-                    gun->state.position, 
+                    Camera_WorldToScreen(gun->state.position), 
                     gun->animData.spriteSize,
                     gun->state.angle,
                     &gun->state.rotationCenter,

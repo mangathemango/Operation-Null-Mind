@@ -28,3 +28,12 @@ int RandInt(int min, int max) {
 float RandFloat(float min, float max) {
     return (float)rand() / RAND_MAX * (max - min) + min;
 }
+
+
+/*
+*   [Utility] Get a random boolean
+    @returns Either true or false.
+*/
+bool RandBool() {
+    return RandInt(0,1) == 0;
+}

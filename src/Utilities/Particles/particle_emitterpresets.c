@@ -11,36 +11,6 @@
 #define SHOTSHELL_COLOR {207,43,33,255}
 #define SHOTSHELL_COLOR_FADE {207,43,33,0}
 
-/*
-*   [Start] Creates a particle emitter from a preset.
-    @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
-    @returns A pointer to the created emitter
-*/
-ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
-    // Create emitter
-    ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));
-    if (!emitter) return NULL;
-    memcpy(emitter, &preset, sizeof(ParticleEmitter));
-
-    // Set up emitter Timer
-    emitter->emissionTimer = Timer_Create(emitter->emissionRate);
-    Timer_Start(emitter->emissionTimer);
-
-    // Create particle array
-    emitter->particles = malloc(sizeof(Particle) * emitter->maxParticles);
-    if (!emitter->particles) {
-        free(emitter);
-        return NULL;
-    }
-    // Set all particles to dead by default
-    for (int i = 0; i < emitter->maxParticles; i++) {
-        emitter->particles[i].alive = false; 
-        if (!emitter->useCollider) continue;
-        emitter->particles[i].collider = malloc(sizeof(Collider));
-    }
-    return emitter;
-}
-
 ParticleEmitter ParticleEmitter_Dash = {
     .position = {100, 100},
 
@@ -56,6 +26,7 @@ ParticleEmitter ParticleEmitter_Dash = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.1,
     .particleSpeed = 200,
     .custom_Movement = Particle_RandomMovement,
@@ -92,6 +63,7 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.1,
     .particleSpeed = 200,
     .custom_Movement = Particle_RandomMovement,
@@ -128,6 +100,7 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.3,
     .particleSpeed = 150,
     .custom_Movement = NULL,
@@ -164,6 +137,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.3,
     .particleSpeed = 150,
     .custom_Movement = NULL,
@@ -200,6 +174,7 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.3,
     .particleSpeed = 150,
     .custom_Movement = NULL,
@@ -236,6 +211,7 @@ ParticleEmitter ParticleEmitter_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
+    .cameraLocked = false,
     .particleLifetime = 0.1,
     .particleSpeed = 200,
     .custom_Movement = NULL,

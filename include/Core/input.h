@@ -56,4 +56,5 @@ extern const InputEvent * const Input;
 void Input_PreUpdate();
 void Input_Event_Handler(SDL_Event *event);
 
+bool Input_MouseIsOnRect(SDL_Rect rect);
 #endif

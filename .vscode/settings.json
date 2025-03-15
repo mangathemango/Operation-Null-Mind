@@ -89,7 +89,11 @@
     "gun.h": "c",
     "stdbool.h": "c",
     "particle_emitterpresets.h": "c",
-    "debug.h": "c",
+    "debug.h": "c"
+    "colliders.h": "c",
+    "ui_text.h": "c",
+    "chunks.h": "c",
+    "random.h": "c",
     "memory_resource": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"

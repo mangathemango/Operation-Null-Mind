@@ -12,6 +12,14 @@
 int App_PreUpdate() {
     Input_PreUpdate();
     Time_PreUpdate();
-    Player_Preupdate();
+
+    switch (app.state.currentScene){
+        case SCENE_MENU:
+            break;
+            
+        case SCENE_GAME:
+            Player_Preupdate();
+            break;
+    }
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <random.h>
 #include <particle_emitterpresets.h>
 #include <sound.h>
-#include <environment.h>
+
 #include <bullet.h>
 
 /*
@@ -18,9 +18,10 @@ int App_Start() {
     Collider_Start();
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
-    if (Environment_Start()) return 1;
     Gun_Start();
     Bullet_Start();
+    
+    Map_Start();
 
     // Initialize sound system
     if (!Sound_System_Initialize()) {
@@ -35,6 +36,7 @@ int App_Start() {
     }
 
     Sound_System_Initialize();
+    Menu_PrepareTextures();
     return 0;
     
 }

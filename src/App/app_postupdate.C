@@ -1,6 +1,5 @@
 #include <app.h>
 #include <player.h>
-#include <environment.h>
 #include <particle_emitterpresets.h>
 #include <input.h>
 #include <sound.h>
@@ -13,9 +12,28 @@
 ?   Updated by Mango on 03/03/2025
 */
 int App_PostUpdate() {
-    Player_PostUpdate();
-    Environment_Update(); // Add this line to update the environment
-    Gun_Update();
-    Bullet_Update();
+
+    switch (app.state.currentScene) 
+    {
+        case SCENE_MENU:
+            // Updates the menu logic
+            Menu_Update();
+            break;
+            
+        case SCENE_GAME:
+            Player_PostUpdate();
+            Gun_Update();
+            Bullet_Update();
+
+            // Linearly interpolate the position of the camera towards the player
+            // This basically means the camera moves smoothly towards the position of the player
+            camera.position = Vec2_Lerp(
+                camera.position, 
+                player.state.position, 
+                // Smooth time
+                3 * Time->deltaTimeSeconds
+            );
+            break;
+    }
     return 0;
 }

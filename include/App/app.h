@@ -20,16 +20,30 @@
 #include <player.h>
 #include <time_system.h>
 #include <particle_emitterpresets.h>
+#include <UI.h>
+#include <menu.h>
+#include <chunks.h>
+#include <camera.h>
+#include <maps.h>
+
+typedef enum {
+    SCENE_MENU,
+    SCENE_GAME
+} AppScene;
+
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* screenTexture;
     TTF_Font* textFont;
+    TTF_Font* title1Font;
+    TTF_Font* title2Font;
 } AppResources;
 
 typedef struct {
     bool running;
     int fps;
+    AppScene currentScene;
 } AppState;
 
 typedef struct {
@@ -40,7 +54,11 @@ typedef struct {
     int screen_width;
     int screen_height;
 
-    char* textFontPath;
+    bool debug;
+    
+    char* title1FontPath;
+    char* title2FontPath;
+    char* textFontPath;     
 } AppConfig;
 
 typedef struct {

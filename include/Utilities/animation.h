@@ -6,25 +6,28 @@
 ?   To load an animation, you need 4 steps.
 ?   
 !   This tutorial is deprecated and will be updated soon.
-?   Step 1: Create animation with frame size and frame number
-?       *Animation animation = Animation_Create(animationTexture, (Vec2) {x, y}, n);
+?   Step 1: Create animation with an AnimationData struct
+?       An example of an AnimationData struct can be found in src/Game/Player/player_data.c
 ?   
-?   Step 2: Select frames from the spritesheet to make into a clip.
-?   Note: Index counts from 0, and goes from left to right, THEN up to down
-?   For example: If your running animation is from frames with index 5 to 10, you can run
-?       Animation_AddClipFromGrid(animation, "running", 5, 10, 0.4f, true); 
+?       After that, you can call:
+?       Animation* animation = Animation_Create(data);
 ?   
-?   Step 3: Play the animation:
+?   Step 2: Play the animation based on a certain state:
 ?       Animation_Play(animation, "running");
 ?
-?   Step 4: Update and render the animation every frame:
+?   Step 3: Update and render the animation every frame:
+?       // Inside update loop
 ?       Animation_Update(animation);
-?       Animation_Render(animation, 
-?                       (Vec2) {x, y}, 
-?                       (Vec2) {w, h}, 
-?                       angle, 
-?                       NULL, 
-?                       SDL_FLIP_NONE);
+?
+?       // Inside render loop
+?       Animation_Render(
+?           animation,          // The animation
+?           (Vec2) {x, y},      // The position to render
+?           (Vec2) {w, h},      // The size to render
+?           angle,              // Rotation angle in degrees
+?           NULL,               // The rotation center, NULL for center
+?           SDL_FLIP_NONE       // Flip the sprite, SDL_FLIP_NONE for no flip
+?       );
 
 ?   Written by Mango on 01/03/2025
 */
