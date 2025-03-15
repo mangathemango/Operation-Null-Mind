@@ -15,8 +15,6 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     // Create emitter
     ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));
     if (!emitter) return NULL;
-
-    // Copy preset data to emitter
     memcpy(emitter, &preset, sizeof(ParticleEmitter));
 
     // Set up emitter Timer
@@ -29,10 +27,11 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
         free(emitter);
         return NULL;
     }
-
     // Set all particles to dead by default
     for (int i = 0; i < emitter->maxParticles; i++) {
         emitter->particles[i].alive = false; 
+        if (!emitter->useCollider) continue;
+        emitter->particles[i].collider = malloc(sizeof(Collider));
     }
     return emitter;
 }

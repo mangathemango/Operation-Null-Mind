@@ -237,9 +237,9 @@ ParticleEmitter bullet_Default = {
     .position = {100, 100},
 
     .direction = {0, -1},
-    .emissionRate = 0,
+    .emissionRate = 0.1,
     .emissionNumber = 1,
-    .maxParticles = 1,
+    .maxParticles = 10,
     .angleRange = 0,
 
     .active = true,
@@ -248,8 +248,8 @@ ParticleEmitter bullet_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 0.5,
-    .particleSpeed = 200,
+    .particleLifetime = 3,
+    .particleSpeed = 500,
     .custom_Movement = NULL,
 
     .startColor = {255, 255, 255, 255},
