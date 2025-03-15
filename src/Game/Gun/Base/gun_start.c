@@ -1,6 +1,7 @@
 //? Written by Mango on 07/03/2025
 
 #include <gun.h>
+#include <bullet.h>
 
 /*
 *   [Start] Initializes the gun and its particle emitters
@@ -27,5 +28,7 @@ void Gun_Start() {
         gun->resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(gun->config.casingPreset);
         gun->resources.muzzleFlashEmitter = muzzleFlashEmitter;
         gun->resources.animation = Animation_Create(&gun->animData);
+        //This is because we need it to be in gundata.
+        Bullet_Start();
     }   
 }

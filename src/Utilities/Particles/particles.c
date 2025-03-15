@@ -105,6 +105,9 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
     }
 }
 
+
+
+
 /*
 *   [Utility] Emits a single particle and set its properties based on the emitter.
     @param emitter A pointer to the particle emitter
@@ -133,6 +136,14 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
     particle->initialSize = emitter->startSize;
     particle->cameraLock = emitter->cameraLocked;
     emitter->readyIndex = ParticleEmitter_GetNextReady(emitter);
+
+    if (!emitter->useCollider) return;
+    SDL_Log("Collider Created");
+    memcpy(particle->collider, &emitter->collider, sizeof(Collider));
+    Collider_Register(particle->collider, emitter);
+    particle->collider->hitbox.x = particle->position.x;
+    particle->collider->hitbox.y = particle->position.y;
+    SDL_Log("Collider Layer: %d", particle->collider->layer);
 }
 
 /*
@@ -148,7 +159,10 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
         if (particle->timeAlive >= particle->maxLifeTime) {
             particle->alive = false;
             emitter->readyIndex = i;
-            continue;
+            if (emitter->useCollider && particle->collider != NULL)
+            {
+                Collider_Reset(particle->collider);
+            }
         }
         // Movement
         if (emitter->custom_Movement) {
@@ -177,6 +191,14 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
 
         // Rotation
         particle->rotation += particle->rotationSpeed * Time->deltaTimeSeconds;
+
+        // Collider
+        if (!emitter->useCollider) continue;
+        if (!particle->collider || !particle->collider->active) continue;
+        particle->collider->hitbox.x = particle->position.x;
+        particle->collider->hitbox.y = particle->position.y;
+        particle->collider->hitbox.w = 5;
+        particle->collider->hitbox.h = 5;
     }
 }
 

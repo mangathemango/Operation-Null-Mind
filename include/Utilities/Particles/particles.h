@@ -44,6 +44,7 @@
 #include <stdbool.h>
 #include <timer.h>
 #include <camera.h>
+#include <colliders.h>
 
 /*
 *   A struct that represents a particle.
@@ -76,6 +77,8 @@ typedef struct {
     Vec2 initialSize;           // Starting size (for reference/reset)
     bool cameraLock;
     int bounceCount;            // Track number of bounces              (Not implemented)
+
+    Collider* collider;          // Collider for the particle (Not implemented)
 } Particle;
 
 /*
@@ -116,8 +119,8 @@ typedef struct ParticleEmitter {
     // Visual Properties
     SDL_Color startColor;                   // Initial particle color
     SDL_Color endColor;                     // Final particle color
-    Vec2 startSize;                         // Initial size of particles
-    Vec2 endSize;                           // Final size of particles
+    Vec2 startSize;                         // Initial size of particles in pixels
+    Vec2 endSize;                           // Final size of particles in pixels
     SDL_Texture* particleTexture;           // Optional texture (NULL = rectangle)
     
     // Physics
@@ -128,7 +131,11 @@ typedef struct ParticleEmitter {
     Timer* emissionTimer;                   // Timer for emission control
     Particle* particles;                    // Array of particles
     int readyIndex;                         // Next available particle index
-    struct ParticleEmitter** selfReference; //! A double pointer to this emitter. Used to set the reference to NULL when destroyed. This needs to be manually set on Emitter creation.   
+    struct ParticleEmitter** selfReference; //! A double pointer to this emitter. Used to set the reference to NULL when destroyed. This needs to be manually set on Emitter creation. 
+
+    //Collider properties
+    bool useCollider;
+    Collider collider;          // Collider for the emitter (Not implemented)
 } ParticleEmitter;
 
 void ParticleEmitter_SetMaxParticles(ParticleEmitter* emitter, int maxParticles);

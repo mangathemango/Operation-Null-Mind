@@ -18,6 +18,7 @@ void Player_Shoot() {
         Sound_Play_Effect(1);
         ParticleEmitter_ActivateOnce(player.state.currentGun->resources.casingParticleEmitter);
         ParticleEmitter_ActivateOnce(player.state.currentGun->resources.muzzleFlashEmitter);
+        ParticleEmitter_ActivateOnce(player.state.currentGun->resources.bulletPreset);
         Timer_Start(shootTimer);
     }
 }

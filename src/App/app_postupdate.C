@@ -3,6 +3,7 @@
 #include <particle_emitterpresets.h>
 #include <input.h>
 #include <sound.h>
+#include <bullet.h>
 
 /* 
 *   [PostUpdate] This function is called every frame of the program AFTER App_Event_Handler().
@@ -11,6 +12,7 @@
 ?   Updated by Mango on 03/03/2025
 */
 int App_PostUpdate() {
+
     switch (app.state.currentScene) 
     {
         case SCENE_MENU:
@@ -21,6 +23,7 @@ int App_PostUpdate() {
         case SCENE_GAME:
             Player_PostUpdate();
             Gun_Update();
+            Bullet_Update();
 
             // Linearly interpolate the position of the camera towards the player
             // This basically means the camera moves smoothly towards the position of the player

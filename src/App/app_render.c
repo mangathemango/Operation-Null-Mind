@@ -3,6 +3,8 @@
 #include <player.h>
 
 #include <debug.h>
+#include <bullet.h>
+
 /*
 *   [Render] Handles the main rendering of the game, like players, game environments, etc.
 ?   This function is called inside App_Render().
@@ -20,6 +22,7 @@ int App_RenderMain() {
             Map_Render();
             Player_Render();
             Gun_Render();
+            Bullet_Render();
             Debug_RenderHitboxes();
             break;
     }

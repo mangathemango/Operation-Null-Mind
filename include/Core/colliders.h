@@ -53,7 +53,7 @@
 #include <stdbool.h>
 
 #define MAX_COLLISIONS_PER_CHECK 10
-#define MAX_COLLIDABLES 1000
+#define MAX_COLLIDABLES 1024
 
 // Collision layers as bitmasks for efficient checking
 typedef enum {

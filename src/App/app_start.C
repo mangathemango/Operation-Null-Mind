@@ -5,6 +5,7 @@
 #include <particle_emitterpresets.h>
 #include <sound.h>
 
+#include <bullet.h>
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -18,6 +19,7 @@ int App_Start() {
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
     Gun_Start();
+    Bullet_Start();
     
     Map_Start();
 
