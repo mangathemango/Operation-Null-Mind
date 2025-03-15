@@ -17,10 +17,8 @@ int App_RenderMain() {
             break;
         
         case SCENE_GAME:
+            Map_Render();
             Player_Render();
-            SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
-            SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {300, 100, 25, 30});
-            Environment_Render();
             Gun_Render();
             Debug_RenderHitboxes();
             break;

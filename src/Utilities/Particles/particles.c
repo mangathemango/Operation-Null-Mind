@@ -59,6 +59,10 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
             particle->size.x,
             particle->size.y
         };
+        if (!particle->cameraLock) {
+            rect.x = Camera_WorldToScreen((Vec2) {rect.x, rect.y}).x;
+            rect.y = Camera_WorldToScreen((Vec2) {rect.x, rect.y}).y;
+        }
         SDL_SetRenderDrawColor(app.resources.renderer, 
                                 particle->color.r, 
                                 particle->color.g, 
@@ -94,7 +98,7 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
     particle->initialSpeed = emitter->particleSpeed;
     particle->initialColor = emitter->startColor;
     particle->initialSize = emitter->startSize;
-
+    particle->cameraLock = emitter->cameraLocked;
     emitter->readyIndex = ParticleEmitter_GetNextReady(emitter);
 }
 

@@ -20,8 +20,12 @@ int App_PostUpdate() {
             
         case SCENE_GAME:
             Player_PostUpdate();
-            Environment_Update();
             Gun_Update();
+            camera.position = Vec2_Lerp(
+                camera.position, 
+                player.state.position, 
+                3 * Time->deltaTimeSeconds
+            );
             break;
     }
     return 0;

@@ -10,7 +10,9 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 void RandomInit();
 int RandInt(int min, int max);
 float RandFloat(float min, float max);
+bool RandBool();

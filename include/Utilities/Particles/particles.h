@@ -43,6 +43,7 @@
 #include <vec2.h>
 #include <stdbool.h>
 #include <timer.h>
+#include <camera.h>
 
 /*
 *   A struct that represents a particle.
@@ -73,6 +74,7 @@ typedef struct {
     float initialSpeed;         // Starting speed (for reference/reset)-
     SDL_Color initialColor;     // Starting color (for reference/reset)
     Vec2 initialSize;           // Starting size (for reference/reset)
+    bool cameraLock;
     int bounceCount;            // Track number of bounces              (Not implemented)
 } Particle;
 
@@ -106,6 +108,7 @@ typedef struct ParticleEmitter {
     bool destroyWhenDone;                   // Destroys emitter when all particles are gone. Suitable for one-time effects.
     
     // Particle Properties
+    bool cameraLocked;                      // If true, particles will appear static on the screen.
     float particleLifetime;                 // How long particles live in seconds  
     float particleSpeed;                    // Particle movement speed
     void (*custom_Movement)(Particle*);     // Movement behavior function (Will override default movement)

@@ -22,6 +22,9 @@
 #include <particle_emitterpresets.h>
 #include <UI.h>
 #include <menu.h>
+#include <chunks.h>
+#include <camera.h>
+#include <maps.h>
 
 typedef enum {
     SCENE_MENU,
