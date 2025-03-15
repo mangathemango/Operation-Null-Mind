@@ -69,19 +69,6 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
 }
 
 
-void Particle_Collision(ParticleEmitter* emitter)
-{
-    for(int i = 0; i < emitter->maxParticles;i++)
-    {
-        Particle* particle = &emitter->particles[i];
-        if (!emitter->particles[i].alive || particle->color.a <= 0) continue;
-        particle->collider->hitbox.x = particle->position.x;
-        particle->collider->hitbox.y = particle->position.y;
-        particle->collider->hitbox.w = 6;
-        particle->collider->hitbox.h = 6;
-    }
-}
-
 
 
 /*
@@ -112,8 +99,12 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
     particle->initialSize = emitter->startSize;
 
     emitter->readyIndex = ParticleEmitter_GetNextReady(emitter);
-    // if (emitter->useCollider) return;
+
+    if (!emitter->useCollider) return;
+    SDL_Log("Collider Created");
     Collider_Register(particle->collider, emitter);
+    particle->collider->hitbox.x = particle->position.x;
+    particle->collider->hitbox.y = particle->position.y;
 }
 
 /*
@@ -129,8 +120,10 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
         if (particle->timeAlive >= particle->maxLifeTime) {
             particle->alive = false;
             emitter->readyIndex = i;
-            Collider_Reset(particle->collider);
-            continue;
+            if (emitter->useCollider && particle->collider != NULL)
+            {
+                Collider_Reset(particle->collider);
+            }
         }
         // Movement
         if (emitter->custom_Movement) {
@@ -159,6 +152,14 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
 
         // Rotation
         particle->rotation += particle->rotationSpeed * Time->deltaTimeSeconds;
+
+        // Collider
+        if (!emitter->useCollider) continue;
+        if (!particle->collider || !particle->collider->active) continue;
+        particle->collider->hitbox.x = particle->position.x;
+        particle->collider->hitbox.y = particle->position.y;
+        particle->collider->hitbox.w = 5;
+        particle->collider->hitbox.h = 5;
     }
 }
 

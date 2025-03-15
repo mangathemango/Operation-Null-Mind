@@ -35,10 +35,9 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     // Set all particles to dead by default
     for (int i = 0; i < emitter->maxParticles; i++) {
         emitter->particles[i].alive = false; 
+        if (!emitter->useCollider) continue;
         emitter->particles[i].collider = malloc(sizeof(Collider));
-        
         memcpy(&emitter->collider, &emitter->particles[i].collider, sizeof(Collider));
-
     }
     return emitter;
 }

@@ -145,4 +145,3 @@ void ParticleEmitter_Deactivate(ParticleEmitter* emitter);
 void ParticleEmitter_Render(ParticleEmitter* emitter);
 void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter);
 bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter);
-void Particle_Collision(ParticleEmitter* emitter);
