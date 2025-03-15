@@ -7,17 +7,49 @@
 #include <random.h>
 
 /*
+*   [Start] Creates a particle emitter from a preset.
+    @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
+    @returns A pointer to the created emitter
+*/
+ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
+    // Create emitter
+    ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));
+    if (!emitter) return NULL;
+
+    // Copy preset data to emitter
+    memcpy(emitter, &preset, sizeof(ParticleEmitter));
+
+    // Set up emitter Timer
+    emitter->emissionTimer = Timer_Create(emitter->emissionRate);
+    Timer_Start(emitter->emissionTimer);
+
+    // Create particle array
+    emitter->particles = malloc(sizeof(Particle) * emitter->maxParticles);
+    if (!emitter->particles) {
+        free(emitter);
+        return NULL;
+    }
+
+    // Set all particles to dead by default
+    for (int i = 0; i < emitter->maxParticles; i++) {
+        emitter->particles[i].alive = false; 
+    }
+    return emitter;
+}
+
+/*
 *   [PostUpdate] Controls the particle emitter's particle emission, age, and rendering.
     @param emitter A pointer to the particle emitter
 */
 void ParticleEmitter_Update(ParticleEmitter* emitter) {
-    // Update every particles of the emitter
+    // Loop through all particles and update them
     ParticleEmitter_UpdateParticles(emitter);
 
     // Destroy emitter when all of its particles are gone
     if (!emitter->active) {
         if (ParticleEmitter_ParticlesAlive(emitter)) return;
         if (emitter->destroyWhenDone) {
+            // Destroys particle emitter if set so.
             SDL_Log("Emitter Destroyed");
             ParticleEmitter_DestroyEmitter(emitter);
             return;
@@ -25,6 +57,7 @@ void ParticleEmitter_Update(ParticleEmitter* emitter) {
         return;
     }
 
+    // Update emitter age
     emitter->emitterAge += Time->deltaTimeSeconds;
     if (emitter->emitterLifetime >= 0 && emitter->emitterAge >= emitter->emitterLifetime) {
         emitter->emitterAge = 0;

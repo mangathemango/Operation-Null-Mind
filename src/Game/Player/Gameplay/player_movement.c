@@ -9,7 +9,6 @@
 #include <player.h>
 #include <time_system.h>
 #include <app.h>
-#include <environment.h>
 #include <input.h>
 #include <colliders.h>
 

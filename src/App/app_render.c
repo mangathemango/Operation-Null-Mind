@@ -1,7 +1,7 @@
 #include <app.h>
 #include <particle_emitterpresets.h>
 #include <player.h>
-#include <environment.h>
+
 #include <debug.h>
 /*
 *   [Render] Handles the main rendering of the game, like players, game environments, etc.

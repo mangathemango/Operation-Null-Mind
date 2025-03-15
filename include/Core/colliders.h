@@ -4,7 +4,7 @@
 *   The collision manager is responsible for detecting collisions between entities in the game.
 
 ?   How to use the collider system:
-?   TLDR: Create Collider struct somewhere, register it, check for collisions, and handle them.
+?   TLDR: Create Collider struct somewhere, register it, check for collisions, and handle the collisions.
 ? 
 ?   Step 1: Create a collider struct for your entity.
 ?       This doesn't have to be inside an entity struct. (Though, this would be good for organization)

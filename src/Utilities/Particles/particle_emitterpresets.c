@@ -11,34 +11,6 @@
 #define SHOTSHELL_COLOR {207,43,33,255}
 #define SHOTSHELL_COLOR_FADE {207,43,33,0}
 
-/*
-*   [Start] Creates a particle emitter from a preset.
-    @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
-    @returns A pointer to the created emitter
-*/
-ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
-    // Create emitter
-    ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));
-    if (!emitter) return NULL;
-    memcpy(emitter, &preset, sizeof(ParticleEmitter));
-
-    // Set up emitter Timer
-    emitter->emissionTimer = Timer_Create(emitter->emissionRate);
-    Timer_Start(emitter->emissionTimer);
-
-    // Create particle array
-    emitter->particles = malloc(sizeof(Particle) * emitter->maxParticles);
-    if (!emitter->particles) {
-        free(emitter);
-        return NULL;
-    }
-    // Set all particles to dead by default
-    for (int i = 0; i < emitter->maxParticles; i++) {
-        emitter->particles[i].alive = false; 
-    }
-    return emitter;
-}
-
 ParticleEmitter ParticleEmitter_Dash = {
     .position = {100, 100},
 

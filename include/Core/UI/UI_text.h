@@ -13,7 +13,7 @@
 ?       Note: when the text element changes in text, size, or color, the texture for it will have to change.
 ?       Therefore, you have to use functions like UI_ChangeText or UI_ChangeTextColor to update the texture.
 *   This sparks joy:        UI_ChangeTextColor(element, (SDL_Color) {255, 0, 0, 255});
-!   This doesnt spark joy:  element->color = {255, 0, 0, 255};
+!   This doesnt spark joy:  element->color = (SDL_Color) {255, 0, 0, 255};
 
 ?   And finally, to render: use the UI_RenderText() function.
 

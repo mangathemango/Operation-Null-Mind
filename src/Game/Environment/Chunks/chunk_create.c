@@ -10,6 +10,7 @@
 ?   Anyways, just use Chunk_GenerateTiles() to create a chunk.
 */
 
+
 EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 roomSize, RoomFloorPattern floorPattern, RoomHallways hallways) {
     EnvironmentChunk chunk = {
         .position = position,

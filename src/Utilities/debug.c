@@ -13,7 +13,7 @@
 #define PLAYER_PROJECTILE_HITBOX_COLOR 255, 255, 0, 255
 
 /*
-*   [Render?] Renders the hitbox of the player and walls.
+*   [Render?] Renders every single hitbox in the game.
 */
 void Debug_RenderHitboxes() {
     for (int i = 0; i < ColliderCount; i++) {
@@ -51,7 +51,11 @@ void Debug_RenderHitboxes() {
     }
 }
 
+/*
+*   [Render] Renders the current FPS count on the screen.
+*/
 void Debug_RenderFPSCount() {
+    // The UIElement struct stored in a static variable for reuse
     static UIElement* fpsTextElement = NULL;
 
     // Format FPS text
@@ -59,20 +63,28 @@ void Debug_RenderFPSCount() {
     sprintf(fpsText, "FPS: %d", app.state.fps);
 
 
-
     if (!fpsTextElement) {
+        // Create text element if it doesn't exist 
+
         SDL_Color textColor = {255, 255, 255, 255};
-        SDL_Rect renderRect = {10, 10, 0, 0};
+        SDL_Rect renderRect = {10, 10, 0, 0};   
         float textScale = 1;
         UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
 
-        fpsTextElement = UI_CreateText(fpsText, renderRect, textColor, textScale, alignment, app.resources.textFont);
-
+        fpsTextElement = UI_CreateText(
+            fpsText, 
+            renderRect, 
+            textColor, 
+            textScale, 
+            alignment, 
+            app.resources.textFont
+        );
     } else {
+        // Update text if it does exist.
         UI_ChangeText(fpsTextElement, fpsText);
     }
 
+    // Update and render text
     UI_UpdateText(fpsTextElement);
-
     UI_RenderText(fpsTextElement);
 }
