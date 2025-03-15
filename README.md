@@ -13,8 +13,29 @@
   - [[PostUpdate]](#postupdate)
   - [[Render]](#render)
   - [[Quit]](#quit)
-  - [[Utilities]](#utilities)
+  - [[Utilities]](#utilities-1)
   - [[?]](#)
+- [Key Modules Overview](#key-modules-overview)
+  - [App Module](#app-module)
+  - [Core Modules](#core-modules)
+    - [Vector System](#vector-system)
+    - [Input System](#input-system)
+    - [Time System](#time-system)
+    - [Camera System](#camera-system)
+    - [Colliders System](#colliders-system)
+    - [Sound System](#sound-system)
+    - [UI System](#ui-system)
+  - [Game Modules](#game-modules)
+    - [Player System](#player-system)
+    - [Gun System](#gun-system)
+    - [Environment System](#environment-system)
+  - [Utilities](#utilities)
+    - [Animation System](#animation-system)
+    - [Particle System](#particle-system)
+    - [Debug Utilities](#debug-utilities)
+    - [SDL Initialization](#sdl-initialization)
+    - [Random Number Generation](#random-number-generation)
+    - [Timer Utilities](#timer-utilities)
 - [Key C Concepts Used in This Project](#key-c-concepts-used-in-this-project)
   - [Pointers and Memory Management](#pointers-and-memory-management)
   - [Structures](#structures)
@@ -117,6 +138,132 @@ These functions are called basically anywhere - and acts as a helper function fo
 
 Some tags have this ? thing (like [PostUpdate?]), which says that they are called every frame only if a certain condition are met.
 
+
+## Key Modules Overview
+
+This section provides an overview of the main modules that make up the game. Understanding these key components will help you navigate the codebase more effectively.
+
+### App Module
+
+The App module is the core orchestrator of the game. It manages the game lifecycle and ties all other modules together.
+
+**Key Files:**
+- `include/App/app.h` - Main application header defining the AppData structure and function prototypes
+- `src/App/app_start.c` - Initialization logic that runs once at startup
+- `src/App/app_preupdate.c` - Frame setup logic that runs before processing game logic
+- `src/App/app_event_handler.c` - Handles SDL events like keyboard/mouse input
+- `src/App/app_postupdate.c` - Main game logic that runs each frame
+- `src/App/app_render.c` - Rendering logic that draws everything to the screen
+- `src/App/app_quit.c` - Cleanup logic that runs when the game exits
+
+**For Beginners:**
+The App module is like the conductor of an orchestra - it doesn't make music itself, but it coordinates all the other modules to work together.
+
+### Core Modules
+
+Core modules provide fundamental functionality that the rest of the game relies on. They handle basic operations like math, input, and rendering.
+
+**Key Components:**
+
+1. **Vector System** (`include/Core/vec2.h`, `src/Core/vec2.c`)
+   - Provides 2D vector operations like addition, subtraction, normalization
+   - Used for positions, movement, and direction calculations
+   - Example: `Vec2_Add()` combines two vectors, useful for adding velocity to position
+
+2. **Input System** (`include/Core/input.h`, `src/Core/input.c`)
+   - Tracks keyboard and mouse state
+   - Distinguishes between keys just pressed, held down, or just released
+   - Example: `Input->mouse.leftButton.pressed` is true on the first frame the left mouse button is pressed
+
+3. **Time System** (`include/Core/time.h`, `src/Core/time.c`)
+   - Manages game timing, delta time, and frame rate
+   - Ensures consistent game speed regardless of frame rate
+   - Example: `Time->deltaTimeSeconds` returns the time elapsed since the last frame
+
+4. **Camera System** (`include/Core/camera.h`, `src/Core/camera.c`)
+   - Handles viewport and screen-to-world coordinate transformations
+   - Manages camera movement, zoom, and following objects
+   - Example: `Camera_WorldToScreen()` converts world coordinates to screen coordinates
+
+5. **Colliders System** (`include/Core/colliders.h`, `src/Core/colliders.c`)
+   - Provides collision detection between game entities
+   - Supports different collider shapes (rectangles, circles)
+   - Example: `Collider_CheckRectRect()` tests if two rectangle colliders intersect
+
+6. **Sound System** (`include/Core/sound.h`, `src/Core/sound.c`)
+   - Manages audio playback for music and sound effects
+   - Handles loading, playing, and stopping audio files
+   - Example: `Sound_PlaySFX()` plays a sound effect with optional volume control
+
+7. **UI System** (`include/Core/UI/UI_text.h`, `src/Core/UI/UI_text.c`)
+   - Manages user interface elements like text, buttons, and menus
+   - Provides functions for rendering text with different fonts
+   - Example: `UI_RenderText()` draws text at a specified position on screen
+
+**For Beginners:**
+Think of Core modules as the fundamental tools that every other part of the game uses - like the hammer, nails, and measuring tape that carpenters use to build a house.
+
+### Game Modules
+
+Game modules implement the actual gameplay mechanics, entities, and rules.
+
+**Key Components:**
+
+1. **Player System** (`include/Game/player.h`, `src/Game/player.c`)
+   - Manages the player character's state, movement, and abilities
+   - Handles player input and collision with the environment
+   - Example: `Player_InputHandler()` processes movement based on input each frame
+
+2. **Gun System** (`include/Game/gun.h`, `src/Game/gun.c`)
+   - Defines guns and their properties
+   - Manages shooting mechanics, ammunition, and reloading (Though this is not implemented yet)
+
+3. **Environment System** (`include/Game/Environment/maps.h`, `src/Game/Environment/maps.c`)
+   - Defines game map generation
+   - Maps are created from multiple chunks, each of which are created from multiple tiles.
+
+**For Beginners:**
+Game modules are where the actual gameplay happens - they use the Core modules as tools to create the game experience. If Core modules are like words, Game modules are the sentences and paragraphs that tell a story.
+
+### Utilities
+
+Utility modules provide helper functionality that doesn't fit neatly into the other categories.
+
+**Key Components:**
+
+1. **Animation System** (`include/Utilities/animation.h`, `src/Utilities/animation.c`)
+   - Manages sprite animations and transitions
+   - Tracks animation frames and timing
+   - Example: `Animation_Create()` is used to create an animation, and `Animation_Render` is used to render it.
+
+2. **Particle System** (`include/Utilities/Particles/*.h`, `src/Utilities/Particles/*.c`)
+   - Provides visual effects like explosions, smoke, bullets, etc.
+   - Includes particle emitters, movement patterns, and presets
+   - Example: `Particles_CreateEmitterFromPreset()` generates a new particle emitter based on a particle emitter preset.
+
+3. **Debug Utilities** (`include/Utilities/debug.h`, `src/Utilities/debug.c`)
+   - Tools for debugging and diagnostics
+   - Includes functions for logging, drawing debug shapes, etc.
+   - Example: `Debug_RenderHitboxes()` draws hitboxes on the screen for debugging.
+
+4. **SDL Initialization** (`include/Utilities/initialize_SDL.h`, `src/Utilities/initialize_SDL.c`)
+   - Handles the setup and initialization of SDL libraries
+   - Centralizes error handling for SDL initialization
+   - Example: `Initialize_SDL()` sets up SDL, SDL_image, SDL_ttf, etc.
+
+5. **Random Number Generation** (`include/Utilities/random.h`, `src/Utilities/random.c`)
+   - Provides better random number generation than standard C functions
+   - Used for gameplay elements requiring randomness
+   - Example: `Random_Float()` generates a random floating point number in a range
+
+6. **Timer Utilities** (`include/Utilities/timer.h`, `src/Utilities/timer.c`)
+   - Manages gameplay timers for events, cooldowns, etc.
+   - Different from the core Time System which handles frame timing
+   - Example: `Timer_Create()` creates a new timer for tracking elapsed time
+
+**For Beginners:**
+Utility modules are like the toolbox that contains specialized tools for specific tasks - not used all the time but essential when you need them.
+
 ## Key C Concepts Used in This Project
 
 ### Pointers and Memory Management
@@ -167,8 +314,6 @@ extern EnvironmentMap testMap;
 
 // And many more!
 ```
-
-
 
 ## How to install & compile for Windows
 
