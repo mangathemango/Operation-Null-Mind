@@ -8,6 +8,8 @@ void Bullet_Start()
      //Set up bullet emitter presets
      ParticleEmitter* bulletEmitter = ParticleEmitter_CreateFromPreset(bullet_Default);
 
-     GunData* gun = player.state.currentGun;
-     gun->resources.bulletPreset = bulletEmitter;
+     for (int i = 0; i < GUN_COUNT; i++) {
+          GunData *gun = GunList[i];
+          gun->resources.bulletPreset = bulletEmitter;
+     }  
 }

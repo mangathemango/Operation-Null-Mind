@@ -15,7 +15,7 @@ void Bullet_Update()
         if (!particle->alive) continue;
         if (Collider_Check(particle->collider, &result))
         {
-            for (int j = 0; i < result.count; j++)
+            for (int j = 0; j < result.count; j++)
             {
                 if (result.objects[j]->layer == COLLISION_LAYER_ENVIRONMENT)
                 {
