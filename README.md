@@ -1,6 +1,9 @@
 # Operation Null Mind
 
+Note: If you're viewing this through a zip file, this file looks a lot better on the github repository description: 
+
 ## Table of Contents
+
 - [How to Run the Game](#how-to-run-the-game)
 - [Controls](#controls)
 - [About the Codebase](#about-the-codebase)
@@ -18,28 +21,12 @@
 - [Key Modules Overview](#key-modules-overview)
   - [App Module](#app-module)
   - [Core Modules](#core-modules)
-    - [Vector System](#vector-system)
-    - [Input System](#input-system)
-    - [Time System](#time-system)
-    - [Camera System](#camera-system)
-    - [Colliders System](#colliders-system)
-    - [Sound System](#sound-system)
-    - [UI System](#ui-system)
   - [Game Modules](#game-modules)
-    - [Player System](#player-system)
-    - [Gun System](#gun-system)
-    - [Environment System](#environment-system)
   - [Utilities](#utilities)
-    - [Animation System](#animation-system)
-    - [Particle System](#particle-system)
-    - [Debug Utilities](#debug-utilities)
-    - [SDL Initialization](#sdl-initialization)
-    - [Random Number Generation](#random-number-generation)
-    - [Timer Utilities](#timer-utilities)
 - [Key C Concepts Used in This Project](#key-c-concepts-used-in-this-project)
   - [Pointers and Memory Management](#pointers-and-memory-management)
   - [Structures](#structures)
-- [How to Install & Compile for Windows](#how-to-install--compile-for-windows)
+- [How to Install &amp; Compile for Windows](#how-to-install--compile-for-windows)
   - [Step 1: Clone Repository](#step-1-clone-repository)
   - [Step 2: Install cmake and MingW](#step-2-install-cmake-and-mingw)
   - [Step 3: Build, Compile and Run](#step-3-build-compile-and-run)
@@ -78,9 +65,11 @@ This project follows a modular structure to keep the code organized:
     main.c      -> The entry point of the program.
                    The program will start with this file.
 ```
+
 ### Understanding the Code Flow
 
 The game follows this general flow:
+
 1. **Initialization**: Set up SDL, load resources, initialize game state. This is done inside the App_Start() function.
 2. **Game Loop**: Process events, update game state, render graphics. This is done inside the App_PreUpdate(), App_Event_Handler(), App_PostUpdate(), and App_Render().
 3. **Cleanup**: Free resources and shut down the program. This is done inside the App_Quit().
@@ -108,7 +97,6 @@ Event_Handler are called ***every frame*** whenever there's an event detected, l
 **For beginners**: Think of events as signals that something happened (like a key press). The event handler catches these signals and updates our game accordingly.
 
 *Right now, App_Event_handler is only used to quit the program and update our Input struct inside Core/input.c. The Input struct tells you everything about what's going on with the keyboard and mouse - whether a button was just pressed/released, or whether it is being held. This allows for more flexible event handling - without having to pass the SDL_Event struct on all the functions that requires player input.*
-
 
 ### [PostUpdate]
 
@@ -138,7 +126,6 @@ These functions are called basically anywhere - and acts as a helper function fo
 
 Some tags have this ? thing (like [PostUpdate?]), which says that they are called every frame only if a certain condition are met.
 
-
 ## Key Modules Overview
 
 This section provides an overview of the main modules that make up the game. Understanding these key components will help you navigate the codebase more effectively.
@@ -148,6 +135,7 @@ This section provides an overview of the main modules that make up the game. Und
 The App module is the core orchestrator of the game. It manages the game lifecycle and ties all other modules together.
 
 **Key Files:**
+
 - `include/App/app.h` - Main application header defining the AppData structure and function prototypes
 - `src/App/app_start.c` - Initialization logic that runs once at startup
 - `src/App/app_preupdate.c` - Frame setup logic that runs before processing game logic
@@ -166,36 +154,37 @@ Core modules provide fundamental functionality that the rest of the game relies 
 **Key Components:**
 
 1. **Vector System** (`include/Core/vec2.h`, `src/Core/vec2.c`)
+
    - Provides 2D vector operations like addition, subtraction, normalization
    - Used for positions, movement, and direction calculations
    - Example: `Vec2_Add()` combines two vectors, useful for adding velocity to position
-
 2. **Input System** (`include/Core/input.h`, `src/Core/input.c`)
+
    - Tracks keyboard and mouse state
    - Distinguishes between keys just pressed, held down, or just released
    - Example: `Input->mouse.leftButton.pressed` is true on the first frame the left mouse button is pressed
-
 3. **Time System** (`include/Core/time.h`, `src/Core/time.c`)
+
    - Manages game timing, delta time, and frame rate
    - Ensures consistent game speed regardless of frame rate
    - Example: `Time->deltaTimeSeconds` returns the time elapsed since the last frame
-
 4. **Camera System** (`include/Core/camera.h`, `src/Core/camera.c`)
+
    - Handles viewport and screen-to-world coordinate transformations
    - Manages camera movement, zoom, and following objects
    - Example: `Camera_WorldToScreen()` converts world coordinates to screen coordinates
-
 5. **Colliders System** (`include/Core/colliders.h`, `src/Core/colliders.c`)
+
    - Provides collision detection between game entities
    - Supports different collider shapes (rectangles, circles)
    - Example: `Collider_CheckRectRect()` tests if two rectangle colliders intersect
-
 6. **Sound System** (`include/Core/sound.h`, `src/Core/sound.c`)
+
    - Manages audio playback for music and sound effects
    - Handles loading, playing, and stopping audio files
    - Example: `Sound_PlaySFX()` plays a sound effect with optional volume control
-
 7. **UI System** (`include/Core/UI/UI_text.h`, `src/Core/UI/UI_text.c`)
+
    - Manages user interface elements like text, buttons, and menus
    - Provides functions for rendering text with different fonts
    - Example: `UI_RenderText()` draws text at a specified position on screen
@@ -210,15 +199,16 @@ Game modules implement the actual gameplay mechanics, entities, and rules.
 **Key Components:**
 
 1. **Player System** (`include/Game/player.h`, `src/Game/player.c`)
+
    - Manages the player character's state, movement, and abilities
    - Handles player input and collision with the environment
    - Example: `Player_InputHandler()` processes movement based on input each frame
-
 2. **Gun System** (`include/Game/gun.h`, `src/Game/gun.c`)
+
    - Defines guns and their properties
    - Manages shooting mechanics, ammunition, and reloading (Though this is not implemented yet)
-
 3. **Environment System** (`include/Game/Environment/maps.h`, `src/Game/Environment/maps.c`)
+
    - Defines game map generation
    - Maps are created from multiple chunks, each of which are created from multiple tiles.
 
@@ -232,31 +222,32 @@ Utility modules provide helper functionality that doesn't fit neatly into the ot
 **Key Components:**
 
 1. **Animation System** (`include/Utilities/animation.h`, `src/Utilities/animation.c`)
+
    - Manages sprite animations and transitions
    - Tracks animation frames and timing
    - Example: `Animation_Create()` is used to create an animation, and `Animation_Render` is used to render it.
-
 2. **Particle System** (`include/Utilities/Particles/*.h`, `src/Utilities/Particles/*.c`)
+
    - Provides visual effects like explosions, smoke, bullets, etc.
    - Includes particle emitters, movement patterns, and presets
    - Example: `Particles_CreateEmitterFromPreset()` generates a new particle emitter based on a particle emitter preset.
-
 3. **Debug Utilities** (`include/Utilities/debug.h`, `src/Utilities/debug.c`)
+
    - Tools for debugging and diagnostics
    - Includes functions for logging, drawing debug shapes, etc.
    - Example: `Debug_RenderHitboxes()` draws hitboxes on the screen for debugging.
-
 4. **SDL Initialization** (`include/Utilities/initialize_SDL.h`, `src/Utilities/initialize_SDL.c`)
+
    - Handles the setup and initialization of SDL libraries
    - Centralizes error handling for SDL initialization
    - Example: `Initialize_SDL()` sets up SDL, SDL_image, SDL_ttf, etc.
-
 5. **Random Number Generation** (`include/Utilities/random.h`, `src/Utilities/random.c`)
+
    - Provides better random number generation than standard C functions
    - Used for gameplay elements requiring randomness
    - Example: `Random_Float()` generates a random floating point number in a range
-
 6. **Timer Utilities** (`include/Utilities/timer.h`, `src/Utilities/timer.c`)
+
    - Manages gameplay timers for events, cooldowns, etc.
    - Different from the core Time System which handles frame timing
    - Example: `Timer_Create()` creates a new timer for tracking elapsed time
@@ -267,25 +258,32 @@ Utility modules are like the toolbox that contains specialized tools for specifi
 ## Key C Concepts Used in This Project
 
 ### Pointers and Memory Management
+
 ***Pointers are variables that store memory addresses***. In this codebase, you'll see them used extensively.
 
 For example, in the codebase, the logic to switch between guns looks something like this:
+
 ```c
 GunData* currentGun = &Gun_Pistol;  
 ```
-With: 
--   The currentGun variable being defined as a pointer to a GunData struct. Or in other words, it ***holds the address of a GunData struct***.
+
+With:
+
+- The currentGun variable being defined as a pointer to a GunData struct. Or in other words, it ***holds the address of a GunData struct***.
 - Afterwards, the value inside the currenGun variable is set to "The address of" (&) the Gun_Pistol variable.
 
 We use pointers to:
+
 1. Pass large structures efficiently (without copying them)
 2. Modify data across functions
 3. Create dynamic data structures
 
 ### Structures
+
 Structures group related variables under one name. This is the closest we can ever get to OOP in C. (We should have used C++)
 
 In the codebase, you will see that we spam this everywhere we can. This is to make sure that all of our variables are organized.
+
 ```c
 // Inside include/Game/player.h
 
@@ -329,6 +327,7 @@ These should be available with a Google search. Afterwards, you can run `cmake -
 **Note**:
 
 **For beginners**:
+
 - **CMake** is a build system generator that creates build files for your platform
 - **MinGW** provides a Windows version of the GCC compiler and necessary tools
 
