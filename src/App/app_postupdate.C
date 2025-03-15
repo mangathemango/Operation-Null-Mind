@@ -4,6 +4,7 @@
 #include <particle_emitterpresets.h>
 #include <input.h>
 #include <sound.h>
+#include <bullet.h>
 
 /* 
 *   [PostUpdate] This function is called every frame of the program AFTER App_Event_Handler().
@@ -15,5 +16,6 @@ int App_PostUpdate() {
     Player_PostUpdate();
     Environment_Update(); // Add this line to update the environment
     Gun_Update();
+    Bullet_Update();
     return 0;
 }

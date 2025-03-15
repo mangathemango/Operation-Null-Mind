@@ -68,6 +68,22 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
     }
 }
 
+
+void Particle_Collision(ParticleEmitter* emitter)
+{
+    for(int i = 0; i < emitter->maxParticles;i++)
+    {
+        Particle* particle = &emitter->particles[i];
+        if (!emitter->particles[i].alive || particle->color.a <= 0) continue;
+        particle->collider->hitbox.x = particle->position.x;
+        particle->collider->hitbox.y = particle->position.y;
+        particle->collider->hitbox.w = 6;
+        particle->collider->hitbox.h = 6;
+    }
+}
+
+
+
 /*
 *   [Utility] Emits a single particle and set its properties based on the emitter.
     @param emitter A pointer to the particle emitter
@@ -96,6 +112,8 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
     particle->initialSize = emitter->startSize;
 
     emitter->readyIndex = ParticleEmitter_GetNextReady(emitter);
+    // if (emitter->useCollider) return;
+    Collider_Register(particle->collider, emitter);
 }
 
 /*
@@ -111,6 +129,7 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
         if (particle->timeAlive >= particle->maxLifeTime) {
             particle->alive = false;
             emitter->readyIndex = i;
+            Collider_Reset(particle->collider);
             continue;
         }
         // Movement

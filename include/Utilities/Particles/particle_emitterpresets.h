@@ -29,6 +29,8 @@ extern ParticleEmitter ParticleEmitter_PistolSMGCasing;
 extern ParticleEmitter ParticleEmitter_ShotgunCasing;
 extern ParticleEmitter ParticleEmitter_ARBRCasing;
 
+extern ParticleEmitter bullet_Default;
+
 extern ParticleEmitter* test_emitter; //! This is just for debugging purposes.
 
 ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset);

@@ -35,6 +35,10 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     // Set all particles to dead by default
     for (int i = 0; i < emitter->maxParticles; i++) {
         emitter->particles[i].alive = false; 
+        emitter->particles[i].collider = malloc(sizeof(Collider));
+        
+        memcpy(&emitter->collider, &emitter->particles[i].collider, sizeof(Collider));
+
     }
     return emitter;
 }
@@ -70,6 +74,8 @@ ParticleEmitter ParticleEmitter_Dash = {
     .particles = NULL,
     .readyIndex = 0,
     .selfReference = NULL,
+
+    .useCollider = false,
 };
 
 // Particle emitter for muzzle flashes
@@ -104,6 +110,8 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .particles = NULL,
     .readyIndex = 0,
     .selfReference = NULL,
+
+    .useCollider = false,
 };
 
 // Particle emitter for Pistol and SMG bullet casings
@@ -138,6 +146,8 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .particles = NULL,
     .readyIndex = 0,
     .selfReference = NULL,
+    
+    .useCollider = false,
 };
 
 // Particle emitter for Assault Rifle and Battle Rifle bullet casings
@@ -172,6 +182,8 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .particles = NULL,
     .readyIndex = 0,
     .selfReference = NULL,
+
+    .useCollider = false,
 };
 
 // Particle emitter for Shotgun shell casings
@@ -206,6 +218,8 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .particles = NULL,
     .readyIndex = 0,
     .selfReference = NULL,
+
+    .useCollider = false,
 };
 
 // Default particle emitter, mainly used for testing what looks good / messing around
@@ -240,6 +254,52 @@ ParticleEmitter ParticleEmitter_Default = {
     .particles = NULL,
     .readyIndex = 0,
     .selfReference = NULL,
+
+    .useCollider = false,
+};
+
+
+ParticleEmitter bullet_Default = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0,
+    .emissionNumber = 1,
+    .maxParticles = 1,
+    .angleRange = 0,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.5,
+    .particleSpeed = 200,
+    .custom_Movement = NULL,
+
+    .startColor = {255, 255, 255, 255},
+    .endColor = {255, 255, 255, 255},
+    .startSize = {3,3},
+    .endSize = {3, 3},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+
+    .useCollider = true,
+    .collider = {
+        .hitbox = {
+            .x = 0,
+            .y = 0,
+            .w = 6,
+            .h = 6
+        }
+    },
 };
 
 ParticleEmitter* test_emitter = NULL;

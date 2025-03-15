@@ -5,6 +5,7 @@
 #include <particle_emitterpresets.h>
 #include <sound.h>
 #include <environment.h>
+#include <bullet.h>
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -19,6 +20,7 @@ int App_Start() {
     if (Player_Start()) return 1;
     if (Environment_Start()) return 1;
     Gun_Start();
+    Bullet_Start();
 
     // Initialize sound system
     if (!Sound_System_Initialize()) {

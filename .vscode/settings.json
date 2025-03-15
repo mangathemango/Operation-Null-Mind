@@ -89,7 +89,8 @@
     "gun.h": "c",
     "stdbool.h": "c",
     "particle_emitterpresets.h": "c",
-    "debug.h": "c"
+    "debug.h": "c",
+    "memory_resource": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 
