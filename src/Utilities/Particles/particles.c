@@ -102,9 +102,11 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
 
     if (!emitter->useCollider) return;
     SDL_Log("Collider Created");
+    memcpy(particle->collider, &emitter->collider, sizeof(Collider));
     Collider_Register(particle->collider, emitter);
     particle->collider->hitbox.x = particle->position.x;
     particle->collider->hitbox.y = particle->position.y;
+    SDL_Log("Collider Layer: %d", particle->collider->layer);
 }
 
 /*

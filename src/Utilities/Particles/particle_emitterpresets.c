@@ -37,7 +37,6 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
         emitter->particles[i].alive = false; 
         if (!emitter->useCollider) continue;
         emitter->particles[i].collider = malloc(sizeof(Collider));
-        memcpy(&emitter->collider, &emitter->particles[i].collider, sizeof(Collider));
     }
     return emitter;
 }
@@ -292,6 +291,11 @@ ParticleEmitter bullet_Default = {
 
     .useCollider = true,
     .collider = {
+        .layer = COLLISION_LAYER_PLAYER_PROJECTILE,
+        .collidesWith = 
+            COLLISION_LAYER_ENVIRONMENT |
+            COLLISION_LAYER_ENEMY |
+            COLLISION_LAYER_ENEMY_PROJECTILE,
         .hitbox = {
             .x = 0,
             .y = 0,
