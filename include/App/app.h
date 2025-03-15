@@ -54,6 +54,8 @@ typedef struct {
     int screen_width;
     int screen_height;
 
+    bool debug;
+    
     char* title1FontPath;
     char* title2FontPath;
     char* textFontPath;     

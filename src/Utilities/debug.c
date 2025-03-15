@@ -16,6 +16,7 @@
 *   [Render?] Renders every single hitbox in the game.
 */
 void Debug_RenderHitboxes() {
+    if (!app.config.debug) return;
     for (int i = 0; i < ColliderCount; i++) {
         Collider* collider = ColliderList[i];
         if (!collider->active) continue;
@@ -55,6 +56,7 @@ void Debug_RenderHitboxes() {
 *   [Render] Renders the current FPS count on the screen.
 */
 void Debug_RenderFPSCount() {
+    if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
     static UIElement* fpsTextElement = NULL;
 

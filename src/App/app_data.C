@@ -26,6 +26,8 @@ AppData app = {
         .screen_width = 480 ,
         .screen_height = 288 ,
         
+        .debug = false,
+        
         .title1FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
         .title2FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
         .textFontPath = "Assets/Fonts/monogram.ttf",
