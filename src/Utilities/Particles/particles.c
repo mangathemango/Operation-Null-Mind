@@ -196,8 +196,8 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
         if (!particle->collider || !particle->collider->active) continue;
         particle->collider->hitbox.x = particle->position.x;
         particle->collider->hitbox.y = particle->position.y;
-        particle->collider->hitbox.w = 5;
-        particle->collider->hitbox.h = 5;
+        particle->collider->hitbox.w = particle->size.x;
+        particle->collider->hitbox.h = particle->size.y;
     }
 }
 

@@ -13,6 +13,10 @@
 */
 int App_PostUpdate() {
 
+    if (Input->keyboard.keys[SDL_SCANCODE_F5].pressed) {
+        app.config.debug = !app.config.debug;
+    }
+
     switch (app.state.currentScene) 
     {
         case SCENE_MENU:
