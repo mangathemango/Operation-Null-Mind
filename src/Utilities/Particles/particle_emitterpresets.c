@@ -248,7 +248,7 @@ ParticleEmitter bullet_Default = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 3,
+    .particleLifetime = 1,
     .particleSpeed = 500,
     .custom_Movement = NULL,
 

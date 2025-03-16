@@ -10,7 +10,7 @@
 #define ENEMY_HITBOX_COLOR 255, 0, 0, 255
 #define ITEM_HITBOX_COLOR 0, 255, 255, 255
 #define ENEMY_PROJECTILE_HITBOX_COLOR 255, 0, 255, 255
-#define PLAYER_PROJECTILE_HITBOX_COLOR 255, 255, 0, 255
+#define PLAYER_PROJECTILE_HITBOX_COLOR 0, 0, 255, 255
 
 /*
 *   [Render?] Renders every single hitbox in the game.
