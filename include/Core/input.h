@@ -14,29 +14,19 @@
 #include <stdbool.h>
 
 typedef struct {
-    /* Value is True on the FIRST frame the button is pressed */
-    bool pressed;   
-    /* Value is True on the FIRST frame the button is released */
-    bool released;  
-    /* Value is True on EVERY frame the button is pressed */
-    bool held;      
+    bool pressed;   // Value is True on the FIRST frame the button is pressed
+    bool released;  // Value is True on the FIRST frame the button is released
+    bool held;      // Value is True on EVERY frame the button is pressed
 } ButtonState;
 
 typedef struct {
-    /* Position of the mouse */
-    Vec2 position;
-    /* Motion of the mouse */          
-    Vec2 motion;
-    /* State of the left mouse button - either pressed, released, or held */
-    ButtonState leftButton;     
-    /* State of the right mouse button - either pressed, released, or held */
-    ButtonState rightButton;    
-    /* State of the middle mouse button - either pressed, released, or held */
-    ButtonState middleButton;   
-    /* Value is True when the scroll wheel is scrolled up */
-    bool scrollUp;           
-    /* Value is True when the scroll wheel is scrolled down */   
-    bool scrollDown;           
+    Vec2 position;          // Position of the mouse
+    Vec2 motion;            // Motion of the mouse
+    ButtonState leftButton;     // State of the left mouse button - either pressed, released, or held
+    ButtonState rightButton;    // State of the right mouse button - either pressed, released, or held
+    ButtonState middleButton;   // State of the middle mouse button - either pressed, released, or held
+    bool scrollUp;              // Value is True when the scroll wheel is scrolled up
+    bool scrollDown;            // Value is True when the scroll wheel is scrolled down
 } MouseState;
 
 typedef struct {
@@ -45,10 +35,8 @@ typedef struct {
 
     
 typedef struct {
-    /* State of the mouse */
-    MouseState mouse;
-    /* State of the keyboard */
-    KeyboardState keyboard;
+    MouseState mouse;       // State of the mouse
+    KeyboardState keyboard; // State of the keyboard
 } InputEvent;
 
 extern const InputEvent * const Input;

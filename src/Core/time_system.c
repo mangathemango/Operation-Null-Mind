@@ -37,7 +37,7 @@ void Time_UpdateFPS() {
     fpsTimer += Time->deltaTimeSeconds;
     
     // Update FPS once per second
-    if (fpsTimer >= 1.0f) {
+    if (fpsTimer >= 0.5f) {
         app.state.fps = (int)(frameCount / fpsTimer);
         frameCount = 0;
         fpsTimer = 0.0f;

@@ -31,8 +31,8 @@ ParticleEmitter ParticleEmitter_Dash = {
     .particleSpeed = 200,
     .custom_Movement = Particle_RandomMovement,
 
-    .startColor = {61, 135, 255, 255},
-    .endColor = {255, 255, 255, 100},
+    .startColor = {204, 137, 20, 255},
+    .endColor = {255, 255, 255, 255},
     .startSize = {1,1},
     .endSize = {1, 1},
     .particleTexture = NULL,

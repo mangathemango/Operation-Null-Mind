@@ -2,6 +2,8 @@
 
 #include <player.h>
 #include <sound.h>
+#include <random.h>
+
 /*
     @file player_combat.c
 *   This file contains the player's combat stuffs.
