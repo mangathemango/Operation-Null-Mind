@@ -233,7 +233,7 @@ ParticleEmitter ParticleEmitter_Default = {
 };
 
 
-ParticleEmitter bullet_Default = {
+ParticleEmitter ParticleEmitter_BulletDefault = {
     .position = {100, 100},
 
     .direction = {0, -1},
@@ -280,5 +280,41 @@ ParticleEmitter bullet_Default = {
         }
     },
 };
+
+ParticleEmitter ParticleEmitter_BulletFragments = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0,
+    .emissionNumber = 4,
+    .maxParticles = 100,
+    .angleRange = 90,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.05,
+    .particleSpeed = 500,
+    .custom_Movement = NULL,
+
+    .startColor = {255, 225, 0, 255},
+    .endColor = {255, 225, 0, 0},
+    .startSize = {2,2},
+    .endSize = {2, 2},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+
+    .useCollider = false,
+};
+
 
 ParticleEmitter* test_emitter = NULL;

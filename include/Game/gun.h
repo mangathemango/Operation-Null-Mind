@@ -25,6 +25,7 @@ typedef struct {
     ParticleEmitter* casingParticleEmitter;
     ParticleEmitter* muzzleFlashEmitter;
     ParticleEmitter* bulletPreset;
+    ParticleEmitter* bulletFragmentEmitter;
     Animation* animation;
 } GunResources;
 

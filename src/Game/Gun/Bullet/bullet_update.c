@@ -20,6 +20,9 @@ void Bullet_Update()
                 if (result.objects[j]->layer == COLLISION_LAYER_ENVIRONMENT)
                 {
                     SDL_Log("Bullet hit environment");
+                    gun->resources.bulletFragmentEmitter->position = particle->position;
+                    gun->resources.bulletFragmentEmitter->direction = gun->resources.bulletPreset->direction;
+                    ParticleEmitter_ActivateOnce(gun->resources.bulletFragmentEmitter);
                     particle->alive = false;
                     gun->resources.bulletPreset->readyIndex = i;
                     Collider_Reset(particle->collider);
@@ -29,5 +32,6 @@ void Bullet_Update()
         }
     }
     ParticleEmitter_Update(gun->resources.bulletPreset);
+    ParticleEmitter_Update(gun->resources.bulletFragmentEmitter);
 
 }

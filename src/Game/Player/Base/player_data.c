@@ -17,9 +17,10 @@ PlayerData player = {
         .directionLocked = false,
         .collider = {
             .active = true,
-            .collidesWith = COLLISION_LAYER_ENEMY | 
-                            COLLISION_LAYER_ENVIRONMENT |
-                            COLLISION_LAYER_ITEM,
+            .collidesWith = 
+                COLLISION_LAYER_ENEMY | 
+                COLLISION_LAYER_ENVIRONMENT |
+                COLLISION_LAYER_ITEM, // 00001110
             .layer = COLLISION_LAYER_PLAYER,
             .hitbox = {
                 .x = 0,
