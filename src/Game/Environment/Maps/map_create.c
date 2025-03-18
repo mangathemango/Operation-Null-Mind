@@ -36,7 +36,7 @@ void Map_Generate() {
 
                 // Generate room details
                 if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
-                    testMap.chunks[x][y].roomSize = (Vec2){RandInt(5,10)*2, RandInt(5,10)*2};
+                    testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
                     SDL_Log("Room size at (%d, %d): %dx%d\n", x, y, testMap.chunks[x][y].roomSize.x, testMap.chunks[x][y].roomSize.y);
                 }
                 
@@ -84,6 +84,7 @@ void Map_CreateMainPath() {
     testMap.mainPath[testMap.mainPathLength++] = (Vec2){currentX, currentY};
     SDL_Log("Generating main path via random walk");
     SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", currentX, currentY, endX, endY);
+    
     while (currentX != endX || currentY != endY) {
         // Determine if we move horizontally or vertically
         bool moveHorizontal = RandBool();

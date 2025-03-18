@@ -34,5 +34,7 @@ typedef struct {
 
 extern CameraSystem camera;
 
+void Camera_UpdatePosition();
+
 Vec2 Camera_WorldToScreen(Vec2 worldPosition);
 Vec2 Camera_ScreenToWorld(Vec2 screenPosition);

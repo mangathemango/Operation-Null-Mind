@@ -22,7 +22,9 @@ int App_RenderMain() {
             Map_Render();
             Player_Render();
             Gun_Render();
+            Enemy_Render();
             Bullet_Render();
+
             Debug_RenderHitboxes();
             break;
     }
