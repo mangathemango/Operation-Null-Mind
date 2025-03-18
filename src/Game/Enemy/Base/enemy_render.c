@@ -9,6 +9,8 @@ void Enemy_Render() {
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (enemies[i].state.isDead) continue;
         if (!enemies[i].resources.animation) continue;
+        // don't render if the enemy is not in the view
+        if (!Camera_RectIsOnScreen(enemies[i].state.collider.hitbox)) continue;
         Animation_Render(
             enemies[i].resources.animation,
             Vec2_Subtract (

@@ -56,6 +56,6 @@ void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateColliders(EnvironmentChunk* chunk);
 void Chunk_AddCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
 void Chunk_Start();
-void Chunk_Render(EnvironmentChunk chunk);
+void Chunk_Render(const EnvironmentChunk *chunk);
 extern EnvironmentChunk testChunk;
 extern EnvironmentChunk testChunk2;

@@ -45,3 +45,18 @@ Vec2 Camera_ScreenToWorld(Vec2 screenPosition) {
     Vec2 offset = Vec2_Subtract(screenPosition, screenCenter);
     return Vec2_Add(camera.position, offset);
 }
+
+// Add to camera.c
+SDL_Rect Camera_GetViewRect() {
+    return (SDL_Rect) {
+        camera.position.x - app.config.screen_width / 2,
+        camera.position.y - app.config.screen_height / 2,
+        app.config.screen_width,
+        app.config.screen_height
+    };
+}
+
+bool Camera_RectIsOnScreen(SDL_Rect rect) {
+    SDL_Rect cameraRect = Camera_GetViewRect();
+    return SDL_HasIntersection(&rect, &cameraRect);
+}

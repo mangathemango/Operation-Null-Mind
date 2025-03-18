@@ -1,12 +1,28 @@
 #include <maps.h>
 #include <app.h>
 
+
+
 void Map_Render() {
-    for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
-        for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
-            Chunk_Render(testMap.chunks[x][y]);
+    // 1. Calculate visible area in world coordinates
+    SDL_Rect viewRect = Camera_GetViewRect();
+    
+    // 2. Determine which chunks are within view
+    int startX = MAX(0, viewRect.x / CHUNK_SIZE_PIXEL);
+    int startY = MAX(0, viewRect.y / CHUNK_SIZE_PIXEL);
+    int endX = MIN(MAP_SIZE_CHUNK - 1, (viewRect.x + viewRect.w) / CHUNK_SIZE_PIXEL + 1);
+    int endY = MIN(MAP_SIZE_CHUNK - 1, (viewRect.y + viewRect.h) / CHUNK_SIZE_PIXEL + 1);
+    
+    // 3. Only render chunks that are visible
+    for (int x = startX; x <= endX; x++) {
+        for (int y = startY; y <= endY; y++) {
+            // Skip empty chunks
+            if (testMap.chunks[x][y].empty) continue;
+            
+            Chunk_Render(&testMap.chunks[x][y]);
         }
     }
+    
     SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 150);
     SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) { 
         0, 0, app.config.screen_width, app.config.screen_height
