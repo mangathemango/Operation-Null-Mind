@@ -10,5 +10,11 @@ void Enemy_Update() {
         enemies[i].state.collider.hitbox.y = enemies[i].state.position.y;
 
         if (enemies[i].update) enemies[i].update(&enemies[i]);
+
+        if (enemies[i].state.currentHealth <= 0) {
+            enemies[i].state.isDead = true;
+            enemies[i].state.currentHealth = 0;
+            Collider_Reset(&enemies[i].state.collider);
+        }
     }
 }

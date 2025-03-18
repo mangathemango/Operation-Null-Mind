@@ -16,7 +16,7 @@ EnemyData ZFNData = {
     },
     .stats = {
         .damage = 0,
-        .maxHealth = 0,
+        .maxHealth = 100,
         .speed = 0,
         .attackSpeed = 0,
         .attackRange = 0,
