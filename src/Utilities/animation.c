@@ -22,6 +22,11 @@ Animation* Animation_Create(AnimationData* animData) {
     if (!animation) return NULL;
 
     animation->spritesheet = IMG_LoadTexture(app.resources.renderer, animData->spritesheetPath);
+    if (!animation->spritesheet) {
+        SDL_Log("Failed to load spritesheet: %s", animData->spritesheetPath);
+        free(animation);
+        return NULL;
+    }
     animation->clips = NULL;
     animation->clipCount = 0;
     animation->frameSize = animData->frameSize;

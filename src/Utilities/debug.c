@@ -59,10 +59,13 @@ void Debug_RenderFPSCount() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
     static UIElement* fpsTextElement = NULL;
-
+    static UIElement* averageFpsTextElement = NULL;
     // Format FPS text
     char fpsText[16];
     sprintf(fpsText, "FPS: %d", app.state.fps);
+
+    char averageFpsText[30];
+    sprintf(averageFpsText, "Average FPS: %d", app.state.averageFps);
 
 
     if (!fpsTextElement) {
@@ -86,7 +89,70 @@ void Debug_RenderFPSCount() {
         UI_ChangeText(fpsTextElement, fpsText);
     }
 
+    if (!averageFpsTextElement) {
+        // Create text element if it doesn't exist 
+
+        SDL_Color textColor = {255, 255, 255, 255};
+        SDL_Rect renderRect = {10, 20, 0, 0};   
+        float textScale = 1;
+        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
+
+        averageFpsTextElement = UI_CreateText(
+            averageFpsText, 
+            renderRect, 
+            textColor, 
+            textScale, 
+            alignment, 
+            app.resources.textFont
+        );
+    } else {
+        // Update text if it does exist.
+        UI_ChangeText(averageFpsTextElement, averageFpsText);
+    }
+
     // Update and render text
     UI_UpdateText(fpsTextElement);
     UI_RenderText(fpsTextElement);
+
+
+    UI_UpdateText(averageFpsTextElement);
+    UI_RenderText(averageFpsTextElement);
+}
+
+void Debug_RenderSpikeCount() {
+    if (!app.config.debug) return;
+    // The UIElement struct stored in a static variable for reuse
+    static UIElement* spikeTextElement = NULL;
+    // Format text
+    static int spikeCount = 0;
+    float targetFPS = 30;
+    if (Time->deltaTimeSeconds > 1.0 / targetFPS) spikeCount++;
+
+    char text[20];
+    sprintf(text, "Spike frames: %d", spikeCount);
+
+    if (!spikeTextElement) {
+        // Create text element if it doesn't exist 
+
+        SDL_Color textColor = {255, 255, 255, 255};
+        SDL_Rect renderRect = {10, 30, 0, 0};   
+        float textScale = 1;
+        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
+
+        spikeTextElement = UI_CreateText(
+            text, 
+            renderRect, 
+            textColor, 
+            textScale, 
+            alignment, 
+            app.resources.textFont
+        );
+    } else {
+        // Update text if it does exist.
+        UI_ChangeText(spikeTextElement, text);
+    }
+
+
+    UI_UpdateText(spikeTextElement);
+    UI_RenderText(spikeTextElement);
 }

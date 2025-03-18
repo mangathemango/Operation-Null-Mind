@@ -26,7 +26,7 @@
 
 #include <vec2.h>
 #include <SDL.h>
-
+#include <stdbool.h>
 
 typedef struct {
     Vec2 position;
@@ -34,5 +34,9 @@ typedef struct {
 
 extern CameraSystem camera;
 
+void Camera_UpdatePosition();
+
 Vec2 Camera_WorldToScreen(Vec2 worldPosition);
 Vec2 Camera_ScreenToWorld(Vec2 screenPosition);
+SDL_Rect Camera_GetViewRect();
+bool Camera_RectIsOnScreen(SDL_Rect rect);

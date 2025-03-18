@@ -4,7 +4,7 @@
 #include <colliders.h>
 
 #define HALLWAY_SIZE_TILE 4
-#define CHUNK_SIZE_TILE 30
+#define CHUNK_SIZE_TILE 40
 #define CHUNK_SIZE_PIXEL (CHUNK_SIZE_TILE * TILE_SIZE_PIXELS)
 #define HALLWAY_START (CHUNK_SIZE_TILE - HALLWAY_SIZE_TILE) / 2
 #define HALLWAY_END HALLWAY_START + HALLWAY_SIZE_TILE
@@ -56,6 +56,6 @@ void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateColliders(EnvironmentChunk* chunk);
 void Chunk_AddCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
 void Chunk_Start();
-void Chunk_Render(EnvironmentChunk chunk);
+void Chunk_Render(const EnvironmentChunk *chunk);
 extern EnvironmentChunk testChunk;
 extern EnvironmentChunk testChunk2;

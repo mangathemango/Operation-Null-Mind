@@ -28,15 +28,8 @@ int App_PostUpdate() {
             Player_PostUpdate();
             Gun_Update();
             Bullet_Update();
-
-            // Linearly interpolate the position of the camera towards the player
-            // This basically means the camera moves smoothly towards the position of the player
-            camera.position = Vec2_Lerp(
-                camera.position, 
-                player.state.position, 
-                // Smooth time
-                3 * Time->deltaTimeSeconds
-            );
+            Enemy_Update();
+            Camera_UpdatePosition();
             break;
     }
     return 0;

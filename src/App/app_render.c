@@ -20,13 +20,16 @@ int App_RenderMain() {
         
         case SCENE_GAME:
             Map_Render();
+            Enemy_Render();
             Player_Render();
             Gun_Render();
             Bullet_Render();
+
             Debug_RenderHitboxes();
             break;
     }
     Debug_RenderFPSCount();
+    Debug_RenderSpikeCount();
     return 0;
 }
 

@@ -25,6 +25,7 @@
 #include <chunks.h>
 #include <camera.h>
 #include <maps.h>
+#include <enemy.h>
 
 typedef enum {
     SCENE_MENU,
@@ -43,6 +44,7 @@ typedef struct {
 typedef struct {
     bool running;
     int fps;
+    int averageFps;
     AppScene currentScene;
 } AppState;
 

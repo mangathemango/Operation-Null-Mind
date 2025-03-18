@@ -17,8 +17,7 @@ void Tile_Render(EnvironmentTile tile, Vec2 tilePosition) {
         .w = TILE_SIZE_PIXELS,
         .h = TILE_SIZE_PIXELS
     };
-    if (dest.x > app.config.screen_width || dest.y > app.config.screen_height) return;
-    if (dest.x + dest.w < 0 || dest.y + dest.h < 0) return;
+    if (!Camera_RectIsOnScreen(dest)) return;
     float angle;
     switch (tile.rotation) {
         case TILE_ROTATE_CLOCKWISE:

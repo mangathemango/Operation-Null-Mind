@@ -166,3 +166,12 @@ Vec2 Vec2_RotateAroundDegrees(Vec2 point, Vec2 center, float angle) {
     float angleRadians = angle * (M_PI / 180.0f);
     return Vec2_RotateAroundRadians(point, center, angleRadians);
 }
+
+SDL_Rect Vec2_Vec2ToRect(Vec2 position, Vec2 size) {
+    return (SDL_Rect) {
+        position.x,
+        position.y,
+        size.x,
+        size.y
+    };
+}

@@ -2,8 +2,15 @@
 
 #include <vec2.h>
 #include <SDL.h>
+#include <camera.h>
 
 #define TILE_SIZE_PIXELS 20
+
+// Safely calculate maximum of two values
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+// Safely calculate minimum of two values
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 
 // Define tile types with enum
