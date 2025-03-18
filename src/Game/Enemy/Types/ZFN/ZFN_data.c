@@ -7,7 +7,7 @@ EnemyData ZFNData = {
         .velocity = {0, 0},
         .acceleration = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 32, 32},
+            .hitbox = {0, 0, 20, 32},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE,
         },
@@ -41,7 +41,7 @@ EnemyData ZFNData = {
         },
         .playOnStart = true,
         .defaultClip = "idle",
-        .spriteSize = {32, 32},
+        .spriteSize = {20, 32},
     },
     .config = NULL,
     .start = &ZFN_Start,

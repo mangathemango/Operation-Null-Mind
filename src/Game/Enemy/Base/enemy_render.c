@@ -9,6 +9,7 @@ void Enemy_Render() {
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (enemies[i].state.isDead) continue;
         if (!enemies[i].resources.animation) continue;
+        Animation_Render(
             enemies[i].resources.animation,
             Camera_WorldToScreen(enemies[i].state.position),
             enemies[i].animData.spriteSize,
