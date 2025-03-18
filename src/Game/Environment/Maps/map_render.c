@@ -7,7 +7,7 @@ void Map_Render() {
             Chunk_Render(testMap.chunks[x][y]);
         }
     }
-    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 100);
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 150);
     SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) { 
         0, 0, app.config.screen_width, app.config.screen_height
     });

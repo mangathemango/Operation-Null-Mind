@@ -42,7 +42,7 @@ void Collider_Register(Collider* collider, void* owner) {
     collider->owner = owner;
     ColliderList[id] = collider;
     if (id >= ColliderCount) ColliderCount = id + 1;
-    SDL_Log("Added collider %d\n. Total count: %d\n", id, ColliderCount);
+    // SDL_Log("Added collider %d\n. Total count: %d\n", id, ColliderCount);
 }
 
 /*

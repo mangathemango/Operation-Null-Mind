@@ -11,7 +11,10 @@ void Enemy_Render() {
         if (!enemies[i].resources.animation) continue;
         Animation_Render(
             enemies[i].resources.animation,
-            Camera_WorldToScreen(enemies[i].state.position),
+            Vec2_Subtract (
+                Camera_WorldToScreen(enemies[i].state.position),
+                Vec2_Multiply(enemies[i].animData.spriteSize, 0.5f)
+            ),
             enemies[i].animData.spriteSize,
             0,
             NULL,
