@@ -1,27 +1,19 @@
 #include <enemy.h>
+#include <stdlib.h>
 
 void Enemy_Spawn(EnemyData data, Vec2 position) {
+    SDL_Log("Spawning enemy at %f, %f", position.x, position.y);
     for (int i = 0; i < ENEMY_MAX; i++) {
-        if (!data.state.isDead) continue;
+        if (!enemies[i].state.isDead) continue;
+        SDL_Log("Spawning enemy at index %d", i);
         EnemyData* enemy = &enemies[i];
-        enemy->state.isDead = false;
+        memcpy(enemy, &data, sizeof(EnemyData));
         enemy->state.position = position;
-        enemy->state.velocity = Vec2_Zero;
-        enemy->state.acceleration = Vec2_Zero;
-        enemy->stats.maxHealth = data.stats.maxHealth;
-        enemy->state.currentHealth = data.stats.maxHealth;
-        enemy->stats.damage = data.stats.damage;
-        enemy->stats.speed = data.stats.speed;
-        enemy->type = data.type;
-        enemy->start = data.start;
-        enemy->update = data.update;
-        enemy->render = data.render;
-        enemy->resources.animation = Animation_Create(&data.animData);
-        enemy->state.collider = data.state.collider;
-        enemy->state.collider.hitbox.x = position.x;
-        enemy->state.collider.hitbox.y = position.y;
-        
-        enemy->animData = data.animData;
+        enemy->state.isDead = false;
+
+        enemy->state.currentHealth = enemy->stats.maxHealth;
+        enemy->resources.animation = Animation_Create(&enemy->animData);
+        enemy->state.collider.hitbox = (SDL_Rect){position.x, position.y, 20, 32};
         Collider_Register(&enemy->state.collider, enemy);
         if (enemy->start) enemy->start(enemy);
         break;

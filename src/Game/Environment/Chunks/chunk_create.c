@@ -1,4 +1,6 @@
 #include <chunks.h>
+#include <enemy.h>
+#include <enemy_types.h>
 #include <random.h>
 
 /*

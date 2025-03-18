@@ -1,5 +1,6 @@
 #include <maps.h>
 #include <random.h>
+#include <enemy_types.h>
 
 void Map_Generate() {
     // 1. Initialize all chunks as empty
@@ -48,6 +49,8 @@ void Map_Generate() {
                     testMap.chunks[x][y].floorPattern,
                     testMap.chunks[x][y].hallways
                 );
+
+                Enemy_Spawn(ZFNData, (Vec2){x * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2, y * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2});
             }
         }
     }

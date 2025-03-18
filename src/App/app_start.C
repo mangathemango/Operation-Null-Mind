@@ -15,15 +15,13 @@
 */
 int App_Start() {
     RandomInit();
+    Enemy_Init();
     Collider_Start();
     if (Initialize_SDL()) return 1;
     if (Player_Start()) return 1;
     Gun_Start();
     Bullet_Start();
     Map_Start();
-
-    Enemy_Init();
-    Enemy_Spawn(ZFNData, (Vec2) {400, 400});
 
     // Initialize sound system
     if (!Sound_System_Initialize()) {
