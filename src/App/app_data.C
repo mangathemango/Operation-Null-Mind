@@ -16,6 +16,7 @@ AppData app = {
     .state = {
         .running = true,
         .fps = 0,
+        .averageFps = 0,
         .currentScene = SCENE_MENU,
     },
     .config = {

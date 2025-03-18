@@ -31,14 +31,17 @@ void Time_PreUpdate() {
 
 void Time_UpdateFPS() {
     static int frameCount = 0;
+    static int totalFrame = 0;
     static float fpsTimer = 0.0f;
     
     frameCount++;
+    totalFrame++;
     fpsTimer += Time->deltaTimeSeconds;
     
     // Update FPS once per second
     if (fpsTimer >= 0.5f) {
         app.state.fps = (int)(frameCount / fpsTimer);
+        app.state.averageFps = (int)(totalFrame / time.programElapsedTimeSeconds);
         frameCount = 0;
         fpsTimer = 0.0f;
     }

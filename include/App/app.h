@@ -44,6 +44,7 @@ typedef struct {
 typedef struct {
     bool running;
     int fps;
+    int averageFps;
     AppScene currentScene;
 } AppState;
 

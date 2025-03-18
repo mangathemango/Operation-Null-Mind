@@ -13,6 +13,9 @@ bool Player_DetectCollision() {
         if (collisions.objects[i]->layer == COLLISION_LAYER_ENVIRONMENT) {
             return true;
         }
+        if (collisions.objects[i]->layer == COLLISION_LAYER_ENEMY && !player.state.dashing) {
+            return true;
+        }
     }
     return false;
 }
