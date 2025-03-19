@@ -53,6 +53,9 @@ typedef struct {
     int ammoCapacity; //Max ammo count
     float spread_angle; //This is angle in degrees
     int damage; //Damage per one bullet
+    
+    float bulletLifetime;
+    int bulletsPerShot;
     GunFireMode fireMode; //True for automatic, false for semi-automatic
 } GunStats;
 
