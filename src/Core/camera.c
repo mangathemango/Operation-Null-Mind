@@ -34,17 +34,29 @@ void Camera_UpdatePosition() {
 
 }
 
-Vec2 Camera_WorldToScreen(Vec2 worldPosition) {
+Vec2 Camera_WorldVecToScreen(Vec2 worldPosition) {
     Vec2 offset = Vec2_Subtract(worldPosition, camera.position);
     Vec2 screenCenter = (Vec2) {app.config.screen_width / 2, app.config.screen_height / 2};
     return Vec2_Add(screenCenter, offset);
 }
 
-Vec2 Camera_ScreenToWorld(Vec2 screenPosition) {
+Vec2 Camera_ScreenVecToWorld(Vec2 screenPosition) {
     Vec2 screenCenter = (Vec2) {app.config.screen_width / 2, app.config.screen_height / 2};
     Vec2 offset = Vec2_Subtract(screenPosition, screenCenter);
     return Vec2_Add(camera.position, offset);
 }
+
+SDL_Rect Camera_ScreenRectToWorld(SDL_Rect screenRect) {
+    Vec2 screenCenter = (Vec2) {app.config.screen_width / 2, app.config.screen_height / 2};
+    Vec2 position, size;
+    Vec2_FromRect(screenRect, &position, &size);
+    Vec2 offset = Vec2_Subtract(position, screenCenter);
+    Vec2 worldPos = Vec2_Add(camera.position, offset);
+
+    return Vec2_ToRect(worldPos, size);
+}
+
+
 
 // Add to camera.c
 SDL_Rect Camera_GetViewRect() {

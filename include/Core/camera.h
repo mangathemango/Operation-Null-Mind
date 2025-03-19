@@ -4,12 +4,12 @@
 ?   The camera system is used to convert between world and screen coordinates.
 
 ?   For most objects, the variable "position" is in world coordinates.
-?   That's why, the Camera_WorldToScreen() function is used in render functions to convert that position to screen coordinates.
+?   That's why, the Camera_WorldVecToScreen() function is used in render functions to convert that position to screen coordinates.
 
 ?   For example: in src/Game/Player/Base/player_render.c
 ?      Animation_Render(
 ?          player.resources.animation,            
-*          Camera_WorldToScreen(
+*          Camera_WorldVecToScreen(
 *              Vec2_Subtract (
 *                  player.state.position,
 *                  Vec2_Divide(player.animData.spriteSize, 2)
@@ -36,7 +36,7 @@ extern CameraSystem camera;
 
 void Camera_UpdatePosition();
 
-Vec2 Camera_WorldToScreen(Vec2 worldPosition);
-Vec2 Camera_ScreenToWorld(Vec2 screenPosition);
+Vec2 Camera_WorldVecToScreen(Vec2 worldPosition);
+Vec2 Camera_ScreenVecToWorld(Vec2 screenPosition);
 SDL_Rect Camera_GetViewRect();
 bool Camera_RectIsOnScreen(SDL_Rect rect);

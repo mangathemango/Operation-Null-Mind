@@ -12,14 +12,14 @@ int Player_Render() {
     
     SDL_RendererFlip flip;
     // Flip the sprite when mouse is on the left side of the player
-    if (Camera_ScreenToWorld(Input->mouse.position).x < player.state.position.x) {
+    if (Camera_ScreenVecToWorld(Input->mouse.position).x < player.state.position.x) {
         flip = SDL_FLIP_HORIZONTAL;
     } else {
         flip = SDL_FLIP_NONE;
     }
     Animation_Render(
         player.resources.animation,            
-        Camera_WorldToScreen(
+        Camera_WorldVecToScreen(
             Vec2_Subtract (
                 player.state.position,
                 Vec2_Divide(player.animData.spriteSize, 2)

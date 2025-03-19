@@ -15,7 +15,7 @@ void Gun_Update() {
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 
-    Vec2 mouseWorldPosition = Camera_ScreenToWorld(Input->mouse.position);
+    Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
 
     // Flip the gun's sprite if mouse is on the left side of the player
     // This also flips the gun's particles and muzzle flash particles.

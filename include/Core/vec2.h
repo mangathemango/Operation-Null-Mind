@@ -6,6 +6,8 @@
 ?   Written by Mango on 28/02/2025
 */
 
+#include <SDL.h>
+
 #ifndef VEC2_H
 #define VEC2_H
 typedef struct 
@@ -34,8 +36,9 @@ Vec2 Vec2_RotateDegrees(Vec2 v, float angle);
 Vec2 Vec2_RotateRadians(Vec2 v, float angle);
 Vec2 Vec2_RotateAroundRadians(Vec2 point, Vec2 center, float angle);
 Vec2 Vec2_RotateAroundDegrees(Vec2 point, Vec2 center, float angle);
-SDL_Rect Vec2_Vec2ToRect(Vec2 position, Vec2 size);
-SDL_Rect Vec2_Vec2ToCenteredRect(Vec2 position, Vec2 size);
+SDL_Rect Vec2_ToRect(Vec2 position, Vec2 size);
+SDL_Rect Vec2_ToCenteredRect(Vec2 position, Vec2 size);
+Vec2 Vec2_ToCenteredPosition(Vec2 position, Vec2 size);
 void Vec2_FromRect(SDL_Rect rect, Vec2* position, Vec2* size);
 Vec2 Vec2_Clamp(Vec2 v, Vec2 min, Vec2 max);
 Vec2 Vec2_Max(Vec2 a, Vec2 b);

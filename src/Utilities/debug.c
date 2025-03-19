@@ -21,8 +21,8 @@ void Debug_RenderHitboxes() {
         Collider* collider = ColliderList[i];
         if (!collider->active) continue;
         SDL_Rect hitbox = collider->hitbox;
-        hitbox.x = Camera_WorldToScreen((Vec2) {hitbox.x, hitbox.y}).x;
-        hitbox.y = Camera_WorldToScreen((Vec2) {hitbox.x, hitbox.y}).y;
+        hitbox.x = Camera_WorldVecToScreen((Vec2) {hitbox.x, hitbox.y}).x;
+        hitbox.y = Camera_WorldVecToScreen((Vec2) {hitbox.x, hitbox.y}).y;
         if (hitbox.x > app.config.screen_width || hitbox.y > app.config.screen_height) continue;
         if (hitbox.x + hitbox.w < 0 || hitbox.y + hitbox.h < 0) continue;
         switch (collider->layer) {

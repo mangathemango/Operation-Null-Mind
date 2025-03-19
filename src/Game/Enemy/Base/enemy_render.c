@@ -13,9 +13,11 @@ void Enemy_Render() {
         if (!Camera_RectIsOnScreen(enemies[i].state.collider.hitbox)) continue;
         Animation_Render(
             enemies[i].resources.animation,
-            Vec2_Subtract (
-                Camera_WorldToScreen(enemies[i].state.position),
-                Vec2_Multiply(enemies[i].animData.spriteSize, 0.5f)
+            Camera_WorldVecToScreen(
+                Vec2_ToCenteredPosition(
+                    enemies[i].state.position, 
+                    enemies[i].animData.spriteSize
+                )
             ),
             enemies[i].animData.spriteSize,
             0,

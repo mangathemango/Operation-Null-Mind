@@ -92,8 +92,8 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
             particle->size.y
         };
         if (!particle->cameraLock) {
-            rect.x = Camera_WorldToScreen((Vec2) {rect.x, rect.y}).x;
-            rect.y = Camera_WorldToScreen((Vec2) {rect.x, rect.y}).y;
+            rect.x = Camera_WorldVecToScreen((Vec2) {rect.x, rect.y}).x;
+            rect.y = Camera_WorldVecToScreen((Vec2) {rect.x, rect.y}).y;
         }
         SDL_SetRenderDrawColor(app.resources.renderer, 
                                 particle->color.r, 

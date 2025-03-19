@@ -15,8 +15,8 @@ void Chunk_Render(const EnvironmentChunk* chunk) {
     SDL_Rect chunkRect = {
         chunkWorldX * TILE_SIZE_PIXELS,
         chunkWorldY * TILE_SIZE_PIXELS,
-        CHUNK_SIZE_TILE * TILE_SIZE_PIXELS,
-        CHUNK_SIZE_TILE * TILE_SIZE_PIXELS
+        CHUNK_SIZE_PIXEL,
+        CHUNK_SIZE_PIXEL
     };
     
     if (!SDL_HasIntersection(&viewRect, &chunkRect)) return;
