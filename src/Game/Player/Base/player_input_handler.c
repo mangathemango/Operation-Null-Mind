@@ -19,11 +19,20 @@ void Player_Input_Handler() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
 
-    if (Input->keyboard.keys[SDL_SCANCODE_1].pressed) player.state.currentGun = &Gun_Pistol;
-    if (Input->keyboard.keys[SDL_SCANCODE_2].pressed) player.state.currentGun = &Gun_SMG;
-    if (Input->keyboard.keys[SDL_SCANCODE_3].pressed) player.state.currentGun = &Gun_AssaultRifle;
-    if (Input->keyboard.keys[SDL_SCANCODE_4].pressed) player.state.currentGun = &Gun_BattleRifle;
-    if (Input->keyboard.keys[SDL_SCANCODE_5].pressed) player.state.currentGun = &Gun_Shotgun;
+    if (Input->keyboard.keys[SDL_SCANCODE_1].pressed) Player_SwitchGun(&Gun_Pistol);
+    if (Input->keyboard.keys[SDL_SCANCODE_2].pressed) Player_SwitchGun(&Gun_SMG);
+    if (Input->keyboard.keys[SDL_SCANCODE_3].pressed) Player_SwitchGun(&Gun_AssaultRifle);
+    if (Input->keyboard.keys[SDL_SCANCODE_4].pressed) Player_SwitchGun(&Gun_BattleRifle);
+    if (Input->keyboard.keys[SDL_SCANCODE_5].pressed) Player_SwitchGun(&Gun_Shotgun);
+    
+    if (player.state.currentGun == NULL) {
+        return;
+    }
 
-    if (Input->mouse.leftButton.held) Player_Shoot();
+    if (player.state.currentGun->stats.fireMode == FIREMODE_AUTO) {
+        if (Input->mouse.leftButton.held) Player_Shoot();
+    } else {
+        if (Input->mouse.leftButton.pressed) Player_Shoot();
+    }
+    
 }
