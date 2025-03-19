@@ -3,9 +3,8 @@
 *   An simple animation system capable of loading a spritesheet with fixed sized frames
 ?   The spritesheet you select should have all of its states on it, like running, walking etc.
 !   This system doesn't support loading animation clips from multiple files into one animation.
-?   To load an animation, you need 4 steps.
+?   To load an animation, you need 3 steps.
 ?   
-!   This tutorial is deprecated and will be updated soon.
 ?   Step 1: Create animation with an AnimationData struct
 ?       An example of an AnimationData struct can be found in src/Game/Player/player_data.c
 ?   

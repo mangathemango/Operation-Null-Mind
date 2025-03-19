@@ -6,11 +6,12 @@ void Tile_Render(EnvironmentTile tile, Vec2 tilePosition) {
     if (!tile.texture) return;
     Vec2 tileWorldPos = Vec2_Multiply(tilePosition, TILE_SIZE_PIXELS);
     Vec2 tileSize = (Vec2) {TILE_SIZE_PIXELS, TILE_SIZE_PIXELS}; 
-    
-    SDL_Rect worldDest = Vec2_ToRect(tileWorldPos, tileSize);
 
+    // Check if worldDest is on screen
+    SDL_Rect worldDest = Vec2_ToRect(tileWorldPos, tileSize);
     if (!Camera_RectIsOnScreen(worldDest)) return;
 
+    // Convert to screenDest
     Vec2 tileScreenPos = Camera_WorldVecToScreen(tileWorldPos);
     SDL_Rect screenDest = Vec2_ToRect(tileScreenPos, tileSize);
 

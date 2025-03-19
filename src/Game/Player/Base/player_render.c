@@ -20,9 +20,9 @@ int Player_Render() {
     Animation_Render(
         player.resources.animation,            
         Camera_WorldVecToScreen(
-            Vec2_Subtract (
+            Vec2_ToCenteredPosition(
                 player.state.position,
-                Vec2_Divide(player.animData.spriteSize, 2)
+                player.animData.spriteSize
             )
         ), 
         player.animData.spriteSize,

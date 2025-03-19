@@ -85,15 +85,12 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
         Particle* particle = &emitter->particles[i];
         if (!emitter->particles[i].alive || particle->color.a <= 0) continue;
         
-        SDL_Rect rect = {
-            particle->position.x,
-            particle->position.y,
-            particle->size.x,
-            particle->size.y
-        };
+        SDL_Rect rect = Vec2_ToRect(particle->position, particle->size);
         if (!particle->cameraLock) {
-            rect.x = Camera_WorldVecToScreen((Vec2) {rect.x, rect.y}).x;
-            rect.y = Camera_WorldVecToScreen((Vec2) {rect.x, rect.y}).y;
+            rect = Vec2_ToRect(
+                Camera_WorldVecToScreen(particle->position),
+                particle->size
+            );
         }
         SDL_SetRenderDrawColor(app.resources.renderer, 
                                 particle->color.r, 

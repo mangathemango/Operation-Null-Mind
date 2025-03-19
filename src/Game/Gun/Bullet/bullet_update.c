@@ -11,34 +11,41 @@ void Bullet_Update()
     gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
 
     ColliderCheckResult result;
+
+    // Loop through every bullets of the gun
     for (int i = 0; i < gun->resources.bulletPreset->maxParticles; i++) {
-        Particle* particle = &gun->resources.bulletPreset->particles[i];
-        if (!particle->alive) continue;
-        Collider_Check(particle->collider, &result);
+        Particle* bullet = &gun->resources.bulletPreset->particles[i];
+        if (!bullet->alive) continue;
         
+        // Handle collisions
+        Collider_Check(bullet->collider, &result);
         for (int j = 0; j < result.count; j++)
-        {
+        {   
+            // Handle dealing damage to enemies
             if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 Enemy_TakeDamage(enemy, 10);
             }
+
+            // Handle bullet getting destroyed (i.e colliding with walls/enemies)
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY))
             {
                 // Create bullet fragments
-                gun->resources.bulletFragmentEmitter->position = particle->position;
+                gun->resources.bulletFragmentEmitter->position = bullet->position;
                 gun->resources.bulletFragmentEmitter->direction = gun->resources.bulletPreset->direction;
                 ParticleEmitter_ActivateOnce(gun->resources.bulletFragmentEmitter);
 
                 // Deactivate bullet
-                particle->alive = false;
+                bullet->alive = false;
                 gun->resources.bulletPreset->readyIndex = i;
-                Collider_Reset(particle->collider);
+                Collider_Reset(bullet->collider);
                 continue;
             }
         }
         
     }
+
+    // Update particles
     ParticleEmitter_Update(gun->resources.bulletPreset);
     ParticleEmitter_Update(gun->resources.bulletFragmentEmitter);
-
 }
