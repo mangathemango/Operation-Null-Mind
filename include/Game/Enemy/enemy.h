@@ -9,12 +9,13 @@
 
 typedef enum {
     ENEMY_TYPE_ZFN,
+    ENEMY_TYPE_ECHO
 } EnemyType;
 
 typedef struct {
     Vec2 position;
     Vec2 velocity;
-    Vec2 acceleration;
+    Vec2 direction;
     Collider collider;
     int currentHealth;
     bool isDead;
@@ -23,7 +24,9 @@ typedef struct {
 typedef struct {
     int damage;
     int maxHealth;
-    int speed;
+    float maxSpeed;
+    float acceleration;
+    float drag;
     int attackSpeed;
     int attackRange;
     int attackDamage;

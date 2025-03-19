@@ -17,6 +17,16 @@ float Vec2_Magnitude(Vec2 v) {
 }
 
 /*
+*   [Utility] Returns the magnitude of a vector.
+*   Magnitude is the length of a vector.
+*   @param v The vector to get the magnitude of.
+*   @returns The magnitude (length) of vector v.
+*/
+float Vec2_Distance(Vec2 a, Vec2 b) {
+    return Vec2_Magnitude(Vec2_Subtract(b, a));
+}
+
+/*
 *   [Utility] Returns the normalized vector of the input vector.
 *   A normalized vector has a magnitude of 1 and the same direction as v.
 *   @param v The vector to normalize.

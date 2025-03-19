@@ -28,6 +28,7 @@ void Bullet_Update()
             if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 Enemy_TakeDamage(enemy, 10);
+                Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 4));
             }
 
             // Handle bullet getting destroyed (i.e colliding with walls/enemies)

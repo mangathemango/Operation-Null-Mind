@@ -50,7 +50,7 @@ void Map_Generate() {
                     testMap.chunks[x][y].hallways
                 );
 
-                Enemy_Spawn(ZFNData, (Vec2){x * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2, y * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2});
+                Enemy_Spawn(EchoData, (Vec2){x * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2, y * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2});
             }
         }
     }
