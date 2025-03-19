@@ -7,6 +7,9 @@ void Bullet_Update()
 {
     GunData* gun = player.state.currentGun;
 
+
+    gun->resources.bulletPreset->emissionRate = 1 / gun->stats.fireRate;
+    gun->resources.bulletPreset->angleRange = gun->stats.spread_angle;
     gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;
     gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
 

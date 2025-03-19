@@ -19,7 +19,10 @@ GunData Gun_Pistol = {
         .angle = 0
     },
     .stats = {
-
+        .fireRate = 300,
+        .ammo = 0,
+        .spread_angle = 30,
+        .damage = 10,
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/Pistol.png",
