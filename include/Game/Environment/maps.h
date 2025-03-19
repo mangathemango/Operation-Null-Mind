@@ -4,7 +4,7 @@
 #include <chunks.h>
 
 // Maps are 5 chunks wide and 5 chunks tall
-#define MAP_SIZE_CHUNK 7
+#define MAP_SIZE_CHUNK 10
 #define MAP_SIZE_TILE (MAP_SIZE_CHUNK * CHUNK_SIZE_TILE)
 
 // Add this to your EnvironmentMap struct

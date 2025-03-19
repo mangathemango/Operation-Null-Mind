@@ -64,8 +64,10 @@ void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
     Collider_Check(&enemy->state.collider, &result);
 
     // Check if the new position is valid
-    for (int i = 0 ; i < result.count; i++) {
-        if (result.objects[i]->layer & COLLISION_LAYER_ENVIRONMENT) 
+    for (int i = 0 ; i < result.count; i++) {        
+        if (result.objects[i]->layer & (
+            COLLISION_LAYER_PLAYER | COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY
+        )) 
         {   
             enemy->state.collider.hitbox = oldHitbox;
             return;

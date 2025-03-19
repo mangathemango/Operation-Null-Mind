@@ -11,7 +11,8 @@ EnemyData EchoData = {
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
-                            | COLLISION_LAYER_ENVIRONMENT,
+                            | COLLISION_LAYER_ENVIRONMENT
+                            | COLLISION_LAYER_ENEMY,
         },
         .currentHealth = 0,
         .isDead = true,

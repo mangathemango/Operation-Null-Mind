@@ -71,6 +71,7 @@ bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
             selfFound = true;
             continue;
         } // Skip input collider
+        if (checkResult->count >= MAX_COLLISIONS_PER_CHECK) continue;
         if (!ColliderList[i]->active) continue; // Skip inactive colliders
         if ((collider->collidesWith & ColliderList[i]->layer) == 0) continue; // Skip non intersecting layers
         
@@ -78,8 +79,6 @@ bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
             if (checkResult == NULL) return true;
             checkResult->objects[checkResult->count++] = ColliderList[i];
         }
-
-        if (checkResult->count >= MAX_COLLISIONS_PER_CHECK) break;
     }
     
     if (!selfFound) {
