@@ -56,6 +56,7 @@ extern EnemyData enemies[ENEMY_MAX];
 
 void Enemy_Init();
 void Enemy_Update();
+void Enemy_TryMove(EnemyData* enemy, Vec2 movement);
 void Enemy_Render();
 void Enemy_Destroy();
 

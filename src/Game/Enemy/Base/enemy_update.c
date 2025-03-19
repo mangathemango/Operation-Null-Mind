@@ -17,7 +17,7 @@ void Enemy_Update() {
         if (forwardSpeed < enemies[i].stats.maxSpeed) {
             forwardComponent = Vec2_Add(
                 forwardComponent, 
-                Vec2_Multiply(forwardDir, enemies[i].stats.acceleration)
+                Vec2_Multiply(forwardDir, enemies[i].stats.acceleration * Time->deltaTimeSeconds)
             );
         }
         
@@ -33,9 +33,17 @@ void Enemy_Update() {
             &enemies[i].state.velocity,
             Vec2_Multiply(enemies[i].state.velocity, enemies[i].stats.drag * Time->deltaTimeSeconds)
         );
-        enemies[i].state.position = Vec2_Add(enemies[i].state.position, enemies[i].state.velocity);
-        enemies[i].state.collider.hitbox.x = enemies[i].state.position.x - enemies[i].animData.spriteSize.x / 2;
-        enemies[i].state.collider.hitbox.y = enemies[i].state.position.y - enemies[i].animData.spriteSize.y / 2;
+        
+        Enemy_TryMove(&enemies[i], (Vec2) {
+            enemies[i].state.velocity.x * Time->deltaTimeSeconds,
+            0
+        });
+
+        Enemy_TryMove(&enemies[i], (Vec2) {
+            0,
+            enemies[i].state.velocity.y * Time->deltaTimeSeconds
+        });
+
 
         if (enemies[i].state.currentHealth <= 0) {
             enemies[i].state.isDead = true;
@@ -43,4 +51,25 @@ void Enemy_Update() {
             Collider_Reset(&enemies[i].state.collider);
         }
     }
+}
+
+void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
+    Vec2 newPosition = Vec2_Add(enemy->state.position, movement);
+    SDL_Rect oldHitbox = enemy->state.collider.hitbox;
+    Vec2 position, size;
+    Vec2_FromRect(oldHitbox, &position, &size);
+    enemy->state.collider.hitbox = Vec2_ToCenteredRect(newPosition, size);
+
+    ColliderCheckResult result;
+    Collider_Check(&enemy->state.collider, &result);
+
+    // Check if the new position is valid
+    for (int i = 0 ; i < result.count; i++) {
+        if (result.objects[i]->layer & COLLISION_LAYER_ENVIRONMENT) 
+        {   
+            enemy->state.collider.hitbox = oldHitbox;
+            return;
+        }
+    }
+    enemy->state.position = newPosition;
 }
