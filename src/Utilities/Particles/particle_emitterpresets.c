@@ -237,7 +237,7 @@ ParticleEmitter ParticleEmitter_BulletDefault = {
     .position = {100, 100},
 
     .direction = {0, -1},
-    .emissionRate = 0.1,
+    .emissionRate = 0,
     .emissionNumber = 1,
     .maxParticles = 10,
     .angleRange = 0,

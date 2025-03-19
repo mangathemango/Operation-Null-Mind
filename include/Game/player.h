@@ -31,6 +31,7 @@ typedef struct {
     Animation* animation;
     Timer* dashDurationTimer;
     Timer* dashCooldownTimer;
+    Timer* shootCooldownTimer;
 } PlayerResources;
 
 typedef struct {
@@ -71,6 +72,7 @@ int Player_HandleDash();
 
 // Combat
 void Player_Shoot();
+void Player_SwitchGun(GunData* gun);
 
 // Animations
 int Player_AnimationInit();

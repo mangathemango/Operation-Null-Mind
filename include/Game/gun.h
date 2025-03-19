@@ -44,12 +44,16 @@ typedef struct {
     ParticleEmitter casingPreset;
 } GunConfig;
 
+typedef enum {
+    FIREMODE_SEMI,
+    FIREMODE_AUTO
+} GunFireMode;
 typedef struct {
     float fireRate; //This is firerate per second, The formula is emissionRate/fireRate
-    int ammo; //Max ammo count
+    int ammoCapacity; //Max ammo count
     float spread_angle; //This is angle in degrees
     int damage; //Damage per one bullet
-    bool gunType; //True for automatic, false for semi-automatic
+    GunFireMode fireMode; //True for automatic, false for semi-automatic
 } GunStats;
 
 typedef struct {
