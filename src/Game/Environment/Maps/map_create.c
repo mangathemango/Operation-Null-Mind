@@ -12,8 +12,8 @@ void Map_Generate() {
     }
     
     // 2. Place start room (always in top-left quadrant)
-    int startX = 0;
-    int startY = 0;
+    int startX = 3; //I just change to the middle
+    int startY = 3; //I just change to the middle
     Map_SetStartChunk(startX, startY);
 
     // 3. Place end room (always in bottom-right quadrant)
@@ -84,28 +84,89 @@ void Map_CreateMainPath() {
 
     // Reset path tracking
     testMap.mainPathLength = 0;
-    testMap.mainPath[testMap.mainPathLength++] = (Vec2){currentX, currentY};
+    testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY}; //So basically, this just allows the main path to start somewhere
     SDL_Log("Generating main path via random walk");
     SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", currentX, currentY, endX, endY);
     
-    while (currentX != endX || currentY != endY) {
+
+
+    testMap.mainPath[testMap.mainPathLength] = (Vec2){3, 3};//Basically the start point is 3,3 chunk
+    int alternatePaths = 0; //Not implemented yet, basically this is gonna be like a stopper for the path
+    for(int i = 0; i < 2; i++) { //This loops controls how many nodes, like how long is the path gonna be
         // Determine if we move horizontally or vertically
-        bool moveHorizontal = RandBool();
 
-        // Force movement direction if we're aligned on one axis
-        if (currentY == endY) moveHorizontal = true;
-        if (currentX == endX) moveHorizontal = false;
-
-        // Make movement
-        if (moveHorizontal) {
-            currentX += (currentX < endX) ? 1 : -1;
-        } else {
-            currentY += (currentY < endY) ? 1 : -1;
+        int totalBranch = 1;
+        int totalBranchRandomizer = RandInt(1,10); //This is branch randomizer, this is to determine how many branches are gonna be created
+        if(totalBranchRandomizer > 4) {
+            totalBranch++;
         }
-        SDL_Log("Moved to (%d, %d)\n", currentX, currentY);
-        // Mark chunk as part of path
-        testMap.chunks[currentX][currentY].empty = false;
-        testMap.mainPath[testMap.mainPathLength++] = (Vec2){currentX, currentY};
+        if(totalBranchRandomizer > 8) {
+            totalBranch++;
+        }
+        if(totalBranchRandomizer == 10)
+        {
+            totalBranch++;
+        }
+       
+       SDL_Log("How many totalbranchRandomizer %d",totalBranchRandomizer); //Ignore
+       SDL_Log("How many totalbranch %d",totalBranch);//Ignore
+        int placementList[4] = {0,0,0,0}; //UP,LEFT,RIGHT,DOWN
+        testMap.mainPathLength++;
+        for(int j = 0; j < totalBranch; j++)
+        {
+            int placement = RandInt(0,3); //This randomize which path to take
+            SDL_Log("How many placement %d",placement);
+            if(placementList[placement] == 1) 
+            {
+                j--;
+                continue;
+                /*
+                    Basically this loop is just so that it cant randomize to the same path twice
+                    but i dont like how this works so yea pls do fix this absolute hot garbage
+                */
+            }
+            placementList[placement]++; //Basically, this just changes the value of the list to 1 so it doesnt randomize to the same path twice
+
+
+
+            /*
+                So basically all the if statement is this
+                It takes the node rn and added the branches
+                The last branch is gonna be the new node
+            */
+            if(placement == 0)
+            {
+                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                currentX = testMap.mainPath[testMap.mainPathLength-1].x; 
+                currentY = testMap.mainPath[testMap.mainPathLength-1].y + 1;
+                testMap.chunks[currentX][currentY].empty = false;
+                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
+            }
+            if(placement == 1)
+            {
+                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                currentX = testMap.mainPath[testMap.mainPathLength-1].x + 1;
+                currentY = testMap.mainPath[testMap.mainPathLength-1].y;
+                testMap.chunks[currentX][currentY].empty = false;
+                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
+            }
+            if(placement == 2)
+            {
+                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                currentX = testMap.mainPath[testMap.mainPathLength-1].x - 1;
+                currentY = testMap.mainPath[testMap.mainPathLength-1].y;
+                testMap.chunks[currentX][currentY].empty = false;
+                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
+            }
+            if(placement == 3)
+            {
+                SDL_Log("currentY %d", testMap.mainPath[testMap.mainPathLength-1].y);
+                currentX = testMap.mainPath[testMap.mainPathLength-1].x;
+                currentY = testMap.mainPath[testMap.mainPathLength-1].y - 1;
+                testMap.chunks[currentX][currentY].empty = false;
+                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
+            }
+        }
     }
 }
 

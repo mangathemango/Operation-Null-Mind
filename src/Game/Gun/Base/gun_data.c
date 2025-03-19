@@ -21,7 +21,7 @@ GunData Gun_Pistol = {
     .stats = {
         .fireRate = 300,
         .ammo = 0,
-        .spread_angle = 30,
+        .spread_angle = 10,
         .damage = 10,
     },
     .animData = {
