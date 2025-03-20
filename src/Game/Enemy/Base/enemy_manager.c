@@ -3,6 +3,7 @@
 #include <enemy_types.h>
 #include <player.h>
 #include <time_system.h>
+#include <random.h>
 
 int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk) {
     int count = 0;
@@ -26,7 +27,11 @@ void EnemyManager_Update() {
             return;
         }
         if (chunk->inCombat) {
-            Enemy_Spawn(EchoData, Chunk_GetRandomTileInRoom(chunk));
+            if (chunk->currentEnemyCount > 0) return;
+            int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
+            for (int i = 0; i < spawnCount; i++) {
+                Enemy_Spawn(EchoData, Chunk_GetRandomTileInRoom(chunk));
+            }
             return;
         }
         chunk->inCombat = true;
