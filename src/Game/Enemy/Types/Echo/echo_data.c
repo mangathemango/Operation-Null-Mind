@@ -1,7 +1,7 @@
 #include <enemy_echo.h>
 
 EnemyData EchoData = {
-    .type = ENEMY_TYPE_ZFN,
+    .type = ENEMY_TYPE_ECHO,
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
@@ -19,7 +19,7 @@ EnemyData EchoData = {
     },
     .stats = {
         .damage = 0,
-        .maxHealth = 500,
+        .maxHealth = 50,
         .maxSpeed = 100.0f,
         .acceleration = 500.0f,
         .drag = 5.0f,

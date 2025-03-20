@@ -32,7 +32,13 @@ int App_PostUpdate() {
             Enemy_Update();
             Camera_UpdatePosition();
             if (Input->mouse.rightButton.pressed) {
-                Enemy_Spawn(EchoData, Camera_ScreenVecToWorld(Input->mouse.position));
+                Enemy_Spawn(EchoData, 
+                    Chunk_GetRandomTileInRoom(
+                        Chunk_GetCurrentChunk(
+                            Camera_ScreenVecToWorld(Input->mouse.position)
+                        )    
+                    )
+                );
             }
             break;
     }
