@@ -7,7 +7,7 @@ void Map_Generate() {
     for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
             testMap.chunks[x][y].colliderCount = 0;
-            testMap.chunks[x][y].enemyCount = 0;
+            testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
         }
@@ -53,7 +53,7 @@ void Map_Generate() {
                     testMap.chunks[x][y].hallways
                 );
                 if (testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL) {
-                    testMap.chunks[x][y].enemyCount = RandInt(10, 20);
+                    testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
                 }
             }
         }

@@ -20,8 +20,8 @@ EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 room
         .hallways = hallways,
         .floorPattern = floorPattern,
         .roomType = roomType,
-        .empty = false
     };
+
 
     Chunk_GenerateFloorTiles(&chunk);
     Chunk_GenerateWallTiles(&chunk);
@@ -29,6 +29,19 @@ EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 room
     Chunk_GenerateHallwayWallTiles(&chunk);
     Chunk_GenerateColliders(&chunk);
     return chunk;
+}
+
+void Chunk_GenerateTilesButVoid(EnvironmentChunk* chunk) {
+    for (int i = 0; i < chunk->colliderCount; i++) {
+        Collider_Reset(chunk->colliders[i]);
+        free(chunk->colliders[i]);
+    }
+    chunk->colliderCount = 0;
+    Chunk_GenerateFloorTiles(chunk);
+    Chunk_GenerateWallTiles(chunk);
+    Chunk_GenerateHallways(chunk);
+    Chunk_GenerateHallwayWallTiles(chunk);
+    Chunk_GenerateColliders(chunk);
 }
 
 void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk) {

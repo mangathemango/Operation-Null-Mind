@@ -42,7 +42,9 @@ typedef struct {
     RoomFloorPattern floorPattern;
     RoomType roomType;
     
-    int enemyCount;
+    int totalEnemyCount;
+    int currentEnemyCount;
+    bool inCombat;
     bool empty;
 
     Collider* colliders[CHUNK_SIZE_TILE];
@@ -50,6 +52,7 @@ typedef struct {
 } EnvironmentChunk;
 
 EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 roomSize ,RoomFloorPattern floorPattern, RoomHallways hallways);
+void Chunk_GenerateTilesButVoid(EnvironmentChunk* chunk);
 void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateHallways(EnvironmentChunk* chunk);

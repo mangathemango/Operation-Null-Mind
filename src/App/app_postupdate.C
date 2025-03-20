@@ -29,21 +29,9 @@ int App_PostUpdate() {
             Player_PostUpdate();
             Gun_Update();
             Bullet_Update();
+            EnemyManager_Update();
             Enemy_Update();
             Camera_UpdatePosition();
-            static float timer = 0;
-            timer += Time->deltaTimeSeconds;
-            if (player.state.insideRoom && !player.state.insideHallway) {
-                if (timer > 0.5f) {
-                    timer = 0;
-                    Enemy_Spawn(
-                        EchoData, 
-                        Chunk_GetRandomTileInRoom(
-                            Chunk_GetCurrentChunk(player.state.position)
-                        )
-                    );
-                }
-            }
             break;
     }
     return 0;

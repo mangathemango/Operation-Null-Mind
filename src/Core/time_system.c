@@ -23,6 +23,7 @@ const TimeSystem * const Time = &time; // This ensures that the Time variable is
 void Time_PreUpdate() {
     float currentTick = SDL_GetTicks();
     time.deltaTimeSeconds = (currentTick - time.previousTick) / 1000;
+    if (time.deltaTimeSeconds > 0.1f) time.deltaTimeSeconds = 0.1f;
     time.previousTick = currentTick;
     time.scaledDeltaTimeSeconds = time.deltaTimeSeconds * time.timeScale;
     time.programElapsedTimeSeconds += time.deltaTimeSeconds;
