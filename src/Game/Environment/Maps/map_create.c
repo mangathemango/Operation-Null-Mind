@@ -6,6 +6,8 @@ void Map_Generate() {
     // 1. Initialize all chunks as empty
     for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
+            testMap.chunks[x][y].colliderCount = 0;
+            testMap.chunks[x][y].enemyCount = 0;
             testMap.chunks[x][y].empty = true;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
         }
@@ -49,8 +51,9 @@ void Map_Generate() {
                     testMap.chunks[x][y].floorPattern,
                     testMap.chunks[x][y].hallways
                 );
-
-                Enemy_Spawn(EchoData, (Vec2){x * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2, y * CHUNK_SIZE_PIXEL + CHUNK_SIZE_PIXEL/2});
+                if (testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL) {
+                    testMap.chunks[x][y].enemyCount = RandInt(10, 20);
+                }
             }
         }
     }

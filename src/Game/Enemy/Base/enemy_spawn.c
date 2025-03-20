@@ -1,7 +1,12 @@
 #include <enemy.h>
 #include <stdlib.h>
+#include <maps.h>
 
 void Enemy_Spawn(EnemyData data, Vec2 position) {
+    EnvironmentChunk* chunk = Chunk_GetCurrentChunk(position);
+    SDL_Log("Chunk enemy count: %d", chunk->enemyCount);
+    if (chunk->enemyCount <= 0) return;
+    chunk->enemyCount--;
     SDL_Log("Spawning enemy at %f, %f", position.x, position.y);
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (!enemies[i].state.isDead) continue;

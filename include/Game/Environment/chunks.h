@@ -42,6 +42,7 @@ typedef struct {
     RoomFloorPattern floorPattern;
     RoomType roomType;
     
+    int enemyCount;
     bool empty;
 
     Collider* colliders[CHUNK_SIZE_TILE];
