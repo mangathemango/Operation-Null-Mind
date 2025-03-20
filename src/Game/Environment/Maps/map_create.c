@@ -115,9 +115,38 @@ void Map_CreateMainPath() {
             Vec2_Left
         };
 
+        for (int j = 0; j < 4; j++) {
+            if (currentX + placementList[j].x < 0 || currentX + placementList[j].x >= MAP_SIZE_CHUNK) {
+                placementList[j] = Vec2_Zero;
+            }
+            if (currentY + placementList[j].y < 0 || currentY + placementList[j].y >= MAP_SIZE_CHUNK) {
+                placementList[j] = Vec2_Zero;
+            }
+            if (
+                testMap.chunks
+                [(int) (currentX + placementList[j].x)]
+                [(int) (currentY + placementList[j].y)]
+                .empty == false
+            ) {
+                placementList[j] = Vec2_Zero;
+            }
+        }
+
         for(int j = 0; j < totalBranch; j++) {   
             int placementIndex;
             Vec2 placement = Vec2_Zero;
+
+            bool allZero = true;
+            for (int k = 0; k < 4; k++) {
+                if (placementList[k].x != 0 || placementList[k].y != 0) {
+                    allZero = false;
+                    break;
+                }
+            }
+            if (allZero) {
+                SDL_Log("No valid branches found, stopping path generation");
+                break;
+            }
 
             // This loop is to ensure a path isn't created twice.
             while (placement.x == 0 && placement.y == 0) {
