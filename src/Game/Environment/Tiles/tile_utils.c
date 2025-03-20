@@ -17,11 +17,7 @@ void Tile_FromPixelPoint(Vec2 pixelPoint, Vec2* chunkIndex, Vec2* tileIndex) {
 }
 
 bool Tile_IsValid(Vec2 tileIndex) {
-    return tileIndex.x >= 0 && tileIndex.x < CHUNK_SIZE_TILES && tileIndex.y >= 0 && tileIndex.y < CHUNK_SIZE_TILES;
-}
-
-bool Chunk_IsValid(Vec2 chunkIndex) {
-    return chunkIndex.x >= 0 && chunkIndex.x < MAP_SIZE_CHUNKS && chunkIndex.y >= 0 && chunkIndex.y < MAP_SIZE_CHUNKS;
+    return tileIndex.x >= 0 && tileIndex.x < CHUNK_SIZE_TILE && tileIndex.y >= 0 && tileIndex.y < CHUNK_SIZE_TILE;
 }
 
 Vec2 Tile_GetPositionFromPixel(Vec2 pixelPoint) {
@@ -55,18 +51,4 @@ Vec2 Tile_TileIndexToPixel(Vec2 tileIndex, Vec2 chunkIndex) {
         Vec2_Multiply(chunkIndex, CHUNK_SIZE_PIXEL), 
         Vec2_Multiply(tileIndex, TILE_SIZE_PIXELS)
     );
-}
-
-Vec2 Tile_GetRandomTileInRoom(EnvironmentChunk* chunk) {
-    Vec2 roomStartX = ROOM_STARTX(chunk->roomSize);
-    Vec2 roomStartY = ROOM_STARTY(chunk->roomSize);
-    Vec2 roomEndX = ROOM_ENDX(chunk->roomSize);
-    Vec2 roomEndY = ROOM_ENDY(chunk->roomSize);
-
-    Vec2 tileIndex = (Vec2) {
-        RandInt(roomStartX, roomEndX),
-        RandInt(roomStartY, roomEndY)
-    };
-
-    return Tile_TileIndexToPixel(tileIndex, chunk->position);
 }

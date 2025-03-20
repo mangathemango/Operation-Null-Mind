@@ -72,9 +72,8 @@ void Tile_Render(EnvironmentTile tile, Vec2 tilePosition);
 // Utilities
 void Tile_FromPixelPoint(Vec2 pixelPoint, Vec2* chunkIndex, Vec2* tileIndex);
 bool Tile_IsValid(Vec2 tileIndex);
-bool Chunk_IsValid(Vec2 chunkIndex);
 Vec2 Tile_GetPositionFromPixel(Vec2 pixelPoint);
 SDL_Rect Tile_GetRectFromPixel(Vec2 pixelPoint);
 Vec2 Tile_GetRandomPixelInRect(SDL_Rect rect);
 Vec2 Tile_TileIndexToPixel(Vec2 tileIndex, Vec2 chunkIndex);
-Vec2 Tile_GetRandomTileInRoom(EnvironmentChunk* chunk);
+
