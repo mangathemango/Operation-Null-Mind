@@ -38,7 +38,7 @@ void Map_Generate() {
                 // Generate room details
                 if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
                     testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
-                    SDL_Log("Room size at (%d, %d): %dx%d\n", x, y, testMap.chunks[x][y].roomSize.x, testMap.chunks[x][y].roomSize.y);
+                    SDL_Log("Room size at (%d, %d): %fx%f\n", x, y, testMap.chunks[x][y].roomSize.x, testMap.chunks[x][y].roomSize.y);
                 }
                 
                 // Create the chunk with all its details
@@ -93,79 +93,48 @@ void Map_CreateMainPath() {
     testMap.mainPath[testMap.mainPathLength] = (Vec2){3, 3};//Basically the start point is 3,3 chunk
     int alternatePaths = 0; //Not implemented yet, basically this is gonna be like a stopper for the path
     for(int i = 0; i < 2; i++) { //This loops controls how many nodes, like how long is the path gonna be
-        // Determine if we move horizontally or vertically
-
-        int totalBranch = 1;
-        int totalBranchRandomizer = RandInt(1,10); //This is branch randomizer, this is to determine how many branches are gonna be created
-        if(totalBranchRandomizer > 4) {
-            totalBranch++;
-        }
-        if(totalBranchRandomizer > 8) {
-            totalBranch++;
-        }
-        if(totalBranchRandomizer == 10)
-        {
-            totalBranch++;
-        }
-       
-       SDL_Log("How many totalbranchRandomizer %d",totalBranchRandomizer); //Ignore
-       SDL_Log("How many totalbranch %d",totalBranch);//Ignore
-        int placementList[4] = {0,0,0,0}; //UP,LEFT,RIGHT,DOWN
         testMap.mainPathLength++;
-        for(int j = 0; j < totalBranch; j++)
-        {
-            int placement = RandInt(0,3); //This randomize which path to take
-            SDL_Log("How many placement %d",placement);
-            if(placementList[placement] == 1) 
-            {
-                j--;
-                continue;
-                /*
-                    Basically this loop is just so that it cant randomize to the same path twice
-                    but i dont like how this works so yea pls do fix this absolute hot garbage
-                */
-            }
-            placementList[placement]++; //Basically, this just changes the value of the list to 1 so it doesnt randomize to the same path twice
 
+        int totalBranch;
+        //This is branch randomizer, this is to determine how many branches are gonna be created
+        int totalBranchRandomizer = RandInt(1,10); 
+        if (totalBranchRandomizer <= 4)         totalBranch = 1;    // 40% chance of 1 branch
+        else if (totalBranchRandomizer <= 8)    totalBranch = 2;    // 40% chance of 2 branches
+        else if (totalBranchRandomizer <= 9)    totalBranch = 3;    // 10% chance of 3 branches
+        else                                    totalBranch = 4;    // 10% chance of 4 branches
+        
+        SDL_Log("Generating %d branches from (%d, %d)", totalBranch, currentX, currentY);
 
+        Vec2 placementList[4] = {
+            Vec2_Up,
+            Vec2_Right,
+            Vec2_Down,
+            Vec2_Left
+        };
 
-            /*
-                So basically all the if statement is this
-                It takes the node rn and added the branches
-                The last branch is gonna be the new node
-            */
-            if(placement == 0)
-            {
-                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                currentX = testMap.mainPath[testMap.mainPathLength-1].x; 
-                currentY = testMap.mainPath[testMap.mainPathLength-1].y + 1;
-                testMap.chunks[currentX][currentY].empty = false;
-                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
+        for(int j = 0; j < totalBranch; j++) {   
+            int placementIndex;
+            Vec2 placement = Vec2_Zero;
+
+            // This loop is to ensure a path isn't created twice.
+            while (placement.x == 0 && placement.y == 0) {
+                placementIndex = RandInt(0,3); //This randomize which path to take
+                placement = placementList[placementIndex];
+                // Will keep looping until we find a Vec2 that isn't (0,0)
             }
-            if(placement == 1)
-            {
-                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                currentX = testMap.mainPath[testMap.mainPathLength-1].x + 1;
-                currentY = testMap.mainPath[testMap.mainPathLength-1].y;
-                testMap.chunks[currentX][currentY].empty = false;
-                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
+            // Set the chosen placement in the array to 0,0 so it can't be chosen again
+            placementList[placementIndex] = Vec2_Zero;
+
+            switch (placementIndex) {
+                case 0: SDL_Log("Branching up"); break;
+                case 1: SDL_Log("Branching right"); break;
+                case 2: SDL_Log("Branching down"); break;
+                case 3: SDL_Log("Branching left"); break;
             }
-            if(placement == 2)
-            {
-                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                currentX = testMap.mainPath[testMap.mainPathLength-1].x - 1;
-                currentY = testMap.mainPath[testMap.mainPathLength-1].y;
-                testMap.chunks[currentX][currentY].empty = false;
-                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
-            }
-            if(placement == 3)
-            {
-                SDL_Log("currentY %d", testMap.mainPath[testMap.mainPathLength-1].y);
-                currentX = testMap.mainPath[testMap.mainPathLength-1].x;
-                currentY = testMap.mainPath[testMap.mainPathLength-1].y - 1;
-                testMap.chunks[currentX][currentY].empty = false;
-                testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
-            }
+            currentX = testMap.mainPath[testMap.mainPathLength-1].x + placement.x; 
+            currentY = testMap.mainPath[testMap.mainPathLength-1].y + placement.y;
+            testMap.chunks[currentX][currentY].empty = false;
+            testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY};
         }
     }
 }
