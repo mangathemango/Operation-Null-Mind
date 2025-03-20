@@ -18,13 +18,14 @@ void Map_Generate() {
     int startY = 3; //I just change to the middle
     Map_SetStartChunk(startX, startY);
 
-    // 3. Place end room (always in bottom-right quadrant)
-    int endX = RandInt(MAP_SIZE_CHUNK/2 + 1, MAP_SIZE_CHUNK-1);
-    int endY = RandInt(MAP_SIZE_CHUNK/2 + 1, MAP_SIZE_CHUNK-1);
-    Map_SetEndChunk(endX, endY);
-    
-    // 4. Create main path using A* or random walk
+    // 3. Create main path using A* or random walk
     Map_CreateMainPath();
+    
+    // 4. Place end room (always in bottom-right quadrant)
+    Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
+
+    SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
+
 
     
     // 5. Initialize all non-empty chunks
@@ -76,33 +77,30 @@ void Map_SetEndChunk(int x, int y) {
     testMap.endChunk->position = (Vec2){x, y};
 }
 void Map_CreateMainPath() {
-    if (testMap.startChunk == NULL || testMap.endChunk == NULL) {
+    if (testMap.startChunk == NULL) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot create main path without start and end chunks");
         return; // Cannot create main path without start and end chunks
     }
     int currentX = testMap.startChunk->position.x;
     int currentY = testMap.startChunk->position.y;
-    int endX = testMap.endChunk->position.x;
-    int endY = testMap.endChunk->position.y;
 
     // Reset path tracking
     testMap.mainPathLength = 0;
-    testMap.mainPath[testMap.mainPathLength] = (Vec2){currentX, currentY}; //So basically, this just allows the main path to start somewhere
+    testMap.mainPath[testMap.mainPathLength] = (Vec2){3, 3}; //So basically, this just allows the main path to start somewhere
     SDL_Log("Generating main path via random walk");
-    SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", currentX, currentY, endX, endY);
     
 
 
-    testMap.mainPath[testMap.mainPathLength] = (Vec2){3, 3};//Basically the start point is 3,3 chunk
     int alternatePaths = 0; //Not implemented yet, basically this is gonna be like a stopper for the path
-    for(int i = 0; i < 2; i++) { //This loops controls how many nodes, like how long is the path gonna be
+    int totalAlternateBranch = 0;
+    for(int i = 0; i < 7; i++) { //This loops controls how many nodes, like how long is the path gonna be
         testMap.mainPathLength++;
 
         int totalBranch;
         //This is branch randomizer, this is to determine how many branches are gonna be created
         int totalBranchRandomizer = RandInt(1,10); 
-        if (totalBranchRandomizer <= 4)         totalBranch = 1;    // 40% chance of 1 branch
-        else if (totalBranchRandomizer <= 8)    totalBranch = 2;    // 40% chance of 2 branches
+        if (totalBranchRandomizer <= 6)         totalBranch = 1;    // 60% chance of 1 branch
+        else if (totalBranchRandomizer <= 8)    totalBranch = 2;    // 20% chance of 2 branches
         else if (totalBranchRandomizer <= 9)    totalBranch = 3;    // 10% chance of 3 branches
         else                                    totalBranch = 4;    // 10% chance of 4 branches
         

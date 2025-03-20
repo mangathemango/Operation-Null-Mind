@@ -30,6 +30,7 @@ int App_RenderMain() {
     }
     Debug_RenderFPSCount();
     Debug_RenderSpikeCount();
+    Debug_RenderCurrentChunk();
     return 0;
 }
 

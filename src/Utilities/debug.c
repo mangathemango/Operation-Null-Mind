@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <UI_text.h>
 #include <camera.h>
+#include <maps.h>
+#include <player.h>
 
 #define PLAYER_HITBOX_COLOR 0, 255, 0, 255
 #define WALL_HITBOX_COLOR 255, 255, 0, 255
@@ -119,7 +121,8 @@ void Debug_RenderFPSCount() {
     UI_RenderText(averageFpsTextElement);
 }
 
-void Debug_RenderSpikeCount() {
+
+void Debug_RenderCurrentChunk() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
     static UIElement* spikeTextElement = NULL;
@@ -136,6 +139,48 @@ void Debug_RenderSpikeCount() {
 
         SDL_Color textColor = {255, 255, 255, 255};
         SDL_Rect renderRect = {10, 30, 0, 0};   
+        float textScale = 1;
+        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
+
+        spikeTextElement = UI_CreateText(
+            text, 
+            renderRect, 
+            textColor, 
+            textScale, 
+            alignment, 
+            app.resources.textFont
+        );
+    } else {
+        // Update text if it does exist.
+        UI_ChangeText(spikeTextElement, text);
+    }
+
+
+    UI_UpdateText(spikeTextElement);
+    UI_RenderText(spikeTextElement);
+}
+
+void Debug_RenderSpikeCount() {
+    if (!app.config.debug) return;
+    // The UIElement struct stored in a static variable for reuse
+    static UIElement* spikeTextElement = NULL;
+    // Format text
+    static int spikeCount = 0;
+    float targetFPS = 30;
+    if (Time->deltaTimeSeconds > 1.0 / targetFPS) spikeCount++;
+
+    char text[20];
+
+    Vec2 chunkPosition = Chunk_GetCurrentChunk(player.state.position)->position;
+    int ChunkX = (int) chunkPosition.x;
+    int ChunkY = (int) chunkPosition.y;
+    sprintf(text, "Current Chunk: (%d,%d)", ChunkX, ChunkY);
+
+    if (!spikeTextElement) {
+        // Create text element if it doesn't exist 
+
+        SDL_Color textColor = {255, 255, 255, 255};
+        SDL_Rect renderRect = {10, 40, 0, 0};   
         float textScale = 1;
         UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
 
