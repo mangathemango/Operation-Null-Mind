@@ -61,7 +61,7 @@ typedef enum {
     COLLISION_LAYER_PLAYER              = 1 << 0,   // 00000001
     COLLISION_LAYER_ENVIRONMENT         = 1 << 1,   // 00000010
     COLLISION_LAYER_ENEMY               = 1 << 2,   // 00000100
-    COLLISION_LAYER_ITEM                = 1 << 3,   // 00001000
+    COLLISION_LAYER_TRIGGER             = 1 << 3,   // 00001000
     COLLISION_LAYER_ENEMY_PROJECTILE    = 1 << 4,   // 00010000
     COLLISION_LAYER_PLAYER_PROJECTILE   = 1 << 5,   // 00100000
 } CollisionLayer;

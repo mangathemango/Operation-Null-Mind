@@ -24,6 +24,8 @@ typedef struct {
     bool moving;    
     GunData* currentGun;
     Collider collider;
+    bool insideRoom;
+    bool insideHallway;
 } PlayerState;
 
 typedef struct {

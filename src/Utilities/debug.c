@@ -35,7 +35,7 @@ void Debug_RenderHitboxes() {
             case COLLISION_LAYER_ENEMY:
                 SDL_SetRenderDrawColor(app.resources.renderer, ENEMY_HITBOX_COLOR);
                 break;
-            case COLLISION_LAYER_ITEM:
+            case COLLISION_LAYER_TRIGGER:
                 SDL_SetRenderDrawColor(app.resources.renderer, ITEM_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_ENEMY_PROJECTILE:

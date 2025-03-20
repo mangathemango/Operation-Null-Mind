@@ -54,7 +54,11 @@ void Chunk_GenerateWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateHallways(EnvironmentChunk* chunk);
 void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateColliders(EnvironmentChunk* chunk);
-void Chunk_AddCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddWallCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddRoomTrigger(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddHallwayTrigger(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_HandlePlayerInsideRoom();
+void Chunk_HandlePlayerInsideHallway();
 void Chunk_Start();
 void Chunk_Render(const EnvironmentChunk *chunk);
 

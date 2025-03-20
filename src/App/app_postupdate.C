@@ -31,14 +31,18 @@ int App_PostUpdate() {
             Bullet_Update();
             Enemy_Update();
             Camera_UpdatePosition();
-            if (Input->mouse.rightButton.pressed) {
-                Enemy_Spawn(EchoData, 
-                    Chunk_GetRandomTileInRoom(
-                        Chunk_GetCurrentChunk(
-                            Camera_ScreenVecToWorld(Input->mouse.position)
-                        )    
-                    )
-                );
+            static float timer = 0;
+            timer += Time->deltaTimeSeconds;
+            if (player.state.insideRoom && !player.state.insideHallway) {
+                if (timer > 0.5f) {
+                    timer = 0;
+                    Enemy_Spawn(
+                        EchoData, 
+                        Chunk_GetRandomTileInRoom(
+                            Chunk_GetCurrentChunk(player.state.position)
+                        )
+                    );
+                }
             }
             break;
     }

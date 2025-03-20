@@ -1,5 +1,6 @@
 #include <player.h>
 #include <colliders.h>
+#include <chunks.h>
 
 bool Player_DetectCollision() {
     ColliderCheckResult collisions;
@@ -15,6 +16,14 @@ bool Player_DetectCollision() {
         }
         if (collisions.objects[i]->layer == COLLISION_LAYER_ENEMY && !player.state.dashing) {
             return true;
+        }
+        if (collisions.objects[i]->layer == COLLISION_LAYER_TRIGGER) {
+            if (collisions.objects[i]->owner == &Chunk_HandlePlayerInsideRoom) {
+                Chunk_HandlePlayerInsideRoom();
+            }
+            if (collisions.objects[i]->owner == &Chunk_HandlePlayerInsideHallway) {
+                Chunk_HandlePlayerInsideHallway();
+            }
         }
     }
     return false;

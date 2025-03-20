@@ -7,6 +7,8 @@
 */
 int Player_Preupdate() {
     player.state.moving = false;
+    player.state.insideHallway = false;
+    player.state.insideRoom = false;
     if (!player.state.directionLocked)   player.state.direction = Vec2_Zero;
     if (!player.state.dashing) player.state.currentSpeed = 0;
     return 0;

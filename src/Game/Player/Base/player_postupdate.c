@@ -18,7 +18,7 @@ int Player_PostUpdate() {
     // Handles player movement (will be optimized later)
     Player_Move();
     Player_UpdateHitbox();
-    
+    Player_DetectCollision();
     // Update player collider
     ParticleEmitter_Update(player.resources.dashParticleEmitter);
 
