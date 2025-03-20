@@ -22,6 +22,8 @@ void Enemy_Render() {
             enemies[i].animData.spriteSize,
             0,
             NULL,
+            enemies[i].state.direction.x < 0 ? 
+            SDL_FLIP_HORIZONTAL :
             SDL_FLIP_NONE
         );
     }

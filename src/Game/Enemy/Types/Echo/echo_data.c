@@ -1,6 +1,6 @@
-#include <enemy_zfn.h>
+#include <enemy_echo.h>
 
-EnemyData ZFNData = {
+EnemyData EchoData = {
     .type = ENEMY_TYPE_ZFN,
     .state = {
         .position = {0, 0},
@@ -9,18 +9,21 @@ EnemyData ZFNData = {
         .collider = {
             .hitbox = {0, 0, 20, 32},
             .layer = COLLISION_LAYER_ENEMY,
-            .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE,
+            .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
+                            | COLLISION_LAYER_PLAYER
+                            | COLLISION_LAYER_ENVIRONMENT
+                            | COLLISION_LAYER_ENEMY,
         },
         .currentHealth = 0,
         .isDead = true,
     },
     .stats = {
         .damage = 0,
-        .maxHealth = 100,
-        .maxSpeed = 0,
-        .acceleration = 0,
+        .maxHealth = 500,
+        .maxSpeed = 100.0f,
+        .acceleration = 500.0f,
+        .drag = 5.0f,
         .attackSpeed = 0,
-        .drag = 0,
         .attackRange = 0,
         .attackDamage = 0,
         .attackCooldown = 0,
@@ -29,8 +32,8 @@ EnemyData ZFNData = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/zfn.png",
-        .frameSize = {292, 438},
+        .spritesheetPath = "Assets/Images/Enemies/echo.png",
+        .frameSize = {40, 40},
         .frameCount = 1,
         .clips = {
             {
@@ -43,10 +46,10 @@ EnemyData ZFNData = {
         },
         .playOnStart = true,
         .defaultClip = "idle",
-        .spriteSize = {20, 32},
+        .spriteSize = {40, 40},
     },
     .config = NULL,
-    .start = &ZFN_Start,
-    .update = &ZFN_Update,
-    .render = &ZFN_Render,
+    .start = &Echo_Start,
+    .update = &Echo_Update,
+    .render = &Echo_Render,
 };

@@ -7,8 +7,8 @@ void Bullet_Update()
 {
     GunData* gun = player.state.currentGun;
 
-
-    gun->resources.bulletPreset->emissionRate = 1 / gun->stats.fireRate;
+    gun->resources.bulletPreset->emissionNumber = gun->stats.bulletsPerShot;
+    gun->resources.bulletPreset->particleLifetime = gun->stats.bulletLifetime;
     gun->resources.bulletPreset->angleRange = gun->stats.spread_angle;
     gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;
     gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
@@ -28,6 +28,7 @@ void Bullet_Update()
             if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 Enemy_TakeDamage(enemy, 10);
+                Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 70));
             }
 
             // Handle bullet getting destroyed (i.e colliding with walls/enemies)
@@ -42,7 +43,7 @@ void Bullet_Update()
                 bullet->alive = false;
                 gun->resources.bulletPreset->readyIndex = i;
                 Collider_Reset(bullet->collider);
-                continue;
+                break;
             }
         }
         

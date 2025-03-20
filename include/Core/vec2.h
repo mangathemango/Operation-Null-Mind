@@ -23,6 +23,7 @@ static const Vec2 Vec2_Left = {-1, 0};
 static const Vec2 Vec2_Right = {1, 0};
 
 float Vec2_Magnitude(Vec2 v);
+float Vec2_Distance(Vec2 a, Vec2 b);
 Vec2 Vec2_Normalize(Vec2 v);
 Vec2 Vec2_Add(Vec2 a, Vec2 b);
 Vec2 Vec2_Increment(Vec2* a, Vec2 b);

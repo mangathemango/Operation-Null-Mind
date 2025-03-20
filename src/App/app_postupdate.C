@@ -4,6 +4,7 @@
 #include <input.h>
 #include <sound.h>
 #include <bullet.h>
+#include <enemy_types.h>
 
 /* 
 *   [PostUpdate] This function is called every frame of the program AFTER App_Event_Handler().
@@ -30,6 +31,9 @@ int App_PostUpdate() {
             Bullet_Update();
             Enemy_Update();
             Camera_UpdatePosition();
+            if (Input->mouse.rightButton.pressed) {
+                Enemy_Spawn(EchoData, Camera_ScreenVecToWorld(Input->mouse.position));
+            }
             break;
     }
     return 0;

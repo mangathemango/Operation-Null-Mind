@@ -20,9 +20,12 @@ GunData Gun_Pistol = {
     },
     .stats = {
         .fireRate = 300,
-        .ammo = 0,
-        .spread_angle = 10,
+        .ammoCapacity = 0,
+        .spread_angle = 30,
         .damage = 10,
+        .fireMode = FIREMODE_SEMI,
+        .bulletLifetime = 1.0f,
+        .bulletsPerShot = 1
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/Pistol.png",
@@ -76,7 +79,13 @@ GunData Gun_SMG = {
         .angle = 0
     },
     .stats = {
-
+        .fireRate = 1000,
+        .ammoCapacity = 0,
+        .spread_angle = 60,
+        .damage = 10,
+        .fireMode = FIREMODE_AUTO,
+        .bulletLifetime = 1.0f,
+        .bulletsPerShot = 1
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/SMG.png",
@@ -130,7 +139,13 @@ GunData Gun_Shotgun = {
         .angle = 0
     },
     .stats = {
-
+        .fireRate = 600,
+        .ammoCapacity = 0,
+        .spread_angle = 60,
+        .damage = 10,
+        .fireMode = FIREMODE_SEMI,
+        .bulletLifetime = 0.1f,
+        .bulletsPerShot = 5
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/Shotgun.png",
@@ -184,7 +199,13 @@ GunData Gun_AssaultRifle = {
         .angle = 0
     },
     .stats = {
-
+        .fireRate = 400,
+        .ammoCapacity = 0,
+        .spread_angle = 20,
+        .damage = 10,
+        .fireMode = FIREMODE_AUTO,
+        .bulletLifetime = 1.0f,
+        .bulletsPerShot = 1
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/Assault Rifle.png",
@@ -238,7 +259,13 @@ GunData Gun_BattleRifle = {
         .angle = 0
     },
     .stats = {
-
+        .fireRate = 300,
+        .ammoCapacity = 0,
+        .spread_angle = 10,
+        .damage = 10,
+        .fireMode = FIREMODE_AUTO,
+        .bulletLifetime = 1.0f,
+        .bulletsPerShot = 1
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Guns/Battle Rifle.png",
