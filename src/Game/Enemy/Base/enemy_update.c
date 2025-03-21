@@ -2,11 +2,11 @@
 #include <enemy_types.h>
 #include <time_system.h>
 
-/*
-*   [PostUpdate] Updates all active enemies in the game.
-*   Skips dead enemies and handles special states like spawning.
-*   Processes movement and death conditions for each enemy.
-*/
+/**
+ * @brief [PostUpdate] Updates all active enemies in the game.
+ * Skips dead enemies and handles special states like spawning.
+ * Processes movement and death conditions for each enemy.
+ */
 void Enemy_Update() {
     for (int i = 0; i < ENEMY_MAX; i++) {
         EnemyData* enemy = &enemies[i];
@@ -25,13 +25,13 @@ void Enemy_Update() {
     }
 }
 
-/*
-*   [PostUpdate] Manages the spawning process for an enemy.
-?   The 1 second delay represents the time between the 
-?   appearance of the [+] indicator and the enemy actually spawning.
-*   
-*   @param enemy Pointer to the enemy being spawned
-*/
+/**
+ * @brief [Utility] Manages the spawning process for an enemy.
+ * The 1 second delay represents the time between the 
+ * appearance of the [+] indicator and the enemy actually spawning.
+ * 
+ * @param enemy Pointer to the enemy being spawned
+ */
 void Enemy_HandleSpawning(EnemyData* enemy) {
     // Initialize spawn timer if needed
     if (!enemy->resources.timer) {
@@ -60,13 +60,13 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
     }
 }
 
-/*
-*   [PostUpdate] Handles enemy movement physics and velocity calculations.
-*   Decomposes velocity into forward and lateral components to apply
-*   different physics rules to each, then recombines them.
-*   
-    @param enemy Pointer to the enemy to move
-*/
+/**
+ * @brief [Utility] Handles enemy movement physics and velocity calculations.
+ * Decomposes velocity into forward and lateral components to apply
+ * different physics rules to each, then recombines them.
+ * 
+ * @param enemy Pointer to the enemy to move
+ */
 void Enemy_HandleMovement(EnemyData* enemy) {
     // Decompose the enemy's velocity into forward and lateral components.
     Vec2 forwardDir = enemy->state.direction;
@@ -105,13 +105,13 @@ void Enemy_HandleMovement(EnemyData* enemy) {
     });
 }
 
-/*
-*   [PostUpdate] Attempts to move the enemy by the given vector, checking for collisions.
-*   If a collision would occur, the movement is canceled.
-
-    @param enemy Pointer to the enemy to move
-    @param movement Vector representing the attempted movement
-*/
+/**
+ * @brief [Utility] Attempts to move the enemy by the given vector, checking for collisions.
+ * If a collision would occur, the movement is canceled.
+ * 
+ * @param enemy Pointer to the enemy to move
+ * @param movement Vector representing the attempted movement
+ */
 void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
     Vec2 newPosition = Vec2_Add(enemy->state.position, movement);
     SDL_Rect oldHitbox = enemy->state.collider.hitbox;
@@ -138,12 +138,12 @@ void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
     enemy->state.position = newPosition;
 }
 
-/*
-*   [PostUpdate] Handles the death of an enemy.
-*   Sets health to 0, marks as dead, and removes collision.
-* 
-    @param enemy Pointer to the enemy that died
-*/
+/**
+ * @brief [Utility] Handles the death of an enemy.
+ * Sets health to 0, marks as dead, and removes collision.
+ * 
+ * @param enemy Pointer to the enemy that died
+ */
 void Enemy_HandleDeath(EnemyData* enemy) {
     enemy->state.currentHealth = 0;
     enemy->state.isDead = true;

@@ -2,10 +2,15 @@
 
 #include <player.h>
 #include <app.h>
-/*
-*   [Start] This function is called in App_Start().
-?   It initializes the player's animations and sets the player's current gun to the pistol.
-*/
+
+/**
+ * @brief [Start] Initializes the player's systems
+ * 
+ * This function is called in App_Start().
+ * It initializes the player's animations and sets the player's current gun to the pistol.
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_Start() {
     Player_AnimationInit();
     Player_SwitchGun(&Gun_Pistol);

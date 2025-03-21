@@ -60,27 +60,28 @@ void Sound_Play_Music(const char* path, int loops) {
     Mix_PlayMusic(soundResources.backgroundMusic, loops); //To do infinite loops, use -1
 }
 
-/*
-*   [Utility] Play sound effect
-    @param index - index of the sound effect to play
-    TODO: Maybe implement a way to play sound effects by name?
-*/
+/**
+ * [Utility] Play sound effect
+ * 
+ * @param index Index of the sound effect to play
+ * @todo Maybe implement a way to play sound effects by name?
+ */
 void Sound_Play_Effect(int index) {
     if (index >= 0 && index < soundResources.soundEffectCount) {
         Mix_PlayChannel(-1, soundResources.soundEffects[index], 0);
     }
 }
 
-/*
-    [Utility] Stop background music
-*/
+/**
+ * [Utility] Stop background music
+ */
 void Sound_Stop_Music() {
     Mix_HaltMusic();
 }
 
-/*
-    [Quit] Clean up sound resources
-*/
+/**
+ * [Quit] Clean up sound resources
+ */
 void Sound_System_Cleanup() {
     // Free music
     if (soundResources.backgroundMusic != NULL) {

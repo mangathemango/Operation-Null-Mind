@@ -5,15 +5,23 @@
 #include <app.h>
 #include <player.h>
 
-
-/* 
-*    This is the entry point of the program. It's similar to the main() function in standard C.
-?    Each program will call the following functions in this order:
-?       App_Start() -> loop [ App_PreUpdate() -> App_Event_Handler() -> App_PostUpdate() -> App_Render] -> App_Quit()
-?    Each of these functions can be found inside src/App/
-!   This is a windows specific function. Also ignore all the WINAPI and HINSTANCE stuff it prolly does nothing.
-    TODO: Replace return values with an App_Result enum.
-*/
+/**
+ * @brief Entry point of the program
+ * 
+ * Each program will call the following functions in this order:
+ * App_Start() -> loop [ App_PreUpdate() -> App_Event_Handler() -> App_PostUpdate() -> App_Render] -> App_Quit()
+ * Each of these functions can be found inside src/App/
+ * 
+ * This is a windows specific function. Also ignore all the WINAPI and HINSTANCE stuff it probably does nothing.
+ * 
+ * @param hInstance Handle to the current instance of the application
+ * @param hPrevInstance Unused parameter maintained for compatibility
+ * @param lpCmdLine Command line arguments
+ * @param nCmdShow Controls how the window is shown
+ * @return int Status code (0 for success)
+ * 
+ * @todo Replace return values with an App_Result enum.
+ */
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     if (App_Start()) return 1;
 

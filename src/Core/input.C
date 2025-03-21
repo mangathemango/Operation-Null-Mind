@@ -6,40 +6,46 @@
 static InputEvent _input;
 const InputEvent * const Input = &_input; // This ensures that the Input variable is read-only to other files.
 
-/*
-*   [Utility] Presses a button.
-?   @param button The button to press. Can either be a key button or a mouse button.
-*/
+/**
+ * @brief Presses a button
+ *
+ * @param button The button to press. Can either be a key button or a mouse button
+ */
 void Press_Button(ButtonState *button) {
     // Pressed is only true if the button was not held on the previous frame.
     if (!button->held) button->pressed = true;
     button->held = true; 
 }
 
-/*
-*   [Utility] Releases a button.
-?   @param button The button to release. Can either be a key button or a mouse button.
-*/
+/**
+ * @brief Releases a button
+ *
+ * @param button The button to release. Can either be a key button or a mouse button
+ */
 void Release_Button(ButtonState *button) {
     button->released = true;
     button->held = false; 
 }
 
-/*
-*   [Utility] Resets a button's pressed and released states.
-?   This function is called every frame to ensure that the button's pressed and released states are only true for one frame.
-?   @param button The button to release. Can either be a key button or a mouse button.
-*/
+/**
+ * @brief Resets a button's pressed and released states
+ *
+ * This function is called every frame to ensure that the button's pressed and released 
+ * states are only true for one frame.
+ *
+ * @param button The button to release. Can either be a key button or a mouse button
+ */
 void Reset_Button(ButtonState *button) {
     button->pressed = false;
     button->released = false;
 }
 
 
-/*
-*   [PreUpdate] This function is called inside App_PreUpdate().
-?   It retrieves the mouse's state and resets all the mouse/keyboard buttons.
-*/
+/**
+ * @brief This function is called inside App_PreUpdate()
+ *
+ * It retrieves the mouse's state and resets all the mouse/keyboard buttons.
+ */
 void Input_PreUpdate() {
     // Reset all the buttons
     Reset_Button(&_input.mouse.leftButton);
@@ -65,11 +71,13 @@ void Input_PreUpdate() {
 }
 
 
-/*
-*   [Event Handler] This function is called inside App_Event_Handler().
-?   It updates the InputEvent struct based on the SDL_Event.
-    @param event The SDL_Event to update the InputEvent struct with.
-*/
+/**
+ * @brief This function is called inside App_Event_Handler()
+ *
+ * It updates the InputEvent struct based on the SDL_Event.
+ *
+ * @param event The SDL_Event to update the InputEvent struct with
+ */
 void Input_Event_Handler(SDL_Event *event) {
     switch (event->type) {
     case SDL_MOUSEMOTION:
@@ -99,6 +107,12 @@ void Input_Event_Handler(SDL_Event *event) {
     }
 }
 
+/**
+ * @brief Checks if the mouse is positioned over a rectangle
+ *
+ * @param rect The rectangle to check
+ * @return true if mouse is over the rectangle, false otherwise
+ */
 bool Input_MouseIsOnRect(SDL_Rect rect) {
     return (_input.mouse.position.x >= rect.x && _input.mouse.position.x <= rect.x + rect.w &&
             _input.mouse.position.y >= rect.y && _input.mouse.position.y <= rect.y + rect.h);

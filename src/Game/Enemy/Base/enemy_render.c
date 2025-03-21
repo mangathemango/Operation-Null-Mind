@@ -5,6 +5,12 @@
 #include <player.h>
 #include <app.h>
 
+/**
+ * [Render] Renders all active enemies.
+ * 
+ * Iterates through the enemy array and calls each enemy's specific
+ * render function if they are active.
+ */
 void Enemy_Render() {
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (enemies[i].state.isDead) continue;

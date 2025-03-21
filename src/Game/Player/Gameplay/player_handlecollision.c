@@ -2,6 +2,14 @@
 #include <colliders.h>
 #include <chunks.h>
 
+/**
+ * [Utility] Checks for and handles player collisions.
+ * 
+ * Detects if the player is colliding with any objects in the game world
+ * and triggers the appropriate response based on collision type.
+ * 
+ * @return bool True if collision detected, false otherwise
+ */
 bool Player_DetectCollision() {
     ColliderCheckResult collisions;
 

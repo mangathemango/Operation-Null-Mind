@@ -4,12 +4,17 @@
 #include <sound.h>
 #include <random.h>
 
-/*
-    @file player_combat.c
-*   This file contains the player's combat stuffs.
-?   This includes attacking, taking damage, dying, etc.
-*/
+/**
+ * @file player_combat.c
+ * @brief Handles player combat functionality
+ * 
+ * This file contains the player's combat stuffs.
+ * This includes attacking, taking damage, dying, etc.
+ */
 
+/**
+ * @brief Makes the player shoot their current weapon
+ */
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
     Sound_Play_Effect(1);
@@ -20,6 +25,11 @@ void Player_Shoot() {
     
 }
 
+/**
+ * @brief Changes the player's active weapon
+ * 
+ * @param gun Pointer to the gun data to switch to
+ */
 void Player_SwitchGun(GunData* gun) {
     player.state.currentGun = gun;
     player.resources.shootCooldownTimer = Timer_Create(60.0f/gun->stats.fireRate);

@@ -2,9 +2,11 @@
 
 #include <player.h>
 
-/*
-*   [PreUpdate] Reset player's moving state
-*/
+/**
+ * @brief [PreUpdate] Resets player state at the beginning of each frame
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_Preupdate() {
     player.state.moving = false;
     player.state.insideHallway = false;

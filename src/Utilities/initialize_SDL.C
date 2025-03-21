@@ -2,9 +2,11 @@
 
 #include <initialize_SDL.h>
 
-/*
-*   [Start] Initializes everything related to SDL: window, renderer, image loading, and so on.
-*/
+/**
+ * [Start] Initializes SDL library and creates window and renderer
+ * 
+ * @return int Status code (0 for success, 1 for error)
+ */
 int Initialize_SDL() {
     // Initialize SDL and SDL_image
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -41,7 +43,7 @@ int Initialize_SDL() {
     // Load font
     app.resources.textFont = TTF_OpenFont(app.config.textFontPath, 15);
     app.resources.title1Font = TTF_OpenFont(app.config.title1FontPath, 15);
-    app.resources.title2Font = TTF_OpenFont(app.config.title2FontPath, 15);
+    app.resources.title2Font = TTF_OpenFont(app.config.title1FontPath, 15);
     if (app.resources.textFont == NULL) {
         SDL_Log("Failed to load font! TTF_Error: %s\n", TTF_GetError());
         return -1;

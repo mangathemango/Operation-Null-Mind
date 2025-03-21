@@ -3,9 +3,9 @@
 #include <player.h>
 #include <input.h>
 
-/*
-*   [PostUpdate] This function handles the player's input.
-*/
+/**
+ * @brief Processes player input for movement, skills and weapons
+ */
 void Player_Input_Handler() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_W].held || 

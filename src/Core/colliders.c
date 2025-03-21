@@ -1,17 +1,13 @@
 #include <colliders.h>
-
-
-
-#include <colliders.h>
 #include <stdio.h>
 
 // Global collision registry
 Collider* ColliderList[MAX_COLLIDABLES];
 int ColliderCount = 0;
 
-/*
-*   [Start] Initializes the Colliders array.
-*/
+/**
+ * [Start] Initializes the Colliders array.
+ */
 void Collider_Start() {
     for (int i = 0; i < MAX_COLLIDABLES; i++) {
         ColliderList[i] = NULL;
@@ -19,12 +15,13 @@ void Collider_Start() {
     ColliderCount = 0;
 }
 
-/*
-*   [Start] Registers a collider to the Colliders array.
-?   This is so that every colliders can be checked by each other.
-    @param collider A pointer to the collider struct. For example: &player.state.collider
-    @param owner A pointer to the owner of the collider. For example: &player
-*/
+/**
+ * [Start] Registers a collider to the Colliders array.
+ * This is so that every colliders can be checked by each other.
+ * 
+ * @param collider A pointer to the collider struct. For example: &player.state.collider
+ * @param owner A pointer to the owner of the collider. For example: &player
+ */
 void Collider_Register(Collider* collider, void* owner) {
     if (ColliderCount >= MAX_COLLIDABLES) {
         printf("Error: Maximum collidables reached\n");
@@ -45,18 +42,18 @@ void Collider_Register(Collider* collider, void* owner) {
     // SDL_Log("Added collider %d\n. Total count: %d\n", id, ColliderCount);
 }
 
-/*
-*   [PostUpdate] Checks if a collider is intersecting with any of its collider layers.
-?   This function checks for collision between a collider and everything else in the
-?   ColliderList array. Any colliders whose layer is not in the input collider's 
-?   collidesWith section will be ignored. 
-    @param collider The input collider
-*   @param checkResult The checkResult of the collider, which includes 2 members:
-
-?   checkResult.objects: an array of detected colliders
-
-?   checkResult.count: number of collisions detected
-*/
+/**
+ * [PostUpdate] Checks if a collider is intersecting with any of its collider layers.
+ * This function checks for collision between a collider and everything else in the
+ * ColliderList array. Any colliders whose layer is not in the input collider's 
+ * collidesWith section will be ignored.
+ * 
+ * @param collider The input collider
+ * @param checkResult The checkResult of the collider, which includes 2 members:
+ *   checkResult.objects: an array of detected colliders
+ *   checkResult.count: number of collisions detected
+ * @return true if collision detected, false otherwise
+ */
 bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
     if (!collider->active) return false;
     
@@ -89,6 +86,11 @@ bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
     return checkResult->count > 0;
 }
 
+/**
+ * @brief Deactivates a collider and resets its properties
+ * 
+ * @param collider The collider to reset
+ */
 void Collider_Reset(Collider* collider) {
     collider->active = false;
     collider->owner = NULL;

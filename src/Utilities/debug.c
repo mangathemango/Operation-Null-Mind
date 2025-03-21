@@ -14,9 +14,9 @@
 #define ENEMY_PROJECTILE_HITBOX_COLOR 255, 0, 255, 255
 #define PLAYER_PROJECTILE_HITBOX_COLOR 0, 0, 255, 255
 
-/*
-*   [Render?] Renders every single hitbox in the game.
-*/
+/**
+ * @brief Renders all active hitboxes in the game if debug mode is enabled
+ */
 void Debug_RenderHitboxes() {
     if (!app.config.debug) return;
     for (int i = 0; i < ColliderCount; i++) {
@@ -54,9 +54,9 @@ void Debug_RenderHitboxes() {
     }
 }
 
-/*
-*   [Render] Renders the current FPS count on the screen.
-*/
+/**
+ * @brief Renders the current FPS count on the screen
+ */
 void Debug_RenderFPSCount() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
@@ -121,7 +121,9 @@ void Debug_RenderFPSCount() {
     UI_RenderText(averageFpsTextElement);
 }
 
-
+/**
+ * @brief Renders the frame spike counter on screen
+ */
 void Debug_RenderSpikeCount() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
@@ -160,6 +162,9 @@ void Debug_RenderSpikeCount() {
     UI_RenderText(spikeTextElement);
 }
 
+/**
+ * @brief Renders debug information about the current chunk
+ */
 void Debug_RenderCurrentChunk() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse

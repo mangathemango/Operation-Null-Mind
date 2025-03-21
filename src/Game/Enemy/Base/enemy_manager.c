@@ -5,6 +5,12 @@
 #include <time_system.h>
 #include <random.h>
 
+/**
+ * [Utility] Counts the number of active enemies in a specific chunk
+ * 
+ * @param chunk Pointer to the chunk to check
+ * @return int Number of active enemies in the chunk
+ */
 int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk) {
     int count = 0;
     for (int i = 0; i < ENEMY_MAX; i++) {
@@ -15,6 +21,12 @@ int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk) {
     return count;
 }
 
+/**
+ * [PostUpdate] Updates the enemy management system.
+ * 
+ * Handles enemy spawning, despawning, and room transitions.
+ * Manages which enemies are active based on player position.
+ */
 void EnemyManager_Update() {
     // Only calls if the player is completely inside a room
     if (!player.state.insideRoom || player.state.insideHallway) return;

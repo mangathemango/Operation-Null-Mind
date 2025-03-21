@@ -1,5 +1,11 @@
 #include <enemy_echo.h>
 
+/**
+ * [Data] Echo enemy default data.
+ * 
+ * This structure defines the default properties, stats and
+ * settings for the Echo enemy type.
+ */
 EnemyData EchoData = {
     .type = ENEMY_TYPE_ECHO,
     .state = {

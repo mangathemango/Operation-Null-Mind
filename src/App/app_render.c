@@ -5,12 +5,13 @@
 #include <debug.h>
 #include <bullet.h>
 
-/*
-*   [Render] Handles the main rendering of the game, like players, game environments, etc.
-?   This function is called inside App_Render().
-
-?   Updated by Mango on 05/03/2025
-*/
+/**
+ * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
+ * 
+ * This function is called inside App_Render().
+ * 
+ * @return int Status code (0 for success)
+ */
 int App_RenderMain() {
     switch (app.state.currentScene)
     {
@@ -34,11 +35,14 @@ int App_RenderMain() {
     return 0;
 }
 
-/*
-*   [Render] Renders the current frame of the game.
-?   Includes the main rendering function and the final rendering to the window.
-?   This function is called every frame after all the updating is complete
-*/
+/**
+ * @brief [Render] Renders the current frame of the game.
+ * 
+ * Includes the main rendering function and the final rendering to the window.
+ * This function is called every frame after all the updating is complete.
+ * 
+ * @return int Status code (0 for success)
+ */
 int App_Render() {
     // Set render target to screen texture
     SDL_SetRenderTarget(app.resources.renderer, app.resources.screenTexture);

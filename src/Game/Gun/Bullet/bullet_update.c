@@ -3,6 +3,9 @@
 #include <player.h>
 #include <enemy.h>
 
+/**
+ * @brief [PostUpdate] Updates all active bullets, handling movement and collisions
+ */
 void Bullet_Update()
 {
     GunData* gun = player.state.currentGun;

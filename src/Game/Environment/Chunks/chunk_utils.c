@@ -1,10 +1,22 @@
 #include <maps.h>
 #include <random.h>
 
+/**
+ * [Utility] Checks if a chunk index is valid within the map bounds
+ * 
+ * @param chunkIndex Index of the chunk to check
+ * @return bool True if the chunk is valid, false otherwise
+ */
 bool Chunk_IsValid(Vec2 chunkIndex) {
     return chunkIndex.x >= 0 && chunkIndex.x < MAP_SIZE_CHUNK && chunkIndex.y >= 0 && chunkIndex.y < MAP_SIZE_CHUNK;
 }
 
+/**
+ * [Utility] Gets the chunk at a specific world position
+ * 
+ * @param position World position to check
+ * @return EnvironmentChunk* Pointer to the chunk at that position
+ */
 EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position) {
     Vec2 chunkIndex = Vec2_Divide(position, (float) CHUNK_SIZE_PIXEL);
     if (!Chunk_IsValid(chunkIndex)) {
@@ -13,6 +25,12 @@ EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position) {
     return &testMap.chunks[(int) chunkIndex.x][(int) chunkIndex.y];
 }
 
+/**
+ * [Utility] Gets a random tile position within a room's boundaries
+ *
+ * @param chunk Pointer to the chunk containing the room
+ * @return Vec2 Random tile position in world coordinates
+ */
 Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk) {
     float roomStartX = ROOM_STARTX(chunk->roomSize) + 1;
     float roomStartY = ROOM_STARTY(chunk->roomSize) + 1;
@@ -27,6 +45,12 @@ Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk) {
     return Tile_TileIndexToPixel(tileIndex, chunk->position);
 }
 
+/**
+ * [Utility] Gets a random position at the center of a tile within a room
+ *
+ * @param chunk Pointer to the chunk containing the room
+ * @return Vec2 Random centered tile position in world coordinates
+ */
 Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk) {
     return Vec2_Add(
         Chunk_GetRandomTileInRoom(chunk),

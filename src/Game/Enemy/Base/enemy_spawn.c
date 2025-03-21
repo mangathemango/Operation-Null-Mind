@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include <maps.h>
 
+/**
+ * [Utility] Spawns an enemy of the given type at the specified position.
+ * 
+ * Creates a new enemy instance based on the provided template and initializes it
+ * at the given position. If no position is provided (NULL), a random valid position
+ * is chosen.
+ * 
+ * @param data The enemy data template to use for spawning
+ * @param position Position vector for enemy spawn location
+ */
 void Enemy_Spawn(EnemyData data, Vec2 position) {
     EnvironmentChunk* chunk = Chunk_GetCurrentChunk(position);
     for (int i = 0; i < ENEMY_MAX; i++) {
@@ -22,4 +32,5 @@ void Enemy_Spawn(EnemyData data, Vec2 position) {
         if (enemy->start) enemy->start(enemy);
         break;
     }
+    return count;
 }

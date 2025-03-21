@@ -1,5 +1,19 @@
+/**
+ * @file ZFN_data.c
+ * @brief Data definitions for the ZFN enemy type
+ *
+ * This file contains the data structure definitions and initialization
+ * for the ZFN enemy type, including stats, animations, and behaviors.
+ */
+
 #include <enemy_zfn.h>
 
+/**
+ * [Data] ZFN enemy default data.
+ * 
+ * This structure defines the default properties, stats and
+ * settings for the ZFN enemy type.
+ */
 EnemyData ZFNData = {
     .type = ENEMY_TYPE_ZFN,
     .state = {

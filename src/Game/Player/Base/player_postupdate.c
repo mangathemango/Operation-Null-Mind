@@ -4,10 +4,14 @@
 #include <app.h>
 #include <camera.h>
 
-/*
-*   [PostUpdate] This function is called inside App_PostUpdate().
-?   It updates the player's input, position, and rendering.
-*/
+/**
+ * @brief [PostUpdate] Main player update routine
+ * 
+ * This function is called inside App_PostUpdate().
+ * It updates the player's input, position, and rendering.
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_PostUpdate() {
     // Handle player input, i.e movement and dashing
     Player_Input_Handler();

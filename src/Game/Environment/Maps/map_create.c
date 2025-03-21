@@ -2,6 +2,11 @@
 #include <random.h>
 #include <enemy_types.h>
 
+/**
+ * @brief Generates a complete game map
+ * 
+ * Creates a procedurally generated map with rooms, hallways and paths.
+ */
 void Map_Generate() {
     // 1. Initialize all chunks as empty
     for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
@@ -63,7 +68,12 @@ void Map_Generate() {
     }
 }
 
-
+/**
+ * @brief Sets the starting chunk of the map
+ * 
+ * @param x X-coordinate of the start chunk
+ * @param y Y-coordinate of the start chunk
+ */
 void Map_SetStartChunk(int x, int y) {
     testMap.startChunk = &testMap.chunks[x][y];
     testMap.startChunk->empty = false;
@@ -72,6 +82,12 @@ void Map_SetStartChunk(int x, int y) {
     testMap.startChunk->position = (Vec2){x, y};
 }
 
+/**
+ * @brief Sets the ending chunk of the map
+ * 
+ * @param x X-coordinate of the end chunk
+ * @param y Y-coordinate of the end chunk
+ */
 void Map_SetEndChunk(int x, int y) {
     testMap.endChunk = &testMap.chunks[x][y];
     testMap.endChunk->empty = false;
@@ -79,6 +95,12 @@ void Map_SetEndChunk(int x, int y) {
     testMap.endChunk->roomType = ROOM_TYPE_END;
     testMap.endChunk->position = (Vec2){x, y};
 }
+
+/**
+ * @brief Creates the main path through the map
+ * 
+ * Generates a random path from the start to end chunk
+ */
 void Map_CreateMainPath() {
     if (testMap.startChunk == NULL) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot create main path without start and end chunks");
@@ -176,6 +198,13 @@ void Map_CreateMainPath() {
     }
 }
 
+/**
+ * @brief Determines which hallways a chunk should have
+ * 
+ * @param chunk The chunk to analyze
+ * @param map The complete map
+ * @return RoomHallways Bitmask of hallway directions to create
+ */
 RoomHallways Map_GetChunkHallways(EnvironmentChunk chunk, EnvironmentMap map) {
     RoomHallways hallways = HALLWAY_NONE;
     if (chunk.position.x > 0) {
