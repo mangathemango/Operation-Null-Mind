@@ -2,27 +2,29 @@ name: Generate and Deploy Doxygen
 
 on:
   push:
-    branches: [ inkt/MapGeneration ]  # Or your default branch name
-  workflow_dispatch:    # Allows manual triggering
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Install Doxygen
-        run: sudo apt-get install -y doxygen graphviz
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Generate Doxygen Documentation
-        run: |
-          doxygen Doxyfile
-          # Fix file permissions
-          chmod -R 755 ./docs/html
+    - name: Generate Doxygen documentation
+      run: doxygen Doxyfile
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs/html  # The folder the action should deploy
-          branch: gh-pages   # The branch the action should deploy to
+    - name: Deploy to GitHub Pages
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        git add .
+        git commit -m "Deploying to gh-pages from @ ${{ github.repository }}@${{ github.sha }} 🚀 --quiet --no-verify
+        git push --force https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:gh-pages
