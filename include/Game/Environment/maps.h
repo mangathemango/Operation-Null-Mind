@@ -6,6 +6,7 @@
 // Maps are 5 chunks wide and 5 chunks tall
 #define MAP_SIZE_CHUNK 8 //im changing this mango
 #define MAP_SIZE_TILE (MAP_SIZE_CHUNK * CHUNK_SIZE_TILE)
+#define MAP_LENGTH 7
 
 // Add this to your EnvironmentMap struct
 typedef struct {

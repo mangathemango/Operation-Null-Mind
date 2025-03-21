@@ -23,8 +23,11 @@ void Map_Generate() {
     
     // 4. Place end room (always in bottom-right quadrant)
     Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
-
     SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
+    for(int k = 0; k < MAP_LENGTH + 1;k++)
+    {
+        SDL_Log("Main Path: (%d, %d)", (int) testMap.mainPath[k].x, (int) testMap.mainPath[k].y);
+    }
 
 
     
@@ -91,9 +94,8 @@ void Map_CreateMainPath() {
     
 
 
-    int alternatePaths = 0; //Not implemented yet, basically this is gonna be like a stopper for the path
-    int totalAlternateBranch = 0;
-    for(int i = 0; i < 7; i++) { //This loops controls how many nodes, like how long is the path gonna be
+    int totalAlternateBranch = 0; //Not implemented yet, basically this is gonna be like a stopper for the path
+    for(int i = 0; i < MAP_LENGTH; i++) { //This loops controls how many nodes, like how long is the path gonna be
         testMap.mainPathLength++;
 
         int totalBranch;
@@ -129,7 +131,12 @@ void Map_CreateMainPath() {
                 placementList[j] = Vec2_Zero;
             }
         }
-
+        
+        totalAlternateBranch += totalBranch - 1;
+        if(totalAlternateBranch > 7) {
+            SDL_Log("Too many alternate paths, no more branches will be created");
+            totalBranch = 1;
+        }
         for(int j = 0; j < totalBranch; j++) {   
             int placementIndex;
             Vec2 placement = Vec2_Zero;
