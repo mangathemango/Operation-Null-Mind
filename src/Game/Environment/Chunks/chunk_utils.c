@@ -26,3 +26,10 @@ Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk) {
 
     return Tile_TileIndexToPixel(tileIndex, chunk->position);
 }
+
+Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk) {
+    return Vec2_Add(
+        Chunk_GetRandomTileInRoom(chunk),
+        (Vec2) {TILE_SIZE_PIXELS / 2, TILE_SIZE_PIXELS / 2}
+    );
+}

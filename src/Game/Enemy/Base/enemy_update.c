@@ -5,6 +5,14 @@
 void Enemy_Update() {
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (enemies[i].state.isDead) continue;
+        if (enemies[i].state.isSpawning && enemies[i].resources.timer) {
+            if (Timer_IsFinished(enemies[i].resources.timer)) {
+                Timer_Destroy(enemies[i].resources.timer);
+                enemies[i].resources.timer = NULL;
+                enemies[i].state.isSpawning = false;
+            }
+            continue;
+        }
         if (enemies[i].update) enemies[i].update(&enemies[i]);
 
         // Decompose the enemy's velocity into forward and lateral components.

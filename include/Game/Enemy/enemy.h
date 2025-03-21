@@ -4,6 +4,7 @@
 #include <vec2.h>
 #include <colliders.h>
 #include <animation.h>
+#include <timer.h>
 
 #define ENEMY_MAX 100
 
@@ -19,6 +20,7 @@ typedef struct {
     Collider collider;
     int currentHealth;
     bool isDead;
+    bool isSpawning;
 } EnemyState;
 
 typedef struct {
@@ -35,6 +37,7 @@ typedef struct {
 
 typedef struct {
     Animation* animation;
+    Timer* timer;
 } EnemyResources;
 
 typedef struct EnemyData EnemyData;
@@ -53,7 +56,7 @@ typedef struct EnemyData {
 } EnemyData;
 
 extern EnemyData enemies[ENEMY_MAX];
-
+extern SDL_Texture* Enemy_spawnIndicator;
 void Enemy_Init();
 void Enemy_Update();
 void EnemyManager_Update();

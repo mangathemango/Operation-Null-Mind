@@ -17,19 +17,10 @@ void Enemy_Spawn(EnemyData data, Vec2 position) {
         enemy->state.currentHealth = enemy->stats.maxHealth;
         enemy->state.collider.hitbox.x = position.x - enemy->state.collider.hitbox.w / 2;
         enemy->state.collider.hitbox.y = position.y - enemy->state.collider.hitbox.h / 2;
-
+        enemy->state.isSpawning = true;
         enemy->resources.animation = Animation_Create(&enemy->animData);
-        Collider_Register(&enemy->state.collider, enemy);
-        ColliderCheckResult result;
-        Collider_Check(&enemy->state.collider, &result);
-        for (int i = 0; i < result.count; i++) {
-            if (result.objects[i]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY | COLLISION_LAYER_PLAYER)) {
-                if (result.objects[i]->owner == enemy) continue;
-                enemy->state.isDead = true;
-                Collider_Reset(&enemy->state.collider);
-                return;
-            }
-        }
+        enemy->resources.timer = Timer_Create(1.0f);
+        Timer_Start(enemy->resources.timer);
         if (enemy->start) enemy->start(enemy);
         break;
     }

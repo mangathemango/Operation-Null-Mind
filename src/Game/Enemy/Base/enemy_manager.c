@@ -30,7 +30,7 @@ void EnemyManager_Update() {
             if (chunk->currentEnemyCount > 0) return;
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
             for (int i = 0; i < spawnCount; i++) {
-                Enemy_Spawn(EchoData, Chunk_GetRandomTileInRoom(chunk));
+                Enemy_Spawn(EchoData, Chunk_GetRandomTileCenterInRoom(chunk));
             }
             return;
         }

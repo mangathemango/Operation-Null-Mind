@@ -70,4 +70,5 @@ void Chunk_Render(const EnvironmentChunk *chunk);
 // Utility functions
 EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position);
 Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk);
+Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk);
 bool Chunk_IsValid(Vec2 chunkIndex);
