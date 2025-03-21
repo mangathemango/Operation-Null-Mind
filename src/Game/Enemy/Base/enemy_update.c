@@ -10,6 +10,17 @@ void Enemy_Update() {
                 Timer_Destroy(enemies[i].resources.timer);
                 enemies[i].resources.timer = NULL;
                 enemies[i].state.isSpawning = false;
+                Collider_Register(&enemies[i].state.collider, &enemies[i]);
+                ColliderCheckResult result;
+                Collider_Check(&enemies[i].state.collider, &result);
+                for (int i = 0; i < result.count; i++) {
+                    if (result.objects[i]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY | COLLISION_LAYER_PLAYER)) {
+                        if (result.objects[i]->owner == &enemies[i]) continue;
+                        enemies[i].state.isDead = true;
+                        Collider_Reset(&enemies[i].state.collider);
+                        return;
+                    }
+                }
             }
             continue;
         }

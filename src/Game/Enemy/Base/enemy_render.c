@@ -14,12 +14,7 @@ void Enemy_Render() {
             Vec2 position, size;
             Vec2_FromRect(dest, &position, &size);
             if (!Camera_RectIsOnScreen(dest)) continue;
-            dest = (SDL_Rect) {
-                Camera_WorldVecToScreen(position).x,
-                Camera_WorldVecToScreen(position).y,
-                size.x,
-                size.y
-            };
+            dest = Vec2_ToCenteredRect(Camera_WorldVecToScreen(position), size);
             SDL_RenderCopy(
                 app.resources.renderer,
                 Enemy_spawnIndicator,

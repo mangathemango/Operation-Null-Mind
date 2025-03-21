@@ -17,7 +17,7 @@ Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk) {
     float roomStartX = ROOM_STARTX(chunk->roomSize) + 1;
     float roomStartY = ROOM_STARTY(chunk->roomSize) + 1;
     float roomEndX = ROOM_ENDX(chunk->roomSize) - 1;
-    float roomEndY = ROOM_ENDY(chunk->roomSize) - 1;
+    float roomEndY = ROOM_ENDY(chunk->roomSize) - 2;
 
     Vec2 tileIndex = (Vec2) {
         RandInt(roomStartX, roomEndX),
