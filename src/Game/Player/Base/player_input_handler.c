@@ -2,6 +2,7 @@
 
 #include <player.h>
 #include <input.h>
+#include <maps.h>
 
 /**
  * @brief Processes player input for movement, skills and weapons
@@ -24,7 +25,8 @@ void Player_Input_Handler() {
     if (Input->keyboard.keys[SDL_SCANCODE_3].pressed) Player_SwitchGun(&Gun_AssaultRifle);
     if (Input->keyboard.keys[SDL_SCANCODE_4].pressed) Player_SwitchGun(&Gun_BattleRifle);
     if (Input->keyboard.keys[SDL_SCANCODE_5].pressed) Player_SwitchGun(&Gun_Shotgun);
-    
+    if (Input->keyboard.keys[SDL_SCANCODE_F].pressed && player.state.insideEnd) Map_Generate(), player.state.position.x = 4200, player.state.position.y = 4200;
+
     if (player.state.currentGun == NULL) {
         return;
     }

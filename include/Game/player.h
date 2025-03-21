@@ -26,6 +26,7 @@ typedef struct {
     Collider collider;
     bool insideRoom;
     bool insideHallway;
+    bool insideEnd;
 } PlayerState;
 
 typedef struct {

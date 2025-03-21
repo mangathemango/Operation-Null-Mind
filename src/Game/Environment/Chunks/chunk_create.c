@@ -219,6 +219,14 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
         (Vec2) {roomEndX - 1, roomEndY - 1}, 
         chunk
     );
+    if(chunk->roomType == ROOM_TYPE_END)
+    {
+        Chunk_AddEndTrigger(
+            (Vec2) {roomStartX, roomStartY}, 
+            (Vec2) {roomEndX - 1, roomEndY - 1}, 
+            chunk
+        );
+    }
     if (chunk->hallways & HALLWAY_UP) {
         Chunk_AddHallwayTrigger(
             (Vec2) {HALLWAY_START, 0}, 
@@ -398,6 +406,18 @@ void Chunk_HandlePlayerInsideHallway() {
     player.state.insideHallway = true;
 }
 
+
+void Chunk_HandlePlayerInsideEnd()
+{
+    player.state.insideEnd = true;
+}
+
+
+void Chunk_HandlePlayerInsideEnd()
+{
+    player.state.insideEnd = true;
+}
+
 /**
  * [Utility] Adds a room trigger collider to a chunk
  * 
@@ -447,5 +467,24 @@ void Chunk_AddHallwayTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chu
     collider->collidesWith = COLLISION_LAYER_NONE;
     collider->layer = COLLISION_LAYER_TRIGGER;
     Collider_Register(collider, &Chunk_HandlePlayerInsideHallway);
+    chunk->colliders[chunk->colliderCount++] = collider;
+}
+
+void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
+    Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
+    Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
+    Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
+    Vec2 colliderSizePixels = Vec2_Multiply(colliderSizeTiles, TILE_SIZE_PIXELS - 10);
+    
+    Collider* collider = malloc(sizeof(Collider));
+    collider->hitbox = (SDL_Rect) {
+        startPixel.x + chunk->position.x * CHUNK_SIZE_PIXEL + TILE_SIZE_PIXELS * chunk->roomSize.x / 4,
+        startPixel.y + chunk->position.y * CHUNK_SIZE_PIXEL + TILE_SIZE_PIXELS * chunk->roomSize.y / 4,
+        colliderSizePixels.x,
+        colliderSizePixels.y,
+    };
+    collider->collidesWith = COLLISION_LAYER_NONE;
+    collider->layer = COLLISION_LAYER_TRIGGER;
+    Collider_Register(collider, &Chunk_HandlePlayerInsideEnd);
     chunk->colliders[chunk->colliderCount++] = collider;
 }

@@ -32,6 +32,10 @@ bool Player_DetectCollision() {
             if (collisions.objects[i]->owner == &Chunk_HandlePlayerInsideHallway) {
                 Chunk_HandlePlayerInsideHallway();
             }
+            if(collisions.objects[i]->owner == &Chunk_HandlePlayerInsideEnd)
+            {
+                Chunk_HandlePlayerInsideEnd();
+            }
         }
     }
     return false;

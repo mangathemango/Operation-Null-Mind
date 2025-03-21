@@ -11,10 +11,15 @@ void Map_Generate() {
     // 1. Initialize all chunks as empty
     for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
-            testMap.chunks[x][y].colliderCount = 0;
             testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
+            EnvironmentChunk* chunk = &testMap.chunks[x][y];
+            for (int i = 0; i < chunk->colliderCount; i++) {
+                Collider_Reset(chunk->colliders[i]);
+                free(chunk->colliders[i]);
+            }
+            chunk->colliderCount = 0;
         }
     }
     
@@ -53,13 +58,7 @@ void Map_Generate() {
                 }
                 
                 // Create the chunk with all its details
-                testMap.chunks[x][y] = Chunk_GenerateTiles(
-                    testMap.chunks[x][y].position,
-                    testMap.chunks[x][y].roomType,
-                    testMap.chunks[x][y].roomSize,
-                    testMap.chunks[x][y].floorPattern,
-                    testMap.chunks[x][y].hallways
-                );
+                Chunk_GenerateTilesButVoid(&testMap.chunks[x][y]);
                 if (testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL) {
                     testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
                 }
@@ -126,7 +125,7 @@ void Map_CreateMainPath() {
         if (totalBranchRandomizer <= 6)         totalBranch = 1;    // 60% chance of 1 branch
         else if (totalBranchRandomizer <= 8)    totalBranch = 2;    // 20% chance of 2 branches
         else if (totalBranchRandomizer <= 9)    totalBranch = 3;    // 10% chance of 3 branches
-        else                                    totalBranch = 4;    // 10% chance of 4 branches
+        else                                    totalBranch = 1;    // 10% chance of 4 branches
         
         SDL_Log("Generating %d branches from (%d, %d)", totalBranch, currentX, currentY);
 
