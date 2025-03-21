@@ -122,7 +122,7 @@ void Debug_RenderFPSCount() {
 }
 
 
-void Debug_RenderCurrentChunk() {
+void Debug_RenderSpikeCount() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
     static UIElement* spikeTextElement = NULL;
@@ -160,7 +160,7 @@ void Debug_RenderCurrentChunk() {
     UI_RenderText(spikeTextElement);
 }
 
-void Debug_RenderSpikeCount() {
+void Debug_RenderCurrentChunk() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
     static UIElement* spikeTextElement = NULL;
@@ -174,7 +174,16 @@ void Debug_RenderSpikeCount() {
     Vec2 chunkPosition = Chunk_GetCurrentChunk(player.state.position)->position;
     int ChunkX = (int) chunkPosition.x;
     int ChunkY = (int) chunkPosition.y;
-    sprintf(text, "Current Chunk: (%d,%d)", ChunkX, ChunkY);
+
+    int nextChunkX = testMap.mainPath[0].x;
+    int nextChunkY = testMap.mainPath[0].y;
+    for(int i = 0; i < MAP_LENGTH - 1; i++) {
+        if (testMap.mainPath[i].x == ChunkX && testMap.mainPath[i].y == ChunkY) {
+            nextChunkX = testMap.mainPath[i+1].x;
+            nextChunkY = testMap.mainPath[i+1].y;
+        }
+    }   
+    sprintf(text, "Current Chunk: (%d,%d) - Next Chunk (%d,%d)", ChunkX, ChunkY, nextChunkX, nextChunkY);
 
     if (!spikeTextElement) {
         // Create text element if it doesn't exist 
