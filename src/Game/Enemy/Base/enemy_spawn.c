@@ -4,8 +4,6 @@
 
 void Enemy_Spawn(EnemyData data, Vec2 position) {
     EnvironmentChunk* chunk = Chunk_GetCurrentChunk(position);
-    if (chunk->totalEnemyCount <= 0) return;
-    chunk->totalEnemyCount--;
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (!enemies[i].state.isDead) continue;
         SDL_Log("Spawning enemy at index %d", i);

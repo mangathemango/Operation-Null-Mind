@@ -59,8 +59,15 @@ extern EnemyData enemies[ENEMY_MAX];
 extern SDL_Texture* Enemy_spawnIndicator;
 void Enemy_Init();
 void Enemy_Update();
-void EnemyManager_Update();
+
+void Enemy_HandleSpawning(EnemyData* enemy);
+void Enemy_HandleMovement(EnemyData* enemy);
 void Enemy_TryMove(EnemyData* enemy, Vec2 movement);
+void Enemy_HandleDeath(EnemyData* enemy);
+
+
+
+void EnemyManager_Update();
 void Enemy_Render();
 void Enemy_Destroy();
 
