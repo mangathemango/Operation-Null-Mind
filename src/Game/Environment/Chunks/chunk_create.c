@@ -412,12 +412,6 @@ void Chunk_HandlePlayerInsideEnd()
     player.state.insideEnd = true;
 }
 
-
-void Chunk_HandlePlayerInsideEnd()
-{
-    player.state.insideEnd = true;
-}
-
 /**
  * [Utility] Adds a room trigger collider to a chunk
  * 
