@@ -13,7 +13,6 @@
  * @param position Position vector for enemy spawn location
  */
 void Enemy_Spawn(EnemyData data, Vec2 position) {
-    EnvironmentChunk* chunk = Chunk_GetCurrentChunk(position);
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (!enemies[i].state.isDead) continue;
         SDL_Log("Spawning enemy at index %d", i);
@@ -32,5 +31,4 @@ void Enemy_Spawn(EnemyData data, Vec2 position) {
         if (enemy->start) enemy->start(enemy);
         break;
     }
-    return count;
 }

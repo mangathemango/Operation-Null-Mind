@@ -10,7 +10,29 @@
  * @return int Status code (0 for success)
  */
 int Player_Render() {
-    // ...existing code...
+    ParticleEmitter_Render(player.resources.dashParticleEmitter);
+    
+    SDL_RendererFlip flip;
+    // Flip the sprite when mouse is on the left side of the player
+    if (Camera_ScreenVecToWorld(Input->mouse.position).x < player.state.position.x) {
+        flip = SDL_FLIP_HORIZONTAL;
+    } else {
+        flip = SDL_FLIP_NONE;
+    }
+    Animation_Render(
+        player.resources.animation,            
+        Camera_WorldVecToScreen(
+            Vec2_ToCenteredPosition(
+                player.state.position,
+                player.animData.spriteSize
+            )
+        ), 
+        player.animData.spriteSize,
+        0,
+        NULL,
+        flip
+    );
+    return 0;
 }
 
 

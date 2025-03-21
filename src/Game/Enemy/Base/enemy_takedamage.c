@@ -8,17 +8,9 @@
  * 
  * @param enemy Pointer to the enemy to damage
  * @param damage Amount of damage to apply
- * @return True if the enemy died from this damage, false otherwise
  */
-bool Enemy_TakeDamage(EnemyData* enemy, int damage) {
-    if (enemy->state.isDead) return false;
+void Enemy_TakeDamage(EnemyData* enemy, int damage) {
+    if (enemy->state.isDead) return;
     
     enemy->state.currentHealth -= damage;
-    
-    if (enemy->state.currentHealth <= 0) {
-        enemy->state.currentHealth = 0;
-        return true;
-    }
-    
-    return false;
 }
