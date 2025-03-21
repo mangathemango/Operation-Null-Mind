@@ -37,7 +37,7 @@ PlayerData player = {
         .dashDurationTimer = NULL,
     },
     .stats = {
-        .walkSpeed = 100,
+        .walkSpeed = 150,
         .dashSpeed = 1000,
         .dashCooldown = 1,
         .dashDuration = 0.1,
