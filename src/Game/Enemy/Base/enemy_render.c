@@ -19,8 +19,27 @@ void Enemy_Render() {
             SDL_Rect dest = Tile_GetRectFromPixel(enemies[i].state.position);
             Vec2 position, size;
             Vec2_FromRect(dest, &position, &size);
+            
+            float timeLeft = Timer_GetTimeLeft(enemies[i].resources.timer);
+            int opacity = 255;
+            if (timeLeft > 0.5f) {
+                /*
+                    The size of the indicator grows as the enemy is about to spawn
+                    size function can be written as: 
+                    s(t) = 1 + (maxSize * (t - timeLeft)) ^ (easeRate)
+                */ 
+                float maxSize = 3.0f;
+                float easeRate = 4.0f;
+                float multipler = 1 + SDL_pow (maxSize * (timeLeft - 0.5f), easeRate);
+
+                size = Vec2_Multiply(size, multipler);
+                opacity = 255 - (200 * (timeLeft - 0.5f) / 0.5f);
+            }
+
             if (!Camera_RectIsOnScreen(dest)) continue;
             dest = Vec2_ToCenteredRect(Camera_WorldVecToScreen(position), size);
+
+            SDL_SetTextureAlphaMod(Enemy_spawnIndicator, opacity);
             SDL_RenderCopy(
                 app.resources.renderer,
                 Enemy_spawnIndicator,
