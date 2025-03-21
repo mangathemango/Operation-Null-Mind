@@ -2,11 +2,16 @@
 
 #include <player.h>
 
-/*
-*   [PreUpdate] Reset player's moving state
-*/
+/**
+ * @brief [PreUpdate] Resets player state at the beginning of each frame
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_Preupdate() {
     player.state.moving = false;
+    player.state.insideHallway = false;
+    player.state.insideRoom = false;
+    player.state.insideEnd = false;
     if (!player.state.directionLocked)   player.state.direction = Vec2_Zero;
     if (!player.state.dashing) player.state.currentSpeed = 0;
     return 0;

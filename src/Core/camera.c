@@ -6,6 +6,9 @@ CameraSystem camera = {
     .position = {0, 0}
 };
 
+/**
+ * [PostUpdate] Updates the camera position based on player position and mouse input
+ */
 void Camera_UpdatePosition() {
     float smoothTime = 3;
     // Linearly interpolate the position of the camera towards the player
@@ -34,18 +37,36 @@ void Camera_UpdatePosition() {
 
 }
 
+/**
+ * [Utility] Converts world coordinates to screen coordinates
+ * 
+ * @param worldPosition Position in world space
+ * @return Vec2 Converted position in screen space
+ */
 Vec2 Camera_WorldVecToScreen(Vec2 worldPosition) {
     Vec2 offset = Vec2_Subtract(worldPosition, camera.position);
     Vec2 screenCenter = (Vec2) {app.config.screen_width / 2, app.config.screen_height / 2};
     return Vec2_Add(screenCenter, offset);
 }
 
+/**
+ * [Utility] Converts screen coordinates to world coordinates
+ * 
+ * @param screenPosition Position in screen space
+ * @return Vec2 Converted position in world space
+ */
 Vec2 Camera_ScreenVecToWorld(Vec2 screenPosition) {
     Vec2 screenCenter = (Vec2) {app.config.screen_width / 2, app.config.screen_height / 2};
     Vec2 offset = Vec2_Subtract(screenPosition, screenCenter);
     return Vec2_Add(camera.position, offset);
 }
 
+/**
+ * [Utility] Converts a screen rectangle to world coordinates
+ * 
+ * @param screenRect Rectangle in screen space
+ * @return SDL_Rect Converted rectangle in world space
+ */
 SDL_Rect Camera_ScreenRectToWorld(SDL_Rect screenRect) {
     Vec2 screenCenter = (Vec2) {app.config.screen_width / 2, app.config.screen_height / 2};
     Vec2 position, size;
@@ -56,9 +77,11 @@ SDL_Rect Camera_ScreenRectToWorld(SDL_Rect screenRect) {
     return Vec2_ToRect(worldPos, size);
 }
 
-
-
-// Add to camera.c
+/**
+ * [Utility] Gets the current view rectangle in world coordinates
+ * 
+ * @return SDL_Rect Rectangle representing the camera's view in world space
+ */
 SDL_Rect Camera_GetViewRect() {
     return (SDL_Rect) {
         camera.position.x - app.config.screen_width / 2,
@@ -68,6 +91,12 @@ SDL_Rect Camera_GetViewRect() {
     };
 }
 
+/**
+ * [Utility] Checks if a rectangle is visible on screen
+ * 
+ * @param rect Rectangle in world coordinates to check
+ * @return bool True if the rectangle is at least partially visible, false otherwise
+ */
 bool Camera_RectIsOnScreen(SDL_Rect rect) {
     SDL_Rect cameraRect = Camera_GetViewRect();
     return SDL_HasIntersection(&rect, &cameraRect);

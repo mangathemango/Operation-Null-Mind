@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <UI_text.h>
 #include <camera.h>
+#include <maps.h>
+#include <player.h>
 
 #define PLAYER_HITBOX_COLOR 0, 255, 0, 255
 #define WALL_HITBOX_COLOR 255, 255, 0, 255
@@ -12,9 +14,9 @@
 #define ENEMY_PROJECTILE_HITBOX_COLOR 255, 0, 255, 255
 #define PLAYER_PROJECTILE_HITBOX_COLOR 0, 0, 255, 255
 
-/*
-*   [Render?] Renders every single hitbox in the game.
-*/
+/**
+ * @brief Renders all active hitboxes in the game if debug mode is enabled
+ */
 void Debug_RenderHitboxes() {
     if (!app.config.debug) return;
     for (int i = 0; i < ColliderCount; i++) {
@@ -35,7 +37,7 @@ void Debug_RenderHitboxes() {
             case COLLISION_LAYER_ENEMY:
                 SDL_SetRenderDrawColor(app.resources.renderer, ENEMY_HITBOX_COLOR);
                 break;
-            case COLLISION_LAYER_ITEM:
+            case COLLISION_LAYER_TRIGGER:
                 SDL_SetRenderDrawColor(app.resources.renderer, ITEM_HITBOX_COLOR);
                 break;
             case COLLISION_LAYER_ENEMY_PROJECTILE:
@@ -52,9 +54,9 @@ void Debug_RenderHitboxes() {
     }
 }
 
-/*
-*   [Render] Renders the current FPS count on the screen.
-*/
+/**
+ * @brief Renders the current FPS count on the screen
+ */
 void Debug_RenderFPSCount() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
@@ -119,6 +121,9 @@ void Debug_RenderFPSCount() {
     UI_RenderText(averageFpsTextElement);
 }
 
+/**
+ * @brief Renders the frame spike counter on screen
+ */
 void Debug_RenderSpikeCount() {
     if (!app.config.debug) return;
     // The UIElement struct stored in a static variable for reuse
@@ -136,6 +141,60 @@ void Debug_RenderSpikeCount() {
 
         SDL_Color textColor = {255, 255, 255, 255};
         SDL_Rect renderRect = {10, 30, 0, 0};   
+        float textScale = 1;
+        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
+
+        spikeTextElement = UI_CreateText(
+            text, 
+            renderRect, 
+            textColor, 
+            textScale, 
+            alignment, 
+            app.resources.textFont
+        );
+    } else {
+        // Update text if it does exist.
+        UI_ChangeText(spikeTextElement, text);
+    }
+
+
+    UI_UpdateText(spikeTextElement);
+    UI_RenderText(spikeTextElement);
+}
+
+/**
+ * @brief Renders debug information about the current chunk
+ */
+void Debug_RenderCurrentChunk() {
+    if (!app.config.debug) return;
+    // The UIElement struct stored in a static variable for reuse
+    static UIElement* spikeTextElement = NULL;
+    // Format text
+    static int spikeCount = 0;
+    float targetFPS = 30;
+    if (Time->deltaTimeSeconds > 1.0 / targetFPS) spikeCount++;
+
+    char text[20];
+
+    Vec2 chunkPosition = Chunk_GetCurrentChunk(player.state.position)->position;
+    int ChunkX = (int) chunkPosition.x;
+    int ChunkY = (int) chunkPosition.y;
+
+    int nextChunkX = testMap.mainPath[0].x;
+    int nextChunkY = testMap.mainPath[0].y;
+    for(int i = 0; i < MAP_LENGTH - 1; i++) {
+        if (testMap.mainPath[i].x == ChunkX && testMap.mainPath[i].y == ChunkY) {
+            nextChunkX = testMap.mainPath[i+1].x;
+            nextChunkY = testMap.mainPath[i+1].y;
+        }
+    }   
+    sprintf(text, "Current Chunk: (%d,%d) - Next Chunk (%d,%d)", ChunkX, ChunkY, nextChunkX, nextChunkY);
+
+    if (!spikeTextElement) {
+        // Create text element if it doesn't exist 
+
+        SDL_Color textColor = {255, 255, 255, 255};
+        SDL_Rect renderRect = {10, 40, 0, 0};   
         float textScale = 1;
         UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
 

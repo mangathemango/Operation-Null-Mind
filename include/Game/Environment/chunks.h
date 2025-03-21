@@ -3,8 +3,8 @@
 #include <tiles.h>
 #include <colliders.h>
 
-#define HALLWAY_SIZE_TILE 4
-#define CHUNK_SIZE_TILE 40
+#define HALLWAY_SIZE_TILE 6
+#define CHUNK_SIZE_TILE 60
 #define CHUNK_SIZE_PIXEL (CHUNK_SIZE_TILE * TILE_SIZE_PIXELS)
 #define HALLWAY_START (CHUNK_SIZE_TILE - HALLWAY_SIZE_TILE) / 2
 #define HALLWAY_END HALLWAY_START + HALLWAY_SIZE_TILE
@@ -42,20 +42,36 @@ typedef struct {
     RoomFloorPattern floorPattern;
     RoomType roomType;
     
+    int totalEnemyCount;
+    int currentEnemyCount;
+    bool inCombat;
     bool empty;
+    bool discovered;
 
     Collider* colliders[CHUNK_SIZE_TILE];
     int colliderCount;
 } EnvironmentChunk;
 
 EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 roomSize ,RoomFloorPattern floorPattern, RoomHallways hallways);
+void Chunk_GenerateTilesButVoid(EnvironmentChunk* chunk);
 void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateHallways(EnvironmentChunk* chunk);
 void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk);
 void Chunk_GenerateColliders(EnvironmentChunk* chunk);
-void Chunk_AddCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddWallCollider(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddRoomTrigger(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddHallwayTrigger(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endtile, EnvironmentChunk* chunk);
+void Chunk_HandlePlayerInsideRoom();
+void Chunk_HandlePlayerInsideHallway();
+void Chunk_HandlePlayerInsideEnd();
 void Chunk_Start();
 void Chunk_Render(const EnvironmentChunk *chunk);
-extern EnvironmentChunk testChunk;
-extern EnvironmentChunk testChunk2;
+
+
+// Utility functions
+EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position);
+Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk);
+Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk);
+bool Chunk_IsValid(Vec2 chunkIndex);

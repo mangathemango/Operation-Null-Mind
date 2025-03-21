@@ -5,11 +5,12 @@
 #include <input.h>
 #include <math.h>
 
-/*
-*   [PostUpdate] Updates the gun's states, particles, and so on.
-?   This part is really confusing, but it's basically updating the gun's position, angle, and particles.
-!   I don't like how the gun's position is calculated, but it works.
-*/
+/**
+ * @brief [PostUpdate] Updates the gun's state, position, and particles
+ * 
+ * This part is really confusing, but it's basically updating the gun's position, angle, and particles.
+ * I don't like how the gun's position is calculated, but it works.
+ */
 void Gun_Update() {
     GunData* gun = player.state.currentGun;
     Vec2 muzzlePosition = gun->config.muzzlePosition;

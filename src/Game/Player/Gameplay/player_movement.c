@@ -1,10 +1,9 @@
-/*
-    @file player_movement.c
-*   This file contains the player's movement functions.
-
-?   Written by Mango on 03/03/2025
-*/
-
+/**
+ * @file player_movement.c
+ * @brief Handles player movement and physics
+ *
+ * This file contains the player's movement functions.
+ */
 
 #include <player.h>
 #include <time_system.h>
@@ -12,12 +11,15 @@
 #include <input.h>
 #include <colliders.h>
 
-/*
-*   [PostUpdate?] Move the player in a direction.
-?   @param direction The direction to move the player in.
-    TODO: Normalize direction before moving the player.
-    TODO: Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
-*/
+/**
+ * @brief [Utility] Sets the player's movement direction
+ * 
+ * @param direction The direction to move the player in
+ * @return int Status code (0 for success)
+ * 
+ * @todo Normalize direction before moving the player.
+ * @todo Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
+ */
 int Player_Look(Vec2 direction) {
     if (player.state.directionLocked) return 0;
     Vec2_Increment(&player.state.direction, direction); 
@@ -25,11 +27,11 @@ int Player_Look(Vec2 direction) {
     return 0;
 }
 
-
-/*
-*   Move the player in a direction.
-?   @param direction The direction to move the player in.
-*/
+/**
+ * @brief [PostUpdate] Moves the player according to current direction and speed
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_Move() {
     if (player.state.currentSpeed == 0) return 0;
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
@@ -56,7 +58,9 @@ int Player_Move() {
     return 0;
 }
 
-
+/**
+ * @brief [Utility] Updates the player's hitbox position based on current position
+ */
 void Player_UpdateHitbox() {
     player.state.collider.hitbox.x = player.state.position.x - player.animData.spriteSize.x / 2 + 5; 
     player.state.collider.hitbox.y = player.state.position.y - player.animData.spriteSize.y / 2 + 5;

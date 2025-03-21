@@ -3,16 +3,28 @@
 #include <enemy_types.h>
 #include <random.h>
 
-/*
-*   This file handles the creation of a chunk.
-?   The code for this part is really painful and uninteresting to read.
-?   It's just trying to draw stuff on the screen. With code.
-?   It's like trying to paint a picture with a toothbrush.
+/**
+ * @file chunk_create.c
+ * @brief Handles the creation of game environment chunks
+ *
+ * This file handles the creation of a chunk.
+ * The code for this part is really painful and uninteresting to read.
+ * It's just trying to draw stuff on the screen. With code.
+ * It's like trying to paint a picture with a toothbrush.
+ *
+ * Anyways, just use Chunk_GenerateTiles() to create a chunk.
+ */
 
-?   Anyways, just use Chunk_GenerateTiles() to create a chunk.
-*/
-
-
+/**
+ * [Utility] Generates a complete chunk with tiles, hallways, and colliders
+ * 
+ * @param position World position of the chunk
+ * @param roomType Type of room to generate (start, normal, boss, end)
+ * @param roomSize Size of the room in tiles
+ * @param floorPattern Pattern to use for floor tiles
+ * @param hallways Configuration of hallways connected to this room
+ * @return EnvironmentChunk The fully generated chunk
+ */
 EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 roomSize, RoomFloorPattern floorPattern, RoomHallways hallways) {
     EnvironmentChunk chunk = {
         .position = position,
@@ -20,8 +32,8 @@ EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 room
         .hallways = hallways,
         .floorPattern = floorPattern,
         .roomType = roomType,
-        .empty = false
     };
+
 
     Chunk_GenerateFloorTiles(&chunk);
     Chunk_GenerateWallTiles(&chunk);
@@ -31,6 +43,29 @@ EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 room
     return chunk;
 }
 
+/**
+ * [Utility] Regenerates all tiles for an existing chunk
+ * 
+ * @param chunk Pointer to the chunk to regenerate
+ */
+void Chunk_GenerateTilesButVoid(EnvironmentChunk* chunk) {
+    for (int i = 0; i < chunk->colliderCount; i++) {
+        Collider_Reset(chunk->colliders[i]);
+        free(chunk->colliders[i]);
+    }
+    chunk->colliderCount = 0;
+    Chunk_GenerateFloorTiles(chunk);
+    Chunk_GenerateWallTiles(chunk);
+    Chunk_GenerateHallways(chunk);
+    Chunk_GenerateHallwayWallTiles(chunk);
+    Chunk_GenerateColliders(chunk);
+}
+
+/**
+ * [Utility] Generates floor tiles for a chunk
+ * 
+ * @param chunk Pointer to the chunk
+ */
 void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk) {
     
     int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
@@ -58,6 +93,11 @@ void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk) {
     }
 }
 
+/**
+ * [Utility] Generates hallway tiles for a chunk
+ * 
+ * @param chunk Pointer to the chunk
+ */
 void Chunk_GenerateHallways(EnvironmentChunk* chunk) {
     int roomStartX = ROOM_STARTX(chunk->roomSize);
     int roomStartY = ROOM_STARTY(chunk->roomSize);
@@ -91,6 +131,11 @@ void Chunk_GenerateHallways(EnvironmentChunk* chunk) {
     }
 }
 
+/**
+ * [Utility] Generates wall tiles for a chunk
+ * 
+ * @param chunk Pointer to the chunk
+ */
 void Chunk_GenerateWallTiles(EnvironmentChunk* chunk) {
 
     int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
@@ -112,6 +157,11 @@ void Chunk_GenerateWallTiles(EnvironmentChunk* chunk) {
     chunk->tiles[roomEndX][roomStartY - 3] = Tile_Create(TILE_WALL_CORNER_BORDER_SMALL, TILE_ROTATE_NONE);
 }
 
+/**
+ * [Utility] Generates wall tiles for hallways
+ * 
+ * @param chunk Pointer to the chunk
+ */
 void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk) {
     int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
     int roomStartY = (CHUNK_SIZE_TILE - chunk->roomSize.y) / 2;
@@ -153,35 +203,58 @@ void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk) {
     }
 }
 
+/**
+ * [Utility] Generates collision boxes for a chunk
+ * 
+ * @param chunk Pointer to the chunk
+ */
 void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
     int roomStartX = (CHUNK_SIZE_TILE - chunk->roomSize.x) / 2;
     int roomStartY = (CHUNK_SIZE_TILE - chunk->roomSize.y) / 2;
     int roomEndX = roomStartX + chunk->roomSize.x;
     int roomEndY = roomStartY + chunk->roomSize.y;
 
+    Chunk_AddRoomTrigger(
+        (Vec2) {roomStartX, roomStartY}, 
+        (Vec2) {roomEndX - 1, roomEndY - 1}, 
+        chunk
+    );
+    if(chunk->roomType == ROOM_TYPE_END)
+    {
+        Chunk_AddEndTrigger(
+            (Vec2) {roomStartX, roomStartY}, 
+            (Vec2) {roomEndX - 1, roomEndY - 1}, 
+            chunk
+        );
+    }
     if (chunk->hallways & HALLWAY_UP) {
-        Chunk_AddCollider(
+        Chunk_AddHallwayTrigger(
+            (Vec2) {HALLWAY_START, 0}, 
+            (Vec2) {HALLWAY_END - 1, roomStartY - 1}, 
+            chunk
+        );
+        Chunk_AddWallCollider(
             (Vec2) {HALLWAY_START - 1, 0}, 
             (Vec2) {HALLWAY_START - 1, roomStartY - 3}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {HALLWAY_END, 0}, 
             (Vec2) {HALLWAY_END, roomStartY - 3}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX, roomStartY - 2}, 
             (Vec2) {HALLWAY_START - 1, roomStartY - 2}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {HALLWAY_END, roomStartY - 2}, 
             (Vec2) {roomEndX - 1, roomStartY - 2}, 
             chunk
         );
     } else {
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX, roomStartY - 2},
             (Vec2) {roomEndX - 1, roomStartY - 2},
             chunk
@@ -189,28 +262,33 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
     }
 
     if (chunk->hallways & HALLWAY_LEFT) {
-        Chunk_AddCollider(
+        Chunk_AddHallwayTrigger(
+            (Vec2) {0, HALLWAY_START}, 
+            (Vec2) {roomStartX - 1, HALLWAY_END - 1}, 
+            chunk
+        );
+        Chunk_AddWallCollider(
             (Vec2) {0 , HALLWAY_START - 2}, 
             (Vec2) {roomStartX - 1, HALLWAY_START - 2}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {0 , HALLWAY_END}, 
             (Vec2) {roomStartX - 1, HALLWAY_END}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX - 1, roomStartY - 1}, 
             (Vec2) {roomStartX - 1, HALLWAY_START - 3}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX - 1, HALLWAY_END + 1}, 
             (Vec2) {roomStartX - 1, roomEndY - 1}, 
             chunk
         );
     } else {
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX - 1, roomStartY - 1},
             (Vec2) {roomStartX - 1, roomEndY - 1},
             chunk
@@ -218,28 +296,33 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
     }
 
     if (chunk->hallways & HALLWAY_DOWN) {
-        Chunk_AddCollider(
+        Chunk_AddHallwayTrigger(
+            (Vec2) {HALLWAY_START, roomEndY}, 
+            (Vec2) {HALLWAY_END - 1, CHUNK_SIZE_TILE - 1}, 
+            chunk
+        );
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX, roomEndY}, 
             (Vec2) {HALLWAY_START - 2, roomEndY}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {HALLWAY_START - 1, roomEndY}, 
             (Vec2) {HALLWAY_START - 1, CHUNK_SIZE_TILE - 1}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {HALLWAY_END, roomEndY}, 
             (Vec2) {HALLWAY_END, CHUNK_SIZE_TILE - 1}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {HALLWAY_END + 1, roomEndY}, 
             (Vec2) {roomEndX - 1, roomEndY}, 
             chunk
         );
     } else {
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomStartX, roomEndY},
             (Vec2) {roomEndX - 1, roomEndY},
             chunk
@@ -247,28 +330,33 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
     }
 
     if (chunk->hallways & HALLWAY_RIGHT) {
-        Chunk_AddCollider(
+        Chunk_AddHallwayTrigger(
+            (Vec2) {roomEndX, HALLWAY_START}, 
+            (Vec2) {CHUNK_SIZE_TILE - 1, HALLWAY_END - 1}, 
+            chunk
+        );
+        Chunk_AddWallCollider(
             (Vec2) {roomEndX, roomStartY - 1}, 
             (Vec2) {roomEndX, HALLWAY_START - 3}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomEndX, HALLWAY_START - 2}, 
             (Vec2) {CHUNK_SIZE_TILE - 1, HALLWAY_START - 2}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomEndX, HALLWAY_END}, 
             (Vec2) {CHUNK_SIZE_TILE - 1, HALLWAY_END}, 
             chunk
         );
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomEndX, HALLWAY_END + 1}, 
             (Vec2) {roomEndX, roomEndY - 1}, 
             chunk
         );
     } else {
-        Chunk_AddCollider(
+        Chunk_AddWallCollider(
             (Vec2) {roomEndX, roomStartY - 1},
             (Vec2) {roomEndX, roomEndY - 1},
             chunk
@@ -276,7 +364,14 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
     }
 }
 
-void Chunk_AddCollider(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
+/**
+ * [Utility] Adds a wall collider to a chunk
+ * 
+ * @param startTile Starting tile position of the wall
+ * @param endTile Ending tile position of the wall
+ * @param chunk Pointer to the chunk
+ */
+void Chunk_AddWallCollider(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
     Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
     Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
     Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
@@ -292,5 +387,98 @@ void Chunk_AddCollider(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
     collider->collidesWith = COLLISION_LAYER_NONE;
     collider->layer = COLLISION_LAYER_ENVIRONMENT;
     Collider_Register(collider, NULL);
+    chunk->colliders[chunk->colliderCount++] = collider;
+}
+
+#include <player.h>
+
+/**
+ * [Event Handler] Event handler for when player enters a room
+ */
+void Chunk_HandlePlayerInsideRoom() {
+    player.state.insideRoom = true;
+}
+
+/**
+ * [Event Handler] Event handler for when player enters a hallway
+ */
+void Chunk_HandlePlayerInsideHallway() {
+    player.state.insideHallway = true;
+}
+
+
+void Chunk_HandlePlayerInsideEnd()
+{
+    player.state.insideEnd = true;
+}
+
+/**
+ * [Utility] Adds a room trigger collider to a chunk
+ * 
+ * @param startTile Starting tile position
+ * @param endTile Ending tile position
+ * @param chunk Pointer to the chunk
+ */
+void Chunk_AddRoomTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
+    Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
+    Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
+    Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
+    Vec2 colliderSizePixels = Vec2_Multiply(colliderSizeTiles, TILE_SIZE_PIXELS);
+    
+    Collider* collider = malloc(sizeof(Collider));
+    collider->hitbox = (SDL_Rect) {
+        startPixel.x + chunk->position.x * CHUNK_SIZE_PIXEL,
+        startPixel.y + chunk->position.y * CHUNK_SIZE_PIXEL,
+        colliderSizePixels.x,
+        colliderSizePixels.y,
+    };
+    collider->collidesWith = COLLISION_LAYER_NONE;
+    collider->layer = COLLISION_LAYER_TRIGGER;
+    Collider_Register(collider, &Chunk_HandlePlayerInsideRoom);
+    chunk->colliders[chunk->colliderCount++] = collider;
+}
+
+/**
+ * [Utility] Adds a hallway trigger collider to a chunk
+ * 
+ * @param startTile Starting tile position
+ * @param endTile Ending tile position
+ * @param chunk Pointer to the chunk
+ */
+void Chunk_AddHallwayTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
+    Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
+    Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
+    Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
+    Vec2 colliderSizePixels = Vec2_Multiply(colliderSizeTiles, TILE_SIZE_PIXELS);
+    
+    Collider* collider = malloc(sizeof(Collider));
+    collider->hitbox = (SDL_Rect) {
+        startPixel.x + chunk->position.x * CHUNK_SIZE_PIXEL,
+        startPixel.y + chunk->position.y * CHUNK_SIZE_PIXEL,
+        colliderSizePixels.x,
+        colliderSizePixels.y,
+    };
+    collider->collidesWith = COLLISION_LAYER_NONE;
+    collider->layer = COLLISION_LAYER_TRIGGER;
+    Collider_Register(collider, &Chunk_HandlePlayerInsideHallway);
+    chunk->colliders[chunk->colliderCount++] = collider;
+}
+
+void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
+    Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
+    Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
+    Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
+    Vec2 colliderSizePixels = Vec2_Multiply(colliderSizeTiles, TILE_SIZE_PIXELS - 10);
+    
+    Collider* collider = malloc(sizeof(Collider));
+    collider->hitbox = (SDL_Rect) {
+        startPixel.x + chunk->position.x * CHUNK_SIZE_PIXEL + TILE_SIZE_PIXELS * chunk->roomSize.x / 4,
+        startPixel.y + chunk->position.y * CHUNK_SIZE_PIXEL + TILE_SIZE_PIXELS * chunk->roomSize.y / 4,
+        colliderSizePixels.x,
+        colliderSizePixels.y,
+    };
+    collider->collidesWith = COLLISION_LAYER_NONE;
+    collider->layer = COLLISION_LAYER_TRIGGER;
+    Collider_Register(collider, &Chunk_HandlePlayerInsideEnd);
     chunk->colliders[chunk->colliderCount++] = collider;
 }

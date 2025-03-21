@@ -3,10 +3,11 @@
 #include <gun.h>
 #include <player.h>
 
-/*
-*   [PostUpdate] Manages the gun's animation clips 
-!   Note that the reloading animations aren't implemented yet.
-*/
+/**
+ * @brief [PostUpdate] Updates the gun's animation state
+ * 
+ * Note that the reloading animations aren't implemented yet.
+ */
 void Gun_AnimationUpdate() {
     GunData* gun = player.state.currentGun;
     if (gun->state.flip == SDL_FLIP_NONE)       

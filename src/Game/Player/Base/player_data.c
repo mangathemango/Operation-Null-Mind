@@ -9,7 +9,7 @@
 
 PlayerData player = {
     .state = {
-        .position = {300,300},
+        .position = {4200,4200},
         .direction = {0,0},
         .currentSpeed = 0,
         .moving = false,
@@ -20,7 +20,7 @@ PlayerData player = {
             .collidesWith = 
                 COLLISION_LAYER_ENEMY | 
                 COLLISION_LAYER_ENVIRONMENT |
-                COLLISION_LAYER_ITEM, // 00001110
+                COLLISION_LAYER_TRIGGER, // 00001110
             .layer = COLLISION_LAYER_PLAYER,
             .hitbox = {
                 .x = 0,
@@ -37,7 +37,7 @@ PlayerData player = {
         .dashDurationTimer = NULL,
     },
     .stats = {
-        .walkSpeed = 100,
+        .walkSpeed = 150,
         .dashSpeed = 1000,
         .dashCooldown = 1,
         .dashDuration = 0.1,

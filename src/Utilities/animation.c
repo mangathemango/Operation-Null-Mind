@@ -7,7 +7,7 @@
 #include <time_system.h>
 
 /*
-*   [Start] Creates an animation from a spritesheet.
+* @brief [Start] Creates an animation from a spritesheet.
 ?   Can handle spritesheets with multiple rows and columns.
 ?   After creating an animation, call Animation_AddClipFromGrid to add animation clips
 !   This only works with spritesheets with constant frame size
@@ -53,7 +53,7 @@ Animation* Animation_Create(AnimationData* animData) {
 }
 
 /*
-*   [PostUpdate] Updates the current animation.
+* @brief [PostUpdate] Updates the current animation.
 
 ?   This function should be called every frame inside App_PostUpdate();
     @param animation A pointer to the animation
@@ -95,7 +95,7 @@ void Animation_Update(Animation* animation) {
 }
 
 /*
-*   [Utility] Destroys an animation
+* @brief [Utility] Destroys an animation
 
     @param animation A pointer to the animation
 */
@@ -114,7 +114,7 @@ void Animation_Destroy(Animation* animation) {
 }
 
 /*
-*   [Utility] Add an animation clip from an animation's spritesheet.
+* @brief [Utility] Add an animation clip from an animation's spritesheet.
 
 ?   Note: Index numbering starts from 0, and goes from left to right, then up to down.
     @param animation The pointer to the animation
@@ -178,7 +178,7 @@ int Animation_AddClipFromGrid(Animation* animation, const char* name,
 }
 
 /*
-*   [Utility] Finds the animation clip with its name
+* @brief [Utility] Finds the animation clip with its name
 
     @param animation A pointer to the animation
     @param clipName The name of the clip
@@ -194,7 +194,7 @@ static int Animation_FindClipIndex(Animation* animation, const char* clipName) {
 }
 
 /*
-*   [Utility] Plays an animation clip.
+* @brief [Utility] Plays an animation clip.
 
 ?   If the target clip is currently playing, this function does nothing.
 
@@ -218,7 +218,7 @@ void Animation_Play(Animation* animation, const char* clipName) {
 }
 
 /*
-*   [Utility] Stops the current animation clip
+* @brief [Utility] Stops the current animation clip
     @param animation A pointer to the animation
 */
 void Animation_Stop(Animation* animation) {
@@ -228,7 +228,7 @@ void Animation_Stop(Animation* animation) {
 }
 
 /*
-*   [Utility] Pause the current animation clip
+* @brief [Utility] Pause the current animation clip
     @param animation A pointer to the animation
 */
 void Animation_Pause(Animation* animation) {
@@ -236,7 +236,7 @@ void Animation_Pause(Animation* animation) {
 }
 
 /*
-*   [Utility] Resume the current animation clip
+* @brief [Utility] Resume the current animation clip
     @param animation A pointer to the animation
 */
 void Animation_Resume(Animation* animation) {
@@ -245,7 +245,7 @@ void Animation_Resume(Animation* animation) {
 
 
 /*
-*   [Render] Renders an animation
+* @brief [Render] Renders an animation
 
     @param animation A pointer to the animation
     @param destPosition The position to draw

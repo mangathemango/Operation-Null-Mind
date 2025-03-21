@@ -10,3 +10,4 @@
 void Debug_RenderHitboxes();
 void Debug_RenderFPSCount();
 void Debug_RenderSpikeCount();
+void Debug_RenderCurrentChunk();

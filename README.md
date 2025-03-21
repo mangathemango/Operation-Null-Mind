@@ -3,7 +3,6 @@
 Note: If you're viewing this through a zip file, this file looks a lot better on the github repository description: 
 
 ## Table of Contents
-
 - [How to Run the Game](#how-to-run-the-game)
 - [Controls](#controls)
 - [About the Codebase](#about-the-codebase)

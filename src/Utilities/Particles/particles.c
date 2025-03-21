@@ -6,11 +6,12 @@
 #include <timer.h>
 #include <random.h>
 
-/*
-*   [Start] Creates a particle emitter from a preset.
-    @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
-    @returns A pointer to the created emitter
-*/
+/**
+ * [Start] Creates a particle emitter from a preset.
+ * 
+ * @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
+ * @return A pointer to the created emitter
+ */
 ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     // Create emitter
     ParticleEmitter* emitter = malloc(sizeof(ParticleEmitter));
@@ -36,10 +37,11 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     return emitter;
 }
 
-/*
-*   [PostUpdate] Controls the particle emitter's particle emission, age, and rendering.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [PostUpdate] Controls the particle emitter's particle emission, age, and rendering.
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_Update(ParticleEmitter* emitter) {
     // Loop through all particles and update them
     ParticleEmitter_UpdateParticles(emitter);
@@ -76,10 +78,11 @@ void ParticleEmitter_Update(ParticleEmitter* emitter) {
     }
 }
 
-/*
-*   [Render] Renders every particle of a particle emitter.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Render] Renders every particle of a particle emitter.
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_Render(ParticleEmitter* emitter) {
     for (int i = 0; i < emitter->maxParticles; i++) {
         Particle* particle = &emitter->particles[i];
@@ -104,10 +107,11 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
 
 
 
-/*
-*   [Utility] Emits a single particle and set its properties based on the emitter.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility] Emits a single particle and set its properties based on the emitter.
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_Emit(ParticleEmitter* emitter) {
     if (emitter->readyIndex == emitter->maxParticles) return;
     Particle* particle = &emitter->particles[emitter->readyIndex];
@@ -140,10 +144,11 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
     particle->collider->hitbox.y = particle->position.y;
 }
 
-/*
-*   [Utility] Update the state, movement, color and size of every particles of a particle emitter.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility] Update the state, movement, color and size of every particles of a particle emitter.
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
     for (int i = 0; i < emitter->maxParticles; i++) {
         Particle* particle = &emitter->particles[i];
@@ -196,23 +201,26 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
     }
 }
 
-/*
-*   [Utility] Set the max particles property of an emitter.
-?   This is probably never going to be used, since this is already set inside particle_emitterpreset.
-?   Only use this if (for some reason) you want to change a particle emitter's max particles in the middle of a game
-    @param emitter A pointer to the particle emitter
-    @param maxParticles The target max particle number
-*/
+/**
+ * [Utility] Set the max particles property of an emitter.
+ * This is probably never going to be used, since this is already set inside particle_emitterpreset.
+ * Only use this if (for some reason) you want to change a particle emitter's max particles in the middle of a game
+ * 
+ * @param emitter A pointer to the particle emitter
+ * @param maxParticles The target max particle number
+ */
 void ParticleEmitter_SetMaxParticles(ParticleEmitter* emitter, int maxParticles) {
     emitter->maxParticles = maxParticles;
     emitter->particles = realloc(emitter->particles, sizeof(Particle) * emitter->maxParticles);
 }
 
-/*
-*   [Utility] Gets the index of the next available particle inside an emitter's particle array.
-?   Particle is available of it's dead, basically
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility] Gets the index of the next available particle inside an emitter's particle array.
+ * Particle is available of it's dead, basically
+ * 
+ * @param emitter A pointer to the particle emitter
+ * @return The index of the next available particle
+ */
 int ParticleEmitter_GetNextReady(ParticleEmitter* emitter) {
     for (int i = 0; i < emitter->maxParticles; i++) {
         if (!emitter->particles[i].alive) return i;
@@ -220,10 +228,11 @@ int ParticleEmitter_GetNextReady(ParticleEmitter* emitter) {
     return emitter->maxParticles;
 }
 
-/*
-*   [Utility/Quit] Destroys a particle emitter.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility/Quit] Destroys a particle emitter.
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {
     if (!emitter) return;
     free(emitter->particles);
@@ -232,10 +241,12 @@ void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {
     free(emitter);
 }
 
-/*
-*   [Utility] Check if there are any alive particles inside an emitter's particle array.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility] Check if there are any alive particles inside an emitter's particle array.
+ * 
+ * @param emitter A pointer to the particle emitter
+ * @return true if any particles are alive, false otherwise
+ */
 bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
     for (int i = 0; i < emitter->maxParticles; i++) {
         if (emitter->particles[i].alive) return true;
@@ -243,20 +254,22 @@ bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
     return false;
 }
 
-/*
-*   [Utility] Allows a particle emitter to go through another loop.
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility] Allows a particle emitter to go through another loop.
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter) {
     emitter->active = true;
     emitter->emitterAge = 0;
     if (emitter->loopCount == 0) emitter->loopCount = 1;
 }
 
-/*
-*   [Utility] Deactivates a particle emitter
-    @param emitter A pointer to the particle emitter
-*/
+/**
+ * [Utility] Deactivates a particle emitter
+ * 
+ * @param emitter A pointer to the particle emitter
+ */
 void ParticleEmitter_Deactivate(ParticleEmitter* emitter) {
     emitter->active = false;
     emitter->emitterAge = 0;
