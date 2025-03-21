@@ -1,6 +1,7 @@
 \mainpage Operation Null Mind
 
 \section intro Introduction
+EVERYTHING HERE IS WRITTEN BY AI BTW SO IT'S NOT FACTUALLY CORRECT
 **Operation Null Mind** is a 2D roguelike top-down shooter game developed using SDL2. Set in a dystopian future, players navigate through procedurally generated environments, battling against hostile forces while uncovering the mysteries of a world where consciousness has been weaponized. The game blends fast-paced action with strategic roguelike elements to create a unique gameplay experience.
 
 \section overview Game Overview
