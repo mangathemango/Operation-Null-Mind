@@ -26,10 +26,12 @@
 #include <camera.h>
 #include <maps.h>
 #include <enemy.h>
+#include <pause.h>
 
 typedef enum {
     SCENE_MENU,
-    SCENE_GAME
+    SCENE_GAME,
+    SCENE_PAUSE
 } AppScene;
 
 typedef struct {

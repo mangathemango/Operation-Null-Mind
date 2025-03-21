@@ -27,6 +27,10 @@ int App_RenderMain() {
 
             Debug_RenderHitboxes();
             break;
+        
+        case SCENE_PAUSE:
+            Pause_Render();
+            break;
     }
     Debug_RenderFPSCount();
     Debug_RenderSpikeCount();
