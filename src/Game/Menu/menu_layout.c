@@ -1,18 +1,22 @@
 #include <UI_text.h>
 #include <app.h>
+#include <stdbool.h>
+#include <input.h>
 
 static UIElement* startButtonElement = NULL;
+SDL_Rect startButtonRect = {27, 140, 200, 15};
 static UIElement* exitButtonElement = NULL;
-static UIElement* title1Element = NULL;
-static UIElement* title2Element = NULL;
+SDL_Rect exitButtonRect = {27, 160, 200, 15};
+static SDL_Texture* title = NULL;
+static SDL_Texture* background = NULL;
 
 void Menu_PrepareTextures() {
     SDL_Color textColor = {255, 255, 255, 255};
 
-    title1Element = UI_CreateText("OPERATION", (SDL_Rect) {125, 75 , 0, 0}, textColor, 2.0f, UI_TEXT_ALIGN_CENTER, app.resources.title1Font);
-    title2Element = UI_CreateText("NULL MIND", (SDL_Rect) {125, 110, 0, 0}, textColor, 1.5f, UI_TEXT_ALIGN_CENTER, app.resources.title2Font);
-    startButtonElement = UI_CreateText("Start",(SDL_Rect) {125, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
-    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {125, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
+    background = IMG_LoadTexture(app.resources.renderer, "Assets/Images/textless_menu.png");
+    title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
+    startButtonElement = UI_CreateText("start",(SDL_Rect) {30, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    exitButtonElement = UI_CreateText("exit",  (SDL_Rect) {30, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
 }
 
 void Menu_Update() {
@@ -20,32 +24,49 @@ void Menu_Update() {
     UI_UpdateText(exitButtonElement);
 
     SDL_Color defaultButtonColor = {255, 255, 255, 255};
-    SDL_Color hoverButtonColor = {255, 0, 0, 255};
+    SDL_Color hoverButtonColor = {0, 0, 0, 255};
     
-    if (startButtonElement->hovered) {
+    if (Input_MouseIsOnRect(startButtonRect)) {
         UI_ChangeTextColor(startButtonElement, hoverButtonColor);
     } else {
         UI_ChangeTextColor(startButtonElement, defaultButtonColor);
     }
 
-    if (startButtonElement->pressed) {
+    if (Input_MouseIsOnRect(startButtonRect) && Input->mouse.leftButton.pressed) {
         app.state.currentScene = SCENE_GAME;
     }
 
-    if (exitButtonElement->hovered) {
+    if (Input_MouseIsOnRect(exitButtonRect)) {
         UI_ChangeTextColor(exitButtonElement, hoverButtonColor);
     } else {
         UI_ChangeTextColor(exitButtonElement, defaultButtonColor);
     }
 
-    if (exitButtonElement->pressed) {
+    if (Input_MouseIsOnRect(exitButtonRect) && Input->mouse.leftButton.pressed) {
         app.state.running = false;
     }
 }
 
 void Menu_Render() {
-    UI_RenderText(title1Element);
-    UI_RenderText(title2Element);
+    SDL_RenderCopy(app.resources.renderer, background, NULL, NULL);
+    SDL_Rect dest = {
+        30, 50, 175, 70
+    };
+    SDL_RenderCopy(app.resources.renderer, title, NULL, &dest);
+    if (Input_MouseIsOnRect(startButtonRect)) {
+        SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+        SDL_Rect rect = {
+            27, 140, 200, 15
+        };
+        SDL_RenderFillRect(app.resources.renderer, &rect);
+    }
     UI_RenderText(startButtonElement);
+    if (Input_MouseIsOnRect(exitButtonRect)) {
+        SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+        SDL_Rect rect = {
+            27, 160, 200, 15
+        };
+        SDL_RenderFillRect(app.resources.renderer, &rect);
+    }
     UI_RenderText(exitButtonElement);
 }
