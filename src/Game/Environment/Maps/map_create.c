@@ -14,6 +14,7 @@ void Map_Generate() {
             testMap.chunks[x][y].colliderCount = 0;
             testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
+            testMap.chunks[x][y].discovered = false;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
         }
     }
@@ -53,13 +54,7 @@ void Map_Generate() {
                 }
                 
                 // Create the chunk with all its details
-                testMap.chunks[x][y] = Chunk_GenerateTiles(
-                    testMap.chunks[x][y].position,
-                    testMap.chunks[x][y].roomType,
-                    testMap.chunks[x][y].roomSize,
-                    testMap.chunks[x][y].floorPattern,
-                    testMap.chunks[x][y].hallways
-                );
+                Chunk_GenerateTilesButVoid(&testMap.chunks[x][y]);
                 if (testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL) {
                     testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
                 }

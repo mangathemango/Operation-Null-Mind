@@ -46,6 +46,7 @@ typedef struct {
     int currentEnemyCount;
     bool inCombat;
     bool empty;
+    bool discovered;
 
     Collider* colliders[CHUNK_SIZE_TILE];
     int colliderCount;
