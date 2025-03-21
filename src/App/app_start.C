@@ -22,7 +22,7 @@ int App_Start() {
     Bullet_Start();
     Map_Start();
     Enemy_Init();
-
+    Minimap_Start();
     // Initialize sound system
     if (!Sound_System_Initialize()) {
         SDL_Log("Failed to initialize sound system!");

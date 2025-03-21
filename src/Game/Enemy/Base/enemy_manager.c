@@ -28,6 +28,7 @@ int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk) {
  * Manages which enemies are active based on player position.
  */
 void EnemyManager_Update() {
+    
     // Only calls if the player is completely inside a room
     if (!player.state.insideRoom || player.state.insideHallway) return;
 
@@ -76,5 +77,9 @@ void EnemyManager_Update() {
             chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
             Chunk_GenerateTilesButVoid(chunk);
         }
+    }
+
+    if (chunk->currentEnemyCount <= 0 && chunk->totalEnemyCount <= 0 && !chunk->inCombat) {
+        chunk->discovered = true;
     }
 }

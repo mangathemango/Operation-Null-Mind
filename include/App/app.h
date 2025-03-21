@@ -26,6 +26,7 @@
 #include <camera.h>
 #include <maps.h>
 #include <enemy.h>
+#include <minimap.h>
 
 typedef enum {
     SCENE_MENU,
