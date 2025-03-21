@@ -25,8 +25,8 @@ int App_RenderMain() {
             Player_Render();
             Gun_Render();
             Bullet_Render();
-            Minimap_Render();
             Debug_RenderHitboxes();
+            Minimap_Render();
             break;
     }
     Debug_RenderFPSCount();

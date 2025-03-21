@@ -15,7 +15,7 @@ void Minimap_Start() {
 }
 
 void Minimap_Render() {
-    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 100);
     SDL_RenderFillRect(app.resources.renderer, &minimapPosition);
     for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
