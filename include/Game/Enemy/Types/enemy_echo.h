@@ -1,5 +1,5 @@
 /**
- * @file sound.h
+ * @file enemy_echo.h
  * @brief This file contains the data for the enemy **Echo**.
  *
  * @author Mango

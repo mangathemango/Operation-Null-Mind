@@ -1,3 +1,11 @@
+/**
+ * @file enemy.h
+ * @brief This file contains the definition of the EnemyData struct and its functions.
+ *
+ * @author Mango
+ * @date 2025-03-18
+ */
+
 #pragma once
 
 #include <SDL.h>
@@ -14,7 +22,6 @@
  * Defines the different types of enemies in the game
  */
 typedef enum {
-    ENEMY_TYPE_ZFN,
     ENEMY_TYPE_ECHO
 } EnemyType;
 

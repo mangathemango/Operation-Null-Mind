@@ -60,7 +60,7 @@
  * // ...
  * ```
  * Here's a visualization of this:
- * @image html vec2.png width=400px
+ * @image html Vec2_ToRect.png width=400px
  * 
  * 
  * @author Mango
