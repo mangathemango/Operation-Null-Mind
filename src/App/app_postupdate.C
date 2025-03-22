@@ -26,7 +26,6 @@ int App_PostUpdate() {
             // Updates the menu logic
             Menu_Update();
             break;
-            
         case SCENE_GAME:
             Player_PostUpdate();
             Gun_Update();
@@ -34,6 +33,12 @@ int App_PostUpdate() {
             EnemyManager_Update();
             Enemy_Update();
             Camera_UpdatePosition();
+            if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
+                app.state.currentScene = SCENE_PAUSE;
+            }
+            break;
+        case SCENE_PAUSE:
+            Pause_Update();
             break;
     }
     return 0;

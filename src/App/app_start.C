@@ -37,6 +37,7 @@ int App_Start() {
 
     Sound_System_Initialize();
     Menu_PrepareTextures();
+    Pause_Start();
     return 0;
     
 }
