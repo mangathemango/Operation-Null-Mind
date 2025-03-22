@@ -1,296 +1,306 @@
 \mainpage Operation Null Mind
 
-\section intro Introduction
-EVERYTHING HERE IS WRITTEN BY AI BTW SO IT'S NOT FACTUALLY CORRECT
-**Operation Null Mind** is a 2D roguelike top-down shooter game developed using SDL2. Set in a dystopian future, players navigate through procedurally generated environments, battling against hostile forces while uncovering the mysteries of a world where consciousness has been weaponized. The game blends fast-paced action with strategic roguelike elements to create a unique gameplay experience.
+\tableofcontents
 
-\section overview Game Overview
-In Operation Null Mind, players take control of a protagonist fighting through a series of challenging levels. Each playthrough offers:
-- Unique level layouts through procedural generation
-- Permanent character progression between runs
-- Diverse combat scenarios requiring tactical thinking
-- Resource management and decision-making elements
-- An evolving narrative revealed through gameplay
+\section controls Controls
+- WASD - Move character
+- Left click - Shoot
+- 1 2 3 4 5 - Switch weapons (for now)
+- Shift - Skill 1 (Dash)
 
-\section features Key Features
-\subsection mapgen Advanced Procedural Generation
-- Multi-layered map generation algorithm that creates varied, balanced environments
-- Main path system ensuring proper game flow and progression
-- Room variety including combat arenas, treasure rooms, and special encounters
-- Quadrant-based level design with increasing difficulty toward the end room
-- Procedural decoration and object placement
+\section running How to Run the Game
+If the zip file has a build foler, just click on build/Operation-Null-Mind.exe
 
-\subsection combat Combat System
-- Responsive twin-stick style shooting mechanics
-- Diverse weapon types with unique properties and behaviors
-- Projectile physics including collision, penetration, and area effects
-- Dynamic enemy encounters with varying difficulty
-- Special abilities and power-ups that modify gameplay
+\section about About the Codebase
+Most of everything (around 90%) inside the codebase is already pretty well documented. But generally, if you want to look around on how everything works, you should start on src/main.c (which contains the game loop), then everything inside include/app.h and the folder src/App/, then everything else inbetween.
 
-\subsection progression Progression System
-- Permanent character upgrades between runs
-- Temporary power-ups during individual playthroughs
-- Unlockable weapons and abilities
-- Achievement and challenge systems
-- Dynamic difficulty scaling based on player performance
+\subsection structure Code Structure
+This project follows a modular structure to keep the code organized:
 
-\subsection ai Enemy AI
-- Multiple enemy types with distinct behavior patterns
-- State-based AI decision making
-- Path-finding algorithms for intelligent movement
-- Target prioritization and threat assessment
-- Squad-based coordinated attacks for advanced enemies
+\code{.txt}
+/Assets         -> Contains images, sfx, music, ...
+/include        -> Contains header (.h) files
+    ...
+/src            -> Contains source (.c) files
+    /App        -> Handles the main game loop
+    /Core       -> Core systems, like vectors, time, ...
+    /Game       -> Game mechanics, like player, gun, ...
+    /Utilities  -> Helper utilities, like animation, ...
+    main.c      -> The entry point of the program.
+                   The program will start with this file.
+\endcode
 
-\section technical Technical Architecture
-The game is built with a modular, component-based architecture that separates concerns into distinct systems:
+\subsection flow Understanding the Code Flow
+The game follows this general flow:
 
-\subsection app Application Framework
-The core application layer manages the game window, rendering context, and the main game loop. It handles scene transitions, input processing, and maintains the application state.
+1. **Initialization**: Set up SDL, load resources, initialize game state. This is done inside the App_Start() function.
+2. **Game Loop**: Process events, update game state, render graphics. This is done inside the App_PreUpdate(), App_Event_Handler(), App_PostUpdate(), and App_Render().
+3. **Cleanup**: Free resources and shut down the program. This is done inside the App_Quit().
 
-```cpp
-// From app_data.c
-AppData app = {
-    .resources = {
-        .window = NULL,
-        .renderer = NULL,
-        .screenTexture = NULL,
-    },
-    .state = {
-        .running = true,
-        .fps = 0,
-        .averageFps = 0,
-        .currentScene = SCENE_MENU,
-    },
-    .config = {
-        .window_title = "Operation Null Mind",
-        .window_width = 1024,
-        .window_height = 768,
-        .window_fullscreen = false,
-        .screen_width = 480,
-        .screen_height = 288,
-        .debug = false,
-        .title1FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
-        .title2FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
-        .textFontPath = "Assets/Fonts/monogram.ttf",
-    },
-};
-```
+\section naming Function Naming Convention
+All of our functions are labelled with tags that indicate when they are called in the game lifecycle:
 
-\subsection scene Scene Management
-The game implements a scene-based architecture where different game states (menu, gameplay, pause, etc.) are encapsulated in scene objects with their own update and render methods.
+\subsection start [Start]
+These functions are called once at the start of the program, used for data initialization and the like. Every [Start] functions should be called somewhere inside app_start.c
 
-\subsection maps Map Generation System
-The procedural map generation system creates unique, playable levels for each run. It follows a multi-stage process:
+**Example**: \c Player_Start() initializes the player's health, position, and abilities.
 
-1. **Chunk Division**: Divides the map into chunks of equal size
-2. **Main Path Creation**: Generates the primary path from start to end
-3. **Side Area Generation**: Creates optional exploration areas
-4. **Room Placement**: Places different room types based on location and context
-5. **Detail Generation**: Adds details, obstacles, and decorative elements
+\subsection preupdate [PreUpdate]
+These functions are called ***every frame*** before everything else. This is mainly functions used as a SETUP for the current frame, rather than handling the main logic. This includes resetting some booleans, positions, etc.
 
-```cpp
-// Map generation example from map_create.c
-Map_CreateMainPath();
-    
-// Place end room (always in bottom-right quadrant)
-Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
-SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,
-        (int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
+**Example**: \c Input_PreUpdate() resets input states at the beginning of each frame.
 
-// Process main path points
-for(int k = 0; k < MAP_LENGTH + 1; k++) {
-    SDL_Log("Main Path: (%d, %d)", (int) testMap.mainPath[k].x, (int) testMap.mainPath[k].y);
-}
+\subsection eventhandler [Event_Handler]
+Event_Handler are called ***every frame*** whenever there's an event detected, like mouse click, key board press, etc.
 
-// Initialize all non-empty chunks
-for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
-    for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
-        if (!testMap.chunks[x][y].empty) {
-            // Initialize chunk contents
-        }
-    }
-}
-```
+**For beginners**: Think of events as signals that something happened (like a key press). The event handler catches these signals and updates our game accordingly.
 
-\subsection entities Entity Component System
-The game uses a flexible entity component system (ECS) to manage all game objects:
+*Right now, App_Event_handler is only used to quit the program and update our Input struct inside Core/input.c. The Input struct tells you everything about what's going on with the keyboard and mouse - whether a button was just pressed/released, or whether it is being held. This allows for more flexible event handling - without having to pass the SDL_Event struct on all the functions that requires player input.*
 
-\subsubsection player Player Entity
-- Health and shield management
-- Movement controller
-- Weapon and inventory systems
-- Ability and skill handlers
-- Camera follow system
-- Input interpretation
+\subsection postupdate [PostUpdate]
+These functions are called every frame to handle the main logic of the frame - for example updating player's position, gun rotation, input handling, etc.
 
-\subsubsection enemies Enemy Entities
-- Various enemy types with different behaviors
-- Health and damage systems
-- AI controllers
-- Animation state machines
-- Specialized attack patterns
-- Spawn and despawn management
+**Example**: \c Player_PostUpdate() updates the player's position based on input and handles collisions.
 
-\subsubsection weapons Weapons and Projectiles
-- Multiple weapon types (melee, ranged, special)
-- Projectile physics and collision detection
-- Area-of-effect capabilities
-- Status effect application
-- Visual and audio feedback
+\subsection render [Render]
+Well, those functions are called every frame just to render stuff. Quite simple.
 
-\subsubsection items Items and Pickups
-- Health and shield pickups
-- Ammunition and resources
-- Temporary and permanent power-ups
-- Special ability unlocks
-- Currency and collectibles
+**Example**: \c Player_Render() draws the player character at its current position.
 
-\subsection collision Collision System
-A sophisticated collision detection and resolution system that handles:
-- Entity-entity interactions
-- Entity-environment interactions
-- Projectile collisions
-- Trigger zones and area effects
-- Spatial partitioning for performance optimization
+\subsection quit [Quit]
+And these functions, well, is called at the end of the program. This mostly includes functions that free up memory of something (though we havent worked on that yet)
 
-\subsection rendering Rendering Pipeline
-The game employs a multi-layered rendering system using SDL2:
+**For beginners**: In C, you need to manually free memory that you've allocated. These functions make sure we don't have memory leaks.
 
-\subsubsection sprites Sprite Rendering
-- Texture loading and management
-- Sprite animation system
-- Dynamic texture manipulation
-- Parallax background effects
-- Sprite batching for performance
+\subsection utilities [Utilities]
+These functions are called basically anywhere - and acts as a helper function for other functions.
 
-\subsubsection lighting Lighting and Effects
-- Dynamic lighting system
-- Particle effects for impacts, explosions, and environmental details
-- Screen shaders for special effects
-- Post-processing effects
-- Camera effects (shake, zoom, etc.)
+**Example**: \c Vec2_Distance() calculates the distance between two points.
 
-\subsubsection ui User Interface
-- In-game HUD with health, ammo, and status indicators
-- Menu systems with controller and keyboard navigation
-- Inventory and ability selection interfaces
-- Dialog and narrative presentation
-- Feedback systems for player actions
+\subsection conditional [?]
+Some tags have this ? thing (like [PostUpdate?]), which says that they are called every frame only if a certain condition are met.
 
-\subsection audio Audio System
-A comprehensive audio management system with:
-- Dynamic sound effects based on game events
-- Adaptive music that responds to gameplay intensity
-- Spatial audio for immersive experiences
-- Volume management and audio settings
-- Voice and narrative audio
+\section modules Key Modules Overview
+This section provides an overview of the main modules that make up the game. Understanding these key components will help you navigate the codebase more effectively.
 
-\section implementation Implementation Details
+\subsection app App Module
+The App module is the core orchestrator of the game. It manages the game lifecycle and ties all other modules together.
 
-\subsection sdl2 SDL2 Integration
-The game leverages multiple SDL2 libraries:
-- **SDL2 Core**: Window management, rendering, and input handling
-- **SDL2_image**: Texture loading with support for multiple formats
-- **SDL2_ttf**: Text rendering for UI elements
-- **SDL2_mixer**: Audio playback and management
+**Key Files:**
 
-\subsection optimization Performance Optimization
-Several techniques are employed to ensure smooth gameplay:
-- Spatial partitioning for collision detection
-- Object pooling for frequently used entities
-- Texture atlasing to minimize draw calls
-- Frustum culling to avoid rendering off-screen elements
-- Memory management to reduce garbage collection
+- \c include/App/app.h - Main application header defining the AppData structure and function prototypes
+- \c src/App/app_start.c - Initialization logic that runs once at startup
+- \c src/App/app_preupdate.c - Frame setup logic that runs before processing game logic
+- \c src/App/app_event_handler.c - Handles SDL events like keyboard/mouse input
+- \c src/App/app_postupdate.c - Main game logic that runs each frame
+- \c src/App/app_render.c - Rendering logic that draws everything to the screen
+- \c src/App/app_quit.c - Cleanup logic that runs when the game exits
 
-\subsection patterns Design Patterns
-The codebase utilizes several design patterns:
-- **State Pattern**: For entity behavior and game state management
-- **Observer Pattern**: For event handling and system communication
-- **Factory Pattern**: For entity creation and management
-- **Component Pattern**: For modular entity composition
-- **Singleton Pattern**: For global system access
+**For Beginners:**
+The App module is like the conductor of an orchestra - it doesn't make music itself, but it coordinates all the other modules to work together.
 
-\section building Building and Running
-\subsection prerequisites Prerequisites
-To build and run Operation Null Mind, you'll need:
-- A C compiler (GCC, Clang, or MSVC)
-- SDL2 development libraries (core, image, ttf, mixer)
-- CMake or Make build system
-- Git for version control
+\subsection core Core Modules
+Core modules provide fundamental functionality that the rest of the game relies on. They handle basic operations like math, input, and rendering.
 
-\subsection steps Build Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/operation-null-mind.git
-   cd operation-null-mind
-   ```
+**Key Components:**
 
-2. Install dependencies:
-   - **Windows**: Download SDL2 development libraries and place in the appropriate directories
-   - **Linux**: `sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev`
-   - **macOS**: `brew install sdl2 sdl2_image sdl2_ttf sdl2_mixer`
+1. **Vector System** (\c include/Core/vec2.h, \c src/Core/vec2.c)
 
-3. Build the project:
-   ```bash
-   mkdir build && cd build
-   cmake ..
-   make
-   ```
+   - Provides 2D vector operations like addition, subtraction, normalization
+   - Used for positions, movement, and direction calculations
+   - Example: \c Vec2_Add() combines two vectors, useful for adding velocity to position
+2. **Input System** (\c include/Core/input.h, \c src/Core/input.c)
 
-4. Run the executable:
-   ```bash
-   ./operation-null-mind
-   ```
+   - Tracks keyboard and mouse state
+   - Distinguishes between keys just pressed, held down, or just released
+   - Example: \c Input->mouse.leftButton.pressed is true on the first frame the left mouse button is pressed
+3. **Time System** (\c include/Core/time.h, \c src/Core/time.c)
 
-\subsection config Configuration
-The game can be configured through several methods:
-- Editing the configuration values in app_data.c before compilation
-- Using command-line arguments when launching the game
-- Modifying settings through the in-game options menu
-- Creating a custom configuration file (format specified in documentation)
+   - Manages game timing, delta time, and frame rate
+   - Ensures consistent game speed regardless of frame rate
+   - Example: \c Time->deltaTimeSeconds returns the time elapsed since the last frame
+4. **Camera System** (\c include/Core/camera.h, \c src/Core/camera.c)
 
-\section development Development Information
-\subsection codeorg Code Organization
-The project follows a structured organization:
-- **src/App**: Core application framework
-- **src/Game**: Main gameplay systems
-- **src/Game/Environment**: Map and level systems
-- **src/Game/Entities**: Entity implementations
-- **src/Render**: Rendering systems
-- **src/UI**: User interface components
-- **src/Audio**: Sound and music systems
-- **src/Utils**: Utility functions and helpers
+   - Handles viewport and screen-to-world coordinate transformations
+   - Manages camera movement, zoom, and following objects
+   - Example: \c Camera_WorldToScreen() converts world coordinates to screen coordinates
+5. **Colliders System** (\c include/Core/colliders.h, \c src/Core/colliders.c)
 
-\subsection contributing Contributing
-Contributions to Operation Null Mind are welcome! To contribute:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+   - Provides collision detection between game entities
+   - Supports different collider shapes (rectangles, circles)
+   - Example: \c Collider_CheckRectRect() tests if two rectangle colliders intersect
+6. **Sound System** (\c include/Core/sound.h, \c src/Core/sound.c)
 
-Please follow the coding standards outlined in the CONTRIBUTING.md file.
+   - Manages audio playback for music and sound effects
+   - Handles loading, playing, and stopping audio files
+   - Example: \c Sound_PlaySFX() plays a sound effect with optional volume control
+7. **UI System** (\c include/Core/UI/UI_text.h, \c src/Core/UI/UI_text.c)
 
-\subsection testing Testing
-The project uses several testing approaches:
-- Unit tests for core functionality
-- Integration tests for system interactions
-- Playtest sessions for gameplay balance and feel
-- Performance testing to identify bottlenecks
+   - Manages user interface elements like text, buttons, and menus
+   - Provides functions for rendering text with different fonts
+   - Example: \c UI_RenderText() draws text at a specified position on screen
 
-\section roadmap Development Roadmap
-Future development plans include:
-- Additional enemy types and behaviors
-- New weapon categories and special abilities
-- Enhanced procedural generation algorithms
-- Multiplayer cooperative mode
-- Console platform support
+**For Beginners:**
+Think of Core modules as the fundamental tools that every other part of the game uses - like the hammer, nails, and measuring tape that carpenters use to build a house.
 
-\section license License
-Operation Null Mind is released under the [insert your license here] license. See the LICENSE file for complete details.
+\subsection game Game Modules
+Game modules implement the actual gameplay mechanics, entities, and rules.
 
-\section acknowledgments Acknowledgments
-Special thanks to:
-- The SDL2 development team
-- Contributors and playtesters
-- [Any other acknowledgments you want to include]
+**Key Components:**
+
+1. **Player System** (\c include/Game/player.h, \c src/Game/player.c)
+
+   - Manages the player character's state, movement, and abilities
+   - Handles player input and collision with the environment
+   - Example: \c Player_InputHandler() processes movement based on input each frame
+2. **Gun System** (\c include/Game/gun.h, \c src/Game/gun.c)
+
+   - Defines guns and their properties
+   - Manages shooting mechanics, ammunition, and reloading (Though this is not implemented yet)
+3. **Environment System** (\c include/Game/Environment/maps.h, \c src/Game/Environment/maps.c)
+
+   - Defines game map generation
+   - Maps are created from multiple chunks, each of which are created from multiple tiles.
+
+**For Beginners:**
+Game modules are where the actual gameplay happens - they use the Core modules as tools to create the game experience. If Core modules are like words, Game modules are the sentences and paragraphs that tell a story.
+
+\subsection util Utilities
+Utility modules provide helper functionality that doesn't fit neatly into the other categories.
+
+**Key Components:**
+
+1. **Animation System** (\c include/Utilities/animation.h, \c src/Utilities/animation.c)
+
+   - Manages sprite animations and transitions
+   - Tracks animation frames and timing
+   - Example: \c Animation_Create() is used to create an animation, and \c Animation_Render is used to render it.
+2. **Particle System** (\c include/Utilities/Particles/*.h, \c src/Utilities/Particles/*.c)
+
+   - Provides visual effects like explosions, smoke, bullets, etc.
+   - Includes particle emitters, movement patterns, and presets
+   - Example: \c Particles_CreateEmitterFromPreset() generates a new particle emitter based on a particle emitter preset.
+3. **Debug Utilities** (\c include/Utilities/debug.h, \c src/Utilities/debug.c)
+
+   - Tools for debugging and diagnostics
+   - Includes functions for logging, drawing debug shapes, etc.
+   - Example: \c Debug_RenderHitboxes() draws hitboxes on the screen for debugging.
+4. **SDL Initialization** (\c include/Utilities/initialize_SDL.h, \c src/Utilities/initialize_SDL.c)
+
+   - Handles the setup and initialization of SDL libraries
+   - Centralizes error handling for SDL initialization
+   - Example: \c Initialize_SDL() sets up SDL, SDL_image, SDL_ttf, etc.
+5. **Random Number Generation** (\c include/Utilities/random.h, \c src/Utilities/random.c)
+
+   - Provides better random number generation than standard C functions
+   - Used for gameplay elements requiring randomness
+   - Example: \c Random_Float() generates a random floating point number in a range
+6. **Timer Utilities** (\c include/Utilities/timer.h, \c src/Utilities/timer.c)
+
+   - Manages gameplay timers for events, cooldowns, etc.
+   - Different from the core Time System which handles frame timing
+   - Example: \c Timer_Create() creates a new timer for tracking elapsed time
+
+**For Beginners:**
+Utility modules are like the toolbox that contains specialized tools for specific tasks - not used all the time but essential when you need them.
+
+\section concepts Key C Concepts Used in This Project
+
+\subsection pointers Pointers and Memory Management
+***Pointers are variables that store memory addresses***. In this codebase, you'll see them used extensively.
+
+For example, in the codebase, the logic to switch between guns looks something like this:
+
+\code{.c}
+GunData* currentGun = &Gun_Pistol;  
+\endcode
+
+With:
+
+- The currentGun variable being defined as a pointer to a GunData struct. Or in other words, it ***holds the address of a GunData struct***.
+- Afterwards, the value inside the currenGun variable is set to "The address of" (&) the Gun_Pistol variable.
+
+We use pointers to:
+
+1. Pass large structures efficiently (without copying them)
+2. Modify data across functions
+3. Create dynamic data structures
+
+\subsection structures Structures
+Structures group related variables under one name. This is the closest we can ever get to OOP in C. (We should have used C++)
+
+In the codebase, you will see that we spam this everywhere we can. This is to make sure that all of our variables are organized.
+
+\code{.c}
+// Inside include/Game/player.h
+
+typedef struct {
+    // Some other states...
+    GunData* currentGun;
+} PlayerState;
+
+typedef struct {
+    // Some other stuffs...
+    PlayerState state;
+} PlayerData;
+\endcode
+
+What's better, a struct variable can be declared as **extern** to act as global variables that are shared across the codebase.
+
+\code{.c}
+// include/Game/player.h
+extern PlayerData player;
+
+// include/App/app.h
+extern AppData app;
+
+// include/Game/Environment/maps.h
+extern EnvironmentMap testMap;
+
+// And many more!
+\endcode
+
+\section installation How to Install & Compile for Windows
+
+\subsection clone Step 1: Clone repository
+You can either go File -> Download .zip to download the repository. Otherwise if you have Git, you can enter this command:
+\code{.bash}
+git clone https://github.com/mangathemango/Operation-Null-Mind/
+\endcode
+
+\subsection dependencies Step 2: Install cmake and MingW
+These should be available with a Google search. Afterwards, you can run \c cmake --version and \c gcc --version to verify.
+
+**Note**:
+
+**For beginners**:
+
+- **CMake** is a build system generator that creates build files for your platform
+- **MinGW** provides a Windows version of the GCC compiler and necessary tools
+
+\subsection build Step 3: Build, Compile and Run
+To build, there are 2 ways you can do this
+
+If you have vscode, just \c Ctrl+Shift+B. It should all run fine.
+
+Otherwise, you can run these 3 commands:
+
+\code{.bash}
+cmake -S . -B build "MinGW Makefiles"
+cmake --build build
+\endcode
+
+Right now, the .exe file should be inside the \c build/ folder, which you can run straight away
+
+\code{.bash}
+./build/Operation-Null-Mind
+\endcode
+
+\subsection note Note
+Sometimes github does a weird thingy where the .c files turn into .C, which, automatically detects it as a C++ file instead of C @v@ goofy ah.
+
+In that case, you can enter this command into terminal:
+
+\code{.powershell}
+Get-ChildItem -Path .\src -Filter *.C -Recurse | Rename-Item -NewName {$_.name -replace '\.C$','.c'}
+\endcode
