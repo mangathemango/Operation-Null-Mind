@@ -2,14 +2,15 @@
  * @file colliders.h
  * This file contains the declarations for the collision manager.
  * The collision manager is responsible for detecting collisions between entities in the game.
- *
+ * @author Mango, Tony and Darren
+ * @date 2025-03-09
  * @section usage How to use the collider system:
  * TLDR: Create Collider struct somewhere, register it, check for collisions, and handle the collisions.
  * 
- * @section usage_step1 Step 1: Create a collider struct for your entity.  
+ * @subsection usage_step1 Step 1: Create a collider struct for your entity.  
  * Note: the collider needs to be stored in a memory that's reusable. (i.e static/global variables)
  * 
- * Example:
+ * @subsubsection usage_step1_example Example:
  * ```c
  *     static Collider playerCollider = {
  *         // (If you're making the hitbox follow something, only the last two values (width and height) matter)
@@ -21,15 +22,17 @@
  * ```
  * This collider will check for collision with environment and enemies.
  *
- * @section usage_step2 Step 2: Register the collider
+ * @subsection usage_step2 Step 2: Register the collider
  * Register the collider with the collision manager:
+ * @subsubsection usage_step2_example Example:
  * ```c
- * Collider_Register(&playerCollider, playerEntity);
+ * Collider_Register(&playerCollider, &player);
  * ```
  * This will add the collider to the list of colliders that the collision manager checks.
  *
- * @section usage_step3 Step 3: Check for collisions
+ * @subsection usage_step3 Step 3: Check for collisions
  * Check for collisions with the collider:
+ * @subsubsection usage_step3_example Example:
  * ```c
  * ColliderCheckResult result;
  * Collider_Check(&playerCollider, &result);
