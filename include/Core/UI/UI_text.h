@@ -4,8 +4,27 @@
  * @author Mango (杜明日) 
  * @date 2025-03-12
  * 
- * @section usage Usage Examples
- * @example src/Utilities/debug.c:124-164 How the spike count text was created and rendered.
+ *  * @section usage Usage Examples
+ * 
+ * Creating and managing text elements:
+ * 
+ * @code{.c}
+ * // Create a simple text element
+ * UIElement* titleText = UI_CreateText(
+ *     "Operation Null Mind", 
+ *     (SDL_Rect){400, 100, 400, 50},
+ *     (SDL_Color){255, 255, 255, 255},
+ *     1.5f,
+ *     UI_TEXT_ALIGN_CENTER,
+ *     app.resources.fonts.titleFont
+ * );
+ * 
+ * // Changing text content dynamically
+ * UI_ChangeText(scoreText, "Score: 1500");
+ * 
+ * // Changing text color
+ * UI_ChangeTextColor(warningText, (SDL_Color){255, 0, 0, 255});
+ * @endcode
  */
 
 #pragma once
