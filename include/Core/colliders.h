@@ -41,7 +41,7 @@
  * This will check for collisions with the collider and store the results in the result struct.
  * After that, you can do something with the detected collisions:
  *
- * @code
+ * ```c
  * for (int i = 0; i < result.count; i++) {
  *     Collider* collisionObject = result.objects[i];
  *     // Do something with the collision object
@@ -54,11 +54,10 @@
  *             break;
  *     }
  * }
- * @endcode
+ * ```
  */
 
-#ifndef COLLISION_MANAGER_H
-#define COLLISION_MANAGER_H
+#pragma once
 
 #include <SDL.h>
 #include <stdbool.h>
@@ -132,5 +131,3 @@ bool Collider_Check(Collider* collidableObject, ColliderCheckResult* result);
  * @param collider The collider to deactivate
  */
 void Collider_Reset(Collider* collider);
-
-#endif
