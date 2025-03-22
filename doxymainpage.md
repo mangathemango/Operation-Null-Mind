@@ -61,10 +61,6 @@ The project is organized into several directories, each with a specific purpose:
                    • Assets are loaded at runtime by the respective systems
 
 /include        -> Contains header (.h) files
-                   • Defines the interface for all modules
-                   • Contains struct definitions, function declarations, and constants
-                   • Organized to mirror the src directory structure
-
     /App        -> Application headers for game loop management
     /Core       -> Core system headers (vectors, time, etc.)
     /Game       -> Game mechanics headers (player, gun, etc.)
