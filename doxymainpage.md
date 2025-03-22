@@ -370,37 +370,188 @@ typedef struct {
 ```
 
 Key algorithms include:
-- Vector addition/subtraction
-- Normalization
-- Dot and cross products
-- Distance calculations
-- Linear interpolation (lerp)
+
+- **Vector Addition/Subtraction**: Combines vectors component-wise. Used extensively for physics calculations such as applying velocity to position.
+  ```c
+  Vec2 Vec2_Add(Vec2 a, Vec2 b) {
+      Vec2 result = { a.x + b.x, a.y + b.y };
+      return result;
+  }
+  ```
+
+- **Normalization**: Converts a vector to a unit vector (length of 1) while preserving direction. Critical for directional calculations like aiming and movement.
+  ```c
+  Vec2 Vec2_Normalize(Vec2 v) {
+      float magnitude = Vec2_Magnitude(v);
+      if (magnitude > 0) {
+          Vec2 result = { v.x / magnitude, v.y / magnitude };
+          return result;
+      }
+      return v;  // Avoid division by zero
+  }
+  ```
+
+- **Dot Product**: Calculates the scalar product of two vectors, used for angle calculations and projection.
+  ```c
+  float Vec2_Dot(Vec2 a, Vec2 b) {
+      return a.x * b.x + a.y * b.y;
+  }
+  ```
+
+- **Distance Calculation**: Measures the Euclidean distance between two points. Used for proximity checks and collision detection.
+  ```c
+  float Vec2_Distance(Vec2 a, Vec2 b) {
+      float dx = b.x - a.x;
+      float dy = b.y - a.y;
+      return sqrtf(dx*dx + dy*dy);
+  }
+  ```
+
+- **Linear Interpolation (Lerp)**: Creates smooth transitions between two vectors. Used for camera movement, animations, and particle effects.
+  ```c
+  Vec2 Vec2_Lerp(Vec2 a, Vec2 b, float t) {
+      // Clamp t between 0 and 1
+      t = t < 0 ? 0 : (t > 1 ? 1 : t);
+      Vec2 result = {
+          a.x + (b.x - a.x) * t,
+          a.y + (b.y - a.y) * t
+      };
+      return result;
+  }
+  ```
 
 Located in `include/Core/vec2.h` and implemented in `src/Core/vec2.c`.
 
 ### Collision System {#collision_system}
-The collision system detects and resolves interactions between game objects:
+The collision system detects interactions between game objects using a layer-based filtering approach:
 
 ```c
 typedef struct {
-    Vec2 position;
-    Vec2 size;
-    // Additional properties
-} BoxCollider;
+    SDL_Rect hitbox;            // The hitbox of the collider
+    CollisionLayer layer;       // What layer this object belongs to
+    CollisionLayer collidesWith; // Bitmask of layers this can collide with
+    void* owner;                // Pointer back to the entity
+    bool active;                // Is this collidable active?
+} Collider;
 
 typedef struct {
-    Vec2 position;
-    float radius;
-    // Additional properties
-} CircleCollider;
+    Collider* objects[MAX_COLLISIONS_PER_CHECK]; // An array of detected colliders
+    int count;                                   // Number of collisions detected
+} ColliderCheckResult;
 ```
 
 Key algorithms include:
-- Box-box collision detection
-- Circle-circle collision detection
-- Box-circle collision detection
-- Ray casting
-- Swept collision testing
+
+- **Collider Registration**: Manages a centralized registry of active colliders for efficient collision checking.
+  ```c
+  void Collider_Register(Collider* collider, void* owner) {
+      if (ColliderCount >= MAX_COLLIDABLES) {
+          printf("Error: Maximum collidables reached\n");
+          return;
+      }
+
+      // Find first available slot
+      int id = 0;
+      while (id < MAX_COLLIDABLES) {
+          if (ColliderList[id] == NULL) break;
+          if (!ColliderList[id]->active) break;
+          id++;
+      }
+      collider->active = true;
+      collider->owner = owner;
+      ColliderList[id] = collider;
+      if (id >= ColliderCount) ColliderCount = id + 1;
+  }
+  ```
+
+- **Layer-Based Collision Detection**: Uses bitmasks to efficiently filter which types of objects can collide with each other.
+  ```c
+  bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
+      if (!collider->active) return false;
+      
+      bool selfFound = false;
+      if (checkResult != NULL) {
+          checkResult->count = 0;
+      }
+
+      // Check against all other collidables
+      for (int i = 0; i < ColliderCount; i++) {
+          if (ColliderList[i] == collider) {
+              selfFound = true;
+              continue;
+          } // Skip input collider
+          if (checkResult != NULL && checkResult->count >= MAX_COLLISIONS_PER_CHECK) continue;
+          if (!ColliderList[i]->active) continue; // Skip inactive colliders
+          
+          // Bitwise AND to check if the layers match for collision
+          if ((collider->collidesWith & ColliderList[i]->layer) == 0) continue;
+          
+          // Perform actual rectangle intersection check
+          if (SDL_HasIntersection(&collider->hitbox, &ColliderList[i]->hitbox)) {
+              if (checkResult == NULL) return true;
+              checkResult->objects[checkResult->count++] = ColliderList[i];
+          }
+      }
+      
+      if (!selfFound) {
+          SDL_Log("Warning: Collider object not found in registry\n");
+          return false;
+      }
+      
+      return checkResult != NULL && checkResult->count > 0;
+  }
+  ```
+
+- **Collision Management Workflow**: The typical workflow for using the collision system involves:
+  1. Creating a collider with appropriate layers
+  2. Registering it with the collision system
+  3. Updating its position during gameplay
+  4. Checking for collisions against other objects
+  5. Taking appropriate action based on collision results
+
+  ```c
+  // Example usage in player code:
+  
+  // 1. Create a collider (typically done once during initialization)
+  Collider playerCollider = {
+      .hitbox = {0, 0, 20, 20},
+      .layer = COLLISION_LAYER_PLAYER,
+      .collidesWith = COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY
+  };
+  
+  // 2. Register it (typically done once during initialization)
+  Collider_Register(&playerCollider, &player);
+  
+  // 3. Update position (done every frame)
+  playerCollider.hitbox.x = (int)(player.state.position.x - playerCollider.hitbox.w/2);
+  playerCollider.hitbox.y = (int)(player.state.position.y - playerCollider.hitbox.h/2);
+  
+  // 4. Check for collisions (done when needed)
+  ColliderCheckResult result;
+  if (Collider_Check(&playerCollider, &result)) {
+      // 5. Handle collisions
+      for (int i = 0; i < result.count; i++) {
+          Collider* other = result.objects[i];
+          
+          // Act based on collision layer
+          if (other->layer == COLLISION_LAYER_ENVIRONMENT) {
+              // Handle environment collision (e.g., stop movement)
+          } else if (other->layer == COLLISION_LAYER_ENEMY) {
+              // Handle enemy collision (e.g., take damage)
+          }
+      }
+  }
+  ```
+
+- **Collision Cleanup**: Manages the lifecycle of colliders, allowing them to be properly deactivated when no longer needed.
+  ```c
+  void Collider_Reset(Collider* collider) {
+      collider->active = false;
+      collider->owner = NULL;
+      collider->layer = COLLISION_LAYER_NONE;
+      collider->collidesWith = COLLISION_LAYER_NONE;
+  }
+  ```
 
 Located in `include/Core/colliders.h` and implemented in `src/Core/colliders.c`.
 
@@ -415,56 +566,442 @@ typedef struct {
     float currentLife;
     SDL_Color color;
     float size;
-    // Additional properties
+    float rotation;
+    float angularVelocity;
+    float drag;
+    SDL_Texture* texture;
 } Particle;
 
 typedef struct {
     Particle* particles;
     int maxParticles;
     int activeParticles;
-    // Emitter properties
+    Vec2 position;
+    Vec2 emissionDirection;
+    float emissionAngle;
+    float emissionRate;
+    float emissionTimer;
+    ParticleMovementPattern movementPattern;
+    ParticleEmitterPreset preset;
+    bool isActive;
 } ParticleEmitter;
 ```
 
 Key algorithms include:
-- Particle emission patterns (burst, stream, etc.)
-- Particle movement and physics
-- Particle lifetime management
-- Color and size interpolation
+
+- **Particle Emission**: Controls how particles are spawned, including patterns like burst, continuous streams, or shaped emissions.
+  ```c
+  void Particle_Emit(ParticleEmitter* emitter, int count, Vec2 position) {
+      for (int i = 0; i < count; i++) {
+          if (emitter->activeParticles >= emitter->maxParticles) {
+              break;
+          }
+          
+          // Find an inactive particle slot
+          int index = -1;
+          for (int j = 0; j < emitter->maxParticles; j++) {
+              if (emitter->particles[j].currentLife <= 0) {
+                  index = j;
+                  break;
+              }
+          }
+          
+          if (index == -1) continue;
+          
+          // Initialize particle with random variations based on emitter properties
+          Particle* p = &emitter->particles[index];
+          p->position = position;
+          
+          // Calculate emission angle with randomness
+          float angle = emitter->emissionDirection + 
+                        (Random_Float(-emitter->emissionAngle, emitter->emissionAngle) * 0.5f);
+          
+          float speed = Random_Float(emitter->minSpeed, emitter->maxSpeed);
+          p->velocity.x = cosf(angle) * speed;
+          p->velocity.y = sinf(angle) * speed;
+          
+          // Set other particle properties with randomness
+          p->lifetime = Random_Float(emitter->minLifetime, emitter->maxLifetime);
+          p->currentLife = p->lifetime;
+          // ...more initialization...
+          
+          emitter->activeParticles++;
+      }
+  }
+  ```
+
+- **Particle Movement Patterns**: Implements different movement behaviors like linear, spiral, gravitational, or targeted movement.
+  ```c
+  void Particle_UpdateMovement(Particle* particle, ParticleMovementPattern pattern) {
+      switch (pattern) {
+          case PATTERN_LINEAR:
+              // Simple linear movement with drag
+              particle->velocity.x *= (1.0f - particle->drag * Time->deltaTimeSeconds);
+              particle->velocity.y *= (1.0f - particle->drag * Time->deltaTimeSeconds);
+              particle->position = Vec2_Add(particle->position, 
+                  Vec2_Scale(particle->velocity, Time->deltaTimeSeconds));
+              break;
+              
+          case PATTERN_SPIRAL:
+              // Spiral movement pattern
+              float angle = atan2f(particle->velocity.y, particle->velocity.x);
+              angle += particle->angularVelocity * Time->deltaTimeSeconds;
+              float speed = Vec2_Magnitude(particle->velocity);
+              particle->velocity.x = cosf(angle) * speed;
+              particle->velocity.y = sinf(angle) * speed;
+              particle->position = Vec2_Add(particle->position, 
+                  Vec2_Scale(particle->velocity, Time->deltaTimeSeconds));
+              break;
+              
+          // ...other patterns...
+      }
+  }
+  ```
+
+- **Particle Lifecycle Management**: Handles particle creation, updating, and removal based on lifetime.
+  ```c
+  void Particle_Update(ParticleEmitter* emitter) {
+      // Emit new particles based on emission rate
+      emitter->emissionTimer += Time->deltaTimeSeconds;
+      if (emitter->isActive && emitter->emissionTimer >= 1.0f / emitter->emissionRate) {
+          emitter->emissionTimer = 0;
+          Particle_Emit(emitter, 1, emitter->position);
+      }
+      
+      // Update existing particles
+      int activeCount = 0;
+      for (int i = 0; i < emitter->maxParticles; i++) {
+          Particle* p = &emitter->particles[i];
+          
+          if (p->currentLife <= 0) continue;
+          
+          // Decrease lifetime
+          p->currentLife -= Time->deltaTimeSeconds;
+          if (p->currentLife <= 0) {
+              continue;  // Particle is now inactive
+          }
+          
+          // Update movement
+          Particle_UpdateMovement(p, emitter->movementPattern);
+          
+          // Update other properties like color, size, rotation
+          float lifeRatio = p->currentLife / p->lifetime;
+          p->size = Lerp(p->endSize, p->startSize, lifeRatio);
+          p->rotation += p->angularVelocity * Time->deltaTimeSeconds;
+          
+          // Color interpolation from start to end color
+          p->color.r = Lerp(p->endColor.r, p->startColor.r, lifeRatio);
+          p->color.g = Lerp(p->endColor.g, p->startColor.g, lifeRatio);
+          p->color.b = Lerp(p->endColor.b, p->startColor.b, lifeRatio);
+          p->color.a = Lerp(p->endColor.a, p->startColor.a, lifeRatio);
+          
+          activeCount++;
+      }
+      
+      emitter->activeParticles = activeCount;
+  }
+  ```
+
+- **Particle Rendering**: Efficiently renders particles with various blending modes and visual effects.
+  ```c
+  void Particle_Render(ParticleEmitter* emitter) {
+      for (int i = 0; i < emitter->maxParticles; i++) {
+          Particle* p = &emitter->particles[i];
+          
+          if (p->currentLife <= 0) continue;
+          
+          // Convert world coordinates to screen coordinates
+          Vec2 screenPos = Camera_WorldVecToScreen(p->position);
+          
+          // Set color with alpha blending
+          SDL_SetTextureColorMod(p->texture, p->color.r, p->color.g, p->color.b);
+          SDL_SetTextureAlphaMod(p->texture, p->color.a);
+          
+          // Create destination rectangle
+          SDL_Rect destRect = {
+              (int)(screenPos.x - p->size / 2),
+              (int)(screenPos.y - p->size / 2),
+              (int)p->size,
+              (int)p->size
+          };
+          
+          // Render with rotation if needed
+          if (p->rotation != 0) {
+              SDL_RenderCopyEx(
+                  app.resources.renderer,
+                  p->texture,
+                  NULL,
+                  &destRect,
+                  p->rotation * (180.0f / M_PI),  // Convert radians to degrees
+                  NULL,
+                  SDL_FLIP_NONE
+              );
+          } else {
+              SDL_RenderCopy(app.resources.renderer, p->texture, NULL, &destRect);
+          }
+      }
+  }
+  ```
 
 Located in `include/Utilities/Particles/particle.h` and implemented in `src/Utilities/Particles/particle.c`.
 
 ### Map Generation {#map_generation}
-The map system manages the game environment and procedural generation:
+The map system manages the game environment using a three-tiered hierarchical structure: maps, chunks, and tiles.
+
+#### Map-Chunk-Tile Hierarchy
+The map is divided into chunks, and each chunk is further divided into tiles. This hierarchical structure allows for efficient management and rendering of the game environment.
+
+- **Map**: The entire game world, consisting of multiple chunks.
+- **Chunk**: A section of the map, containing a grid of tiles.
+- **Tile**: The smallest unit of the map, representing a single piece of the environment.
 
 ```c
 typedef struct {
     int type;
     bool collidable;
-    // Tile properties
+    SDL_Texture* texture;
+    int variation;
+    bool explored;
 } Tile;
 
 typedef struct {
     Tile** tiles;
     int width;
     int height;
-    // Chunk properties
+    Vec2 position;
+    bool isRoom;
+    RoomType roomType;
+    int colliderCount;
+    Collider** colliders;
 } MapChunk;
 
 typedef struct {
     MapChunk** chunks;
     int chunkWidth;
     int chunkHeight;
-    // Map properties
+    int chunkSize;
+    Vec2 startPos;
+    Vec2 endPos;
+    Vec2* mainPath;
+    int mainPathLength;
+    int currentChunkX;
+    int currentChunkY;
 } EnvironmentMap;
 ```
 
-Key algorithms include:
-- Procedural map generation
-- Room and corridor placement
-- Tile-based collision detection
-- Map rendering optimization
-- Pathfinding (A* algorithm)
+#### Procedural Map Generation
+The map generation process creates randomized but cohesive game levels using a combination of techniques.
+
+1. **Reset Existing Map Data**: Clears any existing map data to start fresh.
+2. **Place Starter Room**: Places the starter room in a fixed location, typically the center of the map.
+3. **Create Main Path**: Uses a directed random walk to create the main path from the start room to the end room.
+4. **Place End Room**: Places the end room at the furthest point on the main path.
+5. **Fill in Side Paths and Additional Rooms**: Adds side paths and additional rooms to create a more complex map.
+6. **Add Detail to Each Chunk**: Adds details to each chunk based on its type.
+7. **Place Colliders**: Places colliders for walls and obstacles.
+8. **Add Decorative Elements**: Adds decorative elements to enhance the visual appeal of the map.
+
+```c
+void Map_Generate() {
+    // 1. Reset existing map data
+    Map_Reset();
+    
+    // 2. Place starter room in a fixed location (e.g., center)
+    int startX = MAP_WIDTH / 2;
+    int startY = MAP_HEIGHT / 2;
+    Map_SetStartChunk(startX, startY);
+    
+    // 3. Create main path using directed random walk
+    Map_CreateMainPath();
+    
+    // 4. Place end room at the furthest point on the main path
+    Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength-1].x, 
+                    testMap.mainPath[testMap.mainPathLength-1].y);
+    
+    // 5. Fill in side paths and additional rooms
+    Map_CreateSidePaths();
+    
+    // 6. Add detail to each chunk based on its type
+    for (int y = 0; y < testMap.chunkHeight; y++) {
+        for (int x = 0; x < testMap.chunkWidth; x++) {
+            if (testMap.chunks[y][x] != NULL) {
+                Chunk_GenerateDetails(testMap.chunks[y][x]);
+            }
+        }
+    }
+    
+    // 7. Place colliders for walls and obstacles
+    Map_PlaceColliders();
+    
+    // 8. Add decorative elements
+    Map_AddDecorations();
+}
+```
+
+#### Path Randomization
+The path randomization algorithm creates a randomized but navigable path through the map.
+
+1. **Initialize Open and Closed Sets**: Initializes the open and closed sets for the A* algorithm.
+2. **Create Start Node**: Creates the start node and adds it to the open set.
+3. **A* Algorithm Main Loop**: Uses the A* algorithm to find the path from the start node to the end node.
+4. **Reconstruct Path**: Reconstructs the path from the end node to the start node.
+5. **Free Memory**: Frees the memory used by the open and closed sets.
+
+```c
+typedef struct {
+    int x, y;
+    float g; // Cost from start
+    float h; // Heuristic (estimated cost to goal)
+    float f; // Total cost (g + h)
+    struct PathNode* parent;
+} PathNode;
+
+Vec2* Map_FindPath(Vec2 start, Vec2 goal, int* pathLength) {
+    // Convert world positions to tile coordinates
+    int startX = (int)(start.x / TILE_SIZE);
+    int startY = (int)(start.y / TILE_SIZE);
+    int goalX = (int)(goal.x / TILE_SIZE);
+    int goalY = (int)(goal.y / TILE_SIZE);
+    
+    // Initialize open and closed sets
+    PathNode* openSet[MAX_PATH_NODES];
+    int openCount = 0;
+    PathNode* closedSet[MAX_PATH_NODES];
+    int closedCount = 0;
+    
+    // Create start node
+    PathNode* startNode = malloc(sizeof(PathNode));
+    startNode->x = startX;
+    startNode->y = startY;
+    startNode->g = 0;
+    startNode->h = Vec2_Distance((Vec2){startX, startY}, (Vec2){goalX, goalY});
+    startNode->f = startNode->g + startNode->h;
+    startNode->parent = NULL;
+    
+    // Add start node to open set
+    openSet[openCount++] = startNode;
+    
+    // A* algorithm main loop
+    while (openCount > 0) {
+        // Find node with lowest f cost
+        int currentIndex = 0;
+        for (int i = 1; i < openCount; i++) {
+            if (openSet[i]->f < openSet[currentIndex]->f) {
+                currentIndex = i;
+            }
+        }
+        
+        // Get current node
+        PathNode* current = openSet[currentIndex];
+        
+        // Remove current from open set
+        openSet[currentIndex] = openSet[--openCount];
+        
+        // Add current to closed set
+        closedSet[closedCount++] = current;
+        
+        // Check if reached goal
+        if (current->x == goalX && current->y == goalY) {
+            // Reconstruct path
+            int count = 0;
+            PathNode* node = current;
+            while (node != NULL) {
+                count++;
+                node = node->parent;
+            }
+            
+            Vec2* path = malloc(sizeof(Vec2) * count);
+            *pathLength = count;
+            
+            node = current;
+            for (int i = count - 1; i >= 0; i--) {
+                path[i] = (Vec2){node->x * TILE_SIZE + TILE_SIZE/2, 
+                                 node->y * TILE_SIZE + TILE_SIZE/2};
+                node = node->parent;
+            }
+            
+            // Free memory
+            for (int i = 0; i < closedCount; i++) {
+                free(closedSet[i]);
+            }
+            for (int i = 0; i < openCount; i++) {
+                free(openSet[i]);
+            }
+            
+            return path;
+        }
+        
+        // Check neighbors
+        for (int y = -1; y <= 1; y++) {
+            for (int x = -1; x <= 1; x++) {
+                // Skip center (current node)
+                if (x == 0 && y == 0) continue;
+                
+                // Skip diagonals
+                if (abs(x) + abs(y) > 1) continue;
+                
+                int neighborX = current->x + x;
+                int neighborY = current->y + y;
+                
+                // Check if neighbor is valid
+                if (!Map_IsTileWalkable(neighborX, neighborY)) continue;
+                
+                // Check if neighbor is in closed set
+                bool inClosed = false;
+                for (int i = 0; i < closedCount; i++) {
+                    if (closedSet[i]->x == neighborX && closedSet[i]->y == neighborY) {
+                        inClosed = true;
+                        break;
+                    }
+                }
+                if (inClosed) continue;
+                
+                // Calculate g cost
+                float g = current->g + 1.0f;
+                
+                // Check if neighbor is in open set
+                bool inOpen = false;
+                PathNode* neighborNode = NULL;
+                for (int i = 0; i < openCount; i++) {
+                    if (openSet[i]->x == neighborX && openSet[i]->y == neighborY) {
+                        inOpen = true;
+                        neighborNode = openSet[i];
+                        break;
+                    }
+                }
+                
+                if (inOpen) {
+                    // If new path is better, update it
+                    if (g < neighborNode->g) {
+                        neighborNode->g = g;
+                        neighborNode->f = g + neighborNode->h;
+                        neighborNode->parent = current;
+                    }
+                } else {
+                    // Create new node
+                    neighborNode = malloc(sizeof(PathNode));
+                    neighborNode->x = neighborX;
+                    neighborNode->y = neighborY;
+                    neighborNode->g = g;
+                    neighborNode->h = Vec2_Distance(
+                        (Vec2){neighborX, neighborY}, 
+                        (Vec2){goalX, goalY}
+                    );
+                    neighborNode->f = g + neighborNode->h;
+                    neighborNode->parent = current;
+                    
+                    // Add to open set
+                    openSet[openCount++] = neighborNode;
+                }
+            }
+        }
+    }
+    
+    // No path found
+    *pathLength = 0;
+    return NULL;
+}
+```
 
 Located in `include/Game/Environment/maps.h` and implemented in `src/Game/Environment/maps.c`.
 
@@ -479,15 +1016,224 @@ typedef struct {
     float frameDuration;
     float timer;
     bool loop;
-    // Animation properties
+    bool finished;
+    SDL_RendererFlip flip;
+    float rotation;
+    Vec2 pivot;
 } Animation;
+
+typedef struct {
+    Animation* idle;
+    Animation* walking;
+    Animation* dash;
+    Animation* attack;
+    Animation* hit;
+    Animation* death;
+    Animation* current;
+} AnimationData;
 ```
 
 Key algorithms include:
-- Frame-based animation playback
-- Animation timing and control
-- Sprite sheet management
-- Animation blending and transitions
+
+- **Frame-based Animation Playback**: Updates and renders animations based on timing and state.
+  ```c
+  void Animation_Update(Animation* animation) {
+      if (animation == NULL || animation->frameCount <= 0) return;
+      
+      // Increment timer by delta time
+      animation->timer += Time->deltaTimeSeconds;
+      
+      // Check if it's time to advance to the next frame
+      if (animation->timer >= animation->frameDuration) {
+          // Reset timer (handle remainder for consistent timing)
+          animation->timer -= animation->frameDuration;
+          
+          // Increment frame
+          animation->currentFrame++;
+          
+          // Handle looping or completion
+          if (animation->currentFrame >= animation->frameCount) {
+              if (animation->loop) {
+                  animation->currentFrame = 0;
+              } else {
+                  animation->currentFrame = animation->frameCount - 1;
+                  animation->finished = true;
+              }
+          }
+      }
+  }
+  
+  void Animation_Render(Animation* animation, Vec2 position, Vec2 size) {
+      if (animation == NULL || animation->frameCount <= 0) return;
+      
+      // Get current frame rectangle
+      SDL_Rect srcRect = animation->frames[animation->currentFrame];
+      
+      // Convert world position to screen position
+      Vec2 screenPos = Camera_WorldVecToScreen(position);
+      
+      // Create destination rectangle
+      SDL_Rect dstRect = {
+          (int)(screenPos.x - size.x / 2),
+          (int)(screenPos.y - size.y / 2),
+          (int)size.x,
+          (int)size.y
+      };
+      
+      // Render with rotation and flip if needed
+      if (animation->rotation != 0) {
+          SDL_Point pivot = {
+              (int)(animation->pivot.x * size.x),
+              (int)(animation->pivot.y * size.y)
+          };
+          
+          SDL_RenderCopyEx(
+              app.resources.renderer,
+              animation->texture,
+              &srcRect,
+              &dstRect,
+              animation->rotation,
+              &pivot,
+              animation->flip
+          );
+      } else {
+          SDL_RenderCopyEx(
+              app.resources.renderer,
+              animation->texture,
+              &srcRect,
+              &dstRect,
+              0,
+              NULL,
+              animation->flip
+          );
+      }
+  }
+  ```
+
+- **Animation State Machine**: Manages transitions between different animation states.
+  ```c
+  void Animation_ChangeState(AnimationData* animData, Animation* newAnimation) {
+      if (animData->current == newAnimation) return;
+      
+      // Reset the current animation if it exists
+      if (animData->current != NULL) {
+          animData->current->currentFrame = 0;
+          animData->current->timer = 0;
+          animData->current->finished = false;
+      }
+      
+      // Set the new animation
+      animData->current = newAnimation;
+  }
+  
+  void Player_AnimationUpdate() {
+      // Determine which animation to play based on player state
+      if (player.state.dashing) {
+          Animation_ChangeState(&player.animData, player.animData.dash);
+      } else if (player.state.moving) {
+          Animation_ChangeState(&player.animData, player.animData.walking);
+      } else {
+          Animation_ChangeState(&player.animData, player.animData.idle);
+      }
+      
+      // Update and handle animation direction based on player facing
+      if (player.state.direction.x < 0) {
+          player.animData.current->flip = SDL_FLIP_HORIZONTAL;
+      } else if (player.state.direction.x > 0) {
+          player.animData.current->flip = SDL_FLIP_NONE;
+      }
+      
+      // Update the current animation
+      Animation_Update(player.animData.current);
+  }
+  ```
+
+- **Sprite Sheet Parsing**: Loads and divides sprite sheets into individual animation frames.
+  ```c
+  Animation* Animation_CreateFromSpritesheet(
+      SDL_Texture* texture, 
+      int frameWidth, 
+      int frameHeight, 
+      int startX, 
+      int startY, 
+      int frameCount, 
+      float frameDuration, 
+      bool loop
+  ) {
+      Animation* animation = malloc(sizeof(Animation));
+      if (animation == NULL) return NULL;
+      
+      // Initialize animation properties
+      animation->texture = texture;
+      animation->frameCount = frameCount;
+      animation->currentFrame = 0;
+      animation->frameDuration = frameDuration;
+      animation->timer = 0;
+      animation->loop = loop;
+      animation->finished = false;
+      animation->flip = SDL_FLIP_NONE;
+      animation->rotation = 0;
+      animation->pivot = (Vec2){0.5f, 0.5f};
+      
+      // Allocate memory for frames
+      animation->frames = malloc(sizeof(SDL_Rect) * frameCount);
+      if (animation->frames == NULL) {
+          free(animation);
+          return NULL;
+      }
+      
+      // Create frame rectangles
+      int textureWidth, textureHeight;
+      SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
+      
+      int framesPerRow = textureWidth / frameWidth;
+      
+      for (int i = 0; i < frameCount; i++) {
+          int x = startX + (i % framesPerRow) * frameWidth;
+          int y = startY + (i / framesPerRow) * frameHeight;
+          
+          animation->frames[i] = (SDL_Rect){x, y, frameWidth, frameHeight};
+      }
+      
+      return animation;
+  }
+  ```
+
+- **Animation Blending**: Provides smooth transitions between different animations.
+  ```c
+  void Animation_Blend(
+      Animation* from, 
+      Animation* to, 
+      float blendFactor, 
+      SDL_Texture* targetTexture
+  ) {
+      // Blend between two animations based on blend factor (0.0 to 1.0)
+      // Used for smooth transitions between states
+      
+      // Get current frames from both animations
+      SDL_Rect fromFrame = from->frames[from->currentFrame];
+      SDL_Rect toFrame = to->frames[to->currentFrame];
+      
+      // Set blend mode for both textures
+      SDL_SetTextureBlendMode(from->texture, SDL_BLENDMODE_BLEND);
+      SDL_SetTextureBlendMode(to->texture, SDL_BLENDMODE_BLEND);
+      
+      // Set alpha based on blend factor
+      SDL_SetTextureAlphaMod(from->texture, 255 * (1.0f - blendFactor));
+      SDL_SetTextureAlphaMod(to->texture, 255 * blendFactor);
+      
+      // Render both textures to target
+      SDL_SetRenderTarget(app.resources.renderer, targetTexture);
+      SDL_RenderClear(app.resources.renderer);
+      SDL_RenderCopy(app.resources.renderer, from->texture, &fromFrame, NULL);
+      SDL_RenderCopy(app.resources.renderer, to->texture, &toFrame, NULL);
+      SDL_SetRenderTarget(app.resources.renderer, NULL);
+      
+      // Reset alpha
+      SDL_SetTextureAlphaMod(from->texture, 255);
+      SDL_SetTextureAlphaMod(to->texture, 255);
+  }
+  ```
 
 Located in `include/Utilities/animation.h` and implemented in `src/Utilities/animation.c`.
 
