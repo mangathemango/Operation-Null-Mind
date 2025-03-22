@@ -1,3 +1,14 @@
+/**
+ * @file map_render.c
+ * @brief Handles rendering of the game map
+ *
+ * Manages the drawing of map chunks, with optimizations for only
+ * rendering visible chunks and elements.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <maps.h>
 #include <app.h>
 

@@ -1,3 +1,14 @@
+/**
+ * @file player_skills.c
+ * @brief Implements player special abilities and skills
+ *
+ * Handles the activation, cooldown and effects of player skills
+ * such as dashing, special attacks, and other abilities.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 // Written by Mango and Darren on 05/03/2025
 
 #include <player.h>
@@ -7,7 +18,10 @@
 #include <camera.h>
 
 /**
- * @brief Initiates player dash movement if conditions are met
+ * @brief [Utility] Initiates player dash movement if conditions are met
+ * 
+ * Activates the dash ability if off cooldown and player has directional input.
+ * Plays dash sound effect and locks direction during dash.
  * 
  * @return int Status code (0 for success)
  */
@@ -26,9 +40,10 @@ int Player_Dash() {
 }
 
 /**
- * @brief Processes player dash state and effects
+ * @brief [Utility] Processes player dash state and effects
  * 
  * This is called every frame player.state.dashing is true.
+ * Updates dash particle effects and handles dash movement.
  * 
  * @return int Status code (0 for success)
  */

@@ -1,306 +1,780 @@
-\mainpage Operation Null Mind
+# Technical Documentation {#mainpage}
 
-\tableofcontents
+@tableofcontents
 
-\section controls Controls
-- WASD - Move character
-- Left click - Shoot
-- 1 2 3 4 5 - Switch weapons (for now)
-- Shift - Skill 1 (Dash)
+## Overview {#introduction}
+Operation Null Mind is a 2D top-down shooter with roguelike elements, developed in C utilizing the SDL2 framework. 
 
-\section running How to Run the Game
-If the zip file has a build foler, just click on build/Operation-Null-Mind.exe
+![Gameplay](gameplay.png){width=400px}
 
-\section about About the Codebase
-Most of everything (around 90%) inside the codebase is already pretty well documented. But generally, if you want to look around on how everything works, you should start on src/main.c (which contains the game loop), then everything inside include/app.h and the folder src/App/, then everything else inbetween.
+This comprehensive documentation aims to provide developers with a detailed understanding of the codebase architecture, including:
 
-\subsection structure Code Structure
-This project follows a modular structure to keep the code organized:
+- Project structural organization
+- Application execution flow and lifecycle
+- Critical global variables and state management
+- Core algorithms, data structures, and implementation details
 
-\code{.txt}
+This documentation is designed to facilitate efficient navigation and comprehension of the codebase for both new and experienced contributors to the project.
+
+## Navigating This Documentation {#navigation}
+This documentation is generated using Doxygen and offers several navigation methods:
+
+- **Table of Contents**: Navigate through this page through this table of contents
+
+![Table of Contents](table_of_contents.png){width=400px}
+
+- **[Class List](annotated.html)**: View a list of all the structs in the project
+
+![Class List](class_list.png){width=400px}
+
+- **[File List](files.html)**: View a list of all the files in the project
+
+![File List](file_list.png){width=400px}
+
+- **Search Function**: Use the search box in the upper right corner to find specific elements
+
+![Search Box](search_box.png){width=400px}
+
+**Note**: The "All" search option in Doxygen is not really good. You may have to adjust the search categories like this.
+
+![Search Issues](search_issues.png){width=400px}
+
+- **[Index](index.html)**: View an alphabetical list of all the elements in the project
+
+![Index](index.png){width=400px}
+
+- **[Function Index](functions.html)**: View an alphabetical list of all the functions in the project
+
+![Function Index](function_index.png){width=400px}
+
+- **Breadcrumbs**: Use the breadcrumbs at the bottom of the page to navigate back to the main page
+
+![Breadcrumbs](breadcrumbs.png){width=400px}
+
+## Project Structure {#structure}
+The project is organized into several directories, each with a specific purpose:
+
+```
 /Assets         -> Contains images, sfx, music, ...
+                   • All game resources are stored here
+                   • Organized by resource type (images, sounds, fonts)
+                   • Assets are loaded at runtime by the respective systems
+
 /include        -> Contains header (.h) files
-    ...
+    /App        -> Application headers for game loop management
+    /Core       -> Core system headers (vectors, time, etc.)
+    /Game       -> Game mechanics headers (player, gun, etc.)
+    /Utilities  -> Helper utilities headers (animation, ...)
+
 /src            -> Contains source (.c) files
+                   • Implements functionality declared in the header files
+                   • Follows the same organizational structure as include/
+
     /App        -> Handles the main game loop
+                   • Implements the application lifecycle (start, update, render, quit)
+                   • Coordinates all other systems
+
     /Core       -> Core systems, like vectors, time, ...
+                   • Implementation of fundamental systems like input, physics, etc.
+                   • Used by virtually all other parts of the codebase
+
     /Game       -> Game mechanics, like player, gun, ...
+                   • Implementation of gameplay features
+                   • Depends on Core systems but is independent of App logic
+
     /Utilities  -> Helper utilities, like animation, ...
-    main.c      -> The entry point of the program.
-                   The program will start with this file.
-\endcode
+                   • Provides services to both Core and Game modules
 
-\subsection flow Understanding the Code Flow
-The game follows this general flow:
+    main.c      -> The entry point of the program
+                   • Contains (kinda) the main() function
+                   • Calls functions defined in App/ to run the game
+```
 
-1. **Initialization**: Set up SDL, load resources, initialize game state. This is done inside the App_Start() function.
-2. **Game Loop**: Process events, update game state, render graphics. This is done inside the App_PreUpdate(), App_Event_Handler(), App_PostUpdate(), and App_Render().
-3. **Cleanup**: Free resources and shut down the program. This is done inside the App_Quit().
+This modular organization follows a clear separation of concerns, making the codebase maintainable and extensible. The structure allows for:
 
-\section naming Function Naming Convention
-All of our functions are labelled with tags that indicate when they are called in the game lifecycle:
+1. **Clear dependencies**: Core systems don't depend on Game systems, avoiding circular dependencies
+2. **Modularity**: Systems can be modified or replaced without affecting unrelated components
+3. **Scalability**: New modules and features can be added by following the established patterns
+4. **Readability**: Developers can quickly locate code by understanding its category
 
-\subsection start [Start]
-These functions are called once at the start of the program, used for data initialization and the like. Every [Start] functions should be called somewhere inside app_start.c
+## Application Lifecycle {#lifecycle}
+The application lifecycle is managed by the `App` module, which coordinates the game loop and system initialization. The lifecycle consists of the following stages:
 
-**Example**: \c Player_Start() initializes the player's health, position, and abilities.
+### Initialization Stage [Start] {#init_stage}
+During initialization, all systems are set up and resources are loaded:
 
-\subsection preupdate [PreUpdate]
-These functions are called ***every frame*** before everything else. This is mainly functions used as a SETUP for the current frame, rather than handling the main logic. This includes resetting some booleans, positions, etc.
+1. **SDL Initialization**: SDL libraries (SDL2, SDL_image, SDL_ttf, etc.) are initialized
+2. **Resource Loading**: Game assets (textures, sounds, fonts) are loaded into memory
+3. **System Initialization**: Core systems like input, time, camera, and collision are set up
+4. **Game State Setup**: Initial game state, player, maps, and other game objects are created
 
-**Example**: \c Input_PreUpdate() resets input states at the beginning of each frame.
+All initialization functions are called from `App_Start()` in `src/App/app_start.c`.
 
-\subsection eventhandler [Event_Handler]
-Event_Handler are called ***every frame*** whenever there's an event detected, like mouse click, key board press, etc.
+### Game Loop {#game_loop}
+Once initialized, the game enters its main loop which runs continuously until exit:
 
-**For beginners**: Think of events as signals that something happened (like a key press). The event handler catches these signals and updates our game accordingly.
+#### Pre-Update [PreUpdate] {#pre_update}
+Before processing the main game logic, the pre-update stage:
+- Resets frame-specific states
+- Updates timing information
+- Prepares the renderer for the new frame
 
-*Right now, App_Event_handler is only used to quit the program and update our Input struct inside Core/input.c. The Input struct tells you everything about what's going on with the keyboard and mouse - whether a button was just pressed/released, or whether it is being held. This allows for more flexible event handling - without having to pass the SDL_Event struct on all the functions that requires player input.*
+These operations are coordinated by `App_PreUpdate()` in `src/App/app_preupdate.c`.
 
-\subsection postupdate [PostUpdate]
-These functions are called every frame to handle the main logic of the frame - for example updating player's position, gun rotation, input handling, etc.
+#### Event Handling [Event_Handler] {#event_handling}
+Event handling processes all user inputs and system events:
+- Keyboard and mouse inputs are captured
+- Window events (resize, focus, etc.) are processed
+- Input state is updated for use in the main game logic
 
-**Example**: \c Player_PostUpdate() updates the player's position based on input and handles collisions.
+Event handling is managed by `App_Event_Handler()` in `src/App/app_event_handler.c`.
 
-\subsection render [Render]
-Well, those functions are called every frame just to render stuff. Quite simple.
+#### Post-Update [PostUpdate] {#post_update}
+The post-update stage contains the main game logic:
+- Player movement and actions
+- Enemy AI and behavior
+- Physics and collision detection
+- Game state updates
 
-**Example**: \c Player_Render() draws the player character at its current position.
+These operations are orchestrated by `App_PostUpdate()` in `src/App/app_postupdate.c`.
 
-\subsection quit [Quit]
-And these functions, well, is called at the end of the program. This mostly includes functions that free up memory of something (though we havent worked on that yet)
+#### Rendering [Render] {#rendering}
+After all game logic is processed, the rendering stage:
+- Clears the screen
+- Renders the game world (map, entities, effects)
+- Draws the UI
+- Presents the final frame to the display
 
-**For beginners**: In C, you need to manually free memory that you've allocated. These functions make sure we don't have memory leaks.
+Rendering is managed by `App_Render()` in `src/App/app_render.c`.
 
-\subsection utilities [Utilities]
-These functions are called basically anywhere - and acts as a helper function for other functions.
+### Shutdown Stage [Quit] {#shutdown_stage}
+When the game exits, cleanup operations free resources and shut down systems:
+- Unload assets from memory
+- Close file handles
+- Free allocated memory
+- Shut down SDL and other libraries
 
-**Example**: \c Vec2_Distance() calculates the distance between two points.
+Cleanup is handled by `App_Quit()` in `src/App/app_quit.c`.
 
-\subsection conditional [?]
-Some tags have this ? thing (like [PostUpdate?]), which says that they are called every frame only if a certain condition are met.
+## Key Global Variables {#global_vars}
+Operation Null Mind uses several global variables to maintain state across the application. These variables are declared as `extern` in header files and defined in their respective source files.
 
-\section modules Key Modules Overview
-This section provides an overview of the main modules that make up the game. Understanding these key components will help you navigate the codebase more effectively.
+### AppData {#app_data}
+The central application data structure that holds the game's current state:
 
-\subsection app App Module
-The App module is the core orchestrator of the game. It manages the game lifecycle and ties all other modules together.
-
-**Key Files:**
-
-- \c include/App/app.h - Main application header defining the AppData structure and function prototypes
-- \c src/App/app_start.c - Initialization logic that runs once at startup
-- \c src/App/app_preupdate.c - Frame setup logic that runs before processing game logic
-- \c src/App/app_event_handler.c - Handles SDL events like keyboard/mouse input
-- \c src/App/app_postupdate.c - Main game logic that runs each frame
-- \c src/App/app_render.c - Rendering logic that draws everything to the screen
-- \c src/App/app_quit.c - Cleanup logic that runs when the game exits
-
-**For Beginners:**
-The App module is like the conductor of an orchestra - it doesn't make music itself, but it coordinates all the other modules to work together.
-
-\subsection core Core Modules
-Core modules provide fundamental functionality that the rest of the game relies on. They handle basic operations like math, input, and rendering.
-
-**Key Components:**
-
-1. **Vector System** (\c include/Core/vec2.h, \c src/Core/vec2.c)
-
-   - Provides 2D vector operations like addition, subtraction, normalization
-   - Used for positions, movement, and direction calculations
-   - Example: \c Vec2_Add() combines two vectors, useful for adding velocity to position
-2. **Input System** (\c include/Core/input.h, \c src/Core/input.c)
-
-   - Tracks keyboard and mouse state
-   - Distinguishes between keys just pressed, held down, or just released
-   - Example: \c Input->mouse.leftButton.pressed is true on the first frame the left mouse button is pressed
-3. **Time System** (\c include/Core/time.h, \c src/Core/time.c)
-
-   - Manages game timing, delta time, and frame rate
-   - Ensures consistent game speed regardless of frame rate
-   - Example: \c Time->deltaTimeSeconds returns the time elapsed since the last frame
-4. **Camera System** (\c include/Core/camera.h, \c src/Core/camera.c)
-
-   - Handles viewport and screen-to-world coordinate transformations
-   - Manages camera movement, zoom, and following objects
-   - Example: \c Camera_WorldToScreen() converts world coordinates to screen coordinates
-5. **Colliders System** (\c include/Core/colliders.h, \c src/Core/colliders.c)
-
-   - Provides collision detection between game entities
-   - Supports different collider shapes (rectangles, circles)
-   - Example: \c Collider_CheckRectRect() tests if two rectangle colliders intersect
-6. **Sound System** (\c include/Core/sound.h, \c src/Core/sound.c)
-
-   - Manages audio playback for music and sound effects
-   - Handles loading, playing, and stopping audio files
-   - Example: \c Sound_PlaySFX() plays a sound effect with optional volume control
-7. **UI System** (\c include/Core/UI/UI_text.h, \c src/Core/UI/UI_text.c)
-
-   - Manages user interface elements like text, buttons, and menus
-   - Provides functions for rendering text with different fonts
-   - Example: \c UI_RenderText() draws text at a specified position on screen
-
-**For Beginners:**
-Think of Core modules as the fundamental tools that every other part of the game uses - like the hammer, nails, and measuring tape that carpenters use to build a house.
-
-\subsection game Game Modules
-Game modules implement the actual gameplay mechanics, entities, and rules.
-
-**Key Components:**
-
-1. **Player System** (\c include/Game/player.h, \c src/Game/player.c)
-
-   - Manages the player character's state, movement, and abilities
-   - Handles player input and collision with the environment
-   - Example: \c Player_InputHandler() processes movement based on input each frame
-2. **Gun System** (\c include/Game/gun.h, \c src/Game/gun.c)
-
-   - Defines guns and their properties
-   - Manages shooting mechanics, ammunition, and reloading (Though this is not implemented yet)
-3. **Environment System** (\c include/Game/Environment/maps.h, \c src/Game/Environment/maps.c)
-
-   - Defines game map generation
-   - Maps are created from multiple chunks, each of which are created from multiple tiles.
-
-**For Beginners:**
-Game modules are where the actual gameplay happens - they use the Core modules as tools to create the game experience. If Core modules are like words, Game modules are the sentences and paragraphs that tell a story.
-
-\subsection util Utilities
-Utility modules provide helper functionality that doesn't fit neatly into the other categories.
-
-**Key Components:**
-
-1. **Animation System** (\c include/Utilities/animation.h, \c src/Utilities/animation.c)
-
-   - Manages sprite animations and transitions
-   - Tracks animation frames and timing
-   - Example: \c Animation_Create() is used to create an animation, and \c Animation_Render is used to render it.
-2. **Particle System** (\c include/Utilities/Particles/*.h, \c src/Utilities/Particles/*.c)
-
-   - Provides visual effects like explosions, smoke, bullets, etc.
-   - Includes particle emitters, movement patterns, and presets
-   - Example: \c Particles_CreateEmitterFromPreset() generates a new particle emitter based on a particle emitter preset.
-3. **Debug Utilities** (\c include/Utilities/debug.h, \c src/Utilities/debug.c)
-
-   - Tools for debugging and diagnostics
-   - Includes functions for logging, drawing debug shapes, etc.
-   - Example: \c Debug_RenderHitboxes() draws hitboxes on the screen for debugging.
-4. **SDL Initialization** (\c include/Utilities/initialize_SDL.h, \c src/Utilities/initialize_SDL.c)
-
-   - Handles the setup and initialization of SDL libraries
-   - Centralizes error handling for SDL initialization
-   - Example: \c Initialize_SDL() sets up SDL, SDL_image, SDL_ttf, etc.
-5. **Random Number Generation** (\c include/Utilities/random.h, \c src/Utilities/random.c)
-
-   - Provides better random number generation than standard C functions
-   - Used for gameplay elements requiring randomness
-   - Example: \c Random_Float() generates a random floating point number in a range
-6. **Timer Utilities** (\c include/Utilities/timer.h, \c src/Utilities/timer.c)
-
-   - Manages gameplay timers for events, cooldowns, etc.
-   - Different from the core Time System which handles frame timing
-   - Example: \c Timer_Create() creates a new timer for tracking elapsed time
-
-**For Beginners:**
-Utility modules are like the toolbox that contains specialized tools for specific tasks - not used all the time but essential when you need them.
-
-\section concepts Key C Concepts Used in This Project
-
-\subsection pointers Pointers and Memory Management
-***Pointers are variables that store memory addresses***. In this codebase, you'll see them used extensively.
-
-For example, in the codebase, the logic to switch between guns looks something like this:
-
-\code{.c}
-GunData* currentGun = &Gun_Pistol;  
-\endcode
-
-With:
-
-- The currentGun variable being defined as a pointer to a GunData struct. Or in other words, it ***holds the address of a GunData struct***.
-- Afterwards, the value inside the currenGun variable is set to "The address of" (&) the Gun_Pistol variable.
-
-We use pointers to:
-
-1. Pass large structures efficiently (without copying them)
-2. Modify data across functions
-3. Create dynamic data structures
-
-\subsection structures Structures
-Structures group related variables under one name. This is the closest we can ever get to OOP in C. (We should have used C++)
-
-In the codebase, you will see that we spam this everywhere we can. This is to make sure that all of our variables are organized.
-
-\code{.c}
-// Inside include/Game/player.h
-
+```c
 typedef struct {
-    // Some other states...
-    GunData* currentGun;
-} PlayerState;
+    AppResources resources;  // Contains window, renderer, textures, fonts
+    AppState state;          // Contains running flag, fps, current scene
+    AppConfig config;        // Contains window settings and debug flags
+} AppData;
 
+extern AppData app;  // Global app instance
+```
+
+Located in `include/App/app.h` and defined in `src/App/app.c`. This is the central structure that manages the application state and resources.
+
+**Usage Examples:**
+```c
+// Change the game state
+app.state.currentScene = SCENE_PAUSE;
+
+// Check if the application is still running
+if (!app.state.running) {
+    // Handle exit condition
+}
+
+// Access the renderer for drawing
+SDL_RenderClear(app.resources.renderer);
+
+// Use the configured screen dimensions
+int width = app.config.screen_width;
+int height = app.config.screen_height;
+```
+
+### InputEvent {#input_data}
+Tracks all input device states for handling player interactions:
+
+```c
 typedef struct {
-    // Some other stuffs...
-    PlayerState state;
+    MouseState mouse;       // Contains position, motion, button states
+    KeyboardState keyboard; // Contains states for all keyboard keys
+} InputEvent;
+
+extern const InputEvent * const Input;  // Global input instance (read-only)
+```
+
+Located in `include/Core/input.h` and defined in `src/Core/input.c`. The Input system provides an interface for checking if keys/buttons are pressed, held, or released.
+
+**Usage Examples:**
+```c
+// Check if a key was just pressed this frame
+if (Input->keyboard.keys[SDL_SCANCODE_SPACE].pressed) {
+    Player_Jump();
+}
+
+// Check if a key is being held down
+if (Input->keyboard.keys[SDL_SCANCODE_W].held) {
+    Player_MoveForward();
+}
+
+// Check if a key was just released
+if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].released) {
+    TogglePauseMenu();
+}
+
+// Get current mouse position
+Vec2 mousePos = Input->mouse.position;
+
+// Check if left mouse button was just clicked
+if (Input->mouse.leftButton.pressed) {
+    Player_Shoot();
+}
+```
+
+### TimeSystem {#time_data}
+Manages timing information for frame-rate independence:
+
+```c
+typedef struct {
+    float deltaTimeSeconds;      // Time between frames in seconds
+    float timeScale;             // Scale factor for time
+    float scaledDeltaTimeSeconds; // Delta time multiplied by time scale
+    double programElapsedTimeSeconds; // Total time since program start
+    double previousTick;         // Previous frame tick value
+} TimeSystem;
+
+extern const TimeSystem * const Time;  // Global time instance (read-only)
+```
+
+Located in `include/Core/time_system.h` and defined in `src/Core/time_system.c`. The Time system is crucial for frame-rate independent movement and animations.
+
+**Usage Examples:**
+```c
+// Move an object with frame-rate independence
+object.position.x += object.velocity.x * Time->deltaTimeSeconds;
+object.position.y += object.velocity.y * Time->deltaTimeSeconds;
+
+// Update animation timer
+animation.timer += Time->deltaTimeSeconds;
+if (animation.timer >= animation.frameDuration) {
+    animation.currentFrame = (animation.currentFrame + 1) % animation.frameCount;
+    animation.timer = 0;
+}
+
+// Create a countdown timer
+float countdownRemaining = 10.0f - Time->programElapsedTimeSeconds;
+if (countdownRemaining <= 0) {
+    // Time's up!
+}
+
+// Use time scaling for slow-motion effect
+Time_SetTimeScale(0.5f); // Half speed
+// Movement and animations will now use scaledDeltaTimeSeconds automatically
+```
+
+### CameraSystem {#camera_data}
+Controls the game's view into the world:
+
+```c
+typedef struct {
+    Vec2 position;  // Camera position in world coordinates
+} CameraSystem;
+
+extern CameraSystem camera;  // Global camera instance
+```
+
+Located in `include/Core/camera.h` and defined in `src/Core/camera.c`. The Camera system provides coordinate conversion between world and screen space.
+
+**Usage Examples:**
+```c
+// Update camera to follow player
+camera.position = player.state.position;
+
+// Convert world position to screen position for rendering
+Vec2 worldPos = enemy.position;
+Vec2 screenPos = Camera_WorldVecToScreen(worldPos);
+SDL_Rect destRect = {screenPos.x, screenPos.y, enemy.width, enemy.height};
+SDL_RenderCopy(app.resources.renderer, enemy.texture, NULL, &destRect);
+
+// Convert screen position (e.g., mouse) to world position
+Vec2 mouseScreenPos = Input->mouse.position;
+Vec2 mouseWorldPos = Camera_ScreenVecToWorld(mouseScreenPos);
+
+// Check if an object is visible on screen
+SDL_Rect objectRect = {worldPos.x, worldPos.y, object.width, object.height};
+if (Camera_RectIsOnScreen(objectRect)) {
+    // Only render if visible
+    RenderObject(object);
+}
+```
+
+### PlayerData {#player_data}
+Contains all information about the player character:
+
+```c
+typedef struct {
+    PlayerState state;      // Position, direction, speed, equipped gun, etc.
+    PlayerStat stats;       // Walk speed, dash speed, dash duration, etc.
+    PlayerResources resources; // Particle emitters, timers, animations, etc.
+    AnimationData animData; // Animation data for the player
 } PlayerData;
-\endcode
 
-What's better, a struct variable can be declared as **extern** to act as global variables that are shared across the codebase.
+extern PlayerData player;  // Global player instance
+```
 
-\code{.c}
-// include/Game/player.h
-extern PlayerData player;
+Located in `include/Game/player.h` and defined in `src/Game/player.c`. The Player system manages the player character's state, movement, animations, and interactions.
 
-// include/App/app.h
-extern AppData app;
+## Key Algorithms and Data Structures {#algorithms}
 
-// include/Game/Environment/maps.h
-extern EnvironmentMap testMap;
+### Vector System {#vector_system}
+The vector system provides 2D vector operations essential for game physics and positioning:
 
-// And many more!
-\endcode
+```c
+typedef struct {
+    float x;
+    float y;
+} Vec2;
+```
 
-\section installation How to Install & Compile for Windows
+Key algorithms include:
 
-\subsection clone Step 1: Clone repository
-You can either go File -> Download .zip to download the repository. Otherwise if you have Git, you can enter this command:
-\code{.bash}
-git clone https://github.com/mangathemango/Operation-Null-Mind/
-\endcode
+- **Vector Addition/Subtraction**: Combines vectors component-wise. Used extensively for physics calculations such as applying velocity to position.
+  ```c
+  Vec2 Vec2_Add(Vec2 a, Vec2 b) {
+      Vec2 result = { a.x + b.x, a.y + b.y };
+      return result;
+  }
+  ```
 
-\subsection dependencies Step 2: Install cmake and MingW
-These should be available with a Google search. Afterwards, you can run \c cmake --version and \c gcc --version to verify.
+- **Normalization**: Converts a vector to a unit vector (length of 1) while preserving direction. Critical for directional calculations like aiming and movement.
+  ```c
+  Vec2 Vec2_Normalize(Vec2 v) {
+      float magnitude = Vec2_Magnitude(v);
+      if (magnitude > 0) {
+          Vec2 result = { v.x / magnitude, v.y / magnitude };
+          return result;
+      }
+      return v;  // Avoid division by zero
+  }
+  ```
 
-**Note**:
+- **Dot Product**: Calculates the scalar product of two vectors, used for angle calculations and projection.
+  ```c
+  float Vec2_Dot(Vec2 a, Vec2 b) {
+      return a.x * b.x + a.y * b.y;
+  }
+  ```
 
-**For beginners**:
+- **Distance Calculation**: Measures the Euclidean distance between two points. Used for proximity checks and collision detection.
+  ```c
+  float Vec2_Distance(Vec2 a, Vec2 b) {
+      float dx = b.x - a.x;
+      float dy = b.y - a.y;
+      return sqrtf(dx*dx + dy*dy);
+  }
+  ```
 
-- **CMake** is a build system generator that creates build files for your platform
-- **MinGW** provides a Windows version of the GCC compiler and necessary tools
+- **Linear Interpolation (Lerp)**: Creates smooth transitions between two vectors. Used for camera movement, animations, and particle effects.
+  ```c
+  Vec2 Vec2_Lerp(Vec2 a, Vec2 b, float t) {
+      // Clamp t between 0 and 1
+      t = t < 0 ? 0 : (t > 1 ? 1 : t);
+      Vec2 result = {
+          a.x + (b.x - a.x) * t,
+          a.y + (b.y - a.y) * t
+      };
+      return result;
+  }
+  ```
 
-\subsection build Step 3: Build, Compile and Run
-To build, there are 2 ways you can do this
+Located in `include/Core/vec2.h` and implemented in `src/Core/vec2.c`.
 
-If you have vscode, just \c Ctrl+Shift+B. It should all run fine.
+### Collision System {#collision_system}
+The collision system detects interactions between game objects using a layer-based filtering approach:
 
-Otherwise, you can run these 3 commands:
+```c
+typedef struct {
+    SDL_Rect hitbox;            // The hitbox of the collider
+    CollisionLayer layer;       // What layer this object belongs to
+    CollisionLayer collidesWith; // Bitmask of layers this can collide with
+    void* owner;                // Pointer back to the entity
+    bool active;                // Is this collidable active?
+} Collider;
 
-\code{.bash}
-cmake -S . -B build "MinGW Makefiles"
-cmake --build build
-\endcode
+typedef struct {
+    Collider* objects[MAX_COLLISIONS_PER_CHECK]; // An array of detected colliders
+    int count;                                   // Number of collisions detected
+} ColliderCheckResult;
+```
 
-Right now, the .exe file should be inside the \c build/ folder, which you can run straight away
+Key algorithms include:
 
-\code{.bash}
-./build/Operation-Null-Mind
-\endcode
+- **Collider Registration**: Manages a centralized registry of active colliders for efficient collision checking.
+  ```c
+  void Collider_Register(Collider* collider, void* owner) {
+      if (ColliderCount >= MAX_COLLIDABLES) {
+          printf("Error: Maximum collidables reached\n");
+          return;
+      }
 
-\subsection note Note
-Sometimes github does a weird thingy where the .c files turn into .C, which, automatically detects it as a C++ file instead of C @v@ goofy ah.
+      // Find first available slot
+      int id = 0;
+      while (id < MAX_COLLIDABLES) {
+          if (ColliderList[id] == NULL) break;
+          if (!ColliderList[id]->active) break;
+          id++;
+      }
+      collider->active = true;
+      collider->owner = owner;
+      ColliderList[id] = collider;
+      if (id >= ColliderCount) ColliderCount = id + 1;
+  }
+  ```
 
-In that case, you can enter this command into terminal:
+- **Layer-Based Collision Detection**: Uses bitmasks to efficiently filter which types of objects can collide with each other.
+  ```c
+  bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
+      if (!collider->active) return false;
+      
+      bool selfFound = false;
+      if (checkResult != NULL) {
+          checkResult->count = 0;
+      }
 
-\code{.powershell}
-Get-ChildItem -Path .\src -Filter *.C -Recurse | Rename-Item -NewName {$_.name -replace '\.C$','.c'}
-\endcode
+      // Check against all other collidables
+      for (int i = 0; i < ColliderCount; i++) {
+          if (ColliderList[i] == collider) {
+              selfFound = true;
+              continue;
+          } // Skip input collider
+          if (checkResult != NULL && checkResult->count >= MAX_COLLISIONS_PER_CHECK) continue;
+          if (!ColliderList[i]->active) continue; // Skip inactive colliders
+          
+          // Bitwise AND to check if the layers match for collision
+          if ((collider->collidesWith & ColliderList[i]->layer) == 0) continue;
+          
+          // Perform actual rectangle intersection check
+          if (SDL_HasIntersection(&collider->hitbox, &ColliderList[i]->hitbox)) {
+              if (checkResult == NULL) return true;
+              checkResult->objects[checkResult->count++] = ColliderList[i];
+          }
+      }
+      
+      if (!selfFound) {
+          SDL_Log("Warning: Collider object not found in registry\n");
+          return false;
+      }
+      
+      return checkResult != NULL && checkResult->count > 0;
+  }
+  ```
+
+- **Collision Management Workflow**: The typical workflow for using the collision system involves:
+  1. Creating a collider with appropriate layers
+  2. Registering it with the collision system
+  3. Updating its position during gameplay
+  4. Checking for collisions against other objects
+  5. Taking appropriate action based on collision results
+
+  ```c
+  // Example usage in player code:
+  
+  // 1. Create a collider (typically done once during initialization)
+  Collider playerCollider = {
+      .hitbox = {0, 0, 20, 20},
+      .layer = COLLISION_LAYER_PLAYER,
+      .collidesWith = COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY
+  };
+  
+  // 2. Register it (typically done once during initialization)
+  Collider_Register(&playerCollider, &player);
+  
+  // 3. Update position (done every frame)
+  playerCollider.hitbox.x = (int)(player.state.position.x - playerCollider.hitbox.w/2);
+  playerCollider.hitbox.y = (int)(player.state.position.y - playerCollider.hitbox.h/2);
+  
+  // 4. Check for collisions (done when needed)
+  ColliderCheckResult result;
+  if (Collider_Check(&playerCollider, &result)) {
+      // 5. Handle collisions
+      for (int i = 0; i < result.count; i++) {
+          Collider* other = result.objects[i];
+          
+          // Act based on collision layer
+          if (other->layer == COLLISION_LAYER_ENVIRONMENT) {
+              // Handle environment collision (e.g., stop movement)
+          } else if (other->layer == COLLISION_LAYER_ENEMY) {
+              // Handle enemy collision (e.g., take damage)
+          }
+      }
+  }
+  ```
+
+- **Collision Cleanup**: Manages the lifecycle of colliders, allowing them to be properly deactivated when no longer needed.
+  ```c
+  void Collider_Reset(Collider* collider) {
+      collider->active = false;
+      collider->owner = NULL;
+      collider->layer = COLLISION_LAYER_NONE;
+      collider->collidesWith = COLLISION_LAYER_NONE;
+  }
+  ```
+
+Located in `include/Core/colliders.h` and implemented in `src/Core/colliders.c`.
+
+### Particle System {#particle_system}
+The particle system creates visual effects like explosions, smoke, and bullet trails:
+
+```c
+typedef struct {
+    Vec2 position;
+    Vec2 velocity;
+    float lifetime;
+    float currentLife;
+    SDL_Color color;
+    float size;
+    float rotation;
+    float angularVelocity;
+    float drag;
+    SDL_Texture* texture;
+} Particle;
+
+typedef struct {
+    Particle* particles;
+    int maxParticles;
+    int activeParticles;
+    Vec2 position;
+    Vec2 emissionDirection;
+    float emissionAngle;
+    float emissionRate;
+    float emissionTimer;
+    ParticleMovementPattern movementPattern;
+    ParticleEmitterPreset preset;
+    bool isActive;
+} ParticleEmitter;
+```
+
+Key algorithms include:
+
+- **Particle Emission**: Controls how particles are spawned, including patterns like burst, continuous streams, or shaped emissions.
+  ```c
+  void Particle_Emit(ParticleEmitter* emitter, int count, Vec2 position) {
+      for (int i = 0; i < count; i++) {
+          if (emitter->activeParticles >= emitter->maxParticles) {
+              break;
+          }
+          
+          // Find an inactive particle slot
+          int index = -1;
+          for (int j = 0; j < emitter->maxParticles; j++) {
+              if (emitter->particles[j].currentLife <= 0) {
+                  index = j;
+                  break;
+              }
+          }
+          
+          if (index == -1) continue;
+          
+          // Initialize particle with random variations based on emitter properties
+          Particle* p = &emitter->particles[index];
+          p->position = position;
+          
+          // Calculate emission angle with randomness
+          float angle = emitter->emissionDirection + 
+                        (Random_Float(-emitter->emissionAngle, emitter->emissionAngle) * 0.5f);
+          
+          float speed = Random_Float(emitter->minSpeed, emitter->maxSpeed);
+          p->velocity.x = cosf(angle) * speed;
+          p->velocity.y = sinf(angle) * speed;
+          
+          // Set other particle properties with randomness
+          p->lifetime = Random_Float(emitter->minLifetime, emitter->maxLifetime);
+          p->currentLife = p->lifetime;
+          // ...more initialization...
+          
+          emitter->activeParticles++;
+      }
+  }
+  ```
+
+- **Particle Movement Patterns**: Implements different movement behaviors like linear, spiral, gravitational, or targeted movement.
+  ```c
+  void Particle_UpdateMovement(Particle* particle, ParticleMovementPattern pattern) {
+      switch (pattern) {
+          case PATTERN_LINEAR:
+              // Simple linear movement with drag
+              particle->velocity.x *= (1.0f - particle->drag * Time->deltaTimeSeconds);
+              particle->velocity.y *= (1.0f - particle->drag * Time->deltaTimeSeconds);
+              particle->position = Vec2_Add(particle->position, 
+                  Vec2_Scale(particle->velocity, Time->deltaTimeSeconds));
+              break;
+              
+          case PATTERN_SPIRAL:
+              // Spiral movement pattern
+              float angle = atan2f(particle->velocity.y, particle->velocity.x);
+              angle += particle->angularVelocity * Time->deltaTimeSeconds;
+              float speed = Vec2_Magnitude(particle->velocity);
+              particle->velocity.x = cosf(angle) * speed;
+              particle->velocity.y = sinf(angle) * speed;
+              particle->position = Vec2_Add(particle->position, 
+                  Vec2_Scale(particle->velocity, Time->deltaTimeSeconds));
+              break;
+              
+          // ...other patterns...
+      }
+  }
+  ```
+
+- **Particle Lifecycle Management**: Handles particle creation, updating, and removal based on lifetime.
+  ```c
+  void Particle_Update(ParticleEmitter* emitter) {
+      // Emit new particles based on emission rate
+      emitter->emissionTimer += Time->deltaTimeSeconds;
+      if (emitter->isActive && emitter->emissionTimer >= 1.0f / emitter->emissionRate) {
+          emitter->emissionTimer = 0;
+          Particle_Emit(emitter, 1, emitter->position);
+      }
+      
+      // Update existing particles
+      int activeCount = 0;
+      for (int i = 0; i < emitter->maxParticles; i++) {
+          Particle* p = &emitter->particles[i];
+          
+          if (p->currentLife <= 0) continue;
+          
+          // Decrease lifetime
+          p->currentLife -= Time->deltaTimeSeconds;
+          if (p->currentLife <= 0) {
+              continue;  // Particle is now inactive
+          }
+          
+          // Update movement
+          Particle_UpdateMovement(p, emitter->movementPattern);
+          
+          // Update other properties like color, size, rotation
+          float lifeRatio = p->currentLife / p->lifetime;
+          p->size = Lerp(p->endSize, p->startSize, lifeRatio);
+          p->rotation += p->angularVelocity * Time->deltaTimeSeconds;
+          
+          // Color interpolation from start to end color
+          p->color.r = Lerp(p->endColor.r, p->startColor.r, lifeRatio);
+          p->color.g = Lerp(p->endColor.g, p->startColor.g, lifeRatio);
+          p->color.b = Lerp(p->endColor.b, p->startColor.b, lifeRatio);
+          p->color.a = Lerp(p->endColor.a, p->startColor.a, lifeRatio);
+          
+          activeCount++;
+      }
+      
+      emitter->activeParticles = activeCount;
+  }
+  ```
+
+- **Particle Rendering**: Efficiently renders particles with various blending modes and visual effects.
+  ```c
+  void Particle_Render(ParticleEmitter* emitter) {
+      for (int i = 0; i < emitter->maxParticles; i++) {
+          Particle* p = &emitter->particles[i];
+          
+          if (p->currentLife <= 0) continue;
+          
+          // Convert world coordinates to screen coordinates
+          Vec2 screenPos = Camera_WorldVecToScreen(p->position);
+          
+          // Set color with alpha blending
+          SDL_SetTextureColorMod(p->texture, p->color.r, p->color.g, p->color.b);
+          SDL_SetTextureAlphaMod(p->texture, p->color.a);
+          
+          // Create destination rectangle
+          SDL_Rect destRect = {
+              (int)(screenPos.x - p->size / 2),
+              (int)(screenPos.y - p->size / 2),
+              (int)p->size,
+              (int)p->size
+          };
+          
+          // Render with rotation if needed
+          if (p->rotation != 0) {
+              SDL_RenderCopyEx(
+                  app.resources.renderer,
+                  p->texture,
+                  NULL,
+                  &destRect,
+                  p->rotation * (180.0f / M_PI),  // Convert radians to degrees
+                  NULL,
+                  SDL_FLIP_NONE
+              );
+          } else {
+              SDL_RenderCopy(app.resources.renderer, p->texture, NULL, &destRect);
+          }
+      }
+  }
+  ```
+
+Located in `include/Utilities/Particles/particle.h` and implemented in `src/Utilities/Particles/particle.c`.
+
+### Map Generation {#map_generation}
+The map system manages the game environment using a three-tiered hierarchical structure: maps, chunks, and tiles.
+
+#### Map-Chunk-Tile Hierarchy
+The map is divided into chunks, and each chunk is further divided into tiles. This hierarchical structure allows for efficient management and rendering of the game environment.
+
+- **Map**: The entire game world, consisting of multiple chunks.
+- **Chunk**: A section of the map, containing a grid of tiles.
+- **Tile**: The smallest unit of the map, representing a single piece of the environment.
+
+```c
+typedef struct {
+    int type;
+    bool collidable;
+    SDL_Texture* texture;
+    int variation;
+    bool explored;
+} Tile;
+
+typedef struct {
+    Tile** tiles;
+    int width;
+    int height;
+    Vec2 position;
+    bool isRoom;
+    RoomType roomType;
+    int colliderCount;
+    Collider** colliders;
+} MapChunk;
+
+typedef struct {
+    MapChunk** chunks;
+    int chunkWidth;
+    int chunkHeight;
+    int chunkSize;
+    Vec2 startPos;
+    Vec2 endPos;
+    Vec2* mainPath;
+    int mainPathLength;
+    int currentChunkX;
+    int currentChunkY;
+} EnvironmentMap;
+```
+
+hm to find the path from the start node to the end node.
+4. **Reconstruct Path**: Reconstructs the path fro#### Procedural Map Generation
+The map generation process creates randomized but cohesive game levels using a combination of techniques.
+
+1. **Reset Existing Map Data**: Clears any existing map data to start fresh.
+2. **Place Starter Room**: Places the starter room in a fixed location, typically the center of the map.
+3. **Create Main Path**: Uses a directed random walk to create the main path from the start room to the end room.
+4. **Place End Room**: Places the end room at the furthest point on the main path.
+5. **Fill in Side Paths and Additional Rooms**: Adds side paths and additional rooms to create a more complex map.
+6. **Add Detail to Each Chunk**: Adds details to each chunk based on its type.
+7. **Place Colliders**: Places colliders for walls and obstacles.
+
+
+## Conclusion {#conclusion}
+This documentation provides a high-level overview of Operation Null Mind's architecture and key components. For detailed information about specific functions and structures, please refer to the appropriate sections of this documentation or the inline comments in the source code.
+
+For developers new to the project, we recommend starting with the [Project Structure](#structure) section to understand the codebase organization, then exploring the [Application Lifecycle](#lifecycle) to understand the flow of execution. The [Key Algorithms and Data Structures](#algorithms) section provides deeper insights into the technical implementation details.
+
+If you're interested in contributing to the project, please refer to the GitHub repository for contribution guidelines and development roadmap.
+
+

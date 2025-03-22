@@ -1,3 +1,14 @@
+/**
+ * @file gun_render.c
+ * @brief Handles rendering of weapons and weapon effects
+ *
+ * Manages the rendering of gun sprites, muzzle flashes,
+ * and ejected casings with proper layering.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 //? Written by Mango on 05/03/2025
 
 #include <gun.h>
@@ -6,6 +17,9 @@
 
 /**
  * @brief [Render] Renders the player's current gun and its corresponding particles
+ * 
+ * Draws the current weapon with proper rotation and flipping, and renders
+ * muzzle flash and casing particles with correct layering based on weapon orientation.
  */
 void Gun_Render() {
     GunData* gun = player.state.currentGun;

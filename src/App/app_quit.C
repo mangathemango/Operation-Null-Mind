@@ -1,3 +1,14 @@
+/**
+ * @file app_quit.c
+ * @brief Application shutdown procedures
+ *
+ * Handles cleanup and resource deallocation when
+ * the game is shutting down.
+ *
+ * @author Darren
+ * @date 2025-03-07
+ */
+
 #include <app.h>
 #include <particles.h>
 #include <particle_emitterpresets.h>

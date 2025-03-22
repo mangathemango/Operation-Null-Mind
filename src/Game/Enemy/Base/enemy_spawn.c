@@ -1,9 +1,20 @@
+/**
+ * @file enemy_spawn.c
+ * @brief Handles enemy spawning and initialization
+ *
+ * Contains functionality for creating new enemy instances
+ * based on templates and positioning them in the game world.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <enemy.h>
 #include <stdlib.h>
 #include <maps.h>
 
 /**
- * [Utility] Spawns an enemy of the given type at the specified position.
+ * @brief [Utility] Spawns an enemy of the given type at the specified position
  * 
  * Creates a new enemy instance based on the provided template and initializes it
  * at the given position. If no position is provided (NULL), a random valid position

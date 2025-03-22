@@ -1,11 +1,19 @@
-/*
-    @file input.h
-*   This file contains the input struct and its functions.
-?   This struct is used to keep track of the mouse and keyboard input.
-?   This is so that every other file can access the input data without using the SDL_Event parameter.
-
-?   Written by Mango on 28/02/2025
-*/
+/**
+ * @file input.h
+ * @brief Handles mouse and keyboard input processing for the game.
+ * 
+ * This struct is used to keep track of the mouse and keyboard input.
+ * This is so that every other file can access the input data without using the SDL_Event parameter.
+ * @section usage Usage Examples
+ * ```c
+ * Input->mouse.position // Returns screen position of the mouse
+ * Input->keyboard.keys[SDL_SCANCODE_A].pressed // Returns true on the first frame A key is pressed
+ * Input->keyboard.keys[SDL_SCANCODE_ESC].held // Returns true on every frame esc key is held
+ * Input->mouse.leftButton.released // Returns true on the first frame the left mouse button is released.
+ * ```
+ * @author Mango
+ * @date 2025-02-28
+ */
 
 #ifndef INPUT_H
 #define INPUT_H    

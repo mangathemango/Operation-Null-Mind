@@ -1,11 +1,24 @@
+/**
+ * @file enemy_update.c
+ * @brief Core enemy update system
+ *
+ * Manages updates for all active enemies, handling state changes,
+ * movement physics, collision detection, and AI activation.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 #include <enemy.h>
 #include <enemy_types.h>
 #include <time_system.h>
 
 /**
  * @brief [PostUpdate] Updates all active enemies in the game.
- * Skips dead enemies and handles special states like spawning.
- * Processes movement and death conditions for each enemy.
+ * 
+ * Main update loop for all enemies in the game. Skips dead enemies,
+ * handles special states like spawning, and processes movement and death
+ * conditions for each enemy.
  */
 void Enemy_Update() {
     for (int i = 0; i < ENEMY_MAX; i++) {
@@ -27,8 +40,9 @@ void Enemy_Update() {
 
 /**
  * @brief [Utility] Manages the spawning process for an enemy.
- * The 1 second delay represents the time between the 
- * appearance of the [+] indicator and the enemy actually spawning.
+ * 
+ * Handles the 1-second delay between the appearance of the [+] indicator
+ * and the enemy actually spawning. Also checks for collision at spawn point.
  * 
  * @param enemy Pointer to the enemy being spawned
  */
@@ -62,8 +76,10 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
 
 /**
  * @brief [Utility] Handles enemy movement physics and velocity calculations.
- * Decomposes velocity into forward and lateral components to apply
- * different physics rules to each, then recombines them.
+ * 
+ * Implements a complex movement system that decomposes velocity into 
+ * forward and lateral components to apply different physics rules to each,
+ * then recombines them.
  * 
  * @param enemy Pointer to the enemy to move
  */
@@ -107,7 +123,9 @@ void Enemy_HandleMovement(EnemyData* enemy) {
 
 /**
  * @brief [Utility] Attempts to move the enemy by the given vector, checking for collisions.
- * If a collision would occur, the movement is canceled.
+ * 
+ * Tries to move an enemy to a new position but cancels the movement if 
+ * a collision would occur with walls, the player, or other enemies.
  * 
  * @param enemy Pointer to the enemy to move
  * @param movement Vector representing the attempted movement
@@ -140,7 +158,10 @@ void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
 
 /**
  * @brief [Utility] Handles the death of an enemy.
+ * 
  * Sets health to 0, marks as dead, and removes collision.
+ * Called when an enemy's health reaches zero or when they spawn inside
+ * another object.
  * 
  * @param enemy Pointer to the enemy that died
  */

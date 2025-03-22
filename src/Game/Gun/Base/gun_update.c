@@ -1,3 +1,14 @@
+/**
+ * @file gun_update.c
+ * @brief Handles gun positioning, animation and state updates
+ *
+ * Updates the position, rotation, and particle systems for weapons
+ * based on player position and input direction.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 //? Written by Mango on 06/03/2025
 
 #include <gun.h>
@@ -8,8 +19,9 @@
 /**
  * @brief [PostUpdate] Updates the gun's state, position, and particles
  * 
- * This part is really confusing, but it's basically updating the gun's position, angle, and particles.
- * I don't like how the gun's position is calculated, but it works.
+ * Updates the gun's position relative to the player, calculates the angle based on
+ * mouse position, and updates particle emitter positions for muzzle flash and casings.
+ * Flips the gun sprite horizontally when aiming to the left.
  */
 void Gun_Update() {
     GunData* gun = player.state.currentGun;

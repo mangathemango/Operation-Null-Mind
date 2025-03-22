@@ -1,3 +1,14 @@
+/**
+ * @file bullet_update.c
+ * @brief Handles bullet movement and collision logic
+ *
+ * Updates the position, collision detection, and lifecycle
+ * of bullets fired from weapons in the game.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 #include <bullet.h>
 #include <gun.h>
 #include <player.h>
@@ -5,6 +16,9 @@
 
 /**
  * @brief [PostUpdate] Updates all active bullets, handling movement and collisions
+ * 
+ * Updates the position of all bullets, checks for collisions with enemies and walls,
+ * and handles impact effects when collisions are detected.
  */
 void Bullet_Update()
 {

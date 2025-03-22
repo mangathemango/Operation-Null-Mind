@@ -1,3 +1,14 @@
+/**
+ * @file chunk_utils.c
+ * @brief Utility functions for environment chunks
+ *
+ * Provides helper functions for chunk manipulation, validation,
+ * and coordinate conversions between world space and chunks.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <maps.h>
 #include <random.h>
 

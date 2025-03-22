@@ -1,22 +1,22 @@
 /**
- * @file UI_button.h
- * @brief This file contains the definition of the UI_TextData struct. 
- * @author Mango (杜明日) 
+ * @file UI_text.h
+ * @brief Implements text rendering and management for the UI system.
+ * @author Mango
  * @date 2025-03-12
  * 
  * @section usage Usage Examples
  * 
  * Creating and managing text elements:
  * 
- * @code{.c}
+ * ```c
  * // Create a simple text element
  * UIElement* titleText = UI_CreateText(
- *     "Operation Null Mind", 
- *     (SDL_Rect){400, 100, 400, 50},
- *     (SDL_Color){255, 255, 255, 255},
- *     1.5f,
- *     UI_TEXT_ALIGN_CENTER,
- *     app.resources.fonts.titleFont
+ *     "Operation Null Mind",           // Text content
+ *     (SDL_Rect){400, 100, 400, 50},   // Position and size of text box
+ *     (SDL_Color){255, 255, 255, 255}, // Color
+ *     1.5f,                            // Scale (text size)
+ *     UI_TEXT_ALIGN_CENTER,            // Alignment // Alignment (Look at UI_TextAlignment enum)
+ *     app.resources.fonts.titleFont    // Font
  * );
  * 
  * // Changing text content dynamically
@@ -24,7 +24,7 @@
  * 
  * // Changing text color
  * UI_ChangeTextColor(warningText, (SDL_Color){255, 0, 0, 255});
- * @endcode
+ * ```
  */
 
 #pragma once
@@ -41,11 +41,17 @@ typedef enum {
     UI_TEXT_ALIGN_RIGHT
 } UI_TextAlignment;
 
+/**
+ * @brief Data structure for UI text elements
+ * 
+ * This structure holds all necessary data for rendering and managing text UI elements,
+ * including the text content, texture, font and alignment properties.
+ */
 typedef struct {
-    char* text;                 // Text to display
-    SDL_Texture* textTexture;   // Pre-rendered text
-    TTF_Font* font;             // Font used for rendering
-    UI_TextAlignment alignment; // Either UI_Text_Align_Left, UI_Text_Align_Center, or UI_Text_Align_Right
+    char* text;                 /**< Text content to display */
+    SDL_Texture* textTexture;   /**< Pre-rendered text texture */
+    TTF_Font* font;             /**< Font used for text rendering */
+    UI_TextAlignment alignment; /**< Text alignment (left, center, or right) */
 } UI_TextData;
 
 UIElement* UI_CreateText(const char* text, SDL_Rect rect, 

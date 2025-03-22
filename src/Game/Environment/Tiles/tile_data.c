@@ -1,3 +1,14 @@
+/**
+ * @file tile_data.c
+ * @brief Contains definitions for tile types and resources
+ *
+ * Defines the properties and texture paths for all tile types
+ * used in the game environment.
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 #include <tiles.h>
 
 EnvironmentTileData tiles = {

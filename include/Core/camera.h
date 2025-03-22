@@ -1,26 +1,23 @@
-/*
-*   @file camera.h
-?   This file contains the declarations for the camera system.
-?   The camera system is used to convert between world and screen coordinates.
-
-?   For most objects, the variable "position" is in world coordinates.
-?   That's why, the Camera_WorldVecToScreen() function is used in render functions to convert that position to screen coordinates.
-
-?   For example: in src/Game/Player/Base/player_render.c
-?      Animation_Render(
-?          player.resources.animation,            
-*          Camera_WorldVecToScreen(
-*              Vec2_Subtract (
-*                  player.state.position,
-*                  Vec2_Divide(player.animData.spriteSize, 2)
-*              )
-*          ), // This is the position to render the thing
-?          player.animData.spriteSize,
-?          0,
-?          NULL,
-?          flip
-?      );
-*/
+/**
+ * @file camera.h
+ * @brief Provides camera functionality for world-to-screen coordinate conversion.
+ * @image html camera.png width=400px
+ * The camera system is used to convert between world and screen coordinates.
+ * For most objects, the variable "position" is in world coordinates.
+ * That's why, the Camera_WorldVecToScreen() function is used in render functions to convert that position to screen coordinates.
+ * Vice versa, the Camera_ScreenVecToWorld() function is used to convert screen coordinates to world coordinates.
+ * @author Mango
+ * @date 2025-03-12
+ * 
+ * @section usage Usage Examples
+ * 
+ * ```c
+ * player.state.position // This is world position
+ * Vec2 screenPosition = Camera_WorldVecToScreen(player.state.position); // screenPosition is now the screen position of the player
+ * 
+ * // We can now render the player at the screen position
+ * ```
+ */
 
 #pragma once
 

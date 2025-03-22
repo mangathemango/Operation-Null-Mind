@@ -1,42 +1,60 @@
-// Written by Mango on 05/03/2025
+/**
+ * @file random.c
+ * @brief Random number generation utilities
+ *
+ * Provides functions for generating random integers, floats, and booleans
+ * within specified ranges. Includes seed initialization.
+ * 
+ * @author Mango
+ * @date 2025-03-05
+ */
 
 #include <random.h>
 
 /**
- * @brief Set random seed
+ * [Start] Initializes the random number generator
  * 
- * Initializes the random number generator with a time-based seed.
+ * Seeds the random number generator with a time-based value to ensure
+ * different sequences on each program run.
  */
 void RandomInit() {
     srand((unsigned int)time(NULL));
 }
 
 /**
- * @brief Get a random integer from a range
+ * [Utility] Generates a random integer within a range
  * 
- * @param min The minimum threshold
- * @param max The maximum threshold
- * @return A random integer between min and max
+ * Creates a random integer value that is >= min and <= max.
+ * The distribution is uniform across the range.
+ * 
+ * @param min The minimum value (inclusive)
+ * @param max The maximum value (inclusive)
+ * @return int A random integer between min and max
  */
 int RandInt(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
 /**
- * @brief Get a random float from a range
+ * [Utility] Generates a random float within a range
  * 
- * @param min The minimum threshold
- * @param max The maximum threshold
- * @return A random float between min and max
+ * Creates a random floating-point value that is >= min and <= max.
+ * The distribution is uniform across the range.
+ * 
+ * @param min The minimum value (inclusive)
+ * @param max The maximum value (inclusive)
+ * @return float A random float between min and max
  */
 float RandFloat(float min, float max) {
     return (float)rand() / RAND_MAX * (max - min) + min;
 }
 
 /**
- * @brief Get a random boolean
+ * [Utility] Generates a random boolean value
  * 
- * @return Either true or false
+ * Returns either true or false with equal probability (50%).
+ * 
+ * @return bool Either true or false
  */
 bool RandBool() {
     return RandInt(0,1) == 0;

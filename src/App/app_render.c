@@ -1,3 +1,15 @@
+/**
+ * @file app_render.c
+ * @brief Main rendering pipeline
+ *
+ * Manages the overall rendering process for the game,
+ * coordinating which elements are drawn based on the current
+ * game state and scene.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <app.h>
 #include <particle_emitterpresets.h>
 #include <player.h>

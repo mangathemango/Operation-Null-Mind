@@ -1,3 +1,14 @@
+/**
+ * @file tile_render.c
+ * @brief Handles tile rendering with optimizations
+ *
+ * Renders environment tiles with proper rotation and
+ * frustum culling for performance.
+ *
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 #include <tiles.h>
 #include <camera.h>
 #include <app.h>

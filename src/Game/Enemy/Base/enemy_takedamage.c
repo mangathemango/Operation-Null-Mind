@@ -1,7 +1,18 @@
+/**
+ * @file enemy_takedamage.c
+ * @brief Handles enemy damage and health
+ *
+ * Implements the damage processing system for enemies,
+ * including health reduction and death checks.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <enemy.h>
 
 /**
- * [Utility] Applies damage to an enemy.
+ * @brief [Utility] Applies damage to an enemy
  * 
  * Reduces an enemy's health based on the damage amount. Enemies with
  * 0 or less health after damage will be marked for death processing.

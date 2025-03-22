@@ -1,22 +1,24 @@
+/**
+ * @file chunk_create.c
+ * @brief Creates and initializes environment chunks
+ *
+ * Handles the procedural generation of chunk tiles, walls,
+ * and collision boundaries based on chunk parameters.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <chunks.h>
 #include <enemy.h>
 #include <enemy_types.h>
 #include <random.h>
 
 /**
- * @file chunk_create.c
- * @brief Handles the creation of game environment chunks
- *
- * This file handles the creation of a chunk.
- * The code for this part is really painful and uninteresting to read.
- * It's just trying to draw stuff on the screen. With code.
- * It's like trying to paint a picture with a toothbrush.
- *
- * Anyways, just use Chunk_GenerateTiles() to create a chunk.
- */
-
-/**
  * [Utility] Generates a complete chunk with tiles, hallways, and colliders
+ * 
+ * Creates a fully-formed environment chunk with all necessary components
+ * including floor tiles, walls, hallways, and collision boxes.
  * 
  * @param position World position of the chunk
  * @param roomType Type of room to generate (start, normal, boss, end)
@@ -46,6 +48,9 @@ EnvironmentChunk Chunk_GenerateTiles(Vec2 position, RoomType roomType, Vec2 room
 /**
  * [Utility] Regenerates all tiles for an existing chunk
  * 
+ * Clears all existing tiles and colliders from a chunk and regenerates them,
+ * useful when hallway configurations change or room state changes.
+ * 
  * @param chunk Pointer to the chunk to regenerate
  */
 void Chunk_GenerateTilesButVoid(EnvironmentChunk* chunk) {
@@ -63,6 +68,8 @@ void Chunk_GenerateTilesButVoid(EnvironmentChunk* chunk) {
 
 /**
  * [Utility] Generates floor tiles for a chunk
+ * 
+ * Creates the base floor tiles for a room based on its size and floor pattern.
  * 
  * @param chunk Pointer to the chunk
  */
@@ -95,6 +102,8 @@ void Chunk_GenerateFloorTiles(EnvironmentChunk* chunk) {
 
 /**
  * [Utility] Generates hallway tiles for a chunk
+ * 
+ * Creates floor tiles for hallways based on the room's hallway configuration.
  * 
  * @param chunk Pointer to the chunk
  */
@@ -134,6 +143,9 @@ void Chunk_GenerateHallways(EnvironmentChunk* chunk) {
 /**
  * [Utility] Generates wall tiles for a chunk
  * 
+ * Creates wall tiles around the room perimeter using appropriate wall sprites
+ * with correct rotations.
+ * 
  * @param chunk Pointer to the chunk
  */
 void Chunk_GenerateWallTiles(EnvironmentChunk* chunk) {
@@ -159,6 +171,9 @@ void Chunk_GenerateWallTiles(EnvironmentChunk* chunk) {
 
 /**
  * [Utility] Generates wall tiles for hallways
+ * 
+ * Creates wall tiles along the sides of hallways with appropriate
+ * corner pieces at junctions.
  * 
  * @param chunk Pointer to the chunk
  */
@@ -205,6 +220,9 @@ void Chunk_GenerateHallwayWallTiles(EnvironmentChunk* chunk) {
 
 /**
  * [Utility] Generates collision boxes for a chunk
+ * 
+ * Creates colliders for walls and hallways, as well as trigger
+ * zones for room and hallway detection.
  * 
  * @param chunk Pointer to the chunk
  */
@@ -367,6 +385,8 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
 /**
  * [Utility] Adds a wall collider to a chunk
  * 
+ * Creates a physical collision box for walls at the specified location.
+ * 
  * @param startTile Starting tile position of the wall
  * @param endTile Ending tile position of the wall
  * @param chunk Pointer to the chunk
@@ -394,6 +414,9 @@ void Chunk_AddWallCollider(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk
 
 /**
  * [Event Handler] Event handler for when player enters a room
+ * 
+ * Updates player state to indicate they are inside a room,
+ * which affects combat and other game systems.
  */
 void Chunk_HandlePlayerInsideRoom() {
     player.state.insideRoom = true;
@@ -401,19 +424,28 @@ void Chunk_HandlePlayerInsideRoom() {
 
 /**
  * [Event Handler] Event handler for when player enters a hallway
+ * 
+ * Updates player state to indicate they are inside a hallway,
+ * which affects combat and movement.
  */
 void Chunk_HandlePlayerInsideHallway() {
     player.state.insideHallway = true;
 }
 
-
-void Chunk_HandlePlayerInsideEnd()
-{
+/**
+ * [Event Handler] Event handler for when player enters an end room
+ * 
+ * Updates player state to indicate they have reached the end of the level,
+ * enabling level completion functionality.
+ */
+void Chunk_HandlePlayerInsideEnd() {
     player.state.insideEnd = true;
 }
 
 /**
  * [Utility] Adds a room trigger collider to a chunk
+ * 
+ * Creates a trigger zone that detects when the player is inside a room.
  * 
  * @param startTile Starting tile position
  * @param endTile Ending tile position
@@ -441,6 +473,8 @@ void Chunk_AddRoomTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk)
 /**
  * [Utility] Adds a hallway trigger collider to a chunk
  * 
+ * Creates a trigger zone that detects when the player is inside a hallway.
+ * 
  * @param startTile Starting tile position
  * @param endTile Ending tile position
  * @param chunk Pointer to the chunk
@@ -464,6 +498,16 @@ void Chunk_AddHallwayTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chu
     chunk->colliders[chunk->colliderCount++] = collider;
 }
 
+/**
+ * [Utility] Adds an end room trigger collider to a chunk
+ * 
+ * Creates a trigger zone in the center of the end room that detects
+ * when the player has reached the level exit.
+ * 
+ * @param startTile Starting tile position
+ * @param endTile Ending tile position
+ * @param chunk Pointer to the chunk
+ */
 void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) {
     Vec2 startPixel = Vec2_Multiply(startTile, TILE_SIZE_PIXELS);
     Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);

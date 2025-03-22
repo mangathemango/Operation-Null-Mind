@@ -1,12 +1,24 @@
+/**
+ * @file player_data.c
+ * @brief Contains player data definitions and default values
+ *
+ * Initializes and defines the core data structures for the player
+ * character, including stats, state, resources, and animation data.
+ *
+ * @author Mango
+ * @date 2025-02-09
+ */
+
 //? Written by Mango on 09/02/2025
 
 #include <player.h>
 
-/*
-    @file player_data.c
-*   [Data] This file contains the player's data initialization.
-*/
-
+/**
+ * @brief [Data] The player's initial data and configuration
+ * 
+ * Contains all default values for the player including position, collision properties,
+ * movement speeds, sprite data, and animation definitions.
+ */
 PlayerData player = {
     .state = {
         .position = {4200,4200},

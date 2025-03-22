@@ -1,3 +1,14 @@
+/**
+ * @file chunk_render.c
+ * @brief Renders environment chunks
+ *
+ * Handles the drawing of chunk tiles, walls, and special
+ * elements with frustum culling for performance.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <chunks.h>
 
 void Chunk_Render(const EnvironmentChunk* chunk) {

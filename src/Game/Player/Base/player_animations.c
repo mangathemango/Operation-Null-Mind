@@ -1,3 +1,14 @@
+/**
+ * @file player_animations.c
+ * @brief Player animation system implementation
+ *
+ * Manages player character animations based on state and actions.
+ * Handles animation transitions, updates, and initialization.
+ * 
+ * @author Mango
+ * @date 2025-03-07
+ */
+
 //? Written by Mango on 07/03/2025
 
 #include <player.h>
@@ -5,6 +16,9 @@
 
 /**
  * @brief [Start] Initializes the player's animation system
+ * 
+ * Creates and sets up the player's animation system from the
+ * animation data defined in player_data.c.
  * 
  * @return int Status code (0 for success, 1 for error)
  */
@@ -19,6 +33,9 @@ int Player_AnimationInit() {
 
 /**
  * @brief [PostUpdate] Updates the player's animation state
+ * 
+ * Selects the appropriate animation based on player state
+ * (idle or walking) and advances the animation frames.
  * 
  * @return int Status code (0 for success)
  */

@@ -1,3 +1,14 @@
+/**
+ * @file gun_data.c
+ * @brief Contains definitions for all weapon types
+ *
+ * Defines the properties, statistics, and visual configurations
+ * for all gun types available in the game.
+ *
+ * @author Mango
+ * @date 2025-03-07
+ */
+
 //? Written by Mango on 07/03/2025
 
 #include <gun.h>
