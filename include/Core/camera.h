@@ -1,7 +1,7 @@
 /**
  * @file camera.h
  * @brief This file contains the declarations for the camera system.
- * ![Camera System Overview](camera.png)
+ * @image html camera.png width=400px
  * The camera system is used to convert between world and screen coordinates.
  * For most objects, the variable "position" is in world coordinates.
  * That's why, the Camera_WorldVecToScreen() function is used in render functions to convert that position to screen coordinates.

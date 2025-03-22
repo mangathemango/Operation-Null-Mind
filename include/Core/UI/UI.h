@@ -1,5 +1,5 @@
 /**
- * @file UI_text.h
+ * @file UI.h
  * @brief This file contains the declaration of the UIElement struct.
  * @author Mango
  * @date 2025-03-12
