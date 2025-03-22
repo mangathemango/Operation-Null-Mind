@@ -1,3 +1,14 @@
+/**
+ * @file gun_render.c
+ * @brief Handles rendering of weapons and weapon effects
+ *
+ * Manages the rendering of gun sprites, muzzle flashes,
+ * and ejected casings with proper layering.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 //? Written by Mango on 05/03/2025
 
 #include <gun.h>

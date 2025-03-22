@@ -1,3 +1,14 @@
+/**
+ * @file player_skills.c
+ * @brief Implements player special abilities and skills
+ *
+ * Handles the activation, cooldown and effects of player skills
+ * such as dashing, special attacks, and other abilities.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 // Written by Mango and Darren on 05/03/2025
 
 #include <player.h>

@@ -1,16 +1,17 @@
-// Written by Mango on 05/03/2025
+/**
+ * @file player_combat.c
+ * @brief Implements player combat functionality
+ *
+ * Handles player attacks, weapon use, and combat interactions
+ * with enemies and the environment.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
 
 #include <player.h>
 #include <sound.h>
 #include <random.h>
-
-/**
- * @file player_combat.c
- * @brief Handles player combat functionality
- * 
- * This file contains the player's combat stuffs.
- * This includes attacking, taking damage, dying, etc.
- */
 
 /**
  * @brief Makes the player shoot their current weapon

@@ -1,3 +1,14 @@
+/**
+ * @file player_animations.c
+ * @brief Player animation system implementation
+ *
+ * Manages player character animations based on state and actions.
+ * Handles animation transitions, updates, and initialization.
+ * 
+ * @author Mango
+ * @date 2025-03-07
+ */
+
 //? Written by Mango on 07/03/2025
 
 #include <player.h>

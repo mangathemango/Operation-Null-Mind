@@ -1,3 +1,14 @@
+/**
+ * @file minimap.c
+ * @brief Implements the minimap display system
+ *
+ * Provides a visual representation of the map layout,
+ * player position, and discovered areas during gameplay.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 #include <maps.h>
 #include <app.h>
 #include <minimap.h>

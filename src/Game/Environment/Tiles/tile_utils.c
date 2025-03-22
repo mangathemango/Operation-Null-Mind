@@ -1,3 +1,14 @@
+/**
+ * @file tile_utils.c
+ * @brief Utility functions for tile-based environment
+ *
+ * Provides coordinate conversion, validation, and helper functions
+ * for the tile-based environment system.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <maps.h>
 #include <math.h>
 #include <random.h>

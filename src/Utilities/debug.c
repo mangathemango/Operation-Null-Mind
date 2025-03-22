@@ -1,3 +1,14 @@
+/**
+ * @file debug.c
+ * @brief Debug visualization and information tools
+ *
+ * Provides functionality for rendering debug information like hitboxes,
+ * FPS counters, and other metrics when debug mode is enabled.
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 #include <debug.h>
 #include <app.h>
 #include <colliders.h>

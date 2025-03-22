@@ -1,4 +1,13 @@
-// Written by Mango on 28/02/2025
+/**
+ * @file player_render.c
+ * @brief Handles rendering of the player character
+ *
+ * Contains functions for drawing the player's sprite,
+ * animations, effects, and UI elements tied to the player.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
 
 #include <player.h>
 #include <app.h>

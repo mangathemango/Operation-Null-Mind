@@ -1,4 +1,13 @@
-// Written by Mango on 03/03/2025
+/**
+ * @file player_preupdate.c
+ * @brief Pre-update logic for the player character
+ *
+ * Handles preliminary player state updates that need to occur
+ * before main game systems are updated.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
 
 #include <player.h>
 

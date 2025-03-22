@@ -1,3 +1,16 @@
+/**
+ * @file gun_animations.c
+ * @brief Handles weapon animation states and transitions
+ *
+ * Manages animations for different gun states including
+ * idle, firing, and reloading with proper sprite flipping.
+ * 
+ * Note that the reloading animations aren't implemented yet.
+ * 
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 //? Written by Mango on 05/03/2025
 
 #include <gun.h>
@@ -5,8 +18,6 @@
 
 /**
  * @brief [PostUpdate] Updates the gun's animation state
- * 
- * Note that the reloading animations aren't implemented yet.
  */
 void Gun_AnimationUpdate() {
     GunData* gun = player.state.currentGun;

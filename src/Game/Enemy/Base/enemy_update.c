@@ -1,3 +1,14 @@
+/**
+ * @file enemy_update.c
+ * @brief Core enemy update system
+ *
+ * Manages updates for all active enemies, handling state changes,
+ * movement physics, collision detection, and AI activation.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 #include <enemy.h>
 #include <enemy_types.h>
 #include <time_system.h>

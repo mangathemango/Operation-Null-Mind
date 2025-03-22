@@ -1,3 +1,14 @@
+/**
+ * @file enemy_render.c
+ * @brief Renders all enemy types
+ *
+ * Coordinates the rendering of all active enemies,
+ * including spawn indicators and special effects.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <enemy.h>
 #include <enemy_types.h>
 #include <animation.h>

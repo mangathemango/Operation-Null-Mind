@@ -1,3 +1,14 @@
+/**
+ * @file bullet_start.c
+ * @brief Initializes the bullet system
+ *
+ * Sets up bullet resources, particle emitters, and initial
+ * properties for the projectile system.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 #include <bullet.h>
 #include <particle_emitterpresets.h>
 #include <gun.h>

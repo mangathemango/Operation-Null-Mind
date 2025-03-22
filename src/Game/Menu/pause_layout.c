@@ -1,3 +1,14 @@
+/**
+ * @file pause_layout.c
+ * @brief Implements the pause menu screen
+ *
+ * Manages the pause screen UI layout, button interactions,
+ * and transitions between game and pause states.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 #include <pause.h>
 #include <UI_text.h>
 #include <input.h>

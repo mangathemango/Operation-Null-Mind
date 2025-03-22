@@ -1,3 +1,14 @@
+/**
+ * @file particle_movement.c
+ * @brief Contains movement patterns for particles
+ *
+ * This file implements various movement patterns that can be applied to particles,
+ * including linear, accelerated, decelerated, spiral, random, and sine movement.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 //? Written by Mango on 04/03/2025
 
 #include <particle_movement.h>

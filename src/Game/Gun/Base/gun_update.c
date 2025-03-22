@@ -1,3 +1,14 @@
+/**
+ * @file gun_update.c
+ * @brief Handles gun positioning, animation and state updates
+ *
+ * Updates the position, rotation, and particle systems for weapons
+ * based on player position and input direction.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 //? Written by Mango on 06/03/2025
 
 #include <gun.h>

@@ -1,3 +1,15 @@
+/**
+ * @file camera.c
+ * @brief Game camera system
+ *
+ * Manages the game's camera view, handling player tracking,
+ * coordinate transformations between screen and world space,
+ * and viewport calculations.
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 #include <camera.h>
 #include <app.h>
 #include <input.h>

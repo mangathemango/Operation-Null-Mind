@@ -1,8 +1,12 @@
 /**
  * @file player_movement.c
- * @brief Handles player movement and physics
+ * @brief Handles player character movement
  *
- * This file contains the player's movement functions.
+ * Contains functions for moving the player character,
+ * handling acceleration, and managing movement states.
+ *
+ * @author Mango
+ * @date 2025-03-03
  */
 
 #include <player.h>

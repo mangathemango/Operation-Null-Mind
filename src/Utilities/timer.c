@@ -1,3 +1,14 @@
+/**
+ * @file timer.c
+ * @brief Implementation of the timer utility
+ *
+ * Provides functionality for creating, starting, checking, and destroying timers.
+ * Timers are used for cooldowns, fire rates, animations, and other time-based features.
+ * 
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 // Written by Mango on 02/03/2025
 
 #include <timer.h>

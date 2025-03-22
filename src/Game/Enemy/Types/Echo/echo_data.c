@@ -1,3 +1,14 @@
+/**
+ * @file echo_data.c
+ * @brief Contains data definitions for Echo enemy type
+ *
+ * Defines the default properties, stats, and visual configuration
+ * for the Echo enemy type.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <enemy_echo.h>
 
 /**

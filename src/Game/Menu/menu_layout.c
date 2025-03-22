@@ -1,3 +1,14 @@
+/**
+ * @file menu_layout.c
+ * @brief Implements the main menu interface
+ *
+ * Handles layout, rendering, and interactions for the main menu
+ * screen, including buttons for starting the game, options, and exit.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <UI_text.h>
 #include <app.h>
 #include <stdbool.h>

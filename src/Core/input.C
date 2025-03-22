@@ -1,3 +1,15 @@
+/**
+ * @file input.c
+ * @brief Input handling system
+ *
+ * Manages keyboard, mouse and controller input,
+ * providing a consistent interface for detecting
+ * button presses, releases, and held states.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 //? Updated by Mango on 06/03/2025
 
 #include <input.h>

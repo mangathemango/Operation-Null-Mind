@@ -1,3 +1,14 @@
+/**
+ * @file particle_emitterpresets.c
+ * @brief Contains preset configurations for particle emitters
+ *
+ * This file defines the default configurations for various types of particle emitters
+ * such as muzzle flashes, bullet casings, dash effects, etc.
+ *
+ * @author Mango
+ * @date 2025-03-08
+ */
+
 /*
     @file particle_emitterpresets.c
 *   [Data] This file contains all the data about particle emitter presets. Read particle_emitterpresets.h for more

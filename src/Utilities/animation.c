@@ -1,3 +1,14 @@
+/**
+ * @file animation.c
+ * @brief Sprite animation system implementation
+ *
+ * Implements a flexible animation system that supports spritesheet-based
+ * animations with multiple clips, variable frame rates, and playback controls.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 //? Written by Mango on 03/03/2025
 
 #include <animation.h>

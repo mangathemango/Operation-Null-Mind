@@ -1,3 +1,14 @@
+/**
+ * @file initialize_SDL.c
+ * @brief Handles SDL library initialization
+ *
+ * Initializes SDL, SDL_image, and SDL_ttf libraries.
+ * Creates and sets up the game window and renderer with appropriate settings.
+ * 
+ * @author Mango
+ * @date 2025-02-28
+ */
+
 // Written by Mango on 28/02/2025
 
 #include <initialize_SDL.h>

@@ -1,3 +1,15 @@
+/**
+ * @file particles.c
+ * @brief Implements the particle system for visual effects
+ *
+ * This file contains the implementation of a particle emitter system
+ * that can be used to create various visual effects like explosions,
+ * muzzle flashes, smoke, etc.
+ *
+ * @author Mango
+ * @date 2025-03-07
+ */
+
 //? Written by Mango on 07/03/2025
 
 #include <particles.h>

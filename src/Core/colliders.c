@@ -1,3 +1,14 @@
+/**
+ * @file colliders.c
+ * @brief Collision detection system
+ *
+ * Provides functionality for hitbox-based collision detection
+ * between game objects with layer-based filtering.
+ *
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 #include <colliders.h>
 #include <stdio.h>
 

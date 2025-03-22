@@ -1,3 +1,14 @@
+/**
+ * @file time_system.c
+ * @brief Game timing and frame rate management
+ *
+ * Handles game timing, delta time calculation, and frame rate
+ * tracking to ensure consistent gameplay across different hardware.
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 //? Written by Mango on 01/03/2025
 
 #include <time_system.h>

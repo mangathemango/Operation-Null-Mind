@@ -1,3 +1,14 @@
+/**
+ * @file player_input_handler.c
+ * @brief Processes player input for character control
+ *
+ * Handles keyboard and mouse input for movement, weapon
+ * switching, attacks, and ability activation.
+ *
+ * @author Mango
+ * @date 2025-02-28
+ */
+
 //? Written by Mango on 28/02/2025
 
 #include <player.h>

@@ -1,3 +1,14 @@
+/**
+ * @file gun_start.c
+ * @brief Initializes the weapon system
+ *
+ * Sets up gun resources, animations, and particle effects for
+ * all weapon types in the game.
+ *
+ * @author Mango
+ * @date 2025-03-07
+ */
+
 //? Written by Mango on 07/03/2025
 
 #include <gun.h>

@@ -1,3 +1,14 @@
+/**
+ * @file bullet_update.c
+ * @brief Handles bullet movement and collision logic
+ *
+ * Updates the position, collision detection, and lifecycle
+ * of bullets fired from weapons in the game.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 #include <bullet.h>
 #include <gun.h>
 #include <player.h>

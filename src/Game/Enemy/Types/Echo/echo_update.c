@@ -1,3 +1,14 @@
+/**
+ * @file echo_update.c
+ * @brief Implements update logic for Echo enemy type
+ *
+ * Contains the AI behavior and state updates for the Echo enemy,
+ * which uses a teleportation-based movement pattern.
+ *
+ * @author Mango
+ * @date 2025-03-06
+ */
+
 #include <enemy_echo.h>
 #include <player.h>
 #include <time_system.h>

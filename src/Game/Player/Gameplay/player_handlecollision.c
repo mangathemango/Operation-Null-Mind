@@ -1,3 +1,13 @@
+/**
+ * @file player_handlecollision.c
+ * @brief Handles player collisions with the environment and entities
+ *
+ * Contains functions for detecting and responding to player collisions
+ * with walls, enemies, projectiles, and interactive objects.
+ *
+ * @date 2025-03-04
+ */
+
 #include <player.h>
 #include <colliders.h>
 #include <chunks.h>

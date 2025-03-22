@@ -1,6 +1,6 @@
 /**
  * @file menu.h
- * @brief Manages game menu systems, including rendering and user interactions.
+ * @brief Manages game main menu system, including rendering and user interactions.
  * 
  * @author Mango
  * @date 2025-03-12

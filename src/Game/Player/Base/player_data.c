@@ -1,3 +1,14 @@
+/**
+ * @file player_data.c
+ * @brief Contains player data definitions and default values
+ *
+ * Initializes and defines the core data structures for the player
+ * character, including stats, state, resources, and animation data.
+ *
+ * @author Mango
+ * @date 2025-02-09
+ */
+
 //? Written by Mango on 09/02/2025
 
 #include <player.h>

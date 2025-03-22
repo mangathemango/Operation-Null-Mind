@@ -1,3 +1,14 @@
+/**
+ * @file enemy_takedamage.c
+ * @brief Handles enemy damage and health
+ *
+ * Implements the damage processing system for enemies,
+ * including health reduction and death checks.
+ *
+ * @author Mango
+ * @date 2025-03-04
+ */
+
 #include <enemy.h>
 
 /**

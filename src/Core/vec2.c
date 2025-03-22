@@ -1,3 +1,14 @@
+/**
+ * @file vec2.c
+ * @brief 2D vector operations library
+ *
+ * Implements a comprehensive set of vector operations for 2D space,
+ * supporting game physics, transformations, and coordinate handling.
+ * 
+ * @author Mango
+ * @date 2025-02-28
+ */
+
 // Written by Mango on 28/02/2025
 
 #include <vec2.h>

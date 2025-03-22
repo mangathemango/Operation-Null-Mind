@@ -1,6 +1,6 @@
 /**
  * @file colliders.h
- * @brief Implements collision detection and handling between game entities.
+ * @brief Defines the collider system for collision detection.
  * This file contains the declarations for the collision manager.
  * The collision manager is responsible for detecting collisions between entities in the game.
  * @author Mango, Tony and Darren

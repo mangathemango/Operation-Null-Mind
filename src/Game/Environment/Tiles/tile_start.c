@@ -1,3 +1,14 @@
+/**
+ * @file tile_start.c
+ * @brief Initializes the tile system
+ *
+ * Loads tile textures and sets up the tile creation system
+ * for the game environment.
+ *
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 #include <tiles.h>
 #include <camera.h>
 #include <app.h>

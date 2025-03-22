@@ -1,3 +1,14 @@
+/**
+ * @file enemy_start.c
+ * @brief Initializes the enemy system
+ *
+ * Sets up the enemy management system, prepares enemy
+ * slots and loads shared enemy resources.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <enemy.h>
 #include <enemy_types.h>
 #include <app.h>

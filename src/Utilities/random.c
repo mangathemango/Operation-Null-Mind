@@ -1,4 +1,12 @@
-// Written by Mango on 05/03/2025
+/**
+ * @file random.c
+ * @brief Random number generation utilities
+ *
+ * Provides functions for generating random integers, floats, and booleans
+ * within specified ranges. Includes seed initialization.
+ * 
+ * Written by Mango on 05/03/2025
+ */
 
 #include <random.h>
 

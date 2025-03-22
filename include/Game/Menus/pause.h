@@ -1,6 +1,6 @@
 /**
  * @file pause.h
- * @brief Manages the game's pause functionality and menu display.
+ * @brief Manages the game's pause screen functionality and display.
  * 
  * @author Mango
  * @date 2025-03-21

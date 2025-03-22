@@ -1,3 +1,14 @@
+/**
+ * @file echo_render.c
+ * @brief Renders Echo enemy type
+ *
+ * Handles the visual presentation of Echo enemies,
+ * including special effects like transparency and afterimages.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 #include <enemy_echo.h>
 #include <camera.h>
 #include <app.h>

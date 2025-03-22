@@ -1,3 +1,14 @@
+/**
+ * @file UI_text.c
+ * @brief Text rendering and management for UI elements
+ *
+ * Provides functionality for creating, updating, and rendering
+ * text elements in the user interface.
+ *
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 #include <UI_text.h>
 #include <string.h>
 #include <input.h>

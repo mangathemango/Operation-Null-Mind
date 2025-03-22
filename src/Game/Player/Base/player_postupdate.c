@@ -1,3 +1,15 @@
+/**
+ * @file player_postupdate.c
+ * @brief Post-update logic for the player character
+ *
+ * Handles final player state updates after all other game
+ * systems have been updated. Includes collision detection,
+ * movement finalization, and animation updates.
+ *
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 // Written by Mango on 03/02/2025
 
 #include <player.h>
