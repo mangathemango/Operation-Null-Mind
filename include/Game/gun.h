@@ -29,49 +29,105 @@ typedef struct {
     Animation* animation;
 } GunResources;
 
+/**
+ * @brief Gun state structure
+ * 
+ * Contains the runtime state information for a gun
+ */
 typedef struct {
     Vec2 position;
     float angle;
     SDL_RendererFlip flip;
-    SDL_Point rotationCenter;
+    SDL_Point rotationCenter;       /**< Point around which the gun rotates */
 } GunState;
 
+/**
+ * @brief Gun configuration structure
+ *
+ * Contains positioning data and particle effect configurations for a gun
+ */
 typedef struct {
-    Vec2 muzzlePosition;
-    Vec2 ejectionPosition;
-    Vec2 gripPosition;
-    ParticleEmitter muzzleFlashPreset;
-    ParticleEmitter casingPreset;
+    Vec2 muzzlePosition;            /**< Position where bullets/muzzle flash appears */
+    Vec2 ejectionPosition;          /**< Position where casings are ejected */
+    Vec2 gripPosition;              /**< Position where the player holds the gun */
+    ParticleEmitter muzzleFlashPreset; /**< Particle effect for muzzle flash */
+    ParticleEmitter casingPreset;      /**< Particle effect for ejected casings */
 } GunConfig;
 
+/**
+ * @brief Gun fire mode enumeration
+ *
+ * Defines the different firing modes available for guns
+ */
 typedef enum {
-    FIREMODE_SEMI,
-    FIREMODE_AUTO
+    FIREMODE_SEMI,                  /**< Semi-automatic (one shot per trigger pull) */
+    FIREMODE_AUTO                   /**< Fully automatic (continuous fire while trigger held) */
 } GunFireMode;
+
+/**
+ * @brief Gun statistics structure
+ *
+ * Contains the configuration values that define a gun's capabilities
+ */
 typedef struct {
-    float fireRate; //This is firerate per second, The formula is emissionRate/fireRate
-    int ammoCapacity; //Max ammo count
-    float spread_angle; //This is angle in degrees
-    int damage; //Damage per one bullet
+    float fireRate;                 /**< Shots per minute */
+    int ammoCapacity;               /**< Maximum ammunition count */
+    float spread_angle;             /**< Bullet spread in degrees */
+    int damage;                     /**< Damage per bullet */
     
-    float bulletLifetime;
-    int bulletsPerShot;
-    GunFireMode fireMode; //True for automatic, false for semi-automatic
+    float bulletLifetime;           /**< How long bullets exist before despawning ()*/
+    int bulletsPerShot;             /**< Number of bullets fired per shot (>1 only for shotguns) */
+    GunFireMode fireMode;           /**< Firing mode (auto or semi) */
 } GunStats;
 
+/**
+ * @brief Gun data structure
+ *
+ * Complete definition of a gun, including name, resources, state, config, stats,
+ * and animation data
+ */
 typedef struct {
-    char* name;
-    GunResources resources;
-    GunState state;
-    GunConfig config;
-    GunStats stats;
-    AnimationData animData;
+    char* name;                     /**< Name of the gun */
+    GunResources resources;         /**< Pointers to runtime resources */
+    GunState state;                 /**< Current state information */
+    GunConfig config;               /**< Configuration data */
+    GunStats stats;                 /**< Stats and capabilities */
+    AnimationData animData;         /**< Animation configuration */
 } GunData;
 
+/**
+ * @brief Pistol weapon data
+ *
+ * Global definition for the pistol gun type
+ */
 extern GunData Gun_Pistol;
+
+/**
+ * @brief SMG weapon data
+ *
+ * Global definition for the submachine gun type
+ */
 extern GunData Gun_SMG;
+
+/**
+ * @brief Shotgun weapon data
+ *
+ * Global definition for the shotgun gun type
+ */
 extern GunData Gun_Shotgun;
+
+/**
+ * @brief Assault rifle weapon data
+ *
+ * Global definition for the assault rifle gun type
+ */
 extern GunData Gun_AssaultRifle;
+
+/**
+ * @brief Battle rifle weapon data
+ *
+ * Global definition for the battle rifle gun type
+ */
 extern GunData Gun_BattleRifle;
 
 extern GunData* GunList[GUN_COUNT];

@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - inkt/MapGeneration
+      - documentation
 
 jobs:
   build:

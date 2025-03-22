@@ -41,11 +41,17 @@ typedef enum {
     UI_TEXT_ALIGN_RIGHT
 } UI_TextAlignment;
 
+/**
+ * @brief Data structure for UI text elements
+ * 
+ * This structure holds all necessary data for rendering and managing text UI elements,
+ * including the text content, texture, font and alignment properties.
+ */
 typedef struct {
-    char* text;                 // Text to display
-    SDL_Texture* textTexture;   // Pre-rendered text
-    TTF_Font* font;             // Font used for rendering
-    UI_TextAlignment alignment; // Either UI_Text_Align_Left, UI_Text_Align_Center, or UI_Text_Align_Right
+    char* text;                 /**< Text content to display */
+    SDL_Texture* textTexture;   /**< Pre-rendered text texture */
+    TTF_Font* font;             /**< Font used for text rendering */
+    UI_TextAlignment alignment; /**< Text alignment (left, center, or right) */
 } UI_TextData;
 
 UIElement* UI_CreateText(const char* text, SDL_Rect rect, 
