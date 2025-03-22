@@ -153,4 +153,3 @@ int Player_AnimationInit();
  * @return Status code
  */
 int Player_AnimationUpdate();
-#endif
