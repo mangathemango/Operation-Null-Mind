@@ -1,6 +1,6 @@
 /**
  * @file app.h
- * @brief This file contains the definition of the app's resources, state, and configuration structs.
+ * @brief This file contains the definition of the AppData struct, and the 6 main routine functions inside main.c
  * 
  * @author Mango (杜明日) 
  * @date 2025-03-22
