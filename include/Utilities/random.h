@@ -1,6 +1,6 @@
 /**
  * @file random.h
- * @brief This file contains the random number generator functions.
+ * @brief Provides random number generation functionality for integers, floats, and boolean values.
  *
  * These functions can be used to generate random integers and floats.
  * To use these functions, call RandomInit() once at the start of the program.

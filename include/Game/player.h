@@ -1,6 +1,6 @@
 /**
  * @file player.h
- * @brief This file contains the player's data, actions, and functions.
+ * @brief Manages player character state, movement, animations, and interactions.
  * @todo Add player stats and abilities struct as well.
  * 
  * @author Mango

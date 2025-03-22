@@ -1,6 +1,6 @@
 /**
  * @file particle_movement.h
- * @brief This file contains the custom particle movement functions.
+ * @brief Provides custom movement behaviors for particles.
  *
  * These functions can be used to create custom particle movement behaviors.
  * @warning Custom movement will override default movement behaviors, like speed, gravity, drag, etc.

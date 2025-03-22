@@ -1,6 +1,6 @@
 /**
  * @file UI.h
- * @brief This file contains the declaration of the UIElement struct.
+ * @brief Defines the base UI element structure for the user interface system.
  * @author Mango
  * @date 2025-03-12
  * 

@@ -1,6 +1,6 @@
 /**
  * @file timer.h
- * @brief This file contains the Timer struct and its functions.
+ * @brief Provides timing functionality for cooldowns, fire rates, animations, and other time-based features.
  *
  * Timer has many different uses - for cooldowns, fire rates, animations, etc.
  * Right now, it's just a simple timer that can only be started, but not paused or stopped.

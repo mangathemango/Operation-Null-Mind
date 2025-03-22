@@ -1,6 +1,6 @@
 /**
  * @file vec2.h
- * @brief This file contains the Vec2 struct and its functions.
+ * @brief Provides 2D vector functionality for positions, directions, and transformations.
  * @details Being a top down 2D game, the Vec2 struct can be used to represent:
  *  
  *  - Positions

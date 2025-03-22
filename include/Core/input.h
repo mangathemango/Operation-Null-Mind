@@ -1,6 +1,6 @@
 /**
  * @file input.h
- * @brief This file contains the global variable Input and the InputEvent struct.
+ * @brief Handles mouse and keyboard input processing for the game.
  * 
  * This struct is used to keep track of the mouse and keyboard input.
  * This is so that every other file can access the input data without using the SDL_Event parameter.

@@ -1,6 +1,6 @@
 /**
  * @file menu.h
- * @brief This file contains the declaration of the menu functions and textures.
+ * @brief Manages game menu systems, including rendering and user interactions.
  * 
  * @author Mango
  * @date 2025-03-12

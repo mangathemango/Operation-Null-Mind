@@ -1,6 +1,6 @@
 /**
  * @file gun.h
- * @brief This file contains the gun data and its functions.
+ * @brief Implements weapon systems including animations, shooting mechanics, and particle effects.
  * @details This includes the gun's animations, rendering, and updating.
  * @author Mango
  * @date 2025-03-06

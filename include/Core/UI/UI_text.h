@@ -1,6 +1,6 @@
 /**
  * @file UI_text.h
- * @brief This file contains the declaration of the UI text element and its functions.
+ * @brief Implements text rendering and management for the UI system.
  * @author Mango
  * @date 2025-03-12
  * 

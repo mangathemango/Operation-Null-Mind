@@ -1,6 +1,6 @@
 /**
  * @file chunks.h
- * @brief This file contains the declaration of the EnvironmentChunk struct and its functions.
+ * @brief Implements environment chunks that form game maps and rooms.
  * 
  * @author Mango and Darren
  * @date 2023-03-22

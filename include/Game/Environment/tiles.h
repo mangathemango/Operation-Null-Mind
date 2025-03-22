@@ -1,6 +1,6 @@
 /**
  * @file tiles.h
- * @brief This file contains the EnvironmentTile struct, its functions and configurations.
+ * @brief Defines and manages environment tiles for game world construction.
  * 
  * @author Mango
  * @date 2025-03-13

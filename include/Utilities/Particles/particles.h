@@ -1,6 +1,6 @@
 /**
  * @file particles.h
- * @brief This file contains the particle system structs and functions.
+ * @brief Implements a particle system for visual effects and environmental elements.
  *
  * Particles are emitted from structs called ParticleEmitters.   
  * Therefore, to generate particles, you have to, of course, create a Particle Emitter first.

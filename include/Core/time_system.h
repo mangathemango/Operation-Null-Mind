@@ -1,6 +1,6 @@
 /**
  * @file time_system.h
- * @brief This file contains the TimeSystem struct and its functions.
+ * @brief Manages time-related functionality for frame rate independence and timing.
  * 
  * The time system struct is used to keep track of the program's time, delta time, and time scale.
  * Time delta is the time between the current frame and the previous frame.

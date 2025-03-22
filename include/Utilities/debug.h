@@ -1,6 +1,6 @@
 /**
  * @file debug.h
- * @brief This file contains the debug rendering functions.
+ * @brief Provides debug visualization and information display functionality.
  *
  * These functions are used to render debug information to the screen,
  * such as hitboxes, FPS count, and other debug information.

@@ -1,6 +1,6 @@
 /**
  * @file UI_button.h
- * @brief This file contains the definition of the UI_ButtonData struct. (Not implemented)
+ * @brief Defines button components for the user interface system. (Not implemented)
  * @warning This file is not implemented
  * @author Mango
  * @date 2025-03-12

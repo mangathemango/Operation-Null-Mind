@@ -1,6 +1,6 @@
 /**
  * @file particle_emitterpresets.h
- * @brief This file contains the particle emitter presets.
+ * @brief Defines preset particle emitter configurations for common visual effects.
  *
  * These presets are used to create particle emitters with specific properties.
  * The emitters can then be modified as needed.

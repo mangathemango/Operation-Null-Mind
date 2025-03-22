@@ -1,6 +1,6 @@
 /**
  * @file sound.h
- * @brief This file contains the sound system and its functions.
+ * @brief Manages audio playback for music and sound effects.
  * @details The sound system is used to play music and sound effects.
  *          It uses SDL_mixer to play the music and sound effects.
  *

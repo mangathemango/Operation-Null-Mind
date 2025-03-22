@@ -1,6 +1,6 @@
 /**
  * @file camera.h
- * @brief This file contains the declarations for the camera system.
+ * @brief Provides camera functionality for world-to-screen coordinate conversion.
  * @image html camera.png width=400px
  * The camera system is used to convert between world and screen coordinates.
  * For most objects, the variable "position" is in world coordinates.

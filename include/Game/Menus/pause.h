@@ -1,6 +1,6 @@
 /**
  * @file pause.h
- * @brief This file contains the declaration of the pause menu functions.
+ * @brief Manages the game's pause functionality and menu display.
  * 
  * @author Mango
  * @date 2025-03-21

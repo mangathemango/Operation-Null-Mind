@@ -1,6 +1,6 @@
 /**
  * @file maps.h
- * @brief This file contains the declaration of the EnvironmentMap struct and its functions.
+ * @brief Manages game world maps composed of environment chunks.
  * 
  * @author Mango and Darren
  * @date 2025-03-22

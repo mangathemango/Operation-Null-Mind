@@ -1,6 +1,6 @@
 /**
  * @file initialize_SDL.h
- * @brief This file contains the function that initializes SDL renderer, windows, and so on.
+ * @brief Initializes SDL libraries, renderer, windows and other required systems.
  *
  * This function is called only once inside App_Start(), so it's not a big deal.
  *
