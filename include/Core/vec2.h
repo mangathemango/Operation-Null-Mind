@@ -18,6 +18,7 @@
  * The functions in this file can be used to perform common vector operations such as addition, subtraction, normalization, and rotation.
  * 
  * @section usage Usage Examples
+ * 
  * @subsection usage1 Usage Examples1. Movement calculations:
  * ```c
  * Vec2 position = {10, 20};
@@ -58,6 +59,8 @@
  * SDL_Rect = Vec2_ToCenteredRect(position, size);
  * // ...
  * ```
+ * Here's a visualization of this:
+ * @image html vec2.png width=400px
  * 
  * 
  * @author Mango
