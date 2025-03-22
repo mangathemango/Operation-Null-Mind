@@ -5,13 +5,17 @@
  * The camera system is used to convert between world and screen coordinates.
  * For most objects, the variable "position" is in world coordinates.
  * That's why, the Camera_WorldVecToScreen() function is used in render functions to convert that position to screen coordinates.
+ * Vice versa, the Camera_ScreenVecToWorld() function is used to convert screen coordinates to world coordinates.
  * @author Mango
  * @date 2025-03-12
  * 
  * @section usage Usage Examples
  * 
  * ```c
- * player.state.position
+ * player.state.position // This is world position
+ * Vec2 screenPosition = Camera_WorldVecToScreen(player.state.position); // screenPosition is now the screen position of the player
+ * 
+ * // We can now render the player at the screen position
  * ```
  */
 
