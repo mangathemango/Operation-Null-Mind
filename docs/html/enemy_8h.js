@@ -1,0 +1,25 @@
+var enemy_8h =
+[
+    [ "EnemyState", "structEnemyState.html", "structEnemyState" ],
+    [ "EnemyStats", "structEnemyStats.html", "structEnemyStats" ],
+    [ "EnemyResources", "structEnemyResources.html", "structEnemyResources" ],
+    [ "EnemyData", "structEnemyData.html", "structEnemyData" ],
+    [ "ENEMY_MAX", "enemy_8h.html#a917fe8987f38eae3d10acf6d1fb4a1c5", null ],
+    [ "EnemyData", "enemy_8h.html#a8f80ae3784ed4691e8908a8774690d41", null ],
+    [ "EnemyType", "enemy_8h.html#ac3e413a86119db4b031458c7259e268e", [
+      [ "ENEMY_TYPE_ECHO", "enemy_8h.html#ac3e413a86119db4b031458c7259e268ea377a87be95f6f8b0ac8dfe5e2076dc74", null ]
+    ] ],
+    [ "Enemy_Destroy", "enemy_8h.html#abd53ee8b26e2bb5d360470f8481f38e6", null ],
+    [ "Enemy_HandleDeath", "enemy_8h.html#a2c4f80dab1ff83792a20991d33d78ef2", null ],
+    [ "Enemy_HandleMovement", "enemy_8h.html#a8b9fb8ded54a9cd55530c966652f66d2", null ],
+    [ "Enemy_HandleSpawning", "enemy_8h.html#a8d69c97afbef39e1798bd521d582947b", null ],
+    [ "Enemy_Init", "enemy_8h.html#a8dd5ab423a08fa6d1799c29c6bdc8372", null ],
+    [ "Enemy_Render", "enemy_8h.html#acd0472c12bf91818fe3b151fc1810c6a", null ],
+    [ "Enemy_Spawn", "enemy_8h.html#a445251f2ebf534047333128c8022fdaa", null ],
+    [ "Enemy_TakeDamage", "enemy_8h.html#a63ded0e607f115e1b5cc2173f2ae0cac", null ],
+    [ "Enemy_TryMove", "enemy_8h.html#a9d4673c12258050e674c79cd6d601a38", null ],
+    [ "Enemy_Update", "enemy_8h.html#a02c07781e54c5b63f42fcad8bcd3b8ed", null ],
+    [ "EnemyManager_Update", "enemy_8h.html#a6dd61cc622c56164060087ebdce8e3f9", null ],
+    [ "enemies", "enemy_8h.html#ab2eb14f1e8c1e3de0a5134d0bff6b0a3", null ],
+    [ "Enemy_spawnIndicator", "enemy_8h.html#a0b96cbf44862e48b1dbb46931183b417", null ]
+];

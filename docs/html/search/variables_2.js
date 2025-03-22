@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['camera_0',['camera',['../camera_8c.html#ad1e644043d306fb06da21d6fc9542f5e',1,'camera:&#160;camera.c'],['../camera_8h.html#ad1e644043d306fb06da21d6fc9542f5e',1,'camera:&#160;camera.c']]],
+  ['cameralock_1',['cameraLock',['../structParticle.html#ae0f975fe1cab78858df578bafaa22eab',1,'Particle']]],
+  ['cameralocked_2',['cameraLocked',['../structParticleEmitter.html#aabb202040f177bffbc74cdb492494ab0',1,'ParticleEmitter']]],
+  ['casingparticleemitter_3',['casingParticleEmitter',['../structGunResources.html#ab37a51dfe6fb4e1efb751c53c970a2e2',1,'GunResources']]],
+  ['casingpreset_4',['casingPreset',['../structGunConfig.html#a33787b24ba1d67f6daeaefef507ddd40',1,'GunConfig']]],
+  ['chunks_5',['chunks',['../structEnvironmentMap.html#a612f38164b0456cca2e83deeca593574',1,'EnvironmentMap']]],
+  ['cleanup_6',['cleanup',['../structUIElement.html#af7e2e8e08b181893217f88a8782f2241',1,'UIElement']]],
+  ['clipcount_7',['clipCount',['../structAnimation.html#a50633dfa96496759ce083790578f6a90',1,'Animation']]],
+  ['clips_8',['clips',['../structAnimation.html#a42b9ef32bf984efcd4975410e8258e6e',1,'Animation::clips'],['../structAnimationData.html#a02800320c9045568d5c0a1b970e95ccd',1,'AnimationData::clips']]],
+  ['collider_9',['collider',['../structEnemyState.html#a674da89200b92ec4e5780ab09a16d59d',1,'EnemyState::collider'],['../structPlayerState.html#a1a1aa9531833db9f4fcd05999a87a381',1,'PlayerState::collider'],['../structParticle.html#a7030861ec05025a4ef4514c9e813038f',1,'Particle::collider'],['../structParticleEmitter.html#a05844c6c4c7d755f04615ff8b046b3ce',1,'ParticleEmitter::collider']]],
+  ['collidercount_10',['collidercount',['../structEnvironmentChunk.html#a367b822ec0379efc394ccd6843e4b3a1',1,'EnvironmentChunk::colliderCount'],['../colliders_8h.html#a5527ab03337d9f32b82cd7de140e925c',1,'ColliderCount:&#160;colliders.c'],['../colliders_8c.html#a5527ab03337d9f32b82cd7de140e925c',1,'ColliderCount:&#160;colliders.c']]],
+  ['colliderlist_11',['colliderlist',['../colliders_8c.html#a1df47f7e9b3d8925df47d2f469e53689',1,'ColliderList:&#160;colliders.c'],['../colliders_8h.html#a1df47f7e9b3d8925df47d2f469e53689',1,'ColliderList:&#160;colliders.c']]],
+  ['colliders_12',['colliders',['../structEnvironmentChunk.html#ac2d8d704df874b806cf32fca0859c288',1,'EnvironmentChunk']]],
+  ['collideswith_13',['collidesWith',['../structCollider.html#af929c172da1ec5c03d0b58d1f5617df1',1,'Collider']]],
+  ['color_14',['color',['../structUIElement.html#a2ee8ea21950288a3fb2e11bcfd42d54f',1,'UIElement::color'],['../structParticle.html#a4b7081d6fd98421026b3d0e86d2af61c',1,'Particle::color']]],
+  ['config_15',['config',['../structGunData.html#ac6a03719f2f4586f0d4a948451ba1d97',1,'GunData::config'],['../structAppData.html#a5a7c30bd09c23b700e1fcbb18191a63f',1,'AppData::config'],['../structEnemyData.html#a2e10eff79b53b09bfb37b80eb9dffb94',1,'EnemyData::config'],['../structEnvironmentTileData.html#a7dbc101502b7e45349575cd50a56c896',1,'EnvironmentTileData::config']]],
+  ['count_16',['count',['../structColliderCheckResult.html#a1b253123554cd262f3325d7a8c8b4b18',1,'ColliderCheckResult']]],
+  ['currentclip_17',['currentClip',['../structAnimation.html#aed15177dd40ab13106cf56671c9f5b35',1,'Animation']]],
+  ['currentenemycount_18',['currentEnemyCount',['../structEnvironmentChunk.html#a8cbe1246c5aa0635696577cabf191fc6',1,'EnvironmentChunk']]],
+  ['currentframe_19',['currentFrame',['../structAnimation.html#adc7df29e613689f29ddac3316b2a509d',1,'Animation']]],
+  ['currentgun_20',['currentGun',['../structPlayerState.html#ac4303f9cbf293351fb61d970271eed67',1,'PlayerState']]],
+  ['currenthealth_21',['currentHealth',['../structEnemyState.html#aae3590d4608f9520d59d69e566b0c1f5',1,'EnemyState']]],
+  ['currentscene_22',['currentScene',['../structAppState.html#a02b7a75f816e666a2a6bbedce9e4efd9',1,'AppState']]],
+  ['currentspeed_23',['currentSpeed',['../structPlayerState.html#a37a903dde624234eff13a03dcd9a6f1d',1,'PlayerState']]],
+  ['custom_5fmovement_24',['custom_Movement',['../structParticleEmitter.html#ac302497ef3836d23df592b27eee5efa9',1,'ParticleEmitter']]]
+];

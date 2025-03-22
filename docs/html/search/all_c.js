@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['in_20a_20cooldown_20system_0',['Usage in a cooldown system',['../timer_8h.html#usage_cooldown',1,'']]],
+  ['in_20the_20game_20loop_1',['Step 3: Update and render in the game loop',['../particles_8h.html#preset_step3',1,'']]],
+  ['incombat_2',['inCombat',['../structEnvironmentChunk.html#aa3a1b60a5e2b53295a6cef7c29b31105',1,'EnvironmentChunk']]],
+  ['initialcolor_3',['initialColor',['../structParticle.html#a953e6779312cc5824dc79c9207807d28',1,'Particle']]],
+  ['initialization_20stage_20start_4',['Initialization Stage [Start]',['../index.html#init_stage',1,'']]],
+  ['initialize_5fsdl_5',['Initialize_SDL',['../initialize__SDL_8h.html#adf54fbca7a499a5995f4fe9e53acb214',1,'initialize_SDL.h']]],
+  ['initialize_5fsdl_2eh_6',['initialize_SDL.h',['../initialize__SDL_8h.html',1,'']]],
+  ['initialsize_7',['initialSize',['../structParticle.html#a41e1d7c83702fd04a414aa7ec2f23362',1,'Particle']]],
+  ['initialspeed_8',['initialSpeed',['../structParticle.html#a5c081273dd5de6c29a7f2f36e3d329d5',1,'Particle']]],
+  ['inprogress_9',['inProgress',['../structTimer.html#a8241d1ac49daaf31ecbc4ede31d1ed6d',1,'Timer']]],
+  ['input_10',['Input',['../input_8h.html#ad34b8aaaa07e7b91954af43b793eb1df',1,'input.h']]],
+  ['input_2eh_11',['input.h',['../input_8h.html',1,'']]],
+  ['input_5fevent_5fhandler_12',['Input_Event_Handler',['../input_8h.html#a5de96dce6245841cfc475fe736cdc4fa',1,'input.h']]],
+  ['input_5fmouseisonrect_13',['Input_MouseIsOnRect',['../input_8h.html#ad8ab95bbf0a0a7181a8334f13221f3a0',1,'input.h']]],
+  ['input_5fpreupdate_14',['Input_PreUpdate',['../input_8h.html#a6df1e54f1701d72fd497778a691a060b',1,'input.h']]],
+  ['inputevent_15',['inputevent',['../structInputEvent.html',1,'InputEvent'],['../index.html#input_data',1,'InputEvent']]],
+  ['insideend_16',['insideEnd',['../structPlayerState.html#adfd8074bee49bc307b3d27e0779be554',1,'PlayerState']]],
+  ['insidehallway_17',['insideHallway',['../structPlayerState.html#a443bdcbc5064654459c904f2ab669ae3',1,'PlayerState']]],
+  ['insideroom_18',['insideRoom',['../structPlayerState.html#a29700ac76922721de03df7c169e1d0b4',1,'PlayerState']]],
+  ['isdead_19',['isDead',['../structEnemyState.html#ab801a83ef86a6a893224de7f751b4ca6',1,'EnemyState']]],
+  ['isplaying_20',['isPlaying',['../structAnimation.html#a0b7e0d39ac1071d1389114b56db46544',1,'Animation']]],
+  ['isspawning_21',['isSpawning',['../structEnemyState.html#a2ea4f787952917fd0212ef3debce1f73',1,'EnemyState']]],
+  ['item_5fhitbox_5fcolor_22',['ITEM_HITBOX_COLOR',['../debug_8c.html#a581ae0a9fb17e973183565dacbfb4cb7',1,'debug.c']]]
+];
