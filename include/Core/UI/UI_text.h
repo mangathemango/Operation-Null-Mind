@@ -4,7 +4,7 @@
  * @author Mango (杜明日) 
  * @date 2025-03-12
  * 
- *  * @section usage Usage Examples
+ * @section usage Usage Examples
  * 
  * Creating and managing text elements:
  * 
