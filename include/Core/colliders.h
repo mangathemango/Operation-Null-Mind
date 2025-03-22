@@ -12,8 +12,17 @@
  * 
  * @subsubsection usage_step1_example Example:
  * ```c
+ *     // Static variables
  *     static Collider playerCollider = {
  *         // (If you're making the hitbox follow something, only the last two values (width and height) matter)
+ *         .hitbox = {0, 0, 20, 20}, 
+ *         .layer = COLLISION_LAYER_PLAYER,
+ *         .collidesWith = COLLISION_LAYER_ENVIRONMENT 
+ *                       | COLLISION_LAYER_ENEMY,
+ *     };
+ * 
+ *     // Global variables (View PlayerData struct and player variable)
+ *     player.state.collider = {
  *         .hitbox = {0, 0, 20, 20}, 
  *         .layer = COLLISION_LAYER_PLAYER,
  *         .collidesWith = COLLISION_LAYER_ENVIRONMENT 
