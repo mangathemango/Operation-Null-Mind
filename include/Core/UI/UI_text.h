@@ -1,7 +1,7 @@
 /**
  * @file UI_text.h
- * @brief This file contains the definition of the UI_TextData struct. 
- * @author Mango (杜明日) 
+ * @brief This file contains the declaration of the UI text element and its functions.
+ * @author Mango
  * @date 2025-03-12
  * 
  * @section usage Usage Examples
@@ -11,12 +11,12 @@
  * ```c
  * // Create a simple text element
  * UIElement* titleText = UI_CreateText(
- *     "Operation Null Mind", 
- *     (SDL_Rect){400, 100, 400, 50},
- *     (SDL_Color){255, 255, 255, 255},
- *     1.5f,
- *     UI_TEXT_ALIGN_CENTER,
- *     app.resources.fonts.titleFont
+ *     "Operation Null Mind",           // Text content
+ *     (SDL_Rect){400, 100, 400, 50},   // Position and size of text box
+ *     (SDL_Color){255, 255, 255, 255}, // Color
+ *     1.5f,                            // Scale (text size)
+ *     UI_TEXT_ALIGN_CENTER,            // Alignment // Alignment (Look at UI_TextAlignment enum)
+ *     app.resources.fonts.titleFont    // Font
  * );
  * 
  * // Changing text content dynamically

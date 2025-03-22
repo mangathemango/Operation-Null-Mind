@@ -107,6 +107,11 @@ typedef struct {
  */
 extern AppData app;
 
+/**
+ * @brief The main function that initializes the app and starts the game loop.
+ * 
+ * @return int 
+ */
 int App_Start();
 int App_PreUpdate();
 int App_PostUpdate();
