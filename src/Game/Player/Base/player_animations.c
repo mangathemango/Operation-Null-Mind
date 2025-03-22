@@ -17,6 +17,9 @@
 /**
  * @brief [Start] Initializes the player's animation system
  * 
+ * Creates and sets up the player's animation system from the
+ * animation data defined in player_data.c.
+ * 
  * @return int Status code (0 for success, 1 for error)
  */
 int Player_AnimationInit() {
@@ -30,6 +33,9 @@ int Player_AnimationInit() {
 
 /**
  * @brief [PostUpdate] Updates the player's animation state
+ * 
+ * Selects the appropriate animation based on player state
+ * (idle or walking) and advances the animation frames.
  * 
  * @return int Status code (0 for success)
  */

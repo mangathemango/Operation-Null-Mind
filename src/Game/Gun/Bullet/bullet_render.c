@@ -5,6 +5,7 @@
  * Manages the visual representation of bullets, tracer effects,
  * and bullet impact particles.
  *
+ * @author Mango
  * @date 2025-03-05
  */
 
@@ -14,6 +15,9 @@
 
 /**
  * @brief [Render] Renders all active bullets and bullet fragments
+ * 
+ * Draws all active bullet particles and their impact fragments
+ * from the current weapon's emitters.
  */
 void Bullet_Render()
 {

@@ -13,6 +13,12 @@
 #include <camera.h>
 #include <app.h>
 
+/**
+ * @brief [Start] Initializes the tile system by loading textures
+ * 
+ * Loads all tile textures from disk and creates texture resources
+ * for each tile type.
+ */
 void Tile_Start() {
     // Load textures
     for (int i = 1; i < TILE_TYPE_COUNT; i++) {
@@ -26,6 +32,16 @@ void Tile_Start() {
     }
 }
 
+/**
+ * @brief [Utility] Creates a tile of the specified type and rotation
+ * 
+ * Factory function that constructs a tile with the appropriate
+ * texture and rotation.
+ * 
+ * @param type The type of tile to create
+ * @param rotation The rotation to apply to the tile
+ * @return EnvironmentTile The constructed tile
+ */
 EnvironmentTile Tile_Create(TileType type, TileRotation rotation) {
     return (EnvironmentTile) {
         .texture = tiles.resources.textures[type],

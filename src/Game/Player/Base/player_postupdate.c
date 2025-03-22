@@ -20,7 +20,7 @@
  * @brief [PostUpdate] Main player update routine
  * 
  * This function is called inside App_PostUpdate().
- * It updates the player's input, position, and rendering.
+ * It updates the player's input, position, and animations in sequence.
  * 
  * @return int Status code (0 for success)
  */

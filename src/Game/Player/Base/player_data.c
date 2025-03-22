@@ -13,11 +13,12 @@
 
 #include <player.h>
 
-/*
-    @file player_data.c
-*   [Data] This file contains the player's data initialization.
-*/
-
+/**
+ * @brief [Data] The player's initial data and configuration
+ * 
+ * Contains all default values for the player including position, collision properties,
+ * movement speeds, sprite data, and animation definitions.
+ */
 PlayerData player = {
     .state = {
         .position = {4200,4200},

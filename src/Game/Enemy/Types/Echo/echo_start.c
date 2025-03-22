@@ -13,7 +13,7 @@
 #include <animation.h>
 
 /**
- * [Start] Initializes an Echo enemy instance.
+ * @brief [Start] Initializes an Echo enemy instance
  * 
  * Sets up the Echo enemy's resources including animations, 
  * particle effects, and timers.

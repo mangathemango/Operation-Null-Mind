@@ -16,6 +16,9 @@
 
 /**
  * @brief [PostUpdate] Updates all active bullets, handling movement and collisions
+ * 
+ * Updates the position of all bullets, checks for collisions with enemies and walls,
+ * and handles impact effects when collisions are detected.
  */
 void Bullet_Update()
 {

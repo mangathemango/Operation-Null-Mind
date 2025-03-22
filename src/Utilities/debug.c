@@ -18,6 +18,7 @@
 #include <maps.h>
 #include <player.h>
 
+/** Color constants for hitbox visualization */
 #define PLAYER_HITBOX_COLOR 0, 255, 0, 255
 #define WALL_HITBOX_COLOR 255, 255, 0, 255
 #define ENEMY_HITBOX_COLOR 255, 0, 0, 255
@@ -26,7 +27,10 @@
 #define PLAYER_PROJECTILE_HITBOX_COLOR 0, 0, 255, 255
 
 /**
- * @brief Renders all active hitboxes in the game if debug mode is enabled
+ * @brief [Render] Renders all active hitboxes when debug mode is enabled
+ * 
+ * Iterates through all registered colliders and draws their hitboxes
+ * with different colors based on their collision layer.
  */
 void Debug_RenderHitboxes() {
     if (!app.config.debug) return;
@@ -66,7 +70,9 @@ void Debug_RenderHitboxes() {
 }
 
 /**
- * @brief Renders the current FPS count on the screen
+ * @brief [Render] Renders the current FPS counter in the top-left corner
+ * 
+ * Creates and updates a text element showing the current frames per second.
  */
 void Debug_RenderFPSCount() {
     if (!app.config.debug) return;
@@ -79,7 +85,6 @@ void Debug_RenderFPSCount() {
 
     char averageFpsText[30];
     sprintf(averageFpsText, "Average FPS: %d", app.state.averageFps);
-
 
     if (!fpsTextElement) {
         // Create text element if it doesn't exist 
@@ -127,13 +132,15 @@ void Debug_RenderFPSCount() {
     UI_UpdateText(fpsTextElement);
     UI_RenderText(fpsTextElement);
 
-
     UI_UpdateText(averageFpsTextElement);
     UI_RenderText(averageFpsTextElement);
 }
 
 /**
- * @brief Renders the frame spike counter on screen
+ * @brief [Render] Renders a counter of frame spikes (frames exceeding target time)
+ * 
+ * Tracks and displays the number of frames that took longer than
+ * the target frame time (frames with fps below 30).
  */
 void Debug_RenderSpikeCount() {
     if (!app.config.debug) return;
@@ -175,7 +182,10 @@ void Debug_RenderSpikeCount() {
 }
 
 /**
- * @brief Renders debug information about the current chunk
+ * @brief [Render] Renders information about the current chunk the player is in
+ * 
+ * Shows the coordinates of the current chunk and the next chunk in the
+ * main path.
  */
 void Debug_RenderCurrentChunk() {
     if (!app.config.debug) return;
@@ -222,7 +232,6 @@ void Debug_RenderCurrentChunk() {
         // Update text if it does exist.
         UI_ChangeText(spikeTextElement, text);
     }
-
 
     UI_UpdateText(spikeTextElement);
     UI_RenderText(spikeTextElement);

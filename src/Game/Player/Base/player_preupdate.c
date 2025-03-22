@@ -5,6 +5,9 @@
  * Handles preliminary player state updates that need to occur
  * before main game systems are updated.
  *
+ * Clears movement and location flags to ensure they're recalculated each frame,
+ * and resets direction vector if not locked.
+ * 
  * @author Mango
  * @date 2025-03-03
  */
@@ -13,6 +16,9 @@
 
 /**
  * @brief [PreUpdate] Resets player state at the beginning of each frame
+ * 
+ * Clears movement and location flags to ensure they're recalculated each frame,
+ * and resets direction vector if not locked.
  * 
  * @return int Status code (0 for success)
  */

@@ -19,10 +19,13 @@
 #include <random.h>
 
 /**
- * [Start] Creates a particle emitter from a preset.
+ * @brief [Start] Creates a particle emitter from a preset
+ * 
+ * Initializes a new particle emitter based on a preset configuration,
+ * allocating memory for the emitter and its particles.
  * 
  * @param preset The preset to create the emitter from. This is found inside particle_emitterpresets.h
- * @return A pointer to the created emitter
+ * @return A pointer to the created emitter, or NULL if allocation fails
  */
 ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
     // Create emitter
@@ -50,7 +53,10 @@ ParticleEmitter* ParticleEmitter_CreateFromPreset(ParticleEmitter preset) {
 }
 
 /**
- * [PostUpdate] Controls the particle emitter's particle emission, age, and rendering.
+ * @brief [PostUpdate] Controls the particle emitter's particle emission, age, and rendering
+ * 
+ * Updates all aspects of a particle emitter including emission of new particles,
+ * updating existing particles, and handling emitter lifecycle events.
  * 
  * @param emitter A pointer to the particle emitter
  */
@@ -91,7 +97,9 @@ void ParticleEmitter_Update(ParticleEmitter* emitter) {
 }
 
 /**
- * [Render] Renders every particle of a particle emitter.
+ * @brief [Render] Renders every particle of a particle emitter
+ * 
+ * Draws all active particles with their current color, size, and position.
  * 
  * @param emitter A pointer to the particle emitter
  */
@@ -116,11 +124,11 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
     }
 }
 
-
-
-
 /**
- * [Utility] Emits a single particle and set its properties based on the emitter.
+ * @brief [Utility] Emits a single particle and set its properties based on the emitter
+ * 
+ * Creates a new particle with initial properties derived from the emitter
+ * settings plus appropriate randomization.
  * 
  * @param emitter A pointer to the particle emitter
  */
@@ -157,7 +165,10 @@ void ParticleEmitter_Emit(ParticleEmitter* emitter) {
 }
 
 /**
- * [Utility] Update the state, movement, color and size of every particles of a particle emitter.
+ * @brief [Utility] Update the state, movement, color and size of every particles of a particle emitter
+ * 
+ * Processes all active particles, updating their position, color, size, and rotation
+ * based on their current state and lifecycle.
  * 
  * @param emitter A pointer to the particle emitter
  */
@@ -214,7 +225,8 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
 }
 
 /**
- * [Utility] Set the max particles property of an emitter.
+ * @brief [Utility] Set the max particles property of an emitter
+ * 
  * This is probably never going to be used, since this is already set inside particle_emitterpreset.
  * Only use this if (for some reason) you want to change a particle emitter's max particles in the middle of a game
  * 
@@ -227,11 +239,13 @@ void ParticleEmitter_SetMaxParticles(ParticleEmitter* emitter, int maxParticles)
 }
 
 /**
- * [Utility] Gets the index of the next available particle inside an emitter's particle array.
- * Particle is available of it's dead, basically
+ * @brief [Utility] Gets the index of the next available particle inside an emitter's particle array
+ * 
+ * Particle is available of it's dead, basically. Searches through the particle
+ * array to find the first particle that is not alive.
  * 
  * @param emitter A pointer to the particle emitter
- * @return The index of the next available particle
+ * @return The index of the next available particle, or maxParticles if none available
  */
 int ParticleEmitter_GetNextReady(ParticleEmitter* emitter) {
     for (int i = 0; i < emitter->maxParticles; i++) {
@@ -241,7 +255,10 @@ int ParticleEmitter_GetNextReady(ParticleEmitter* emitter) {
 }
 
 /**
- * [Utility/Quit] Destroys a particle emitter.
+ * @brief [Utility/Quit] Destroys a particle emitter
+ * 
+ * Frees all resources associated with a particle emitter, including
+ * particle array and timer.
  * 
  * @param emitter A pointer to the particle emitter
  */
@@ -254,7 +271,9 @@ void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {
 }
 
 /**
- * [Utility] Check if there are any alive particles inside an emitter's particle array.
+ * @brief [Utility] Check if there are any alive particles inside an emitter's particle array
+ * 
+ * Scans through all particles in the emitter to determine if any are still active.
  * 
  * @param emitter A pointer to the particle emitter
  * @return true if any particles are alive, false otherwise
@@ -267,7 +286,10 @@ bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
 }
 
 /**
- * [Utility] Allows a particle emitter to go through another loop.
+ * @brief [Utility] Allows a particle emitter to go through another loop
+ * 
+ * Reactivates a particle emitter that was inactive, setting up
+ * its state for another emission cycle.
  * 
  * @param emitter A pointer to the particle emitter
  */
@@ -278,7 +300,10 @@ void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter) {
 }
 
 /**
- * [Utility] Deactivates a particle emitter
+ * @brief [Utility] Deactivates a particle emitter
+ * 
+ * Stops a particle emitter from emitting new particles, though
+ * existing particles will continue to update and render.
  * 
  * @param emitter A pointer to the particle emitter
  */

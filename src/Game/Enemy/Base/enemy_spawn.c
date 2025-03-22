@@ -14,7 +14,7 @@
 #include <maps.h>
 
 /**
- * [Utility] Spawns an enemy of the given type at the specified position.
+ * @brief [Utility] Spawns an enemy of the given type at the specified position
  * 
  * Creates a new enemy instance based on the provided template and initializes it
  * at the given position. If no position is provided (NULL), a random valid position

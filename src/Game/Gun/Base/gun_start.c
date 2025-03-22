@@ -16,6 +16,9 @@
 
 /**
  * @brief [Start] Initializes all guns and their particle emitters
+ * 
+ * Populates the gun list with all weapon types, assigns particle emitter
+ * presets, and creates animation resources for each gun.
  */
 void Gun_Start() {
     // Fill the gun list

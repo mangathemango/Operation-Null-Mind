@@ -17,7 +17,7 @@
 #include <app.h>
 
 /**
- * [Render] Renders all active enemies.
+ * @brief [Render] Renders all active enemies
  * 
  * Iterates through the enemy array and calls each enemy's specific
  * render function if they are active.

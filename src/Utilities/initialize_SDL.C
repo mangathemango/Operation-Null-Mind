@@ -16,6 +16,9 @@
 /**
  * [Start] Initializes SDL library and creates window and renderer
  * 
+ * Sets up the SDL library systems, creates the game window and renderer
+ * according to the configuration in the app structure, and loads fonts.
+ * 
  * @return int Status code (0 for success, 1 for error)
  */
 int Initialize_SDL() {

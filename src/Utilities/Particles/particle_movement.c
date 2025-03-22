@@ -17,7 +17,9 @@
 #include <random.h>
 
 /**
- * [Utility] Completely linear movement - constant speed and direction
+ * @brief [Utility] Completely linear movement - constant speed and direction
+ * 
+ * Moves the particle at a constant speed and direction without acceleration or deceleration.
  * 
  * @param particle The particle to update
  */
@@ -31,7 +33,9 @@ void Particle_LinearMovement(Particle* particle) {
 }
 
 /**
- * [Utility] Accelerated movement
+ * @brief [Utility] Accelerated movement
+ * 
+ * Gradually increases the particle's speed over time.
  * 
  * @param particle The particle to update
  */
@@ -46,7 +50,9 @@ void Particle_AcceleratedMovement(Particle* particle) {
 }
 
 /**
- * [Utility] Decelerated movement (this is just drag lmfao)
+ * @brief [Utility] Decelerated movement (this is just drag lmfao)
+ * 
+ * Gradually decreases the particle's speed over time, simulating drag.
  * 
  * @param particle The particle to update
  */
@@ -61,7 +67,9 @@ void Particle_DeceleratedMovement(Particle* particle) {
 }
 
 /**
- * [Utility] Spiral movmeent
+ * @brief [Utility] Spiral movmeent
+ * 
+ * Rotates the particle's direction vector to create a spiral movement pattern.
  * 
  * @param particle The particle to update
  */
@@ -77,7 +85,9 @@ void Particle_SpiralMovement(Particle* particle) {
 }
 
 /**
- * [Utility] Random movement
+ * @brief [Utility] Random movement
+ * 
+ * Randomly changes the particle's direction over time.
  * 
  * @param particle The particle to update
  */
@@ -93,7 +103,9 @@ void Particle_RandomMovement(Particle* particle) {
 }
 
 /**
- * [Utility] Sine movement
+ * @brief [Utility] Sine wave movement
+ * 
+ * Moves the particle in a sine wave pattern.
  * 
  * @param particle The particle to update
  */

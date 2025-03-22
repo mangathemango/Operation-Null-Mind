@@ -19,8 +19,9 @@
 /**
  * @brief [PostUpdate] Updates the gun's state, position, and particles
  * 
- * This part is really confusing, but it's basically updating the gun's position, angle, and particles.
- * I don't like how the gun's position is calculated, but it works.
+ * Updates the gun's position relative to the player, calculates the angle based on
+ * mouse position, and updates particle emitter positions for muzzle flash and casings.
+ * Flips the gun sprite horizontally when aiming to the left.
  */
 void Gun_Update() {
     GunData* gun = player.state.currentGun;

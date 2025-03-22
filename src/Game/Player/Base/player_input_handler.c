@@ -16,7 +16,10 @@
 #include <maps.h>
 
 /**
- * @brief Processes player input for movement, skills and weapons
+ * @brief [Event Handler] Processes player input for movement, skills and weapons
+ * 
+ * Checks keyboard and mouse input to trigger player actions including
+ * movement, dashing, weapon switching, and shooting.
  */
 void Player_Input_Handler() {
 
@@ -42,7 +45,6 @@ void Player_Input_Handler() {
     if (player.state.currentGun == NULL) {
         return;
     }
-
 
     if (player.state.currentGun->stats.fireMode == FIREMODE_AUTO) {
         if (Input->mouse.leftButton.held) Player_Shoot();

@@ -21,6 +21,12 @@ SDL_Rect exitButtonRect = {27, 160, 200, 15};
 static SDL_Texture* title = NULL;
 static SDL_Texture* background = NULL;
 
+/**
+ * @brief [Start] Loads textures and creates UI elements for the menu
+ * 
+ * Initializes all resources needed for the main menu, including
+ * the background, title, and button elements.
+ */
 void Menu_PrepareTextures() {
     SDL_Color textColor = {255, 255, 255, 255};
 
@@ -30,6 +36,12 @@ void Menu_PrepareTextures() {
     exitButtonElement = UI_CreateText("exit",  (SDL_Rect) {30, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
 }
 
+/**
+ * @brief [PostUpdate] Processes user input for menu buttons
+ * 
+ * Handles mouse hover and click events for the menu buttons,
+ * changing their appearance and triggering appropriate actions.
+ */
 void Menu_Update() {
     UI_UpdateText(startButtonElement);
     UI_UpdateText(exitButtonElement);
@@ -58,6 +70,12 @@ void Menu_Update() {
     }
 }
 
+/**
+ * @brief [Render] Draws the main menu to the screen
+ * 
+ * Renders the background, title, and interactive button elements
+ * with appropriate hover effects.
+ */
 void Menu_Render() {
     SDL_RenderCopy(app.resources.renderer, background, NULL, NULL);
     SDL_Rect dest = {

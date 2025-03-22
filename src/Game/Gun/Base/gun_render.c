@@ -17,6 +17,9 @@
 
 /**
  * @brief [Render] Renders the player's current gun and its corresponding particles
+ * 
+ * Draws the current weapon with proper rotation and flipping, and renders
+ * muzzle flash and casing particles with correct layering based on weapon orientation.
  */
 void Gun_Render() {
     GunData* gun = player.state.currentGun;

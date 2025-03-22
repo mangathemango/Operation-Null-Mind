@@ -14,7 +14,10 @@
 #include <input.h>
 
 /**
- * @brief [Render] Renders the player sprite based on the player's and cursor's position.
+ * @brief [Render] Renders the player sprite based on the player's and cursor's position
+ * 
+ * Draws the player's character sprite and dash particle effects at the appropriate
+ * screen position. Flips the sprite based on mouse cursor position.
  * 
  * @return int Status code (0 for success)
  */

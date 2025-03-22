@@ -31,7 +31,7 @@
 #include <player.h>
 
 /**
- * @brief Entry point of the program
+ * @brief [Start] Entry point of the program
  * 
  * Each program will call the following functions in this order:
  * App_Start() -> loop [ App_PreUpdate() -> App_Event_Handler() -> App_PostUpdate() -> App_Render] -> App_Quit()

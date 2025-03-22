@@ -9,19 +9,20 @@
  * @date 2025-03-08
  */
 
-/*
-    @file particle_emitterpresets.c
-*   [Data] This file contains all the data about particle emitter presets. Read particle_emitterpresets.h for more
-
-?   Updated by Mango on 08/03/2025
-*/
-
 #include <particle_emitterpresets.h>
+
+/** Color constants for brass material */
 #define BRASS_COLOR {238,209,131,255}
 #define BRASS_COLOR_FADE {238,209,131,100}
+
+/** Color constants for shotgun shell material */
 #define SHOTSHELL_COLOR {207,43,33,255}
 #define SHOTSHELL_COLOR_FADE {207,43,33,0}
 
+/** 
+ * @brief Dash effect particle emitter preset
+ * Creates trail particles behind the player when dashing
+ */
 ParticleEmitter ParticleEmitter_Dash = {
     .position = {100, 100},
 
@@ -58,7 +59,10 @@ ParticleEmitter ParticleEmitter_Dash = {
     .useCollider = false,
 };
 
-// Particle emitter for muzzle flashes
+/** 
+ * @brief Muzzle flash particle emitter preset
+ * Creates bright flash particles at gun muzzle when firing
+ */
 ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .position = {100, 100},
 
@@ -95,7 +99,10 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .useCollider = false,
 };
 
-// Particle emitter for Pistol and SMG bullet casings
+/** 
+ * @brief Pistol and SMG casing ejection particle preset
+ * Creates small brass casings when pistol or SMG is fired
+ */
 ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .position = {100, 100},
 
@@ -132,7 +139,10 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .useCollider = false,
 };
 
-// Particle emitter for Assault Rifle and Battle Rifle bullet casings
+/** 
+ * @brief Assault Rifle and Battle Rifle casing ejection particle preset
+ * Creates medium brass casings when rifle is fired
+ */
 ParticleEmitter ParticleEmitter_ARBRCasing = {
     .position = {100, 100},
 
@@ -169,7 +179,10 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .useCollider = false,
 };
 
-// Particle emitter for Shotgun shell casings
+/** 
+ * @brief Shotgun shell ejection particle preset
+ * Creates red shotgun shells when shotgun is fired
+ */
 ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .position = {100, 100},
 
@@ -206,7 +219,10 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .useCollider = false,
 };
 
-// Default particle emitter, mainly used for testing what looks good / messing around
+/** 
+ * @brief Default particle emitter preset for testing
+ * General purpose emitter for experimenting with effects
+ */
 ParticleEmitter ParticleEmitter_Default = {
     .position = {100, 100},
 
@@ -243,7 +259,10 @@ ParticleEmitter ParticleEmitter_Default = {
     .useCollider = false,
 };
 
-
+/** 
+ * @brief Default bullet particle emitter preset
+ * Base configuration for all projectiles in the game
+ */
 ParticleEmitter ParticleEmitter_BulletDefault = {
     .position = {100, 100},
 
@@ -292,6 +311,10 @@ ParticleEmitter ParticleEmitter_BulletDefault = {
     },
 };
 
+/** 
+ * @brief Bullet impact fragment particle preset
+ * Creates sparks and fragments when bullets hit surfaces
+ */
 ParticleEmitter ParticleEmitter_BulletFragments = {
     .position = {100, 100},
 
@@ -327,5 +350,5 @@ ParticleEmitter ParticleEmitter_BulletFragments = {
     .useCollider = false,
 };
 
-
+/** @brief Test emitter for development purposes */
 ParticleEmitter* test_emitter = NULL;

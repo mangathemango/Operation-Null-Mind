@@ -14,7 +14,10 @@
 #include <random.h>
 
 /**
- * @brief Makes the player shoot their current weapon
+ * @brief [Utility] Makes the player shoot their current weapon
+ * 
+ * Activates the shooting sequence, including sound effects, particle
+ * effects for muzzle flash and casings, and creating bullet projectiles.
  */
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
@@ -27,7 +30,10 @@ void Player_Shoot() {
 }
 
 /**
- * @brief Changes the player's active weapon
+ * @brief [Utility] Changes the player's active weapon
+ * 
+ * Sets the currently active gun and resets the cooldown timer
+ * based on the new weapon's fire rate.
  * 
  * @param gun Pointer to the gun data to switch to
  */

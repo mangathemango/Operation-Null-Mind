@@ -7,6 +7,9 @@
  * 
  * Note that the reloading animations aren't implemented yet.
  * 
+ * Selects the appropriate animation clip based on gun orientation
+ * and advances the animation frame.
+ * 
  * @author Mango
  * @date 2025-03-05
  */
@@ -18,6 +21,9 @@
 
 /**
  * @brief [PostUpdate] Updates the gun's animation state
+ * 
+ * Selects the appropriate animation clip based on gun orientation
+ * and advances the animation frame.
  */
 void Gun_AnimationUpdate() {
     GunData* gun = player.state.currentGun;

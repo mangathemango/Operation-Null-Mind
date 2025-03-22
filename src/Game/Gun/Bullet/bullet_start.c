@@ -16,6 +16,9 @@
 
 /**
  * @brief [Start] Initializes the bullet system by creating particle emitters
+ * 
+ * Creates and configures the particle emitters used for bullets and bullet fragments,
+ * then assigns them to each weapon type.
  */
 void Bullet_Start()
 {

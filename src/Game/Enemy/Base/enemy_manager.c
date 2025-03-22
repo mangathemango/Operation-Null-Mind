@@ -17,8 +17,8 @@
 #include <random.h>
 
 /**
- * [Utility] Counts the number of active enemies in a specific chunk
- * 
+ * @brief [Utility] Counts the number of active enemies in a specific chunk
+ *
  * @param chunk Pointer to the chunk to check
  * @return int Number of active enemies in the chunk
  */
@@ -33,7 +33,7 @@ int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk) {
 }
 
 /**
- * [PostUpdate] Updates the enemy management system.
+ * @brief [PostUpdate] Updates the enemy management system
  * 
  * Handles enemy spawning, despawning, and room transitions.
  * Manages which enemies are active based on player position.
