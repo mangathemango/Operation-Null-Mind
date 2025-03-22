@@ -1,11 +1,10 @@
-/*
-    @file app.h
-*   This file contains the app struct and its functions.
-?   The app struct is used to keep track of the app's resources, state, and configuration.
-?   For example, the window, renderer, screen size, and a running state.
-
-?   Written by Mango on 28/02/2025
-*/
+/**
+ * @file app.h
+ * @brief This file contains the definition of the app's resources, state, and configuration structs.
+ * 
+ * @author Mango (杜明日) 
+ * @date 2025-03-22
+ */
 
 #ifndef APP_H
 #define APP_H
@@ -29,12 +28,28 @@
 #include <pause.h>
 #include <minimap.h>
 
+/**
+ * @brief An enum containing the app's scenes, like the menu, game, and pause scene.
+ * 
+ * @example src/App/app_postupdate.c
+ * ```c
+ * switch (app.state.currentScene)
+ * {
+ *    case SCENE_MENU:  // Updates the menu logic
+ *    case SCENE_GAME:  // Updates the game logic
+ *    case SCENE_PAUSE: // Updates the pause logic
+ * }
+ * ```
+ */
 typedef enum {
     SCENE_MENU,
     SCENE_GAME,
     SCENE_PAUSE
 } AppScene;
 
+/**
+ * @brief A struct containing the app's resources like the window, renderer, and fonts.
+ */
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -44,6 +59,9 @@ typedef struct {
     TTF_Font* title2Font;
 } AppResources;
 
+/**
+ * @brief A struct containing the app's states like fps, current scene, and a flag for running.
+ */
 typedef struct {
     bool running;
     int fps;
@@ -51,6 +69,9 @@ typedef struct {
     AppScene currentScene;
 } AppState;
 
+/**
+ * @brief A struct containing the app's configurations like window size, title, and fullscreen mode.
+ */
 typedef struct {
     char* window_title;
     int window_width;
@@ -66,18 +87,29 @@ typedef struct {
     char* textFontPath;     
 } AppConfig;
 
+/**
+ * @brief A struct containing the app's resources, state, and configurations. Used by the app variable.
+ */
 typedef struct {
     AppResources resources;
     AppState state;
     AppConfig config;
 } AppData;
 
+/**
+ * @brief A global variable containing the app's resources, state, and configurations.
+ * ```c
+ * // Example usages:
+ * if (event == SDL_QUIT) app.state.running = false;
+ * SDL_SetWindowTitle(app.resources.window, app.config.window_title);
+ * SDL_RenderPresent(app.resources.renderer);
+ * ```
+ */
 extern AppData app;
 
 int App_Start();
 int App_PreUpdate();
 int App_PostUpdate();
-int App_Update();
 int App_Render();
 int App_Event_Handler(SDL_Event *event);
 int App_Quit();

@@ -1,31 +1,21 @@
-/*
-    @file UI_text.h
-*   This file contains the declarations for the text UI element.
-?   Text UI elements are used to display text on the screen.
-
-?   There are three steps to making an UI text element: Create, Update, and Render.
-
-?   To create: use the UI_CreateText() function. 
-?       This will create a UIElement pointer, which should be stored in a static variable for reuse.
-
-?   To update (optional): use the UI_UpdateText() function.
-?       This can be skipped if the text is static, i.e the text doesnt change/move/resize.
-?       Note: when the text element changes in text, size, or color, the texture for it will have to change.
-?       Therefore, you have to use functions like UI_ChangeText or UI_ChangeTextColor to update the texture.
-*   This sparks joy:        UI_ChangeTextColor(element, (SDL_Color) {255, 0, 0, 255});
-!   This doesnt spark joy:  element->color = (SDL_Color) {255, 0, 0, 255};
-
-?   And finally, to render: use the UI_RenderText() function.
-
-?   Example on how this is done can be found in src/Utilities/debug.c, in the fps render function.
-*/
+/**
+ * @file UI_button.h
+ * @brief This file contains the definition of the UI_TextData struct. 
+ * @author Mango (杜明日) 
+ * @date 2025-03-12
+ * 
+ * @section usage Usage Examples
+ * @example src/Utilities/debug.c:124-164 How the spike count text was created and rendered.
+ */
 
 #pragma once
 
 #include <UI.h>
 #include <SDL_ttf.h>
 
-// This should be self-explanatory
+/**
+ * @brief An enum for text alignment
+ */
 typedef enum {
     UI_TEXT_ALIGN_LEFT,
     UI_TEXT_ALIGN_CENTER,

@@ -126,23 +126,25 @@ void Debug_RenderFPSCount() {
  */
 void Debug_RenderSpikeCount() {
     if (!app.config.debug) return;
+
     // The UIElement struct stored in a static variable for reuse
     static UIElement* spikeTextElement = NULL;
-    // Format text
+    
+    // Count spike frames
     static int spikeCount = 0;
     float targetFPS = 30;
     if (Time->deltaTimeSeconds > 1.0 / targetFPS) spikeCount++;
 
+    // Format text
     char text[20];
     sprintf(text, "Spike frames: %d", spikeCount);
 
     if (!spikeTextElement) {
         // Create text element if it doesn't exist 
-
-        SDL_Color textColor = {255, 255, 255, 255};
-        SDL_Rect renderRect = {10, 30, 0, 0};   
-        float textScale = 1;
-        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;
+        SDL_Color textColor = {255, 255, 255, 255};         // White color
+        SDL_Rect renderRect = {10, 30, 0, 0};               // Position of the text (10, 30)
+        float textScale = 1;                                // Text scale
+        UI_TextAlignment alignment = UI_TEXT_ALIGN_LEFT;    // Text alignment
 
         spikeTextElement = UI_CreateText(
             text, 
@@ -156,7 +158,6 @@ void Debug_RenderSpikeCount() {
         // Update text if it does exist.
         UI_ChangeText(spikeTextElement, text);
     }
-
 
     UI_UpdateText(spikeTextElement);
     UI_RenderText(spikeTextElement);
