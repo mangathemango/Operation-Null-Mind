@@ -168,83 +168,198 @@ The central application data structure that holds the game's current state:
 
 ```c
 typedef struct {
-    bool isRunning;           // Controls the main game loop
-    SDL_Window* window;       // Main game window
-    SDL_Renderer* renderer;   // Renderer for drawing to window
-    SDL_Texture* target;      // Render target for camera effects
-    SDL_Rect viewport;        // Current viewport dimensions
-    // Other application state variables
+    AppResources resources;  // Contains window, renderer, textures, fonts
+    AppState state;          // Contains running flag, fps, current scene
+    AppConfig config;        // Contains window settings and debug flags
 } AppData;
 
 extern AppData app;  // Global app instance
 ```
 
-Located in `include/App/app.h` and defined in `src/App/app.c`.
+Located in `include/App/app.h` and defined in `src/App/app.c`. This is the central structure that manages the application state and resources.
 
-### InputData {#input_data}
+**Usage Examples:**
+```c
+// Change the game state
+app.state.currentScene = SCENE_PAUSE;
+
+// Check if the application is still running
+if (!app.state.running) {
+    // Handle exit condition
+}
+
+// Access the renderer for drawing
+SDL_RenderClear(app.resources.renderer);
+
+// Use the configured screen dimensions
+int width = app.config.screen_width;
+int height = app.config.screen_height;
+```
+
+### InputEvent {#input_data}
 Tracks all input device states for handling player interactions:
 
 ```c
 typedef struct {
-    MouseData mouse;          // Mouse position and button states
-    KeyboardData keyboard;    // Keyboard key states
-    // Additional input device states
-} InputData;
+    MouseState mouse;       // Contains position, motion, button states
+    KeyboardState keyboard; // Contains states for all keyboard keys
+} InputEvent;
 
-extern InputData* Input;  // Global input instance
+extern const InputEvent * const Input;  // Global input instance (read-only)
 ```
 
-Located in `include/Core/input.h` and defined in `src/Core/input.c`.
+Located in `include/Core/input.h` and defined in `src/Core/input.c`. The Input system provides an interface for checking if keys/buttons are pressed, held, or released.
 
-### TimeData {#time_data}
+**Usage Examples:**
+```c
+// Check if a key was just pressed this frame
+if (Input->keyboard.keys[SDL_SCANCODE_SPACE].pressed) {
+    Player_Jump();
+}
+
+// Check if a key is being held down
+if (Input->keyboard.keys[SDL_SCANCODE_W].held) {
+    Player_MoveForward();
+}
+
+// Check if a key was just released
+if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].released) {
+    TogglePauseMenu();
+}
+
+// Get current mouse position
+Vec2 mousePos = Input->mouse.position;
+
+// Check if left mouse button was just clicked
+if (Input->mouse.leftButton.pressed) {
+    Player_Shoot();
+}
+```
+
+### TimeSystem {#time_data}
 Manages timing information for frame-rate independence:
 
 ```c
 typedef struct {
-    uint32_t currentTime;     // Current frame time
-    uint32_t lastTime;        // Previous frame time
-    float deltaTimeSeconds;   // Time between frames in seconds
-    float timeScale;          // Time scaling factor
-    // Other timing variables
-} TimeData;
+    float deltaTimeSeconds;      // Time between frames in seconds
+    float timeScale;             // Scale factor for time
+    float scaledDeltaTimeSeconds; // Delta time multiplied by time scale
+    double programElapsedTimeSeconds; // Total time since program start
+    double previousTick;         // Previous frame tick value
+} TimeSystem;
 
-extern TimeData* Time;  // Global time instance
+extern const TimeSystem * const Time;  // Global time instance (read-only)
 ```
 
-Located in `include/Core/time.h` and defined in `src/Core/time.c`.
+Located in `include/Core/time_system.h` and defined in `src/Core/time_system.c`. The Time system is crucial for frame-rate independent movement and animations.
 
-### CameraData {#camera_data}
+**Usage Examples:**
+```c
+// Move an object with frame-rate independence
+object.position.x += object.velocity.x * Time->deltaTimeSeconds;
+object.position.y += object.velocity.y * Time->deltaTimeSeconds;
+
+// Update animation timer
+animation.timer += Time->deltaTimeSeconds;
+if (animation.timer >= animation.frameDuration) {
+    animation.currentFrame = (animation.currentFrame + 1) % animation.frameCount;
+    animation.timer = 0;
+}
+
+// Create a countdown timer
+float countdownRemaining = 10.0f - Time->programElapsedTimeSeconds;
+if (countdownRemaining <= 0) {
+    // Time's up!
+}
+
+// Use time scaling for slow-motion effect
+Time_SetTimeScale(0.5f); // Half speed
+// Movement and animations will now use scaledDeltaTimeSeconds automatically
+```
+
+### CameraSystem {#camera_data}
 Controls the game's view into the world:
 
 ```c
 typedef struct {
-    Vec2 position;            // Camera position in world
-    float zoom;               // Camera zoom level
-    SDL_Rect viewport;        // Camera viewport
-    // Other camera properties
-} CameraData;
+    Vec2 position;  // Camera position in world coordinates
+} CameraSystem;
 
-extern CameraData* Camera;  // Global camera instance
+extern CameraSystem camera;  // Global camera instance
 ```
 
-Located in `include/Core/camera.h` and defined in `src/Core/camera.c`.
+Located in `include/Core/camera.h` and defined in `src/Core/camera.c`. The Camera system provides coordinate conversion between world and screen space.
+
+**Usage Examples:**
+```c
+// Update camera to follow player
+camera.position = player.state.position;
+
+// Convert world position to screen position for rendering
+Vec2 worldPos = enemy.position;
+Vec2 screenPos = Camera_WorldVecToScreen(worldPos);
+SDL_Rect destRect = {screenPos.x, screenPos.y, enemy.width, enemy.height};
+SDL_RenderCopy(app.resources.renderer, enemy.texture, NULL, &destRect);
+
+// Convert screen position (e.g., mouse) to world position
+Vec2 mouseScreenPos = Input->mouse.position;
+Vec2 mouseWorldPos = Camera_ScreenVecToWorld(mouseScreenPos);
+
+// Check if an object is visible on screen
+SDL_Rect objectRect = {worldPos.x, worldPos.y, object.width, object.height};
+if (Camera_RectIsOnScreen(objectRect)) {
+    // Only render if visible
+    RenderObject(object);
+}
+```
 
 ### PlayerData {#player_data}
 Contains all information about the player character:
 
 ```c
 typedef struct {
-    Vec2 position;            // Player position
-    Vec2 velocity;            // Player movement velocity
-    float health;             // Current health
-    PlayerState state;        // Current player state
-    // Other player properties
+    PlayerState state;      // Position, direction, speed, equipped gun, etc.
+    PlayerStat stats;       // Walk speed, dash speed, dash duration, etc.
+    PlayerResources resources; // Particle emitters, timers, animations, etc.
+    AnimationData animData; // Animation data for the player
 } PlayerData;
 
 extern PlayerData player;  // Global player instance
 ```
 
-Located in `include/Game/player.h` and defined in `src/Game/player.c`.
+Located in `include/Game/player.h` and defined in `src/Game/player.c`. The Player system manages the player character's state, movement, animations, and interactions.
+
+**Usage Examples:**
+```c
+// Access player position
+Vec2 playerPos = player.state.position;
+
+// Move the player
+player.state.position.x += movementX;
+player.state.position.y += movementY;
+
+// Change player's weapon
+player.state.currentGun = &Gun_Shotgun;
+
+// Check if player is dashing
+if (player.state.dashing) {
+    // Apply dash effects
+    CreateDashParticles();
+}
+
+// Apply damage to player
+void Player_TakeDamage(float amount) {
+    player.state.health -= amount;
+    if (player.state.health <= 0) {
+        Player_Die();
+    }
+}
+
+// Start player dash
+if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) {
+    Player_Dash();
+}
+```
 
 ## Key Algorithms and Data Structures {#algorithms}
 
