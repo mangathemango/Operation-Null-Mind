@@ -6,11 +6,11 @@
  * @section usage How to use the collider system:
  * TLDR: Create Collider struct somewhere, register it, check for collisions, and handle the collisions.
  * 
- * @section usage_step1 Step 1: Create a collider struct for your entity.
- *     This doesn't have to be inside an entity struct. (Though, this would be good for organization)
- *     But yeah, it just needs to exist in a memory that's reusable. (i.e static/global variables)
+ * @section usage_step1 Step 1: Create a collider struct for your entity.  
+ * Note: the collider needs to be stored in a memory that's reusable. (i.e static/global variables)
+ * 
  * Example:
- * @code
+ * ```c
  *     static Collider playerCollider = {
  *         // (If you're making the hitbox follow something, only the last two values (width and height) matter)
  *         .hitbox = {0, 0, 20, 20}, 
@@ -18,22 +18,22 @@
  *         .collidesWith = COLLISION_LAYER_ENVIRONMENT 
  *                       | COLLISION_LAYER_ENEMY,
  *     };
- * @endcode
+ * ```
  * This collider will check for collision with environment and enemies.
  *
  * @section usage_step2 Step 2: Register the collider
  * Register the collider with the collision manager:
- * @code
+ * ```c
  * Collider_Register(&playerCollider, playerEntity);
- * @endcode
+ * ```
  * This will add the collider to the list of colliders that the collision manager checks.
  *
  * @section usage_step3 Step 3: Check for collisions
  * Check for collisions with the collider:
- * @code
+ * ```c
  * ColliderCheckResult result;
  * Collider_Check(&playerCollider, &result);
- * @endcode
+ * ```
  *
  * This will check for collisions with the collider and store the results in the result struct.
  * After that, you can do something with the detected collisions:
