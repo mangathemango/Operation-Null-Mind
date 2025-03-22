@@ -30,7 +30,7 @@
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.
  * 
- * @example Example for how to handle app scenes in src/App/app_postupdate.c
+ * Example for how to handle app scenes in src/App/app_postupdate.c
  * ```
  * switch (app.state.currentScene)
  * {

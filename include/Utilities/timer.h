@@ -8,8 +8,7 @@
  * The way you use the timer is by creating a Timer object, setting its duration, and starting it.
  * You can check if the timer is finished or in progress by using Timer_IsFinished() and Timer_IsInProgress().
  *
- * @deprecated The below example is deprecated and will be updated soon.
- * @example Cooldown System Example
+ * @section example Cooldown System Example
  * @subsection usage_cooldown Usage in a cooldown system
  * ```c
  * void foo() {
