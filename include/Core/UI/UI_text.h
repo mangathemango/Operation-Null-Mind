@@ -8,7 +8,7 @@
  * 
  * Creating and managing text elements:
  * 
- * @code{.c}
+ * ```c
  * // Create a simple text element
  * UIElement* titleText = UI_CreateText(
  *     "Operation Null Mind", 
@@ -24,7 +24,7 @@
  * 
  * // Changing text color
  * UI_ChangeTextColor(warningText, (SDL_Color){255, 0, 0, 255});
- * @endcode
+ * ```
  */
 
 #pragma once
