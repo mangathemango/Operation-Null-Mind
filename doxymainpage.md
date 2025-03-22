@@ -4,6 +4,7 @@
 
 ## Overview {#introduction}
 Operation Null Mind is a 2D top-down shooter with roguelike elements, developed in C utilizing the SDL2 framework. 
+
 ![Gameplay](gameplay.png){width=400px}
 
 This comprehensive documentation aims to provide developers with a detailed understanding of the codebase architecture, including:
@@ -19,27 +20,35 @@ This documentation is designed to facilitate efficient navigation and comprehens
 This documentation is generated using Doxygen and offers several navigation methods:
 
 - **Table of Contents**: Navigate through this page through this table of contents
+
 ![Table of Contents](table_of_contents.png){width=400px}
 
 - **[Class List](annotated.html)**: View a list of all the structs in the project
+
 ![Class List](class_list.png){width=400px}
 
 - **[File List](files.html)**: View a list of all the files in the project
+
 ![File List](file_list.png){width=400px}
 
 - **Search Function**: Use the search box in the upper right corner to find specific elements
+
 ![Search Box](search_box.png){width=400px}
 
 **Note**: The "All" search option in Doxygen is not really good. You may have to adjust the search categories like this.
+
 ![Search Issues](search_issues.png){width=400px}
 
 - **[Index](index.html)**: View an alphabetical list of all the elements in the project
+
 ![Index](index.png){width=400px}
 
 - **[Function Index](functions.html)**: View an alphabetical list of all the functions in the project
+
 ![Function Index](function_index.png){width=400px}
 
 - **Breadcrumbs**: Use the breadcrumbs at the bottom of the page to navigate back to the main page
+
 ![Breadcrumbs](breadcrumbs.png){width=400px}
 
 ## Project Structure {#structure}
