@@ -4,9 +4,11 @@
 #include <app.h>
 #include <input.h>
 
-/*
-*   [Render] Renders the player sprite based on the player's and cursor's position.
-*/
+/**
+ * @brief [Render] Renders the player sprite based on the player's and cursor's position.
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_Render() {
     ParticleEmitter_Render(player.resources.dashParticleEmitter);
     

@@ -5,9 +5,12 @@
 #include <timer.h>
 #include <sound.h>
 #include <camera.h>
-/*
-*   [PostUpdate?] Dash the player in a direction.
-*/
+
+/**
+ * @brief Initiates player dash movement if conditions are met
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_Dash() {
     // Doesn't dash when idle
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
@@ -22,12 +25,14 @@ int Player_Dash() {
     return 0;
 }
 
-/*
-*   [PostUpdate?] Handles the character dashing state.
-?   This calls every frame player.state.dashing is true.
-*/
-int Player_HandleDash()
-{
+/**
+ * @brief Processes player dash state and effects
+ * 
+ * This is called every frame player.state.dashing is true.
+ * 
+ * @return int Status code (0 for success)
+ */
+int Player_HandleDash() {
     // Ends the dash state when the timer is finished
     if (Timer_IsFinished(player.resources.dashDurationTimer))
     {

@@ -1,0 +1,36 @@
+name: Generate and Deploy Doxygen
+
+on:
+  push:
+    branches:
+      - main
+      - inkt/MapGeneration
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Install Doxygen
+      run: sudo apt-get install -y doxygen graphviz
+
+    - name: Generate Doxygen documentation
+      run: doxygen Doxyfile
+
+    - name: Deploy to GitHub Pages
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        git add .
+        git commit -m "Deploying to gh-pages from @ ${{ github.repository }}@${{ github.sha }} 🚀" --quiet --no-verify
+        git push --force https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:gh-pages

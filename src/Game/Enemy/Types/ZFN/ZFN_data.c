@@ -1,11 +1,25 @@
+/**
+ * @file ZFN_data.c
+ * @brief Data definitions for the ZFN enemy type
+ *
+ * This file contains the data structure definitions and initialization
+ * for the ZFN enemy type, including stats, animations, and behaviors.
+ */
+
 #include <enemy_zfn.h>
 
+/**
+ * [Data] ZFN enemy default data.
+ * 
+ * This structure defines the default properties, stats and
+ * settings for the ZFN enemy type.
+ */
 EnemyData ZFNData = {
     .type = ENEMY_TYPE_ZFN,
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
-        .acceleration = {0, 0},
+        .direction = {0, 0},
         .collider = {
             .hitbox = {0, 0, 20, 32},
             .layer = COLLISION_LAYER_ENEMY,
@@ -17,8 +31,10 @@ EnemyData ZFNData = {
     .stats = {
         .damage = 0,
         .maxHealth = 100,
-        .speed = 0,
+        .maxSpeed = 0,
+        .acceleration = 0,
         .attackSpeed = 0,
+        .drag = 0,
         .attackRange = 0,
         .attackDamage = 0,
         .attackCooldown = 0,

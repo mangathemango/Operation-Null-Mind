@@ -3,9 +3,9 @@
 #include <gun.h>
 #include <bullet.h>
 
-/*
-*   [Start] Initializes the gun and its particle emitters
-*/
+/**
+ * @brief [Start] Initializes all guns and their particle emitters
+ */
 void Gun_Start() {
     // Fill the gun list
     GunList[0] = &Gun_Pistol;

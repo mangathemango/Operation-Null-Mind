@@ -2,6 +2,9 @@
 #include <particle_emitterpresets.h>
 #include <player.h>
 
+/**
+ * @brief [Render] Renders all active bullets and bullet fragments
+ */
 void Bullet_Render()
 {
     GunData* gun = player.state.currentGun;

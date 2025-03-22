@@ -4,9 +4,9 @@
 #include <input.h>
 #include <player.h>
 
-/*
-*   [Render] Renders the player's current gun and its corresponding particles
-*/
+/**
+ * @brief [Render] Renders the player's current gun and its corresponding particles
+ */
 void Gun_Render() {
     GunData* gun = player.state.currentGun;
 

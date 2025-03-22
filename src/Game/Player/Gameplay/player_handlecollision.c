@@ -1,6 +1,15 @@
 #include <player.h>
 #include <colliders.h>
+#include <chunks.h>
 
+/**
+ * [Utility] Checks for and handles player collisions.
+ * 
+ * Detects if the player is colliding with any objects in the game world
+ * and triggers the appropriate response based on collision type.
+ * 
+ * @return bool True if collision detected, false otherwise
+ */
 bool Player_DetectCollision() {
     ColliderCheckResult collisions;
 
@@ -15,6 +24,18 @@ bool Player_DetectCollision() {
         }
         if (collisions.objects[i]->layer == COLLISION_LAYER_ENEMY && !player.state.dashing) {
             return true;
+        }
+        if (collisions.objects[i]->layer == COLLISION_LAYER_TRIGGER) {
+            if (collisions.objects[i]->owner == &Chunk_HandlePlayerInsideRoom) {
+                Chunk_HandlePlayerInsideRoom();
+            }
+            if (collisions.objects[i]->owner == &Chunk_HandlePlayerInsideHallway) {
+                Chunk_HandlePlayerInsideHallway();
+            }
+            if(collisions.objects[i]->owner == &Chunk_HandlePlayerInsideEnd)
+            {
+                Chunk_HandlePlayerInsideEnd();
+            }
         }
     }
     return false;

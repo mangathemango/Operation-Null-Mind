@@ -4,13 +4,16 @@
 #include <input.h>
 #include <sound.h>
 #include <bullet.h>
+#include <enemy_types.h>
 
-/* 
-*   [PostUpdate] This function is called every frame of the program AFTER App_Event_Handler().
-?   This is suitable for rendering and updating the game.
-
-?   Updated by Mango on 03/03/2025
-*/
+/**
+ * @brief [PostUpdate] Main game update routine
+ * 
+ * This function is called every frame of the program AFTER App_Event_Handler().
+ * This is suitable for rendering and updating the game.
+ * 
+ * @return int Status code (0 for success)
+ */
 int App_PostUpdate() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_F5].pressed) {
@@ -27,6 +30,7 @@ int App_PostUpdate() {
             Player_PostUpdate();
             Gun_Update();
             Bullet_Update();
+            EnemyManager_Update();
             Enemy_Update();
             Camera_UpdatePosition();
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {

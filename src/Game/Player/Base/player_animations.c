@@ -3,9 +3,11 @@
 #include <player.h>
 #include <app.h>
 
-/*
-*   [Start] Initializes the player's animations
-*/
+/**
+ * @brief [Start] Initializes the player's animation system
+ * 
+ * @return int Status code (0 for success, 1 for error)
+ */
 int Player_AnimationInit() {
     player.resources.animation = Animation_Create(&player.animData);
     if (!player.resources.animation) {
@@ -15,9 +17,11 @@ int Player_AnimationInit() {
     return 0;
 }
 
-/*
-*   [PostUpdate] Update's the player's animations
-*/
+/**
+ * @brief [PostUpdate] Updates the player's animation state
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_AnimationUpdate() {
     if (player.state.moving) {
         Animation_Play(player.resources.animation, "walk");

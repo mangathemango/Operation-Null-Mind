@@ -7,7 +7,7 @@
 
 #include <particle_emitterpresets.h>
 #define BRASS_COLOR {238,209,131,255}
-#define BRASS_COLOR_FADE {238,209,131,0}
+#define BRASS_COLOR_FADE {238,209,131,100}
 #define SHOTSHELL_COLOR {207,43,33,255}
 #define SHOTSHELL_COLOR_FADE {207,43,33,0}
 
@@ -89,10 +89,10 @@ ParticleEmitter ParticleEmitter_PistolSMGCasing = {
     .position = {100, 100},
 
     .direction = {-1, -1},
-    .emissionRate = 0.1,
+    .emissionRate = 0,
     .emissionNumber = 1,
     .maxParticles = 10,
-    .angleRange = 20,
+    .angleRange = 60,
 
     .active = false,
     .emitterLifetime = 0,
@@ -126,7 +126,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .position = {100, 100},
 
     .direction = {-1, -1},
-    .emissionRate = 0.1,
+    .emissionRate = 0,
     .emissionNumber = 1,
     .maxParticles = 30,
     .angleRange = 20,
@@ -148,7 +148,7 @@ ParticleEmitter ParticleEmitter_ARBRCasing = {
     .endSize = {3, 1},
     .particleTexture = NULL,
 
-    .gravity = {0, 10},
+    .gravity = {0, 8},
     .drag = 0,
 
     .particles = NULL,
@@ -163,7 +163,7 @@ ParticleEmitter ParticleEmitter_ShotgunCasing = {
     .position = {100, 100},
 
     .direction = {-1, -1},
-    .emissionRate = 0.3,
+    .emissionRate = 0,
     .emissionNumber = 1,
     .maxParticles = 10,
     .angleRange = 20,

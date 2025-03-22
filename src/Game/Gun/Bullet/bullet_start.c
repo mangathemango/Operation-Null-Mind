@@ -3,6 +3,9 @@
 #include <gun.h>
 #include <player.h>
 
+/**
+ * @brief [Start] Initializes the bullet system by creating particle emitters
+ */
 void Bullet_Start()
 {
      //Set up bullet emitter presets

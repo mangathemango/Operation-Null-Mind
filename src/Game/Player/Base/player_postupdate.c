@@ -4,11 +4,18 @@
 #include <app.h>
 #include <camera.h>
 
-/*
-*   [PostUpdate] This function is called inside App_PostUpdate().
-?   It updates the player's input, position, and rendering.
-*/
+/**
+ * @brief [PostUpdate] Main player update routine
+ * 
+ * This function is called inside App_PostUpdate().
+ * It updates the player's input, position, and rendering.
+ * 
+ * @return int Status code (0 for success)
+ */
 int Player_PostUpdate() {
+    
+    Player_DetectCollision();
+
     // Handle player input, i.e movement and dashing
     Player_Input_Handler();
 
@@ -18,7 +25,6 @@ int Player_PostUpdate() {
     // Handles player movement (will be optimized later)
     Player_Move();
     Player_UpdateHitbox();
-    
     // Update player collider
     ParticleEmitter_Update(player.resources.dashParticleEmitter);
 
