@@ -34,6 +34,7 @@ int App_RenderMain() {
         case SCENE_GAME:
             Map_Render();
             Enemy_Render();
+            Interactable_Render();
             Player_Render();
             Gun_Render();
             Bullet_Render();

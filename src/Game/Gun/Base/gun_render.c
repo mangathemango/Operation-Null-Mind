@@ -42,7 +42,6 @@ void Gun_Render() {
 
     // Render muzzle flash particles
     ParticleEmitter_Render(gun->resources.muzzleFlashEmitter);
-    SDL_Log("Rendering muzzle flash particles");
 
     // (According to Darrel) If the gun is flipped, the gun casing particles go BEHIND the gun 
     // Therefore, the casing particles will be rendered first...

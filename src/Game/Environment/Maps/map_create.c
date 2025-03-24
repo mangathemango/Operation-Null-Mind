@@ -13,6 +13,7 @@
 #include <maps.h>
 #include <random.h>
 #include <enemy_types.h>
+#include <interactable.h>
 
 /**
  * @brief Generates a complete game map
@@ -75,6 +76,12 @@ void Map_Generate() {
                 if (testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL) {
                     testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
                 }
+
+                Interactable_Create(
+                    INTERACTABLE_WEAPONCRATECLOSED,
+                    Chunk_GetRandomTileCenterInRoom(&testMap.chunks[x][y])
+                );
+                    
             }
         }
     }

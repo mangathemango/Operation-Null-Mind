@@ -30,6 +30,7 @@ int App_Start() {
     if (Initialize_SDL()) return 1;
     Gun_Start();
     Bullet_Start();
+    Interactable_Start();
     Map_Start();
     Enemy_Init();
     Minimap_Start();
@@ -45,7 +46,6 @@ int App_Start() {
         SDL_Log("Failed to load sound resources!\n");
         return 1;
     }
-
     Sound_System_Initialize();
     Menu_PrepareTextures();
     Pause_Start();
