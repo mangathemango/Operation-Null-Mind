@@ -1,3 +1,12 @@
+
+/**
+ * @file main.c
+ * @brief Main entry point for the Operation Null Mind game
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 #define SDL_MAIN_HANDLED 1
 
 #include <windows.h>
