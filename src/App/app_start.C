@@ -28,12 +28,12 @@ int App_Start() {
     RandomInit();
     Collider_Start();
     if (Initialize_SDL()) return 1;
-    if (Player_Start()) return 1;
     Gun_Start();
     Bullet_Start();
     Map_Start();
     Enemy_Init();
     Minimap_Start();
+    if (Player_Start()) return 1;
     // Initialize sound system
     if (!Sound_System_Initialize()) {
         SDL_Log("Failed to initialize sound system!");

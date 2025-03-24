@@ -26,7 +26,7 @@
  * and advances the animation frame.
  */
 void Gun_AnimationUpdate() {
-    GunData* gun = player.state.currentGun;
+    GunData* gun = &player.state.currentGun;
     if (gun->state.flip == SDL_FLIP_NONE)       
         Animation_Play(gun->resources.animation, "left side idle");
     else                                       

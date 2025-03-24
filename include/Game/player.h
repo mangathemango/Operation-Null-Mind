@@ -25,7 +25,7 @@ typedef struct {
     bool dashing;       ///< Whether the player is currently dashing
     bool directionLocked; ///< Whether movement direction is locked
     bool moving;        ///< Whether the player is moving
-    GunData* currentGun; ///< Currently equipped weapon
+    GunData currentGun; ///< Currently equipped weapon
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
     bool insideHallway;  ///< Whether player is in a hallway
@@ -140,7 +140,7 @@ void Player_Shoot();
  * @brief Changes player's current weapon
  * @param gun Pointer to gun data
  */
-void Player_SwitchGun(GunData* gun);
+void Player_SwitchGun(Gun guntype);
 
 /**
  * @brief Initializes player animations

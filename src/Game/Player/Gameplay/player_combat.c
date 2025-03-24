@@ -22,9 +22,9 @@
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
     Sound_Play_Effect(1);
-    ParticleEmitter_ActivateOnce(player.state.currentGun->resources.casingParticleEmitter);
-    ParticleEmitter_ActivateOnce(player.state.currentGun->resources.muzzleFlashEmitter);
-    ParticleEmitter_ActivateOnce(player.state.currentGun->resources.bulletPreset);
+    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
+    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
+    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
     Timer_Start(player.resources.shootCooldownTimer);
     
 }
@@ -37,8 +37,8 @@ void Player_Shoot() {
  * 
  * @param gun Pointer to the gun data to switch to
  */
-void Player_SwitchGun(GunData* gun) {
-    player.state.currentGun = gun;
-    player.resources.shootCooldownTimer = Timer_Create(60.0f/gun->stats.fireRate);
+void Player_SwitchGun(Gun guntype) {
+    player.state.currentGun = GunList[guntype];
+    player.resources.shootCooldownTimer = Timer_Create(60.0f/GunList[guntype].stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
 }

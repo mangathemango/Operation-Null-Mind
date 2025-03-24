@@ -38,8 +38,11 @@ int App_PostUpdate() {
             Menu_Update();
             break;
         case SCENE_GAME:
+            SDL_Log("Updating player");
             Player_PostUpdate();
+            SDL_Log("Updating Gun");
             Gun_Update();
+            SDL_Log("Updating Bullet");
             Bullet_Update();
             EnemyManager_Update();
             Enemy_Update();

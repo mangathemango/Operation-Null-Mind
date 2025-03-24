@@ -26,7 +26,7 @@ void Bullet_Start()
      ParticleEmitter* bulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletDefault);
      ParticleEmitter* bulletFragmentEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
      for (int i = 0; i < GUN_COUNT; i++) {
-          GunData *gun = GunList[i];
+          GunData *gun = &GunList[i];
           gun->resources.bulletPreset = bulletEmitter;
           gun->resources.bulletFragmentEmitter = bulletFragmentEmitter;
      }  

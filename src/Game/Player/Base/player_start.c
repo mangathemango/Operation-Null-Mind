@@ -23,7 +23,7 @@
  */
 int Player_Start() {
     Player_AnimationInit();
-    Player_SwitchGun(&Gun_Pistol);
+    Player_SwitchGun(GUN_SHOTGUN);
     player.resources.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
     player.resources.dashParticleEmitter->selfReference = &player.resources.dashParticleEmitter;
 

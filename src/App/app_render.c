@@ -32,10 +32,15 @@ int App_RenderMain() {
             break;
         
         case SCENE_GAME:
+            SDL_Log("Rendering map");
             Map_Render();
+            SDL_Log("Rendering enemy");
             Enemy_Render();
+            SDL_Log("Rendering player");
             Player_Render();
+            SDL_Log("Rendering gun");
             Gun_Render();
+            SDL_Log("Rendering bullet");
             Bullet_Render();
             Debug_RenderHitboxes();
             Minimap_Render();

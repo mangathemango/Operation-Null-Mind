@@ -24,7 +24,7 @@
  * Flips the gun sprite horizontally when aiming to the left.
  */
 void Gun_Update() {
-    GunData* gun = player.state.currentGun;
+    GunData* gun = &player.state.currentGun;
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 

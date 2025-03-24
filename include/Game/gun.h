@@ -12,16 +12,24 @@
 #include <vec2.h>
 #include <particle_emitterpresets.h>
 
-#define GUN_COUNT 5
-
 /**
  * @brief Gun name definitions
  */
-#define GUN_SHOTGUN "Beretta 1301 Tactical"
-#define GUN_BATTLE_RIFLE "FN SCAR-H"
-#define GUN_SMG "KRISS Vector"
-#define GUN_ASSAULT_RIFLE "M4A1 URG-I"
-#define GUN_PISTOL "Glock 17"
+#define GUN_SHOTGUN_NAME "Beretta 1301 Tactical"
+#define GUN_BATTLE_RIFLE_NAME "FN SCAR-H"
+#define GUN_SMG_NAME "KRISS Vector"
+#define GUN_ASSAULT_RIFLE_NAME "M4A1 URG-I"
+#define GUN_PISTOL_NAME "Glock 17"
+
+typedef enum {
+    GUN_PISTOL,
+    GUN_SMG,
+    GUN_SHOTGUN,
+    GUN_ASSAULT_RIFLE,
+    GUN_BATTLE_RIFLE,
+    GUN_COUNT
+} Gun;
+
 
 /**
  * @brief Resources used by a gun
@@ -128,7 +136,7 @@ extern GunData Gun_BattleRifle;
 /**
  * @brief Array of all available guns
  */
-extern GunData* GunList[GUN_COUNT];
+extern GunData GunList[GUN_COUNT];
 
 /**
  * @brief Updates gun animations
