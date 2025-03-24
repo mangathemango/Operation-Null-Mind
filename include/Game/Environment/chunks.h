@@ -247,6 +247,14 @@ void Chunk_Render(const EnvironmentChunk *chunk);
 EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position);
 
 /**
+ * @brief Gets the center of the chunk
+ * 
+ * @param chunk Pointer to the chunk
+ * @return Vec2 Center of the chunk
+ */
+Vec2 Chunk_GetChunkCenter(EnvironmentChunk* chunk);
+
+/**
  * @brief Gets a random tile in the room
  * 
  * @param chunk Pointer to the chunk

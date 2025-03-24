@@ -36,6 +36,13 @@ EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position) {
     return &testMap.chunks[(int) chunkIndex.x][(int) chunkIndex.y];
 }
 
+Vec2 Chunk_GetChunkCenter(EnvironmentChunk* chunk) {
+    return Vec2_Add(
+        Vec2_Multiply(chunk->position, CHUNK_SIZE_PIXEL),
+        Vec2_Divide((Vec2) {CHUNK_SIZE_PIXEL, CHUNK_SIZE_PIXEL}, 2)
+    );
+}
+
 /**
  * [Utility] Gets a random tile position within a room's boundaries
  *

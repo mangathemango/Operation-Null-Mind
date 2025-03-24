@@ -27,7 +27,7 @@ void Map_Generate() {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
             testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
-            testMap.chunks[x][y].discovered = false;
+            testMap.chunks[x][y].discovered = true;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
             EnvironmentChunk* chunk = &testMap.chunks[x][y];
             for (int i = 0; i < chunk->colliderCount; i++) {
@@ -48,6 +48,16 @@ void Map_Generate() {
     
     // 4. Place end room (always in bottom-right quadrant)
     Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
+    /*if(testMap.mainPath[testMap.mainPathLength].x + testMap.mainPath[testMap.mainPathLength].y == 7 || testMap.mainPath[testMap.mainPathLength].x + testMap.mainPath[testMap.mainPathLength].y == 5)
+    {
+        Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength-1].x, testMap.mainPath[testMap.mainPathLength-1].y);
+        Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
+        testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y].empty = true;
+    }
+    else 
+    {
+        Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
+    }*/
     SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
     for(int k = 0; k < MAP_LENGTH + 1;k++)
     {
@@ -166,6 +176,18 @@ void Map_CreateMainPath() {
                 placementList[j] = Vec2_Zero;
             }
             if (currentY + placementList[j].y < 0 || currentY + placementList[j].y >= MAP_SIZE_CHUNK) {
+                placementList[j] = Vec2_Zero;
+            }
+            if(testMap.mainPathLength > 4 && currentX + placementList[j].x == 2 && currentY + placementList[j].y == 3) {
+                placementList[j] = Vec2_Zero;
+            }
+            if(testMap.mainPathLength > 4 && currentX + placementList[j].x == 4 && currentY + placementList[j].y == 3) {
+                placementList[j] = Vec2_Zero;
+            }
+            if(testMap.mainPathLength > 4 && currentY + placementList[j].y == 2 && currentX + placementList[j].x == 3) {
+                placementList[j] = Vec2_Zero;
+            }
+            if(testMap.mainPathLength > 4 && currentY + placementList[j].y == 4 && currentX + placementList[j].x == 3) {
                 placementList[j] = Vec2_Zero;
             }
             if (
