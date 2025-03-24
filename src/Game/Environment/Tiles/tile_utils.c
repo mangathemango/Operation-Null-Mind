@@ -1,9 +1,20 @@
+/**
+ * @file tile_utils.c
+ * @brief Utility functions for tile-based environment
+ *
+ * Provides coordinate conversion, validation, and helper functions
+ * for the tile-based environment system.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <maps.h>
 #include <math.h>
 #include <random.h>
 
 /**
- * [Utility] Converts a pixel position to tile and chunk indices.
+ * @brief [Utility] Converts a pixel position to tile and chunk indices
  * 
  * Takes a world-space pixel coordinate and determines which tile and chunk it belongs to.
  * 
@@ -26,7 +37,7 @@ void Tile_FromPixelPoint(Vec2 pixelPoint, Vec2* chunkIndex, Vec2* tileIndex) {
 }
 
 /**
- * [Utility] Checks if a tile index is valid within a chunk.
+ * @brief [Utility] Checks if a tile index is valid within a chunk
  * 
  * @param tileIndex The tile index to check
  * @return bool True if the tile index is valid, false otherwise
@@ -36,7 +47,7 @@ bool Tile_IsValid(Vec2 tileIndex) {
 }
 
 /**
- * [Utility] Converts a pixel point to a tile position.
+ * @brief [Utility] Converts a pixel point to a tile position
  * 
  * @param pixelPoint The pixel coordinates to convert
  * @return Vec2 The position of the tile that contains the pixel
@@ -49,7 +60,7 @@ Vec2 Tile_GetPositionFromPixel(Vec2 pixelPoint) {
 }
 
 /**
- * [Utility] Gets the rectangle for a tile from a pixel point.
+ * @brief [Utility] Gets the rectangle for a tile from a pixel point
  * 
  * @param pixelPoint The pixel coordinates within the tile
  * @return SDL_Rect The rectangle representing the tile
@@ -64,7 +75,7 @@ SDL_Rect Tile_GetRectFromPixel(Vec2 pixelPoint) {
 }
 
 /**
- * [Utility] Gets a random pixel coordinate within a rectangle.
+ * @brief [Utility] Gets a random pixel coordinate within a rectangle
  * 
  * @param rect The rectangle to get a random point within
  * @return Vec2 A random pixel position inside the rectangle
@@ -77,7 +88,7 @@ Vec2 Tile_GetRandomPixelInRect(SDL_Rect rect) {
 }
 
 /**
- * [Utility] Converts tile and chunk indices to a world pixel position.
+ * @brief [Utility] Converts tile and chunk indices to a world pixel position
  * 
  * @param tileIndex The tile index within the chunk
  * @param chunkIndex The chunk index

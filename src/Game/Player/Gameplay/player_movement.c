@@ -1,8 +1,12 @@
 /**
  * @file player_movement.c
- * @brief Handles player movement and physics
+ * @brief Handles player character movement
  *
- * This file contains the player's movement functions.
+ * Contains functions for moving the player character,
+ * handling acceleration, and managing movement states.
+ *
+ * @author Mango
+ * @date 2025-03-03
  */
 
 #include <player.h>
@@ -13,6 +17,9 @@
 
 /**
  * @brief [Utility] Sets the player's movement direction
+ * 
+ * Updates the player's direction vector and sets appropriate movement speed.
+ * Ignores input if the direction is locked (e.g., during a dash).
  * 
  * @param direction The direction to move the player in
  * @return int Status code (0 for success)
@@ -29,6 +36,9 @@ int Player_Look(Vec2 direction) {
 
 /**
  * @brief [PostUpdate] Moves the player according to current direction and speed
+ * 
+ * Applies the player's direction and speed to position, handles collision checking,
+ * and updates movement state flags.
  * 
  * @return int Status code (0 for success)
  */
@@ -60,6 +70,9 @@ int Player_Move() {
 
 /**
  * @brief [Utility] Updates the player's hitbox position based on current position
+ * 
+ * Recalculates the position of the player's collision hitbox to match
+ * their current world position, with appropriate offsets.
  */
 void Player_UpdateHitbox() {
     player.state.collider.hitbox.x = player.state.position.x - player.animData.spriteSize.x / 2 + 5; 

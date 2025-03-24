@@ -1,15 +1,26 @@
+/**
+ * @file enemy_start.c
+ * @brief Initializes the enemy system
+ *
+ * Sets up the enemy management system, prepares enemy
+ * slots and loads shared enemy resources.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 #include <enemy.h>
 #include <enemy_types.h>
 #include <app.h>
 
 /**
- * [Data] Global arrays for enemy storage and spawn indicator texture
+ * @brief [Data] Global arrays for enemy storage and spawn indicator texture
  */
 EnemyData enemies[ENEMY_MAX];
 SDL_Texture* Enemy_spawnIndicator = NULL;
 
 /**
- * [Start] Initializes the enemy system.
+ * @brief [Start] Initializes the enemy system
  * 
  * Prepares all enemy slots as inactive and loads necessary textures.
  */

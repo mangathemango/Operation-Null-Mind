@@ -1,3 +1,14 @@
+/**
+ * @file app_start.C
+ * @brief Application initialization
+ *
+ * Handles the initialization of all game systems during
+ * program startup, including graphics, input, sound, and game state.
+ *
+ * @author Mango
+ * @date 2025-03-08
+ */
+
 #include <app.h>
 #include <player.h>
 #include <initialize_SDL.h>

@@ -1,3 +1,14 @@
+/**
+ * @file animation.c
+ * @brief Sprite animation system implementation
+ *
+ * Implements a flexible animation system that supports spritesheet-based
+ * animations with multiple clips, variable frame rates, and playback controls.
+ *
+ * @author Mango
+ * @date 2025-03-03
+ */
+
 //? Written by Mango on 03/03/2025
 
 #include <animation.h>
@@ -6,17 +17,16 @@
 #include <app.h>
 #include <time_system.h>
 
-/*
-* @brief [Start] Creates an animation from a spritesheet.
-?   Can handle spritesheets with multiple rows and columns.
-?   After creating an animation, call Animation_AddClipFromGrid to add animation clips
-!   This only works with spritesheets with constant frame size
-
-    @param spritesheet A pointer to the spritesheet texture
-    @param How big each frame is in pixels.
-    @param How many frames there are in the spritesheet. Don't count the blank frames btw.
-
-*/
+/**
+ * @brief Creates a new animation from animation data
+ *
+ * This only works with spritesheets with constant frame size.
+ * After creating an animation, calling Animation_AddClipFromGrid
+ * can add additional animation clips.
+ *
+ * @param animData Pointer to the animation data configuration
+ * @return Animation* Pointer to the new animation, or NULL if failed
+ */
 Animation* Animation_Create(AnimationData* animData) {
     Animation* animation = malloc(sizeof(Animation));
     if (!animation) return NULL;
@@ -52,12 +62,15 @@ Animation* Animation_Create(AnimationData* animData) {
     return animation;
 }
 
-/*
-* @brief [PostUpdate] Updates the current animation.
-
-?   This function should be called every frame inside App_PostUpdate();
-    @param animation A pointer to the animation
-*/
+/**
+ * @brief Updates the current animation frame
+ *
+ * This function should be called every frame to advance animations.
+ * It handles transitions between frames, respecting frame durations
+ * and looping settings.
+ *
+ * @param animation Pointer to the animation to update
+ */
 void Animation_Update(Animation* animation) {
     if (!animation->isPlaying || animation->currentClip < 0) {
         return;
@@ -94,11 +107,11 @@ void Animation_Update(Animation* animation) {
     }
 }
 
-/*
-* @brief [Utility] Destroys an animation
-
-    @param animation A pointer to the animation
-*/
+/**
+ * @brief Destroys an animation and frees its resources
+ *
+ * @param animation Pointer to the animation to destroy
+ */
 void Animation_Destroy(Animation* animation) {
     // Free clip names and frame arrays
     for (int i = 0; i < animation->clipCount; i++) {
@@ -113,21 +126,24 @@ void Animation_Destroy(Animation* animation) {
     free(animation);
 }
 
-/*
-* @brief [Utility] Add an animation clip from an animation's spritesheet.
-
-?   Note: Index numbering starts from 0, and goes from left to right, then up to down.
-    @param animation The pointer to the animation
-    @param name The name of the clip, for example "idle", "walk", etc.
-    @param startFrameIndex The index of the beginning frame of the clip.
-    @param endFrameIndex The index of the last frame of the clip.
-    @param frameDuration The amount of time between frames.
-    @param looping Whether the animation is looped.
-    @returns 0 if successful, 1 if an error occured.
-*/
+/**
+ * @brief Adds an animation clip from a spritesheet grid
+ *
+ * Creates a new clip by extracting frames from the spritesheet
+ * using a grid-based layout. Frame indices start from 0, reading
+ * from left to right, then top to bottom.
+ *
+ * @param animation The animation to add the clip to
+ * @param name Name of the clip (e.g., "idle", "walk")
+ * @param startFrameIndex Index of the first frame in the clip
+ * @param endFrameIndex Index of the last frame in the clip
+ * @param frameDuration Time between frames in seconds
+ * @param looping Whether the animation should loop
+ * @return int 0 on success, 1 on failure
+ */
 int Animation_AddClipFromGrid(Animation* animation, const char* name,
-                                        int startFrameIndex, int endFrameIndex,
-                                        float frameDuration, bool looping ) {
+                              int startFrameIndex, int endFrameIndex,
+                              float frameDuration, bool looping) {
 
     int frameCount = endFrameIndex - startFrameIndex + 1;
     if (startFrameIndex < 0 || endFrameIndex > animation->frameCount) return 1;
@@ -177,13 +193,13 @@ int Animation_AddClipFromGrid(Animation* animation, const char* name,
     return 0;
 }
 
-/*
-* @brief [Utility] Finds the animation clip with its name
-
-    @param animation A pointer to the animation
-    @param clipName The name of the clip
-    @returns The index of the animationClip
-*/
+/**
+ * @brief Finds the index of an animation clip by name
+ *
+ * @param animation The animation to search in
+ * @param clipName The name of the clip to find
+ * @return int Index of the clip, or -1 if not found
+ */
 static int Animation_FindClipIndex(Animation* animation, const char* clipName) {
     for (int i = 0; i < animation->clipCount; i++) {
         if (strcmp(animation->clips[i].name, clipName) == 0) {
@@ -193,14 +209,14 @@ static int Animation_FindClipIndex(Animation* animation, const char* clipName) {
     return -1;
 }
 
-/*
-* @brief [Utility] Plays an animation clip.
-
-?   If the target clip is currently playing, this function does nothing.
-
-    @param animation A pointer to the animation
-    @param clipName The name of the animation clip. For example "idle", "walk", etc.
-*/
+/**
+ * @brief Plays an animation clip by name
+ *
+ * If the target clip is already playing, this function does nothing.
+ *
+ * @param animation The animation to play
+ * @param clipName The name of the clip to play
+ */
 void Animation_Play(Animation* animation, const char* clipName) {
     if (animation->currentClip >= 0 && animation->isPlaying) {
         if (strcmp(animation->clips[animation->currentClip].name, clipName) == 0) {
@@ -217,42 +233,47 @@ void Animation_Play(Animation* animation, const char* clipName) {
     animation->direction = 1;
 }
 
-/*
-* @brief [Utility] Stops the current animation clip
-    @param animation A pointer to the animation
-*/
+/**
+ * @brief Stops the current animation and resets it
+ *
+ * @param animation The animation to stop
+ */
 void Animation_Stop(Animation* animation) {
     animation->isPlaying = false;
     animation->currentFrame = 0;
     animation->timer = 0.0f;
 }
 
-/*
-* @brief [Utility] Pause the current animation clip
-    @param animation A pointer to the animation
-*/
+/**
+ * @brief Pauses the current animation
+ *
+ * @param animation The animation to pause
+ */
 void Animation_Pause(Animation* animation) {
     animation->isPlaying = false;
 }
 
-/*
-* @brief [Utility] Resume the current animation clip
-    @param animation A pointer to the animation
-*/
+/**
+ * @brief Resumes a paused animation
+ *
+ * @param animation The animation to resume
+ */
 void Animation_Resume(Animation* animation) {
     animation->isPlaying = true;
 }
 
-
-/*
-* @brief [Render] Renders an animation
-
-    @param animation A pointer to the animation
-    @param destPosition The position to draw
-    @param destSize The size of the drawn image
-*/
+/**
+ * @brief Renders the current frame of an animation
+ *
+ * @param animation The animation to render
+ * @param destPosition Position where the animation should be drawn
+ * @param destSize Size of the drawn animation
+ * @param angle Rotation angle in degrees
+ * @param rotationCenter Center point for rotation
+ * @param flip Flip flags for rendering (horizontal/vertical)
+ */
 void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
-                        float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip) {
+                      float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip) {
     // Make sure we have a valid clip
     if (animation->currentClip < 0 || animation->currentClip >= animation->clipCount) {
         return;

@@ -1,3 +1,14 @@
+/**
+ * @file app_preupdate.c
+ * @brief Pre-update logic for the game loop
+ *
+ * Handles preliminary updates at the beginning of each frame
+ * before main game systems are updated.
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 #include <app.h>
 #include <input.h>
 #include <time_system.h>

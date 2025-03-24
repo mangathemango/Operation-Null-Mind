@@ -1,3 +1,14 @@
+/**
+ * @file app_event_handler.c
+ * @brief Processes SDL events
+ *
+ * Handles SDL events such as keyboard presses, mouse movements,
+ * and window events, routing them to the appropriate systems.
+ *
+ * @author Mango
+ * @date 2025-03-01
+ */
+
 #include <app.h>
 #include <input.h>
 

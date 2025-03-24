@@ -1,3 +1,14 @@
+/**
+ * @file sound.c
+ * @brief Sound system implementation
+ *
+ * Manages the game's audio resources, including sound effects,
+ * music playback, and volume controls.
+ * 
+ * @author Darren
+ * @date 2025-03-07
+ */
+
 //? Written by Darren on 07/03/2025
 
 #include <sound.h>

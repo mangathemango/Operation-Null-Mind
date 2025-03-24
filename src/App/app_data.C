@@ -1,3 +1,14 @@
+/**
+ * @file app_data.c
+ * @brief Application data structures and default values
+ *
+ * Contains the initialization of core application data structures
+ * including window settings, game state, and configuration.
+ *
+ * @author Mango
+ * @date 2025-02-28
+ */
+
 #include <app.h>
 
 /*

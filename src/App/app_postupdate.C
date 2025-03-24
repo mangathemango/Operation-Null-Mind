@@ -1,3 +1,14 @@
+/**
+ * @file app_postupdate.c
+ * @brief Post-update logic for the game loop
+ *
+ * Handles final updates at the end of each frame after
+ * all other game systems have been updated.
+ *
+ * @author Mango
+ * @date 2025-03-02
+ */
+
 #include <app.h>
 #include <player.h>
 #include <particle_emitterpresets.h>

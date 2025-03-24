@@ -1,3 +1,15 @@
+/**
+ * @file map_create.c
+ * @brief Implements procedural map generation
+ *
+ * Handles the creation of procedurally generated maps,
+ * including room placement, hallway connections, and
+ * special room distribution.
+ *
+ * @author Mango
+ * @date 2025-03-05
+ */
+
 #include <maps.h>
 #include <random.h>
 #include <enemy_types.h>
