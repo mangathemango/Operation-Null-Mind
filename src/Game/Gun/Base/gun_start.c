@@ -28,6 +28,7 @@ void Gun_Start() {
     // Set up resources
     for (int i = 0; i < GUN_COUNT; i++) {
         GunData *gun = &GunList[i];
+        gun->type = i;
         gun->resources.bulletFragmentEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
         gun->resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(gun->config.casingPreset);
         gun->resources.muzzleFlashEmitter = muzzleFlashEmitter;

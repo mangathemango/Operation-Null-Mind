@@ -35,7 +35,7 @@ typedef struct {
 
     char* spritePath;
     char* interactionText;
-    void (*callback)(void* data);
+    void (*callback)(void* data, int interactableIndex);
     void* data;
 } Interactable;
 

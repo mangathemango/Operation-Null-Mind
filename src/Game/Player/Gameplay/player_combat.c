@@ -12,6 +12,7 @@
 #include <player.h>
 #include <sound.h>
 #include <random.h>
+#include <interactable.h>
 
 /**
  * @brief [Utility] Makes the player shoot their current weapon
@@ -41,4 +42,11 @@ void Player_SwitchGun(Gun guntype) {
     player.state.currentGun = GunList[guntype];
     player.resources.shootCooldownTimer = Timer_Create(60.0f/GunList[guntype].stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
+}
+
+void Player_PickUpGun(void* data, int interactableIndex) {
+    GunData* gun = data;
+    Interactable_CreateWeapon(player.state.currentGun.type, player.state.position);
+    Interactable_Deactivate(interactableIndex);
+    Player_SwitchGun(gun->type);
 }

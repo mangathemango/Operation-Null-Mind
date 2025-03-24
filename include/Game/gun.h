@@ -95,6 +95,7 @@ typedef struct {
  * and animation data
  */
 typedef struct {
+    Gun type;                    /**< Type of the gun */
     char* name;                     /**< Name of the gun */
     GunResources resources;         /**< Pointers to runtime resources */
     GunState state;                 /**< Current state information */

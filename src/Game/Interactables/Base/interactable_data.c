@@ -1,4 +1,5 @@
 #include <interactable.h>
+#include <player.h>
 
 Interactable interactableData[INTERACTABLE_COUNT] = {
     [INTERACTABLE_WEAPONCRATEOPEN] = {
@@ -27,7 +28,7 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .interactionText = NULL,
         .spritePath = "Assets/Images/Interactables/weapon_crate_closed.png",
         .srcRect = {-1, -1, -1, -1},
-        .callback = NULL,
+        .callback = Player_PickUpGun,
         .renderSize = {10, 10}
     },
 };
