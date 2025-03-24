@@ -4,6 +4,7 @@
 #include <vec2.h>
 #include <SDL_ttf.h>
 #include <gun.h>
+#include <UI_text.h>
 
 #define MAX_INTERACTABLES 100
 
@@ -45,6 +46,7 @@ extern SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
 
 int Interactable_Create(InteractableType type, Vec2 position);
 void Interactable_CreateWeapon(Gun gun, Vec2 position);
+void Interactable_CreateWeaponCrate(Gun gun, Vec2 position);
 void Interactable_Start();
 void Interactable_Update();
 void Interactable_Render();

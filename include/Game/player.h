@@ -155,3 +155,4 @@ int Player_AnimationInit();
 int Player_AnimationUpdate();
 
 void Player_PickUpGun(void* data, int interactableIndex);
+void Player_OpenCrate(void* data, int interactableIndex);

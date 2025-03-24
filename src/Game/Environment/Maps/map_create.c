@@ -14,6 +14,7 @@
 #include <random.h>
 #include <enemy_types.h>
 #include <interactable.h>
+#include <random.h>
 
 /**
  * @brief Generates a complete game map
@@ -77,8 +78,10 @@ void Map_Generate() {
                     testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
                 }
 
-                Interactable_CreateWeapon(
-                    GUN_PISTOL,
+                int result = RandInt(0, GUN_COUNT - 1);
+                SDL_Log("Creating weapon crate with gun %d at (%d, %d)", result, x, y);
+                Interactable_CreateWeaponCrate(
+                    result,
                     Vec2_Subtract(
                         Chunk_GetRandomTileCenterInRoom(&testMap.chunks[x][y]),
                         (Vec2) {TILE_SIZE_PIXELS / 2, 0}

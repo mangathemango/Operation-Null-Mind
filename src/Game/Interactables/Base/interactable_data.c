@@ -18,7 +18,7 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .interactionText = "Open Crate",
         .spritePath = "Assets/Images/Interactables/weapon_crate_closed.png",
         .srcRect = {-1, -1, -1, -1},
-        .callback = NULL,
+        .callback = Player_OpenCrate,
         .renderSize = {40, 20}
     },
     [INTERACTABLE_WEAPON] = {

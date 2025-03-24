@@ -13,6 +13,7 @@
 #include <sound.h>
 #include <random.h>
 #include <interactable.h>
+#include <interactable_crate.h>
 
 /**
  * @brief [Utility] Makes the player shoot their current weapon
@@ -49,4 +50,11 @@ void Player_PickUpGun(void* data, int interactableIndex) {
     Interactable_CreateWeapon(player.state.currentGun.type, player.state.position);
     Interactable_Deactivate(interactableIndex);
     Player_SwitchGun(gun->type);
+}
+
+
+void Player_OpenCrate(void* data, int interactableIndex) {
+    Gun* crateGun = data;
+    Interactable_CreateWeapon(*crateGun, interactables[interactableIndex].position);
+    Interactable_Deactivate(interactableIndex);
 }
