@@ -56,6 +56,16 @@ Vec2 Chunk_GetRandomTileInRoom(EnvironmentChunk* chunk) {
     return Tile_TileIndexToPixel(tileIndex, chunk->position);
 }
 
+Vec2 Chunk_GetChunkCenter(EnvironmentChunk* chunk) {
+    return Vec2_ToCenteredPosition(
+        Vec2_Multiply(
+            chunk->position,
+            CHUNK_SIZE_PIXEL
+        ),
+        (Vec2) {CHUNK_SIZE_PIXEL, CHUNK_SIZE_PIXEL}
+    )
+}
+
 /**
  * [Utility] Gets a random position at the center of a tile within a room
  *

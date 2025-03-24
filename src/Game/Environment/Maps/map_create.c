@@ -79,7 +79,10 @@ void Map_Generate() {
 
                 Interactable_Create(
                     INTERACTABLE_WEAPONCRATECLOSED,
-                    Chunk_GetRandomTileCenterInRoom(&testMap.chunks[x][y])
+                    Vec2_Subtract(
+                        Chunk_GetRandomTileCenterInRoom(&testMap.chunks[x][y]),
+                        (Vec2) {TILE_SIZE_PIXELS / 2, 0}
+                    )
                 );
                     
             }

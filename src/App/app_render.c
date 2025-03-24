@@ -39,6 +39,7 @@ int App_RenderMain() {
             Gun_Render();
             Bullet_Render();
             Debug_RenderHitboxes();
+            Interactable_RenderInteractionText();
             Minimap_Render();
             break;
         

@@ -3,6 +3,7 @@
 #include <colliders.h>
 #include <vec2.h>
 #include <SDL_ttf.h>
+#include <gun.h>
 
 #define MAX_INTERACTABLES 100
 
@@ -33,6 +34,7 @@ typedef struct {
 
     char* spritePath;
     char* interactionText;
+    void (*callback)(void* data);
     void* data;
 } Interactable;
 
@@ -40,9 +42,11 @@ extern Interactable interactables[MAX_INTERACTABLES];
 extern Interactable interactableData[INTERACTABLE_COUNT];
 extern SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
 
-void Interactable_Create(InteractableType type, Vec2 position);
+int Interactable_Create(InteractableType type, Vec2 position);
+void Interactable_CreateWeapon(Gun gun, Vec2 position);
 void Interactable_Start();
 void Interactable_Update();
 void Interactable_Render();
+void Interactable_RenderInteractionText();
 void Interactable_Reset();
 void Interactable_Deactivate(int index);
