@@ -9,7 +9,8 @@ void Interactable_Render() {
                 Camera_WorldVecToScreen(interactables[i].position),
                 interactables[i].renderSize
             );
-            SDL_RenderCopy(app.resources.renderer, interactables[i].spriteTexture, NULL, &dest);
+            SDL_Rect* srcRect = (interactables[i].srcRect.x >= 0) ? &interactables[i].srcRect : NULL;
+            SDL_RenderCopy(app.resources.renderer, interactables[i].spriteTexture, srcRect, &dest);
         }
     }
 }
@@ -28,7 +29,6 @@ void Interactable_RenderInteractionText() {
                 ),
                 (Vec2) {sizex, sizey}
             );
-
             SDL_RenderCopy(app.resources.renderer, interactables[i].textTexture, NULL, &dest);
             break;
         }

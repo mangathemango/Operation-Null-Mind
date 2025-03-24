@@ -77,8 +77,8 @@ void Map_Generate() {
                     testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
                 }
 
-                Interactable_Create(
-                    INTERACTABLE_WEAPONCRATECLOSED,
+                Interactable_CreateWeapon(
+                    GUN_PISTOL,
                     Vec2_Subtract(
                         Chunk_GetRandomTileCenterInRoom(&testMap.chunks[x][y]),
                         (Vec2) {TILE_SIZE_PIXELS / 2, 0}

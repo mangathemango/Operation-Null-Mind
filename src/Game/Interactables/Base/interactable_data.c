@@ -6,6 +6,7 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .hitboxSize = {40, 20},
         .interactionText = NULL,
         .spritePath = "Assets/Images/Interactables/weapon_crate_open.png",
+        .srcRect = {-1, -1, -1, -1},
         .callback = NULL,
         .renderSize = {40, 20}
     },
@@ -15,15 +16,17 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .hitboxSize = {40, 20},
         .interactionText = "Open Crate",
         .spritePath = "Assets/Images/Interactables/weapon_crate_closed.png",
+        .srcRect = {-1, -1, -1, -1},
         .callback = NULL,
         .renderSize = {40, 20}
     },
     [INTERACTABLE_WEAPON] = {
         .type = INTERACTABLE_WEAPON,
         .enabled = true,
-        .hitboxSize = {10, 10},
+        .hitboxSize = {20, 20},
         .interactionText = NULL,
         .spritePath = "Assets/Images/Interactables/weapon_crate_closed.png",
+        .srcRect = {-1, -1, -1, -1},
         .callback = NULL,
         .renderSize = {10, 10}
     },

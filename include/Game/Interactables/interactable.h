@@ -28,6 +28,7 @@ typedef struct {
     Vec2 position;
     Vec2 renderSize;
     Vec2 hitboxSize;
+    SDL_Rect srcRect;
 
     SDL_Texture* spriteTexture;
     SDL_Texture* textTexture;

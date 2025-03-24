@@ -12,6 +12,7 @@ void Interactable_Start() {
         interactables[i].textTexture = NULL;
         interactables[i].renderSize = (Vec2) {0, 0};
         interactables[i].hitboxSize = (Vec2) {0, 0};
+        interactables[i].srcRect =(SDL_Rect) {-1, -1, -1, -1};
     }
 
     for (int i = 0; i < INTERACTABLE_COUNT; i++) {
