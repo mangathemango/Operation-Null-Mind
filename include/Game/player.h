@@ -27,6 +27,8 @@ typedef struct {
     bool moving;        ///< Whether the player is moving
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
+
+    int viewingLog;
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
     bool insideHallway;  ///< Whether player is in a hallway
