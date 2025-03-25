@@ -56,7 +56,7 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
     if (!Timer_IsFinished(enemy->resources.timer)) return;
 
     /**
-     * @todo Play spawn sfx here
+     * @todo [enemy_update.c:62] Play spawn sfx here
      */
 
     // Clean up timer and complete spawning

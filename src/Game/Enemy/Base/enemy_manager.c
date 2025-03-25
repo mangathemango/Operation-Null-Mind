@@ -72,7 +72,7 @@ void EnemyManager_Update() {
     if (chunk->inCombat && chunk->currentEnemyCount <= 0) {
         if (chunk->totalEnemyCount > 0) {
             /**
-             * @todo Add enemy spawning sfx here (Aka the red [+] thing appearing)
+             * @todo [enemy_manager.c:87] Add enemy spawning sfx here (Aka the red [+] thing appearing)
              */
             // Spawns in another wave of enemy if there are still enemies left
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);

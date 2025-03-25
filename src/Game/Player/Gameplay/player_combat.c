@@ -33,10 +33,6 @@ void Player_Shoot() {
 
 /**
  * @brief [Utility] Changes the player's active weapon
- * 
- * Sets the currently active gun and resets the cooldown timer
- * based on the new weapon's fire rate.
- * @todo Add gun switching sfx
  */
 void Player_SwitchGun() {
     Gun temp = player.state.gunSlots[0];
@@ -58,7 +54,7 @@ void Player_SwitchGun() {
  * @param data  The gun data
  * @param interactableIndex  The index of the interactable gun on the ground.
  * 
- * @todo Add gun pickup sfx
+ * @todo [player_combat.c:77] Add gun pickup sfx
  */
 void Player_PickUpGun(void* data, int interactableIndex) {
     GunData* gun = data;

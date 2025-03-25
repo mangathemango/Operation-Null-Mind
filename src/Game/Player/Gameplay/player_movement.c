@@ -24,8 +24,8 @@
  * @param direction The direction to move the player in
  * @return int Status code (0 for success)
  * 
- * @todo Normalize direction before moving the player.
- * @todo Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
+ * @todo [player_movement.c:24] Normalize direction before moving the player.
+ * @todo [player_movement.c:25] Use Vec2_Multiply and Vec2_Add instead of multiplying the x and y values manually.
  */
 int Player_Look(Vec2 direction) {
     if (player.state.directionLocked) return 0;

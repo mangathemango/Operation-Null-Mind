@@ -75,7 +75,7 @@ void Sound_Play_Music(const char* path, int loops) {
  * [Utility] Play sound effect
  * 
  * @param index Index of the sound effect to play
- * @todo Maybe implement a way to play sound effects by name?
+ * @todo [sound.c:95] Maybe implement a way to play sound effects by name?
  */
 void Sound_Play_Effect(int index) {
     if (index >= 0 && index < soundResources.soundEffectCount) {
