@@ -46,7 +46,7 @@ extern SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
 
 int Interactable_Create(InteractableType type, Vec2 position);
 void Interactable_CreateWeapon(Gun gun, Vec2 position);
-void Interactable_CreateWeaponCrate(Gun gun, Vec2 position);
+void Interactable_CreateWeaponCrate(bool opened, Gun gun, Vec2 position);
 void Interactable_Start();
 void Interactable_Update();
 void Interactable_Render();

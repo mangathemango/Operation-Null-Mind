@@ -55,6 +55,7 @@ void Player_PickUpGun(void* data, int interactableIndex) {
 
 void Player_OpenCrate(void* data, int interactableIndex) {
     Gun* crateGun = data;
+    Interactable_CreateWeaponCrate(true, *crateGun, interactables[interactableIndex].position);
     Interactable_CreateWeapon(*crateGun, interactables[interactableIndex].position);
     Interactable_Deactivate(interactableIndex);
 }
