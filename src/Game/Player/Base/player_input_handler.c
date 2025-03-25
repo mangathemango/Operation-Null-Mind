@@ -15,6 +15,7 @@
 #include <input.h>
 #include <maps.h>
 #include <chunks.h>
+#include <interactable.h>
 
 /**
  * @brief [Event Handler] Processes player input for movement, skills and weapons
@@ -41,8 +42,11 @@ void Player_Input_Handler() {
     if (Input->keyboard.keys[SDL_SCANCODE_4].pressed) Player_SwitchGun(3);
     if (Input->keyboard.keys[SDL_SCANCODE_5].pressed) Player_SwitchGun(4);
 
-    if (Input->keyboard.keys[SDL_SCANCODE_F].pressed && player.state.insideEnd) Map_Generate(), player.state.position.x = 4200, player.state.position.y = 4200;
-    if (Input->keyboard.keys[SDL_SCANCODE_E].pressed) {
+    if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
+        Map_Generate(); 
+        player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+    }
+    if (Input->keyboard.keys[SDL_SCANCODE_F].pressed) {
         Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y]);
     }

@@ -201,7 +201,7 @@ SDL_Color Minimap_GetRoomColor(EnvironmentChunk *chunk) {
         case ROOM_TYPE_END:
             return (SDL_Color) {MINIMAP_END_ROOM_COLOR};
         default:
-            return (SDL_Color) {0, 0, 0, 0};
+            return (SDL_Color) {MINIMAP_SPECIAL_ROOM_COLOR};
     }
 }
 

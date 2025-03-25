@@ -95,6 +95,7 @@ typedef enum {
     ROOM_TYPE_NORMAL,   /**< Normal room */
     ROOM_TYPE_BOSS,     /**< Boss room */
     ROOM_TYPE_END,      /**< End room */
+    ROOM_TYPE_CRATE,   /**< Crate room */
 } RoomType;
 
 /**
@@ -278,3 +279,4 @@ Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk);
  * @return false If the chunk index is not valid
  */
 bool Chunk_IsValid(Vec2 chunkIndex);
+bool Chunk_IsOnMainPath(EnvironmentChunk* chunk);

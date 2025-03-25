@@ -68,6 +68,7 @@
  */
 
 #include <SDL.h>
+#include <stdbool.h>
 
 #ifndef VEC2_H
 #define VEC2_H
@@ -292,4 +293,5 @@ Vec2 Vec2_FromPoint(SDL_Point point);
  */
 SDL_Point Vec2_ToPoint(Vec2 v);
 
+bool Vec2_AreEqual(Vec2 a, Vec2 b);
 #endif

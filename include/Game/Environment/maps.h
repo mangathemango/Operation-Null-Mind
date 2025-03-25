@@ -28,6 +28,8 @@ typedef struct {
     EnvironmentChunk* startChunk; /**< Pointer to the starting chunk of the map */
     EnvironmentChunk* endChunk; /**< Pointer to the ending chunk of the map */
     Vec2 mainPath[MAP_SIZE_CHUNK * MAP_SIZE_CHUNK]; /**< Array of positions representing the main path through the map */
+    Vec2 alternatePath[MAP_SIZE_CHUNK * MAP_SIZE_CHUNK]; /**< Array of positions representing the alternate path through the map */
+    int alternatePathLength; /**< The number of positions in the main path */
     int mainPathLength; /**< The number of positions in the main path */
 } EnvironmentMap;
 

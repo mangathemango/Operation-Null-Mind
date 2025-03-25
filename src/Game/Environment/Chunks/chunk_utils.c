@@ -75,3 +75,13 @@ Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk) {
         (Vec2) {TILE_SIZE_PIXELS / 2, TILE_SIZE_PIXELS / 2}
     );
 }
+
+bool Chunk_IsOnMainPath(EnvironmentChunk* chunk) {
+    if (!chunk) return false;
+    for (int i = 0; i < testMap.mainPathLength; i++) {
+        if (Vec2_AreEqual(chunk->position, testMap.mainPath[i])) {
+            return true;
+        }
+    }
+    return false;
+}
