@@ -52,7 +52,7 @@ void Bullet_Update()
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY))
             {   
                 /**
-                 * @todo Play bullet impact sfx here
+                 * @todo [bullet_update.c:55] Play bullet impact sfx here
                  * 
                  */
                 // Create bullet fragments
