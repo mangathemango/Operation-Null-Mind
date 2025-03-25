@@ -55,6 +55,10 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
     // Wait for spawn timer to finish
     if (!Timer_IsFinished(enemy->resources.timer)) return;
 
+    /**
+     * @todo Play spawn sfx here
+     */
+
     // Clean up timer and complete spawning
     Timer_Destroy(enemy->resources.timer);
     enemy->resources.timer = NULL;

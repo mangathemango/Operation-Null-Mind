@@ -36,7 +36,7 @@ void Player_Shoot() {
  * 
  * Sets the currently active gun and resets the cooldown timer
  * based on the new weapon's fire rate.
- * 
+ * @todo Add gun switching sfx
  */
 void Player_SwitchGun() {
     Gun temp = player.state.gunSlots[0];
@@ -51,6 +51,15 @@ void Player_SwitchGun() {
     Timer_Start(player.resources.shootCooldownTimer);
 }
 
+/**
+ * @brief Picks up a gun.
+ * This function is a callback when the player interacts with a gun on the ground.
+ * 
+ * @param data  The gun data
+ * @param interactableIndex  The index of the interactable gun on the ground.
+ * 
+ * @todo Add gun pickup sfx
+ */
 void Player_PickUpGun(void* data, int interactableIndex) {
     GunData* gun = data;
     int freeGunSlot = 0;
@@ -74,7 +83,13 @@ void Player_PickUpGun(void* data, int interactableIndex) {
     Timer_Start(player.resources.shootCooldownTimer);
 }
 
-
+/**
+ * @brief Opens a crate
+ * This function is a callback when the player interacts with a closed crate.
+ * 
+ * @param data  The gun data
+ * @param interactableIndex  The index of the interactable crate.
+ */
 void Player_OpenCrate(void* data, int interactableIndex) {
     Gun* crateGun = data;
     Interactable_CreateWeaponCrate(true, *crateGun, interactables[interactableIndex].position);

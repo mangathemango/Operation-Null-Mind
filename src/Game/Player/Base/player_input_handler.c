@@ -37,7 +37,11 @@ void Player_Input_Handler() {
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
 
     if (Input->keyboard.keys[SDL_SCANCODE_Q].pressed) Player_SwitchGun(0);
-
+    
+    /**
+     * @todo Implement level switching animation + sfx
+     * 
+     */
     if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
         Map_Generate(); 
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);

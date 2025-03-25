@@ -24,6 +24,8 @@
  * Plays dash sound effect and locks direction during dash.
  * 
  * @return int Status code (0 for success)
+ * 
+ * @todo Change dash sfx
  */
 int Player_Dash() {
     // Doesn't dash when idle

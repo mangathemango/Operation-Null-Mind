@@ -50,7 +50,11 @@ void Bullet_Update()
 
             // Handle bullet getting destroyed (i.e colliding with walls/enemies)
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY))
-            {
+            {   
+                /**
+                 * @todo Play bullet impact sfx here
+                 * 
+                 */
                 // Create bullet fragments
                 gun->resources.bulletFragmentEmitter->position = bullet->position;
                 gun->resources.bulletFragmentEmitter->direction = gun->resources.bulletPreset->direction;
