@@ -23,14 +23,15 @@
  */
 int Player_Start() {
     Player_AnimationInit();
-    Player_SwitchGun(GUN_SHOTGUN);
     player.resources.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
     player.resources.dashParticleEmitter->selfReference = &player.resources.dashParticleEmitter;
 
     player.resources.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
     player.resources.dashDurationTimer = Timer_Create(player.stats.dashDuration);
     Timer_Start(player.resources.dashCooldownTimer);
-    
     Collider_Register(&player.state.collider, &player);
+    player.state.currentGun = GunList[player.state.gunSlots[0]];
+    player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
+    Timer_Start(player.resources.shootCooldownTimer);
     return 0;
 }

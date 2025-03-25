@@ -24,6 +24,7 @@ PlayerData player = {
         .position = {4200,4200},
         .direction = {0,0},
         .currentSpeed = 0,
+        .gunSlots = {GUN_PISTOL, -1},
         .moving = false,
         .dashing = false,
         .directionLocked = false,

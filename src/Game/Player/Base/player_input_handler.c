@@ -36,11 +36,7 @@ void Player_Input_Handler() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
 
-    if (Input->keyboard.keys[SDL_SCANCODE_1].pressed) Player_SwitchGun(0);
-    if (Input->keyboard.keys[SDL_SCANCODE_2].pressed) Player_SwitchGun(1);
-    if (Input->keyboard.keys[SDL_SCANCODE_3].pressed) Player_SwitchGun(2);
-    if (Input->keyboard.keys[SDL_SCANCODE_4].pressed) Player_SwitchGun(3);
-    if (Input->keyboard.keys[SDL_SCANCODE_5].pressed) Player_SwitchGun(4);
+    if (Input->keyboard.keys[SDL_SCANCODE_Q].pressed) Player_SwitchGun(0);
 
     if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
         Map_Generate(); 
