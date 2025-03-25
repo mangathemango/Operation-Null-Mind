@@ -33,11 +33,10 @@ void Camera_UpdatePosition() {
             app.config.screen_height / 2
         }
     );
-
-    Vec2 targetPosition = Vec2_Add(
-        player.state.position,
-        Vec2_Multiply(mouseToScreenCenter, 0.2f)
-    );
+    Vec2 targetPosition = player.state.position;
+    if (!player.state.movementLocked) {
+        Vec2_Increment(&targetPosition, Vec2_Multiply(mouseToScreenCenter, 0.2f));
+    }
 
     camera.position = Vec2_Lerp(
         camera.position, 
