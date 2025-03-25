@@ -21,7 +21,7 @@
  */
 void Bullet_Render()
 {
-    GunData* gun = player.state.currentGun;
+    GunData* gun = &player.state.currentGun;
 
     ParticleEmitter_Render(gun->resources.bulletPreset);
 

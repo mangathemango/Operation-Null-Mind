@@ -36,7 +36,7 @@ EnemyData EchoData = {
     },
     .stats = {
         .damage = 0,
-        .maxHealth = 50,
+        .maxHealth = 20,
         .maxSpeed = 100.0f,
         .acceleration = 500.0f,
         .drag = 5.0f,

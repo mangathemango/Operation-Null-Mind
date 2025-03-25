@@ -27,6 +27,7 @@ int Player_Preupdate() {
     player.state.insideHallway = false;
     player.state.insideRoom = false;
     player.state.insideEnd = false;
+    player.state.currentGun = GunList[player.state.gunSlots[0]];
     if (!player.state.directionLocked)   player.state.direction = Vec2_Zero;
     if (!player.state.dashing) player.state.currentSpeed = 0;
     return 0;

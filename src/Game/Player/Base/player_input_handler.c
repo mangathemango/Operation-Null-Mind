@@ -14,6 +14,8 @@
 #include <player.h>
 #include <input.h>
 #include <maps.h>
+#include <chunks.h>
+#include <interactable.h>
 
 /**
  * @brief [Event Handler] Processes player input for movement, skills and weapons
@@ -34,19 +36,18 @@ void Player_Input_Handler() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
 
-    if (Input->keyboard.keys[SDL_SCANCODE_1].pressed) Player_SwitchGun(&Gun_Pistol);
-    if (Input->keyboard.keys[SDL_SCANCODE_2].pressed) Player_SwitchGun(&Gun_SMG);
-    if (Input->keyboard.keys[SDL_SCANCODE_3].pressed) Player_SwitchGun(&Gun_AssaultRifle);
-    if (Input->keyboard.keys[SDL_SCANCODE_4].pressed) Player_SwitchGun(&Gun_BattleRifle);
-    if (Input->keyboard.keys[SDL_SCANCODE_5].pressed) Player_SwitchGun(&Gun_Shotgun);
+    if (Input->keyboard.keys[SDL_SCANCODE_Q].pressed) Player_SwitchGun(0);
 
-    if (Input->keyboard.keys[SDL_SCANCODE_F].pressed && player.state.insideEnd) Map_Generate(), player.state.position.x = 4200, player.state.position.y = 4200;
-
-    if (player.state.currentGun == NULL) {
-        return;
+    if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
+        Map_Generate(); 
+        player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+    }
+    if (Input->keyboard.keys[SDL_SCANCODE_F].pressed) {
+        Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
+        player.state.position = Chunk_GetChunkCenter(&testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y]);
     }
 
-    if (player.state.currentGun->stats.fireMode == FIREMODE_AUTO) {
+    if (player.state.currentGun.stats.fireMode == FIREMODE_AUTO) {
         if (Input->mouse.leftButton.held) Player_Shoot();
     } else {
         if (Input->mouse.leftButton.pressed) Player_Shoot();

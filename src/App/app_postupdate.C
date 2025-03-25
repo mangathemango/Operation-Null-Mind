@@ -43,6 +43,7 @@ int App_PostUpdate() {
             Bullet_Update();
             EnemyManager_Update();
             Enemy_Update();
+            Interactable_Update();
             Camera_UpdatePosition();
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
                 app.state.currentScene = SCENE_PAUSE;

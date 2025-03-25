@@ -32,7 +32,7 @@
 #define MINIMAP_ENEMY_ROOM_COLOR 255, 0, 0, 255
 
 /** @brief Color for special rooms (R,G,B,A) */
-#define MINIMAP_SPECIAL_ROOM_COLOR 255, 255, 0, 255
+#define MINIMAP_SPECIAL_ROOM_COLOR 252, 130, 0, 255
 
 /** @brief Color for the starting room (R,G,B,A) */
 #define MINIMAP_START_ROOM_COLOR 0, 255, 0, 255

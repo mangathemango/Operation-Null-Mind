@@ -12,6 +12,7 @@
 #include <debug.h>
 #include <app.h>
 #include <colliders.h>
+#include <interactable.h>
 #include <stdio.h>
 #include <UI_text.h>
 #include <camera.h>
@@ -66,6 +67,19 @@ void Debug_RenderHitboxes() {
                 break;
         }
         SDL_RenderDrawRect(app.resources.renderer, &hitbox);
+    }
+    for (int i = 0; i < MAX_INTERACTABLES; i++) {
+        if (interactables[i].active) {
+            SDL_Rect hitbox = Vec2_ToCenteredRect(interactables[i].position, interactables[i].hitboxSize);
+            if (!Camera_RectIsOnScreen(hitbox)) continue;
+
+            hitbox = Vec2_ToCenteredRect(
+                Camera_WorldVecToScreen(interactables[i].position),
+                interactables[i].hitboxSize
+            );
+            SDL_SetRenderDrawColor(app.resources.renderer, ITEM_HITBOX_COLOR);
+            SDL_RenderDrawRect(app.resources.renderer, &hitbox);
+        }
     }
 }
 

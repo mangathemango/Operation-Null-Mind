@@ -22,7 +22,7 @@
  */
 void Bullet_Update()
 {
-    GunData* gun = player.state.currentGun;
+    GunData* gun = &player.state.currentGun;
 
     gun->resources.bulletPreset->emissionNumber = gun->stats.bulletsPerShot;
     gun->resources.bulletPreset->particleLifetime = gun->stats.bulletLifetime;

@@ -341,3 +341,7 @@ SDL_Point Vec2_ToPoint(Vec2 v) {
         v.y
     };
 }
+
+bool Vec2_AreEqual(Vec2 a, Vec2 b) {
+    return a.x == b.x && a.y == b.y;
+}

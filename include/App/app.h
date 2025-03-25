@@ -26,6 +26,7 @@
 #include <enemy.h>
 #include <pause.h>
 #include <minimap.h>
+#include <interactable.h>
 
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.

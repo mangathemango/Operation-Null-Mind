@@ -22,16 +22,33 @@
  * muzzle flash and casing particles with correct layering based on weapon orientation.
  */
 void Gun_Render() {
-    GunData* gun = player.state.currentGun;
+    GunData* gun = &player.state.currentGun;
+    if (!gun) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Player gun data is missing");
+        return;
+    }
+    if (!gun->resources.animation) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Gun animation resource is missing");
+        return;
+    }
+    if (!gun->resources.muzzleFlashEmitter) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Muzzle flash particle emitter is missing");
+        return;
+    }
+    if (!gun->resources.casingParticleEmitter) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Casing particle emitter is missing");
+        return;
+    }
 
     // Render muzzle flash particles
     ParticleEmitter_Render(gun->resources.muzzleFlashEmitter);
-    
+
     // (According to Darrel) If the gun is flipped, the gun casing particles go BEHIND the gun 
     // Therefore, the casing particles will be rendered first...
     if (gun->state.flip == SDL_FLIP_VERTICAL) {
         ParticleEmitter_Render(gun->resources.casingParticleEmitter);
     }
+
 
     // .. and then we render the gun...
     Animation_Render(gun->resources.animation, 

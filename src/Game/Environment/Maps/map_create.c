@@ -13,6 +13,8 @@
 #include <maps.h>
 #include <random.h>
 #include <enemy_types.h>
+#include <interactable.h>
+#include <random.h>
 
 /**
  * @brief Generates a complete game map
@@ -35,47 +37,88 @@ void Map_Generate() {
             chunk->colliderCount = 0;
         }
     }
-    
-    // 2. Place start room (always in top-left quadrant)
-    int startX = 3; //I just change to the middle
-    int startY = 3; //I just change to the middle
+    for (int i = 0; i < testMap.mainPathLength; i++) {
+        testMap.mainPath[i] = Vec2_Zero;
+    }
+    for (int i = 0; i < testMap.alternatePathLength; i++) {
+        testMap.alternatePath[i] = Vec2_Zero;
+    }
+    testMap.mainPathLength = 0;
+    testMap.alternatePathLength = 0;
+    Interactable_Reset();
+
+    int startX = 3; 
+    int startY = 3; 
     Map_SetStartChunk(startX, startY);
 
-    // 3. Create main path using A* or random walk
     Map_CreateMainPath();
-    
-    // 4. Place end room (always in bottom-right quadrant)
     Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
     SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
-    for(int k = 0; k < MAP_LENGTH + 1;k++)
+    for(int k = 0; k < testMap.mainPathLength;k++)
     {
         SDL_Log("Main Path: (%d, %d)", (int) testMap.mainPath[k].x, (int) testMap.mainPath[k].y);
     }
+    SDL_Log("Main path generation complete");
+
+    for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
+        for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
+            if (testMap.chunks[x][y].empty) {
+                continue;
+            }
+            SDL_Log("Checking chunk at (%d, %d)", x, y);
+            if (Vec2_AreEqual((Vec2) {x, y}, testMap.startChunk->position) || Vec2_AreEqual((Vec2) {x, y}, testMap.endChunk->position)) {
+                continue;
+            }
+            if (!Chunk_IsOnMainPath(&testMap.chunks[x][y])) {
+                SDL_Log("Alternate path at (%d, %d)", x, y);
+                testMap.alternatePath[testMap.alternatePathLength++] = (Vec2){x, y};
+            }
+        }
+    }
+    int maxChestRoom = 2;
+    for (int i = 0; i < maxChestRoom; i++) {
+        if (testMap.alternatePathLength == 0) {
+            break;
+        }
+        int randomIndex = RandInt(0, testMap.alternatePathLength - 1);
+        Vec2 chunkPosition = testMap.alternatePath[randomIndex];
+        testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y].roomType = ROOM_TYPE_CRATE;
+        SDL_Log("Crate room at (%d, %d)", (int) chunkPosition.x, (int) chunkPosition.y);
+    }
+    
 
 
     
     // 5. Initialize all non-empty chunks
     for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
-            if (!testMap.chunks[x][y].empty) {
-                SDL_Log ("Generating chunk at (%d, %d)\n", x, y);
-                // Set hallways based on adjacent non-empty chunks
-                testMap.chunks[x][y].floorPattern = ROOM_FLOOR_PATTERN_1;
-                testMap.chunks[x][y].position = (Vec2){x, y};
-                testMap.chunks[x][y].hallways = Map_GetChunkHallways(testMap.chunks[x][y], testMap);
-
-                // Generate room details
-                if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
-                    testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
-                    SDL_Log("Room size at (%d, %d): %fx%f\n", x, y, testMap.chunks[x][y].roomSize.x, testMap.chunks[x][y].roomSize.y);
-                }
-                
-                // Create the chunk with all its details
-                Chunk_GenerateTilesButVoid(&testMap.chunks[x][y]);
-                if (testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL) {
-                    testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
-                }
+            if (testMap.chunks[x][y].empty) {
+                continue;
             }
+            SDL_Log ("Generating chunk at (%d, %d)\n", x, y);
+            // Set hallways based on adjacent non-empty chunks
+            testMap.chunks[x][y].floorPattern = ROOM_FLOOR_PATTERN_1;
+            testMap.chunks[x][y].position = (Vec2){x, y};
+            testMap.chunks[x][y].hallways = Map_GetChunkHallways(testMap.chunks[x][y], testMap);
+
+            // Generate room details
+            if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
+                testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
+                testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
+            }
+            if (testMap.chunks[x][y].roomType == ROOM_TYPE_CRATE) {
+                testMap.chunks[x][y].roomSize = (Vec2){12, 12}; // Slightly larger start room
+                Interactable_CreateWeaponCrate(
+                    false, 
+                    RandInt(0, GUN_COUNT - 1), 
+                    Vec2_Add(
+                        Chunk_GetChunkCenter(&testMap.chunks[x][y]),
+                        (Vec2){0, TILE_SIZE_PIXELS / 2}
+                    )
+                );
+            }
+            // Create the chunk with all its details
+            Chunk_GenerateTilesButVoid(&testMap.chunks[x][y]);
         }
     }
 }
@@ -152,9 +195,25 @@ void Map_CreateMainPath() {
         for (int j = 0; j < 4; j++) {
             if (currentX + placementList[j].x < 0 || currentX + placementList[j].x >= MAP_SIZE_CHUNK) {
                 placementList[j] = Vec2_Zero;
+                continue;
             }
             if (currentY + placementList[j].y < 0 || currentY + placementList[j].y >= MAP_SIZE_CHUNK) {
                 placementList[j] = Vec2_Zero;
+                continue;
+            }
+            if (testMap.mainPathLength > 4) {
+                Vec2 nextPosition = (Vec2) {
+                    currentX + placementList[j].x,
+                    currentY + placementList[j].y
+                };
+                if (Vec2_AreEqual(nextPosition, (Vec2) {2, 3}) || 
+                    Vec2_AreEqual(nextPosition, (Vec2) {4, 3}) || 
+                    Vec2_AreEqual(nextPosition, (Vec2) {3, 2}) || 
+                    Vec2_AreEqual(nextPosition, (Vec2) {3, 4})) {
+                        SDL_Log("Tile is near spawn, skipping");
+                        placementList[j] = Vec2_Zero;
+                        continue;
+                }
             }
             if (
                 testMap.chunks
@@ -163,6 +222,7 @@ void Map_CreateMainPath() {
                 .empty == false
             ) {
                 placementList[j] = Vec2_Zero;
+                continue;
             }
         }
         
@@ -184,6 +244,7 @@ void Map_CreateMainPath() {
             }
             if (allZero) {
                 SDL_Log("No valid branches found, stopping path generation");
+                testMap.mainPathLength--;
                 break;
             }
 

@@ -28,12 +28,13 @@ int App_Start() {
     RandomInit();
     Collider_Start();
     if (Initialize_SDL()) return 1;
-    if (Player_Start()) return 1;
     Gun_Start();
     Bullet_Start();
+    Interactable_Start();
     Map_Start();
     Enemy_Init();
     Minimap_Start();
+    if (Player_Start()) return 1;
     // Initialize sound system
     if (!Sound_System_Initialize()) {
         SDL_Log("Failed to initialize sound system!");
@@ -45,7 +46,6 @@ int App_Start() {
         SDL_Log("Failed to load sound resources!\n");
         return 1;
     }
-
     Sound_System_Initialize();
     Menu_PrepareTextures();
     Pause_Start();

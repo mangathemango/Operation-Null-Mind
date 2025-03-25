@@ -95,6 +95,7 @@ typedef enum {
     ROOM_TYPE_NORMAL,   /**< Normal room */
     ROOM_TYPE_BOSS,     /**< Boss room */
     ROOM_TYPE_END,      /**< End room */
+    ROOM_TYPE_CRATE,   /**< Crate room */
 } RoomType;
 
 /**
@@ -247,6 +248,14 @@ void Chunk_Render(const EnvironmentChunk *chunk);
 EnvironmentChunk* Chunk_GetCurrentChunk(Vec2 position);
 
 /**
+ * @brief Gets the center of the chunk
+ * 
+ * @param chunk Pointer to the chunk
+ * @return Vec2 Center of the chunk
+ */
+Vec2 Chunk_GetChunkCenter(EnvironmentChunk* chunk);
+
+/**
  * @brief Gets a random tile in the room
  * 
  * @param chunk Pointer to the chunk
@@ -270,3 +279,4 @@ Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk);
  * @return false If the chunk index is not valid
  */
 bool Chunk_IsValid(Vec2 chunkIndex);
+bool Chunk_IsOnMainPath(EnvironmentChunk* chunk);

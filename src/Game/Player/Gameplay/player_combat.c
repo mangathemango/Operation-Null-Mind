@@ -12,6 +12,8 @@
 #include <player.h>
 #include <sound.h>
 #include <random.h>
+#include <interactable.h>
+#include <interactable_crate.h>
 
 /**
  * @brief [Utility] Makes the player shoot their current weapon
@@ -22,9 +24,9 @@
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
     Sound_Play_Effect(1);
-    ParticleEmitter_ActivateOnce(player.state.currentGun->resources.casingParticleEmitter);
-    ParticleEmitter_ActivateOnce(player.state.currentGun->resources.muzzleFlashEmitter);
-    ParticleEmitter_ActivateOnce(player.state.currentGun->resources.bulletPreset);
+    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
+    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
+    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
     Timer_Start(player.resources.shootCooldownTimer);
     
 }
@@ -35,10 +37,47 @@ void Player_Shoot() {
  * Sets the currently active gun and resets the cooldown timer
  * based on the new weapon's fire rate.
  * 
- * @param gun Pointer to the gun data to switch to
  */
-void Player_SwitchGun(GunData* gun) {
-    player.state.currentGun = gun;
-    player.resources.shootCooldownTimer = Timer_Create(60.0f/gun->stats.fireRate);
+void Player_SwitchGun() {
+    Gun temp = player.state.gunSlots[0];
+    int i = 0;
+    for (i = 0; i < 2 - 1; i++) {
+        if (player.state.gunSlots[i + 1] == -1) break;
+        player.state.gunSlots[i] = player.state.gunSlots[i + 1];
+    }
+    player.state.gunSlots[i] = temp;
+    player.state.currentGun = GunList[player.state.gunSlots[0]];
+    player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
+}
+
+void Player_PickUpGun(void* data, int interactableIndex) {
+    GunData* gun = data;
+    int freeGunSlot = 0;
+    // Look for free slot
+    for (int i = 0; i < 2; i++) {
+        if (player.state.gunSlots[i] == -1) {
+            freeGunSlot = i;
+        }
+    };
+    if (freeGunSlot == 0) {
+        // Drop current gun if no free slot
+        player.state.gunSlots[0] = gun->type;
+        Interactable_CreateWeapon(player.state.currentGun.type, player.state.position);
+    } else {
+        // Swap guns
+        player.state.gunSlots[freeGunSlot] = player.state.gunSlots[0];
+        player.state.gunSlots[0] = gun->type;
+    }
+    Interactable_Deactivate(interactableIndex);
+    player.resources.shootCooldownTimer = Timer_Create(60.0f/GunList[gun->type].stats.fireRate);
+    Timer_Start(player.resources.shootCooldownTimer);
+}
+
+
+void Player_OpenCrate(void* data, int interactableIndex) {
+    Gun* crateGun = data;
+    Interactable_CreateWeaponCrate(true, *crateGun, interactables[interactableIndex].position);
+    Interactable_CreateWeapon(*crateGun, interactables[interactableIndex].position);
+    Interactable_Deactivate(interactableIndex);
 }
