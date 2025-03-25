@@ -94,7 +94,7 @@ SDL_Rect Camera_ScreenRectToWorld(SDL_Rect screenRect) {
  * 
  * @return SDL_Rect Rectangle representing the camera's view in world space
  */
-SDL_Rect Camera_GetViewRect() {
+SDL_Rect Camera_GetWorldViewRect() {
     return (SDL_Rect) {
         camera.position.x - app.config.screen_width / 2,
         camera.position.y - app.config.screen_height / 2,
@@ -109,7 +109,19 @@ SDL_Rect Camera_GetViewRect() {
  * @param rect Rectangle in world coordinates to check
  * @return bool True if the rectangle is at least partially visible, false otherwise
  */
-bool Camera_RectIsOnScreen(SDL_Rect rect) {
-    SDL_Rect cameraRect = Camera_GetViewRect();
+bool Camera_WorldRectIsOnScreen(SDL_Rect rect) {
+    SDL_Rect cameraRect = Camera_GetWorldViewRect();
     return SDL_HasIntersection(&rect, &cameraRect);
+}
+
+bool Camera_ScreenRectIsOnScreen(SDL_Rect rect) {
+    return SDL_HasIntersection(
+        &rect, 
+        &(SDL_Rect) {
+            0, 
+            0, 
+            app.config.screen_width, 
+            app.config.screen_height
+        }
+    );
 }

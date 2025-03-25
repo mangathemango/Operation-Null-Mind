@@ -57,4 +57,7 @@ void Player_Input_Handler() {
         if (Input->mouse.leftButton.pressed) Player_Shoot();
     }
     
+    if (Input->mouse.leftButton.pressed) {
+        player.state.viewingLog = -1;
+    }
 }

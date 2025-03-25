@@ -47,7 +47,7 @@ void Enemy_Render() {
                 opacity = 255 - (200 * (timeLeft - 0.5f) / 0.5f);
             }
 
-            if (!Camera_RectIsOnScreen(dest)) continue;
+            if (!Camera_WorldRectIsOnScreen(dest)) continue;
             dest = Vec2_ToCenteredRect(Camera_WorldVecToScreen(position), size);
 
             SDL_SetTextureAlphaMod(Enemy_spawnIndicator, opacity);
@@ -61,7 +61,7 @@ void Enemy_Render() {
         }
 
         // don't render if the enemy is not in the view
-        if (!Camera_RectIsOnScreen(enemies[i].state.collider.hitbox)) continue;
+        if (!Camera_WorldRectIsOnScreen(enemies[i].state.collider.hitbox)) continue;
         Animation_Render(
             enemies[i].resources.animation,
             Camera_WorldVecToScreen(

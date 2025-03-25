@@ -30,6 +30,7 @@
 int Player_Dash() {
     // Doesn't dash when idle
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
+    if (player.state.movementLocked) return 0;
     if (!Timer_IsFinished(player.resources.dashCooldownTimer)) return 0;
     
     Sound_Play_Effect(0);

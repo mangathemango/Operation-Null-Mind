@@ -71,7 +71,7 @@ void Debug_RenderHitboxes() {
     for (int i = 0; i < MAX_INTERACTABLES; i++) {
         if (interactables[i].active) {
             SDL_Rect hitbox = Vec2_ToCenteredRect(interactables[i].position, interactables[i].hitboxSize);
-            if (!Camera_RectIsOnScreen(hitbox)) continue;
+            if (!Camera_WorldRectIsOnScreen(hitbox)) continue;
 
             hitbox = Vec2_ToCenteredRect(
                 Camera_WorldVecToScreen(interactables[i].position),

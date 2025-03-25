@@ -119,6 +119,10 @@ void Map_Generate() {
             }
             // Create the chunk with all its details
             Chunk_GenerateTilesButVoid(&testMap.chunks[x][y]);
+            Interactable_CreateLog(
+                0, 
+                Chunk_GetChunkCenter(&testMap.chunks[x][y])
+            );
         }
     }
 }
