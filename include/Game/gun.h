@@ -48,6 +48,7 @@ typedef struct {
  */
 typedef struct {
     Vec2 position;                  /**< Current position of the gun */
+    int currentAmmo;                /**< Current ammunition count */
     float angle;                    /**< Current rotation angle of the gun */
     SDL_RendererFlip flip;          /**< Flip state for rendering */
     SDL_Point rotationCenter;       /**< Point around which the gun rotates */
@@ -82,8 +83,8 @@ typedef struct {
     float fireRate;                 /**< Shots per minute */
     int ammoCapacity;               /**< Maximum ammunition count */
     float spread_angle;             /**< Bullet spread in degrees */
-    int damage;                     /**< Damage per bullet */
-    
+    int damage;                     /**< Damage per bullet */     
+    int ammoConsumption;           /**< Maximum ammo capacity */
     float bulletLifetime;           /**< How long bullets exist before despawning */
     int bulletsPerShot;             /**< Number of bullets fired per shot (>1 only for shotguns) */
     GunFireMode fireMode;           /**< Firing mode (auto or semi) */

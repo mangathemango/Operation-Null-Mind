@@ -58,7 +58,6 @@ void HUD_RenderCurrentGun() {
         gun.animData.frameSize.y * 2
     };
     SDL_RenderCopyEx(app.resources.renderer, gunTexture, &srcRect, &destRect, 0 , NULL, SDL_FLIP_HORIZONTAL);
-
     static UIElement* gunNameTextElement = NULL;
     char gunName[30];
     strcpy(gunName, gun.name);
@@ -80,6 +79,91 @@ void HUD_RenderCurrentGun() {
     }
     UI_UpdateText(gunNameTextElement);
     UI_RenderText(gunNameTextElement);
+}
+
+void HUD_RenderAmmoDisplay() {
+    static UIElement* ammoTextElement = NULL;
+    char ammoText[3];
+    int currentAmmo = player.state.currentGun.state.currentAmmo;
+    sprintf(ammoText, "%d", currentAmmo);
+    if (!ammoTextElement) {
+        ammoTextElement = UI_CreateText(
+            ammoText, 
+            (SDL_Rect) {
+                app.config.screen_width - 20, 
+                app.config.screen_height - 38, 
+                0, 
+                0
+            }, 
+            (SDL_Color) {255, 255, 255, 255}, 
+            3.0f, 
+            UI_TEXT_ALIGN_RIGHT, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(ammoTextElement, ammoText);
+    }
+    UI_UpdateText(ammoTextElement);
+    UI_RenderText(ammoTextElement);
+
+
+    static UIElement* fireModeTextElement = NULL;
+    char fireModeText[10];
+    if (player.state.currentGun.stats.fireMode == FIREMODE_SEMI) {
+        strcpy(fireModeText, "SEMI");
+    } else {
+        strcpy(fireModeText, "AUTO");
+    }
+    if (!fireModeTextElement) {
+        fireModeTextElement = UI_CreateText(
+            fireModeText, 
+            (SDL_Rect) {
+                app.config.screen_width - 62, 
+                app.config.screen_height - 32, 
+                0, 
+                0
+            }, 
+            (SDL_Color) {200, 200, 200, 255}, 
+            1.0f, 
+            UI_TEXT_ALIGN_RIGHT, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(fireModeTextElement, fireModeText);
+    }
+    UI_UpdateText(fireModeTextElement);
+    UI_RenderText(fireModeTextElement);
+
+    static UIElement* ammoConsumptionTextElement = NULL;
+    char ammoConsumptionText[10];
+    sprintf(ammoConsumptionText, "%02dX", player.state.currentGun.stats.ammoConsumption);
+    if (!ammoConsumptionTextElement) {
+        ammoConsumptionTextElement = UI_CreateText(
+            ammoConsumptionText, 
+            (SDL_Rect) {
+                app.config.screen_width - 70, 
+                app.config.screen_height - 18, 
+                0, 
+                0
+            }, 
+            (SDL_Color) {200, 200, 200, 255}, 
+            1.0f, 
+            UI_TEXT_ALIGN_RIGHT, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(ammoConsumptionTextElement, ammoConsumptionText);
+    }
+    UI_UpdateText(ammoConsumptionTextElement);
+    UI_RenderText(ammoConsumptionTextElement);
+
+    SDL_Rect dest = (SDL_Rect) {
+        app.config.screen_width - 70, 
+        app.config.screen_height - 17, 
+        10, 
+        10
+    };
+    SDL_RenderCopy(app.resources.renderer, ammoTexture, NULL, &dest);
 }
 
 void HUD_RenderCurrentLevel() {
@@ -110,4 +194,5 @@ void HUD_Render() {
     HUD_RenderAmmoBar();
     HUD_RenderCurrentGun();
     HUD_RenderCurrentLevel();
+    HUD_RenderAmmoDisplay();
 }
