@@ -41,8 +41,8 @@ int App_RenderMain() {
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
             Minimap_Render();
-            Log_Render();
             HUD_Render();
+            Log_Render();
             break;
         
         case SCENE_PAUSE:
