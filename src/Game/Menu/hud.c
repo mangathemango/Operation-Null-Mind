@@ -2,6 +2,8 @@
 #include <app.h>
 #include <UI_text.h>
 #include <string.h>
+#include <minimap.h>
+#include <stdio.h>
 
 static SDL_Texture* healthTexture;
 static SDL_Texture* ammoTexture;
@@ -23,7 +25,7 @@ void HUD_RenderHealthBar() {
     SDL_RenderFillRect(app.resources.renderer, &barDest);
 
     SDL_Rect iconDest = (SDL_Rect) {
-        iconX, 
+        healthBarPosition.x + (barSize.x - iconSize.x) - 5, 
         healthBarPosition.y + (barSize.y - iconSize.y) / 2, 
         10,
         10
@@ -37,7 +39,7 @@ void HUD_RenderAmmoBar() {
     SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(app.resources.renderer, &barDest);
     SDL_Rect iconDest = (SDL_Rect) {
-        iconX, 
+        ammoBarPosition.x + (barSize.x - iconSize.x) - 5, 
         ammoBarPosition.y + (barSize.y - iconSize.y) / 2, 
         10,
         10
@@ -80,8 +82,32 @@ void HUD_RenderCurrentGun() {
     UI_RenderText(gunNameTextElement);
 }
 
+void HUD_RenderCurrentLevel() {
+    static UIElement* levelTextElement = NULL;
+    char levelText[30];
+    sprintf(levelText, "Stage %d", player.state.currentLevel);
+    if (!levelTextElement) {
+        levelTextElement = UI_CreateText(
+            levelText, 
+            (SDL_Rect) {
+                app.config.screen_width - MINIMAP_SIZE / 2 - 10,
+                MINIMAP_SIZE + 15,
+            }, 
+            (SDL_Color) {255, 255, 255, 255}, 
+            1.0f, 
+            UI_TEXT_ALIGN_CENTER, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(levelTextElement, levelText);
+    }
+    UI_UpdateText(levelTextElement);
+    UI_RenderText(levelTextElement);
+}
+
 void HUD_Render() {
     HUD_RenderHealthBar();
     HUD_RenderAmmoBar();
     HUD_RenderCurrentGun();
+    HUD_RenderCurrentLevel();
 }

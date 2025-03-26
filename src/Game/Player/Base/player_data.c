@@ -27,6 +27,7 @@ PlayerData player = {
         .gunSlots = {GUN_PISTOL, -1},
         .moving = false,
         .dashing = false,
+        .currentLevel = 1,
         .directionLocked = false,
         .collider = {
             .active = true,

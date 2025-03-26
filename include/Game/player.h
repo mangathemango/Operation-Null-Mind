@@ -29,6 +29,7 @@ typedef struct {
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
 
+    int currentLevel;
     int viewingLog;
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
