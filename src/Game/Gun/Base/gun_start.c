@@ -23,6 +23,12 @@
 void Gun_Start() {
     // Set up particle emitter presets
     ParticleEmitter* muzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    
+    GunList[GUN_PISTOL].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_SMG].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_ASSAULT_RIFLE].config.casingPreset = ParticleEmitter_ARBRCasing;
+    GunList[GUN_BATTLE_RIFLE].config.casingPreset = ParticleEmitter_ARBRCasing;
+    GunList[GUN_SHOTGUN].config.casingPreset = ParticleEmitter_ShotgunCasing;
 
 
     // Set up resources
