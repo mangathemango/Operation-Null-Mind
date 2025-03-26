@@ -14,6 +14,7 @@
 #include <gun.h>
 #include <particle_emitterpresets.h>
 #include <colliders.h>
+#include <interactable.h>
 
 /**
  * @brief Contains the player's current state information
@@ -30,7 +31,8 @@ typedef struct {
     bool moving;        ///< Whether the player is moving
     bool movementLocked; ///< Whether movement is locked
     GunData currentGun; ///< Currently equipped weapon
-    Gun_Type gunSlots[2]; ///< Guns held by the player
+    GunSlot gunSlots[2]; ///< Player's weapon inventory
+    int currentGunIndex;
 
     int currentLevel;
     int viewingLog;
@@ -168,3 +170,5 @@ int Player_AnimationUpdate();
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);
 void Player_ReadLog(void* data, int interactableIndex);
+void Player_ResetGun();
+GunData Player_GetCurrentGunData();

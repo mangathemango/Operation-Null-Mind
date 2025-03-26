@@ -1,8 +1,8 @@
 #include <interactable_crate.h>
 #include <app.h>
 
-void Interactable_CreateWeaponCrate(bool opened, Gun_Type gun, Vec2 position) {
-    Gun_Type* crateGun = malloc(sizeof(Gun_Type));
+void Interactable_CreateWeaponCrate(bool opened, GunSlot gun, Vec2 position) {
+    GunSlot* crateGun = malloc(sizeof(Gun_Type));
     *crateGun = gun;
     int index;
     if (!opened) index = Interactable_Create(INTERACTABLE_WEAPONCRATECLOSED, position);

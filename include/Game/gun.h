@@ -30,6 +30,11 @@ typedef enum {
     GUN_COUNT
 } Gun_Type;
 
+typedef struct {
+    Gun_Type gun;
+    int currentAmmo;
+    int level;
+} GunSlot;
 
 /**
  * @brief Resources used by a gun

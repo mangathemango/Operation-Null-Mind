@@ -1,10 +1,15 @@
 #include <interactable.h>
 #include <app.h>
+#include <string.h>
+#include <stdio.h>
+#include <gun.h>
 
-void Interactable_CreateWeapon(Gun_Type gun, Vec2 position) {
+void Interactable_CreateWeapon(GunSlot gunData, Vec2 position) {
     int index = Interactable_Create(INTERACTABLE_WEAPON, position);
-    interactables[index].data = &GunList[gun];
-    interactables[index].interactionText = GunList[gun].name;
+    GunSlot* data = malloc(sizeof(GunSlot));
+    memcpy(data, &gunData, sizeof(GunSlot));
+    interactables[index].data = data;
+    interactables[index].interactionText = GunList[gunData.gun].name;
     interactables[index].textTexture = UI_CreateTextTexture(
         interactables[index].interactionText, 
         (SDL_Color){255, 255, 255, 255}, 

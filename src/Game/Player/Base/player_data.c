@@ -24,7 +24,17 @@ PlayerData player = {
         .position = {4200,4200},
         .direction = {0,0},
         .currentSpeed = 0,
-        .gunSlots = {GUN_PISTOL, -1},
+        .gunSlots = {
+            [0] = {
+                .gun = GUN_PISTOL,
+                .currentAmmo = 17,
+                .level = 1
+            },
+            [1] = {
+                .gun = -1
+            }
+        },
+        .currentGunIndex = 0,
         .moving = false,
         .dashing = false,
         .currentLevel = 1,

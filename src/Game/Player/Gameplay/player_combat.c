@@ -36,16 +36,8 @@ void Player_Shoot() {
  * @brief [Utility] Changes the player's active weapon
  */
 void Player_SwitchGun() {
-    Gun_Type temp = player.state.gunSlots[0];
-    int i = 0;
-    for (i = 0; i < 2 - 1; i++) {
-        if (player.state.gunSlots[i + 1] == -1) break;
-        player.state.gunSlots[i] = player.state.gunSlots[i + 1];
-    }
-    player.state.gunSlots[i] = temp;
-    player.state.currentGun = GunList[player.state.gunSlots[0]];
-    player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
-    Timer_Start(player.resources.shootCooldownTimer);
+    player.state.currentGunIndex = (player.state.currentGunIndex + 1) % 2;
+    Player_ResetGun();
 }
 
 /**
@@ -58,25 +50,28 @@ void Player_SwitchGun() {
  * @todo [player_combat.c:77] Add gun pickup sfx
  */
 void Player_PickUpGun(void* data, int interactableIndex) {
-    GunData* gun = data;
+    GunSlot* gun = data;
     int freeGunSlot = 0;
     // Look for free slot
     for (int i = 0; i < 2; i++) {
-        if (player.state.gunSlots[i] == -1) {
+        if (player.state.gunSlots[i].gun == -1) {
             freeGunSlot = i;
         }
     };
     if (freeGunSlot == 0) {
-        // Drop current gun if no free slot
-        player.state.gunSlots[0] = gun->type;
-        Interactable_CreateWeapon(player.state.currentGun.type, player.state.position);
+        Interactable_CreateWeapon(
+            player.state.gunSlots[player.state.currentGunIndex], 
+            player.state.position
+        );
+        player.state.gunSlots[player.state.currentGunIndex] = *gun;
     } else {
-        // Swap guns
-        player.state.gunSlots[freeGunSlot] = player.state.gunSlots[0];
-        player.state.gunSlots[0] = gun->type;
+        player.state.currentGunIndex = freeGunSlot;
+        player.state.gunSlots[freeGunSlot] = *gun;
+        
     }
     Interactable_Deactivate(interactableIndex);
-    player.resources.shootCooldownTimer = Timer_Create(60.0f/GunList[gun->type].stats.fireRate);
+
+    player.resources.shootCooldownTimer = Timer_Create(60.0f/ (float) Player_GetCurrentGunData()->stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
 }
 
@@ -97,4 +92,14 @@ void Player_OpenCrate(void* data, int interactableIndex) {
 void Player_ReadLog(void* data, int interactableIndex) {
     int* index = data;
     player.state.viewingLog = *index;
+}
+
+void Player_ResetGun() {
+    player.state.currentGun = Player_GetCurrentGunData();
+    player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
+    Timer_Start(player.resources.shootCooldownTimer);
+}
+
+GunData* Player_GetCurrentGunData() {
+    return &GunList[player.state.gunSlots[player.state.currentGunIndex].gun];
 }
