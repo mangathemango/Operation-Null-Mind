@@ -24,6 +24,7 @@
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
     Sound_Play_Effect(1);
+    player.state.currentAmmo--;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);

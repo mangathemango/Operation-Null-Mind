@@ -7,9 +7,9 @@
 
 static SDL_Texture* healthTexture;
 static SDL_Texture* ammoTexture;
-Vec2 barSize = {120, 12};
+Vec2 barSize = {120, 14};
 Vec2 iconSize = {10, 10};
-float barX = 20;
+float barX = 10;
 float iconX = 22;
 
 
@@ -19,10 +19,30 @@ void HUD_Start() {
 }
 
 void HUD_RenderHealthBar() {
-    Vec2 healthBarPosition = (Vec2) {barX, app.config.screen_height - 20};
-    SDL_Rect barDest = Vec2_ToRect(healthBarPosition, barSize);
+    Vec2 healthBarPosition = (Vec2) {barX, app.config.screen_height - 42};
+    SDL_Rect borderDest = Vec2_ToRect(healthBarPosition, barSize);
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(app.resources.renderer, &borderDest);
+
+    SDL_Rect fillingDest = Vec2_ToRect(
+        Vec2_Add(healthBarPosition, (Vec2) {1.0f, 1.0f}),
+        Vec2_Subtract(barSize, (Vec2) {2.0f, 2.0f}) 
+    );
+    SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
+    SDL_RenderFillRect(app.resources.renderer, &fillingDest);
+
+
+    SDL_Rect barDest = Vec2_ToRect(
+        healthBarPosition, 
+        (Vec2) {
+            barSize.x * ((float) player.state.currentHealth / (float) player.stats.maxHealth), 
+            barSize.y
+        }
+    );
     SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(app.resources.renderer, &barDest);
+
+    
 
     SDL_Rect iconDest = (SDL_Rect) {
         healthBarPosition.x + (barSize.x - iconSize.x) - 5, 
@@ -44,7 +64,7 @@ void HUD_RenderHealthBar() {
                 0, 
                 0
             }, 
-            (SDL_Color) {88, 88, 88, 255}, 
+            (SDL_Color) {139, 139, 139, 255}, 
             1.0f, 
             UI_TEXT_ALIGN_LEFT, 
             app.resources.textFont
@@ -57,8 +77,25 @@ void HUD_RenderHealthBar() {
 }
 
 void HUD_RenderAmmoBar() {
-    Vec2 ammoBarPosition = (Vec2) {barX, app.config.screen_height - 40};    
-    SDL_Rect barDest = Vec2_ToRect(ammoBarPosition, barSize);
+    Vec2 ammoBarPosition = (Vec2) {barX, app.config.screen_height - 25};    
+    SDL_Rect borderDest = Vec2_ToRect(ammoBarPosition, barSize);
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(app.resources.renderer, &borderDest);
+
+    SDL_Rect fillingDest = Vec2_ToRect(
+        Vec2_Add(ammoBarPosition, (Vec2) {1.0f, 1.0f}),
+        Vec2_Subtract(barSize, (Vec2) {2.0f, 2.0f}) 
+    );
+    SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
+    SDL_RenderFillRect(app.resources.renderer, &fillingDest);
+    
+    SDL_Rect barDest = Vec2_ToRect(
+        ammoBarPosition, 
+        (Vec2) {
+            barSize.x * ((float) player.state.currentAmmo / (float) player.stats.maxAmmo), 
+            barSize.y
+        }
+    );
     SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(app.resources.renderer, &barDest);
     SDL_Rect iconDest = (SDL_Rect) {
@@ -81,7 +118,7 @@ void HUD_RenderAmmoBar() {
                 0, 
                 0
             }, 
-            (SDL_Color) {88, 88, 88, 255}, 
+            (SDL_Color) {139, 139, 139, 255}, 
             1.0f, 
             UI_TEXT_ALIGN_LEFT, 
             app.resources.textFont
