@@ -20,7 +20,7 @@ void Chunk_Render(const EnvironmentChunk* chunk) {
     int chunkWorldY = chunk->position.y * CHUNK_SIZE_TILE;
     
     // 4. Get camera view for tile-level culling
-    SDL_Rect viewRect = Camera_GetViewRect();
+    SDL_Rect viewRect = Camera_GetWorldViewRect();
     
     // 5. Check if chunk is completely outside view (early exit)
     SDL_Rect chunkRect = {

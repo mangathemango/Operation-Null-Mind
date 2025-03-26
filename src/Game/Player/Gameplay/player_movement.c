@@ -42,6 +42,7 @@ int Player_Look(Vec2 direction) {
  */
 int Player_Move() {
     if (player.state.currentSpeed == 0) return 0;
+    if (player.state.movementLocked) return 0;
     if (Vec2_Magnitude(player.state.direction) == 0) return 0;
 
     player.state.direction = Vec2_Normalize(player.state.direction);

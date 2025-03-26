@@ -16,7 +16,7 @@
 
 void Map_Render() {
     // 1. Calculate visible area in world coordinates
-    SDL_Rect viewRect = Camera_GetViewRect();
+    SDL_Rect viewRect = Camera_GetWorldViewRect();
     
     // 2. Determine which chunks are within view
     int startX = MAX(0, viewRect.x / CHUNK_SIZE_PIXEL);

@@ -33,11 +33,10 @@ void Camera_UpdatePosition() {
             app.config.screen_height / 2
         }
     );
-
-    Vec2 targetPosition = Vec2_Add(
-        player.state.position,
-        Vec2_Multiply(mouseToScreenCenter, 0.2f)
-    );
+    Vec2 targetPosition = player.state.position;
+    if (!player.state.movementLocked) {
+        Vec2_Increment(&targetPosition, Vec2_Multiply(mouseToScreenCenter, 0.2f));
+    }
 
     camera.position = Vec2_Lerp(
         camera.position, 
@@ -94,7 +93,7 @@ SDL_Rect Camera_ScreenRectToWorld(SDL_Rect screenRect) {
  * 
  * @return SDL_Rect Rectangle representing the camera's view in world space
  */
-SDL_Rect Camera_GetViewRect() {
+SDL_Rect Camera_GetWorldViewRect() {
     return (SDL_Rect) {
         camera.position.x - app.config.screen_width / 2,
         camera.position.y - app.config.screen_height / 2,
@@ -109,7 +108,19 @@ SDL_Rect Camera_GetViewRect() {
  * @param rect Rectangle in world coordinates to check
  * @return bool True if the rectangle is at least partially visible, false otherwise
  */
-bool Camera_RectIsOnScreen(SDL_Rect rect) {
-    SDL_Rect cameraRect = Camera_GetViewRect();
+bool Camera_WorldRectIsOnScreen(SDL_Rect rect) {
+    SDL_Rect cameraRect = Camera_GetWorldViewRect();
     return SDL_HasIntersection(&rect, &cameraRect);
+}
+
+bool Camera_ScreenRectIsOnScreen(SDL_Rect rect) {
+    return SDL_HasIntersection(
+        &rect, 
+        &(SDL_Rect) {
+            0, 
+            0, 
+            app.config.screen_width, 
+            app.config.screen_height
+        }
+    );
 }

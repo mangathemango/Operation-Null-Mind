@@ -20,7 +20,7 @@ void Tile_Render(EnvironmentTile tile, Vec2 tilePosition) {
 
     // Check if worldDest is on screen
     SDL_Rect worldDest = Vec2_ToRect(tileWorldPos, tileSize);
-    if (!Camera_RectIsOnScreen(worldDest)) return;
+    if (!Camera_WorldRectIsOnScreen(worldDest)) return;
 
     // Convert to screenDest
     Vec2 tileScreenPos = Camera_WorldVecToScreen(tileWorldPos);

@@ -116,6 +116,15 @@ void Map_Generate() {
                         (Vec2){0, TILE_SIZE_PIXELS / 2}
                     )
                 );
+                if (RandInt(0,10) <= 3) {
+                    Interactable_CreateLog(
+                        RandInt(0, 5), 
+                        Vec2_Add(
+                            Chunk_GetChunkCenter(&testMap.chunks[x][y]),
+                            (Vec2){0, - 3 * TILE_SIZE_PIXELS / 2}
+                        )
+                    );
+                }
             }
             // Create the chunk with all its details
             Chunk_GenerateTilesButVoid(&testMap.chunks[x][y]);

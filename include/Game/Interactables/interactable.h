@@ -11,7 +11,7 @@
 typedef enum {
     INTERACTABLE_WEAPONCRATEOPEN,
     INTERACTABLE_WEAPONCRATECLOSED,
-    // INTERACTABLE_LOG,
+    INTERACTABLE_LOG,
     // INTERACTABLE_EXIT,
     INTERACTABLE_WEAPON,
     INTERACTABLE_COUNT
@@ -47,6 +47,7 @@ extern SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
 int Interactable_Create(InteractableType type, Vec2 position);
 void Interactable_CreateWeapon(Gun gun, Vec2 position);
 void Interactable_CreateWeaponCrate(bool opened, Gun gun, Vec2 position);
+void Interactable_CreateLog(int logIndex, Vec2 position);
 void Interactable_Start();
 void Interactable_Update();
 void Interactable_Render();

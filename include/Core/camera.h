@@ -35,5 +35,6 @@ void Camera_UpdatePosition();
 
 Vec2 Camera_WorldVecToScreen(Vec2 worldPosition);
 Vec2 Camera_ScreenVecToWorld(Vec2 screenPosition);
-SDL_Rect Camera_GetViewRect();
-bool Camera_RectIsOnScreen(SDL_Rect rect);
+SDL_Rect Camera_GetWorldViewRect();
+bool Camera_WorldRectIsOnScreen(SDL_Rect rect);
+bool Camera_ScreenRectIsOnScreen(SDL_Rect rect);

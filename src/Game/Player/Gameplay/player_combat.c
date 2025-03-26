@@ -92,3 +92,8 @@ void Player_OpenCrate(void* data, int interactableIndex) {
     Interactable_CreateWeapon(*crateGun, interactables[interactableIndex].position);
     Interactable_Deactivate(interactableIndex);
 }
+
+void Player_ReadLog(void* data, int interactableIndex) {
+    int* index = data;
+    player.state.viewingLog = *index;
+}

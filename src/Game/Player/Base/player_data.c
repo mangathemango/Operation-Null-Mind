@@ -41,7 +41,8 @@ PlayerData player = {
                 .w = 20,
                 .h = 25
             }
-        }
+        },
+        .viewingLog = -1
     },
     .resources = {
         .animation = NULL,

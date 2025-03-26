@@ -25,8 +25,11 @@ typedef struct {
     bool dashing;       ///< Whether the player is currently dashing
     bool directionLocked; ///< Whether movement direction is locked
     bool moving;        ///< Whether the player is moving
+    bool movementLocked; ///< Whether movement is locked
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
+
+    int viewingLog;
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
     bool insideHallway;  ///< Whether player is in a hallway
@@ -156,3 +159,4 @@ int Player_AnimationUpdate();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);
+void Player_ReadLog(void* data, int interactableIndex);
