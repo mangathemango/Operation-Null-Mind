@@ -85,7 +85,7 @@ void HUD_RenderAmmoDisplay() {
     static UIElement* ammoTextElement = NULL;
     char ammoText[3];
     int currentAmmo = player.state.currentGun.state.currentAmmo;
-    sprintf(ammoText, "%d", currentAmmo);
+    sprintf(ammoText, "%02d", currentAmmo);
     if (!ammoTextElement) {
         ammoTextElement = UI_CreateText(
             ammoText, 
@@ -136,7 +136,7 @@ void HUD_RenderAmmoDisplay() {
 
     static UIElement* ammoConsumptionTextElement = NULL;
     char ammoConsumptionText[10];
-    sprintf(ammoConsumptionText, "%02dX", player.state.currentGun.stats.ammoConsumption);
+    sprintf(ammoConsumptionText, "%dX", player.state.currentGun.stats.ammoConsumption);
     if (!ammoConsumptionTextElement) {
         ammoConsumptionTextElement = UI_CreateText(
             ammoConsumptionText, 
