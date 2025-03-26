@@ -31,6 +31,29 @@ void HUD_RenderHealthBar() {
         10
     };
     SDL_RenderCopy(app.resources.renderer, healthTexture, NULL, &iconDest);
+
+    static UIElement* healthTextElement = NULL;
+    char healthText[10];
+    sprintf(healthText, "%d", player.state.currentHealth);
+    if (!healthTextElement) {
+        healthTextElement = UI_CreateText(
+            healthText, 
+            (SDL_Rect) {
+                healthBarPosition.x + 5, 
+                healthBarPosition.y, 
+                0, 
+                0
+            }, 
+            (SDL_Color) {88, 88, 88, 255}, 
+            1.0f, 
+            UI_TEXT_ALIGN_LEFT, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(healthTextElement, healthText);
+    }
+    UI_UpdateText(healthTextElement);
+    UI_RenderText(healthTextElement);
 }
 
 void HUD_RenderAmmoBar() {
@@ -45,6 +68,29 @@ void HUD_RenderAmmoBar() {
         10
     };
     SDL_RenderCopy(app.resources.renderer, ammoTexture, NULL, &iconDest);
+
+    static UIElement* ammoTextElement = NULL;
+    char ammoText[10];
+    sprintf(ammoText, "%d", player.state.currentAmmo);
+    if (!ammoTextElement) {
+        ammoTextElement = UI_CreateText(
+            ammoText, 
+            (SDL_Rect) {
+                ammoBarPosition.x + 5, 
+                ammoBarPosition.y, 
+                0, 
+                0
+            }, 
+            (SDL_Color) {88, 88, 88, 255}, 
+            1.0f, 
+            UI_TEXT_ALIGN_LEFT, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(ammoTextElement, ammoText);
+    }
+    UI_UpdateText(ammoTextElement);
+    UI_RenderText(ammoTextElement);
 }
 
 void HUD_RenderCurrentGun() {
