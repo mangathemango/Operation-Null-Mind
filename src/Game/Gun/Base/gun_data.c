@@ -32,9 +32,9 @@ GunData GunList[GUN_COUNT] = {
             .angle = 0
         },
         .stats = {
-            .fireRate = 300,
-            .ammoCapacity = 0,
-            .spread_angle = 2,
+            .fireRate = 500,
+            .ammoCapacity = 17,
+            .spread_angle = 6,
             .damage = 10,
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.0f,
@@ -91,9 +91,9 @@ GunData GunList[GUN_COUNT] = {
             .angle = 0
         },
         .stats = {
-            .fireRate = 1000,
-            .ammoCapacity = 0,
-            .spread_angle = 60,
+            .fireRate = 1200,
+            .ammoCapacity = 25,
+            .spread_angle = 11,
             .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
@@ -150,13 +150,13 @@ GunData GunList[GUN_COUNT] = {
             .angle = 0
         },
         .stats = {
-            .fireRate = 600,
+            .fireRate = 500,
             .ammoCapacity = 0,
-            .spread_angle = 60,
+            .spread_angle = 25,
             .damage = 10,
             .fireMode = FIREMODE_SEMI,
-            .bulletLifetime = 0.1f,
-            .bulletsPerShot = 5
+            .bulletLifetime = 0.6f,
+            .bulletsPerShot = 8
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Shotgun.png",
@@ -209,9 +209,9 @@ GunData GunList[GUN_COUNT] = {
             .angle = 0
         },
         .stats = {
-            .fireRate = 400,
+            .fireRate = 800,
             .ammoCapacity = 0,
-            .spread_angle = 20,
+            .spread_angle = 4,
             .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
@@ -268,9 +268,9 @@ GunData GunList[GUN_COUNT] = {
             .angle = 0
         },
         .stats = {
-            .fireRate = 300,
+            .fireRate = 650,
             .ammoCapacity = 0,
-            .spread_angle = 10,
+            .spread_angle = 2,
             .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
