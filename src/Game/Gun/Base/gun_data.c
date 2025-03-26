@@ -34,9 +34,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .stats = {
             .fireRate = 500,
-            .ammoCapacity = 17,
             .spread_angle = 6,
-            .damage = 10,
+            .damage = 35,
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
@@ -96,13 +95,12 @@ GunData GunList[GUN_COUNT] = {
         },
         .stats = {
             .fireRate = 1200,
-            .ammoCapacity = 25,
             .spread_angle = 11,
-            .damage = 10,
+            .damage = 50,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 30,
+            .ammoCapacity = 25,
             .ammoConsumption = 1
         },
         .animData = {
@@ -159,10 +157,10 @@ GunData GunList[GUN_COUNT] = {
         .stats = {
             .fireRate = 500,
             .spread_angle = 25,
-            .damage = 10,
+            .damage = 40,
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 0.6f,
-            .bulletsPerShot = 8
+            .bulletsPerShot = 8,
             .ammoConsumption = 3,
             .ammoCapacity = 7
         },
@@ -219,9 +217,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .stats = {
             .fireRate = 800,
-            .ammoCapacity = 0,
             .spread_angle = 4,
-            .damage = 10,
+            .damage = 80,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
@@ -281,9 +278,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .stats = {
             .fireRate = 650,
-            .ammoCapacity = 0,
             .spread_angle = 2,
-            .damage = 10,
+            .damage = 120,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
