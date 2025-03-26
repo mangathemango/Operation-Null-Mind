@@ -18,7 +18,7 @@
 *   [Data] This file contains the data configurations for guns in general 
 */
 
-// Array of all gun data indexed by Gun enum
+// Array of all gun data indexed by Gun_Type enum
 GunData GunList[GUN_COUNT] = {
     [GUN_PISTOL] = {
         .name = GUN_PISTOL_NAME,

@@ -36,7 +36,7 @@ void Player_Shoot() {
  * @brief [Utility] Changes the player's active weapon
  */
 void Player_SwitchGun() {
-    Gun temp = player.state.gunSlots[0];
+    Gun_Type temp = player.state.gunSlots[0];
     int i = 0;
     for (i = 0; i < 2 - 1; i++) {
         if (player.state.gunSlots[i + 1] == -1) break;
@@ -88,7 +88,7 @@ void Player_PickUpGun(void* data, int interactableIndex) {
  * @param interactableIndex  The index of the interactable crate.
  */
 void Player_OpenCrate(void* data, int interactableIndex) {
-    Gun* crateGun = data;
+    Gun_Type* crateGun = data;
     Interactable_CreateWeaponCrate(true, *crateGun, interactables[interactableIndex].position);
     Interactable_CreateWeapon(*crateGun, interactables[interactableIndex].position);
     Interactable_Deactivate(interactableIndex);

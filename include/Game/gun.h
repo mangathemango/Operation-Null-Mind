@@ -13,7 +13,7 @@
 #include <particle_emitterpresets.h>
 
 /**
- * @brief Gun name definitions
+ * @brief Gun_Type name definitions
  */
 #define GUN_SHOTGUN_NAME "Beretta 1301 Tactical"
 #define GUN_BATTLE_RIFLE_NAME "FN SCAR-H"
@@ -28,7 +28,7 @@ typedef enum {
     GUN_ASSAULT_RIFLE,
     GUN_BATTLE_RIFLE,
     GUN_COUNT
-} Gun;
+} Gun_Type;
 
 
 /**
@@ -39,11 +39,11 @@ typedef struct {
     ParticleEmitter* muzzleFlashEmitter;       /**< Emitter for muzzle flash effects */
     ParticleEmitter* bulletPreset;             /**< Preset for bullet particles */
     ParticleEmitter* bulletFragmentEmitter;    /**< Emitter for bullet fragment particles */
-    Animation* animation;                       /**< Gun animation */
+    Animation* animation;                       /**< Gun_Type animation */
 } GunResources;
 
 /**
- * @brief Gun state structure
+ * @brief Gun_Type state structure
  * @details Contains the runtime state information for a gun
  */
 typedef struct {
@@ -55,7 +55,7 @@ typedef struct {
 } GunState;
 
 /**
- * @brief Gun configuration structure
+ * @brief Gun_Type configuration structure
  * @details Contains positioning data and particle effect configurations for a gun
  */
 typedef struct {
@@ -67,7 +67,7 @@ typedef struct {
 } GunConfig;
 
 /**
- * @brief Gun fire mode enumeration
+ * @brief Gun_Type fire mode enumeration
  * @details Defines the different firing modes available for guns
  */
 typedef enum {
@@ -76,7 +76,7 @@ typedef enum {
 } GunFireMode;
 
 /**
- * @brief Gun statistics structure
+ * @brief Gun_Type statistics structure
  * @details Contains the configuration values that define a gun's capabilities
  */
 typedef struct {
@@ -91,12 +91,12 @@ typedef struct {
 } GunStats;
 
 /**
- * @brief Gun data structure
+ * @brief Gun_Type data structure
  * @details Complete definition of a gun, including name, resources, state, config, stats,
  * and animation data
  */
 typedef struct {
-    Gun type;                    /**< Type of the gun */
+    Gun_Type type;                    /**< Type of the gun */
     char* name;                     /**< Name of the gun */
     GunResources resources;         /**< Pointers to runtime resources */
     GunState state;                 /**< Current state information */

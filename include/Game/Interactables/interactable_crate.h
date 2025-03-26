@@ -1,6 +1,6 @@
 #include <interactable.h>
 
 typedef struct {
-    Gun gun;
+    Gun_Type gun;
     int crateIndex;
 } CrateData;

@@ -30,7 +30,7 @@ typedef struct {
     bool moving;        ///< Whether the player is moving
     bool movementLocked; ///< Whether movement is locked
     GunData currentGun; ///< Currently equipped weapon
-    Gun gunSlots[2]; ///< Guns held by the player
+    Gun_Type gunSlots[2]; ///< Guns held by the player
 
     int currentLevel;
     int viewingLog;

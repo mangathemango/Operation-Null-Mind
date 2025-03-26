@@ -28,7 +28,7 @@ void Gun_Render() {
         return;
     }
     if (!gun->resources.animation) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Gun animation resource is missing");
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Gun_Type animation resource is missing");
         return;
     }
     if (!gun->resources.muzzleFlashEmitter) {
