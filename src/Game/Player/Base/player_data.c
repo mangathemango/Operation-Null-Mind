@@ -27,6 +27,7 @@ PlayerData player = {
         .gunSlots = {GUN_PISTOL, -1},
         .moving = false,
         .dashing = false,
+        .currentLevel = 1,
         .directionLocked = false,
         .collider = {
             .active = true,
@@ -55,6 +56,8 @@ PlayerData player = {
         .dashSpeed = 1000,
         .dashCooldown = 1,
         .dashDuration = 0.1,
+        .maxHealth = 100,
+        .maxAmmo = 200,
     },
     .animData = {
         .spritesheetPath = "Assets/Images/robert.png",
