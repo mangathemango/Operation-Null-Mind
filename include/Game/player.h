@@ -22,6 +22,9 @@ typedef struct {
     Vec2 position;      ///< Current player position
     Vec2 direction;     ///< Last direction the player was facing
     float currentSpeed; ///< Current movement speed
+    int currentHealth;
+    int currentAmmo;
+
     bool dashing;       ///< Whether the player is currently dashing
     bool directionLocked; ///< Whether movement direction is locked
     bool moving;        ///< Whether the player is moving
@@ -29,6 +32,7 @@ typedef struct {
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
 
+    int currentLevel;
     int viewingLog;
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
@@ -45,12 +49,16 @@ typedef struct {
     Timer* dashDurationTimer;             ///< Timer for dash duration
     Timer* dashCooldownTimer;             ///< Timer for dash cooldown
     Timer* shootCooldownTimer;            ///< Timer for shoot cooldown
+    Timer* INVINCIBLE_Timer;               ///< [Title card] timer
 } PlayerResources;
 
 /**
  * @brief Contains the player's stats and attributes
  */
 typedef struct {
+    int maxHealth;
+    int maxAmmo;
+    int INVINCIBLE_Time; ///< Time the player is [Title card] before taking damage again
     float walkSpeed;    ///< Normal walking speed
     float dashSpeed;    ///< Speed during dash
     float dashDuration; ///< How long dash lasts

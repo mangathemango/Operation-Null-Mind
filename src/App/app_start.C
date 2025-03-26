@@ -50,6 +50,7 @@ int App_Start() {
     Menu_PrepareTextures();
     Pause_Start();
     Log_Start();
+    HUD_Start();
     return 0;
     
 }

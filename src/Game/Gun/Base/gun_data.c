@@ -29,7 +29,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .state = {
             .position = {0, 0},
-            .angle = 0
+            .angle = 0,
+            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 300,
@@ -38,7 +39,9 @@ GunData GunList[GUN_COUNT] = {
             .damage = 10,
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.0f,
-            .bulletsPerShot = 1
+            .bulletsPerShot = 1,
+            .ammoCapacity = 17,
+            .ammoConsumption = 1
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Pistol.png",
@@ -88,7 +91,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .state = {
             .position = {0, 0},
-            .angle = 0
+            .angle = 0,
+            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 1000,
@@ -97,7 +101,9 @@ GunData GunList[GUN_COUNT] = {
             .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
-            .bulletsPerShot = 1
+            .bulletsPerShot = 1,
+            .ammoCapacity = 30,
+            .ammoConsumption = 1
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/SMG.png",
@@ -147,7 +153,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .state = {
             .position = {0, 0},
-            .angle = 0
+            .angle = 0,
+            .currentAmmo = 0
         },
         .stats = {
             .fireRate = 600,
@@ -156,7 +163,9 @@ GunData GunList[GUN_COUNT] = {
             .damage = 10,
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 0.1f,
-            .bulletsPerShot = 5
+            .bulletsPerShot = 5,
+            .ammoConsumption = 3,
+            .ammoCapacity = 7
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Shotgun.png",
@@ -206,7 +215,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .state = {
             .position = {0, 0},
-            .angle = 0
+            .angle = 0,
+            .currentAmmo = 0
         },
         .stats = {
             .fireRate = 400,
@@ -215,7 +225,9 @@ GunData GunList[GUN_COUNT] = {
             .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
-            .bulletsPerShot = 1
+            .bulletsPerShot = 1,
+            .ammoCapacity = 30,
+            .ammoConsumption = 2
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Assault Rifle.png",
@@ -265,7 +277,8 @@ GunData GunList[GUN_COUNT] = {
         },
         .state = {
             .position = {0, 0},
-            .angle = 0
+            .angle = 0,
+            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 300,
@@ -274,7 +287,9 @@ GunData GunList[GUN_COUNT] = {
             .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
-            .bulletsPerShot = 1
+            .bulletsPerShot = 1,
+            .ammoCapacity = 20,
+            .ammoConsumption = 2
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Battle Rifle.png",

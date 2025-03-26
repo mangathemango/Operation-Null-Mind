@@ -41,6 +41,7 @@ int App_RenderMain() {
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
             Minimap_Render();
+            HUD_Render();
             Log_Render();
             break;
         

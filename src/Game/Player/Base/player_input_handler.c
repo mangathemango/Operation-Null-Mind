@@ -45,6 +45,7 @@ void Player_Input_Handler() {
     if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
         Map_Generate(); 
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+        player.state.currentLevel++;
     }
     if (Input->keyboard.keys[SDL_SCANCODE_F].pressed) {
         Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
