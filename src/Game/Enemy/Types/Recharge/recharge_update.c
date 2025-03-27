@@ -60,11 +60,15 @@ void Recharge_Update(EnemyData* data) {
             config->rechargePosition = data->state.position;
 
             for (int i = 0; i < ENEMY_MAX; i++) {
-                if (enemies[i].state.isDead || &enemies[i] == data) {
+                if (enemies[i].state.isDead) {
                     continue;
                 }
                 if (Vec2_Distance(enemies[i].state.position, data->state.position) < config->rechargeRadius) {
-                    enemies[i].state.currentHealth += config->healAmount;
+                    if (enemies[i].type == ENEMY_TYPE_RECHARGE) {
+                        enemies[i].state.currentHealth += config->healAmount / 2;
+                    } else {
+                        enemies[i].state.currentHealth += config->healAmount;
+                    }
                     if (enemies[i].state.currentHealth > enemies[i].stats.maxHealth) {
                         enemies[i].state.currentHealth = enemies[i].stats.maxHealth;
                     }
