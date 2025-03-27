@@ -10,10 +10,16 @@
 #include <enemy.h>
 
 typedef struct {
-    float rechargeTime;      // Time required to recharge energy
     float rechargeRadius;    // Radius of the recharge effect 
-    float energyDrainRate;   // Rate at which enemy drains player energy
     bool isRecharging;       // Flag indicating if enemy is currently recharging
+    
+    int healAmount;
+    float rechargeCooldown;
+    float rechargeDuration;
+    float timer;
+
+    Vec2 rechargePosition;
+    SDL_Texture* rechargeTexture;
 } RechargeConfig;
 
 void Recharge_Start (EnemyData* data);

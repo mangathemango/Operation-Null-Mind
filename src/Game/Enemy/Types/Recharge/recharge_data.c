@@ -11,10 +11,16 @@
 #include <enemy_recharge.h>
 
 RechargeConfig RechargeConfigData = {
-    .rechargeTime = 3.0f,
     .rechargeRadius = 120.0f,
-    .energyDrainRate = 5.0f,
-    .isRecharging = false
+    .isRecharging = false,
+
+    .healAmount = 20,
+    .rechargeCooldown = 2.0f,
+    .rechargeDuration = 1.0f,
+    .timer = 0.0f,
+
+    .rechargePosition = {0, 0}, 
+    .rechargeTexture = NULL,
 };
 
 /**
@@ -30,7 +36,7 @@ EnemyData RechargeData = {
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 30, 30},
+            .hitbox = {0, 0, 20, 20},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -68,8 +74,8 @@ EnemyData RechargeData = {
             },
         },
         .playOnStart = true,
-        .defaultClip = "move",
-        .spriteSize = {46, 40},
+        .defaultClip = "idle",
+        .spriteSize = {26, 32},
     },
     .config = &RechargeConfigData,
     .start = &Recharge_Start,

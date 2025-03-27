@@ -73,3 +73,105 @@ SDL_Texture* CreateCircleTexture(int radius, SDL_Color color) {
     
     return texture;
 }
+
+/**
+ * Draws an unfilled circle directly to the renderer
+ * @param center Center position of the circle
+ * @param radius Radius of the circle
+ * @param color Color of the circle outline
+ */
+void DrawCircleOutline(Vec2 center, int radius, SDL_Color color) {
+    SDL_SetRenderDrawColor(app.resources.renderer, color.r, color.g, color.b, color.a);
+    
+    int x = 0;
+    int y = radius;
+    int d = 3 - 2 * radius;
+    
+    // Draw octant points
+    while (y >= x) {
+        // Draw the 8 octant points
+        SDL_RenderDrawPoint(app.resources.renderer, center.x + x, center.y - y);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x + y, center.y - x);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x + y, center.y + x);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x + x, center.y + y);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x - x, center.y + y);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x - y, center.y + x);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x - y, center.y - x);
+        SDL_RenderDrawPoint(app.resources.renderer, center.x - x, center.y - y);
+        
+        // Update using Bresenham's algorithm
+        if (d < 0) {
+            d = d + 4 * x + 6;
+        } else {
+            d = d + 4 * (x - y) + 10;
+            y--;
+        }
+        x++;
+    }
+}
+
+/**
+ * Creates a texture containing an unfilled circle
+ * @param radius Radius of the circle
+ * @param color Color of the circle outline
+ * @param thickness Line thickness (1 for thin outline)
+ * @return SDL_Texture* containing the circle outline
+ */
+SDL_Texture* CreateCircleOutlineTexture(int radius, SDL_Color color, int thickness) {
+    // Create a texture with dimensions to fit the circle
+    int diameter = radius * 2;
+    SDL_Texture* texture = SDL_CreateTexture(
+        app.resources.renderer,
+        SDL_PIXELFORMAT_RGBA8888,
+        SDL_TEXTUREACCESS_TARGET,
+        diameter, 
+        diameter
+    );
+    
+    // Enable alpha blending
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+    
+    // Set the render target to our texture
+    SDL_SetRenderTarget(app.resources.renderer, texture);
+    
+    // Clear with transparent background
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 0);
+    SDL_RenderClear(app.resources.renderer);
+    
+    // Draw multiple circles for thickness
+    SDL_SetRenderDrawColor(app.resources.renderer, color.r, color.g, color.b, color.a);
+    
+    for (int t = 0; t < thickness; t++) {
+        int r = radius - t;
+        if (r < 0) break;
+        
+        int x = 0;
+        int y = r;
+        int d = 3 - 2 * r;
+        
+        while (y >= x) {
+            // Draw the 8 octant points
+            SDL_RenderDrawPoint(app.resources.renderer, radius + x, radius - y);
+            SDL_RenderDrawPoint(app.resources.renderer, radius + y, radius - x);
+            SDL_RenderDrawPoint(app.resources.renderer, radius + y, radius + x);
+            SDL_RenderDrawPoint(app.resources.renderer, radius + x, radius + y);
+            SDL_RenderDrawPoint(app.resources.renderer, radius - x, radius + y);
+            SDL_RenderDrawPoint(app.resources.renderer, radius - y, radius + x);
+            SDL_RenderDrawPoint(app.resources.renderer, radius - y, radius - x);
+            SDL_RenderDrawPoint(app.resources.renderer, radius - x, radius - y);
+            
+            if (d < 0) {
+                d = d + 4 * x + 6;
+            } else {
+                d = d + 4 * (x - y) + 10;
+                y--;
+            }
+            x++;
+        }
+    }
+    
+    // Reset render target
+    SDL_SetRenderTarget(app.resources.renderer, app.resources.screenTexture);
+    
+    return texture;
+}

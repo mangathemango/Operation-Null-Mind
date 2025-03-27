@@ -14,7 +14,6 @@
 #include <circle.h>
 #include <particle_emitterpresets.h>
 
-ParticleEmitter* RechargeEffectEmitter = NULL;
 
 /**
  * @brief [Start] Initializes a Recharge enemy instance
@@ -25,14 +24,15 @@ ParticleEmitter* RechargeEffectEmitter = NULL;
  * @param data Pointer to the enemy data structure to initialize
  */
 void Recharge_Start(EnemyData* data) {
-    // Initialize animation resources
-    data->resources.animation = Animation_Create(&data->animData);
-    
-    // Set up config pointer
-    data->config = &RechargeConfigData;
-    
-    // Initialize any other resources needed for Recharge enemy
-    if (RechargeEffectEmitter == NULL) {
-        // Initialize particle emitter for recharge effect if needed
+    if (RechargeConfigData.rechargeTexture == NULL) {
+        RechargeConfigData.rechargeTexture = CreateCircleOutlineTexture(
+            RechargeConfigData.rechargeRadius, 
+            (SDL_Color) {0, 255, 0, 255},
+            2
+        );
     }
+
+    // Set up config pointer
+    data->config = malloc(sizeof(RechargeConfig));
+    memcpy(data->config, &RechargeConfigData, sizeof(RechargeConfig));
 }
