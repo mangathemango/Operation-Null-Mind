@@ -29,6 +29,7 @@
 #include <interactable.h>
 #include <logs.h>
 #include <hud.h>
+#include <game.h>
 
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.

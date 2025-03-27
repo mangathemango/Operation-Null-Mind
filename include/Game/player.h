@@ -14,6 +14,7 @@
 #include <gun.h>
 #include <particle_emitterpresets.h>
 #include <colliders.h>
+#include <game.h>
 
 /**
  * @brief Contains the player's current state information
@@ -32,8 +33,6 @@ typedef struct {
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
 
-    int currentLevel;
-    int viewingLog;
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
     bool insideHallway;  ///< Whether player is in a hallway

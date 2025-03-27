@@ -8,3 +8,4 @@
 
 #pragma once
 #include <enemy_echo.h>
+#include <enemy_kamikaze.h>

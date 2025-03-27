@@ -294,4 +294,7 @@ Vec2 Vec2_FromPoint(SDL_Point point);
 SDL_Point Vec2_ToPoint(Vec2 v);
 
 bool Vec2_AreEqual(Vec2 a, Vec2 b);
+Vec2 Vec2_Square(float side);
+SDL_Rect Vec2_ToSquareRect(Vec2 position, float side);
+SDL_Rect Vec2_ToCenteredSquareRect(Vec2 position, float side);
 #endif

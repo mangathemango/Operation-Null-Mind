@@ -1,8 +1,8 @@
 #include <app.h>
 #include <interactable.h>
 #include <logs.h>
-#include <player.h>
 #include <stdio.h>
+#include <game.h>
 
 #define LOG_COUNT 6
 static SDL_Texture* logTexture[LOG_COUNT];
@@ -29,7 +29,7 @@ void Interactable_CreateLog(int logIndex, Vec2 position) {
 void Log_Render() {
     static float currentOffset = 0.0f;
     float targetOffset;
-    if (player.state.viewingLog == -1) {
+    if (game.viewingLog == -1) {
         targetOffset = 0;
     } else {
         targetOffset = app.config.screen_height;
@@ -50,8 +50,8 @@ void Log_Render() {
     if (!Camera_ScreenRectIsOnScreen(dest)) {
         return;
     }
-    if (player.state.viewingLog != -1) {
-        index = player.state.viewingLog;
+    if (game.viewingLog != -1) {
+        index = game.viewingLog;
     }
     SDL_RenderCopy(app.resources.renderer, logTexture[index], NULL, &dest);
 }

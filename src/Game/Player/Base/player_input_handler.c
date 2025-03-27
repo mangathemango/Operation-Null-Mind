@@ -43,9 +43,7 @@ void Player_Input_Handler() {
      * 
      */
     if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
-        Map_Generate(); 
-        player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
-        player.state.currentLevel++;
+        Game_TransitionNextLevel();
     }
     if (Input->keyboard.keys[SDL_SCANCODE_F].pressed) {
         Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
@@ -59,6 +57,6 @@ void Player_Input_Handler() {
     }
     
     if (Input->mouse.leftButton.pressed) {
-        player.state.viewingLog = -1;
+        game.viewingLog = -1;
     }
 }

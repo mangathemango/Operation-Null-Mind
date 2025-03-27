@@ -345,3 +345,15 @@ SDL_Point Vec2_ToPoint(Vec2 v) {
 bool Vec2_AreEqual(Vec2 a, Vec2 b) {
     return a.x == b.x && a.y == b.y;
 }
+
+Vec2 Vec2_Square(float side) {
+    return (Vec2) {side, side};
+}
+
+SDL_Rect Vec2_ToSquareRect(Vec2 position, float side) {
+    return Vec2_ToRect(position, Vec2_Square(side));
+}
+
+SDL_Rect Vec2_ToCenteredSquareRect(Vec2 position, float side) {
+    return Vec2_ToCenteredRect(position, Vec2_Square(side));
+}

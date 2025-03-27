@@ -176,5 +176,9 @@ void Animation_Update(Animation* animation);
  * @param rotationCenter The center of rotation. NULL for center.
  * @param flip The flip mode for the sprite.
  */
-void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
-                        float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip);
+void Animation_Render(
+    Animation* animation, Vec2 destPosition, Vec2 destSize,
+    float angle, SDL_Point* rotationCenter, SDL_RendererFlip flip
+);
+
+bool Animation_ClipIsFinished(Animation* animation);

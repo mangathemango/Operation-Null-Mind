@@ -31,11 +31,12 @@ void HUD_RenderHealthBar() {
     SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
     SDL_RenderFillRect(app.resources.renderer, &fillingDest);
 
-
+    static float currentBarWidth = 0;
+    currentBarWidth += (player.state.currentHealth - currentBarWidth) * 0.1f;
     SDL_Rect barDest = Vec2_ToRect(
         healthBarPosition, 
         (Vec2) {
-            barSize.x * ((float) player.state.currentHealth / (float) player.stats.maxHealth), 
+            barSize.x * (currentBarWidth / (float) player.stats.maxHealth), 
             barSize.y
         }
     );
@@ -252,7 +253,7 @@ void HUD_RenderAmmoDisplay() {
 void HUD_RenderCurrentLevel() {
     static UIElement* levelTextElement = NULL;
     char levelText[30];
-    sprintf(levelText, "Stage %d", player.state.currentLevel);
+    sprintf(levelText, "Stage %d", game.currentStage);
     if (!levelTextElement) {
         levelTextElement = UI_CreateText(
             levelText, 

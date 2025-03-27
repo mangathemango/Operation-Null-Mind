@@ -9,7 +9,17 @@
  * @date 2025-03-04
  */
 
-#include <enemy_echo.h>
+#include <enemy_kamikaze.h>
+
+KamikazeConfig KamikazeConfigData = {
+    .exploding = false,
+    .explosionRadius = 50,
+    .explosionTime = 1.5f,
+    .indicatorDelay = 0.5f,
+    .directionChangeTime = 0,
+    .explosionTimer = 0,
+    .explosionIndicator = NULL,
+};
 
 /**
  * @brief [Data] Echo enemy default data
@@ -17,14 +27,14 @@
  * This structure defines the default properties, stats and
  * settings for the Echo enemy type.
  */
-EnemyData EchoData = {
-    .type = ENEMY_TYPE_ECHO,
+EnemyData KamikazeData = {
+    .type = ENEMY_TYPE_KAMIKAZE,
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 20, 32},
+            .hitbox = {0, 0, 30, 30},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -35,9 +45,9 @@ EnemyData EchoData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 0,
+        .damage = 10,
         .maxHealth = 100,
-        .maxSpeed = 50.0f,
+        .maxSpeed = 100.0f,
         .acceleration = 500.0f,
         .drag = 5.0f,
         .attackSpeed = 0,
@@ -49,9 +59,9 @@ EnemyData EchoData = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/echo.png",
-        .frameSize = {40, 40},
-        .frameCount = 8,
+        .spritesheetPath = "Assets/Images/Enemies/kamikaze.png",
+        .frameSize = {46, 40},
+        .frameCount = 28,
         .clips = {
             {
                 .name = "idle",
@@ -66,14 +76,21 @@ EnemyData EchoData = {
                 .endFrameIndex = 7,
                 .frameDuration = 0.1f,
                 .looping = true,
+            },
+            {
+                .name = "explode",
+                .startFrameIndex = 8,
+                .endFrameIndex = 27,
+                .frameDuration = 0.05f,
+                .looping = false,
             }
         },
         .playOnStart = true,
         .defaultClip = "move",
-        .spriteSize = {40, 40},
+        .spriteSize = {46, 40},
     },
     .config = NULL,
-    .start = &Echo_Start,
-    .update = &Echo_Update,
-    .render = &Echo_Render,
+    .start = &Kamikaze_Start,
+    .update = &Kamikaze_Update,
+    .render = &Kamikaze_Render,
 };

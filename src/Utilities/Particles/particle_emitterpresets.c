@@ -350,5 +350,40 @@ ParticleEmitter ParticleEmitter_BulletFragments = {
     .useCollider = false,
 };
 
+ParticleEmitter ParticleEmitter_Explosion = {
+    .position = {100, 100},
+
+    .direction = {1, 0},
+    .emissionRate = 0,
+    .emissionNumber = 50,
+    .maxParticles = 1000,
+    .angleRange = 360,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.3f,
+    .particleSpeed = 300,
+    .custom_Movement = Particle_RandomMovement,
+
+    .startColor = {255, 0, 0, 255},
+    .endColor = {255, 225, 0, 0},
+    .startSize = {5, 5},
+    .endSize = {5, 5},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+
+    .useCollider = false,
+};
+
 /** @brief Test emitter for development purposes */
 ParticleEmitter* test_emitter = NULL;

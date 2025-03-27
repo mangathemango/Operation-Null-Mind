@@ -51,6 +51,7 @@ int App_Start() {
     Pause_Start();
     Log_Start();
     HUD_Start();
+    Game_Start();
     return 0;
     
 }
