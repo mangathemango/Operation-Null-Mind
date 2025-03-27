@@ -24,10 +24,9 @@ PlayerData player = {
         .position = {4200,4200},
         .direction = {0,0},
         .currentSpeed = 0,
-        .gunSlots = {GUN_PISTOL, -1},
+        .gunSlots = {GUN_PISTOL, GUN_SHOTGUN},
         .moving = false,
         .dashing = false,
-        .currentLevel = 1,
         .directionLocked = false,
         .collider = {
             .active = true,
@@ -43,7 +42,6 @@ PlayerData player = {
                 .h = 25
             }
         },
-        .viewingLog = -1
     },
     .resources = {
         .animation = NULL,

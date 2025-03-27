@@ -30,6 +30,6 @@ int Player_Preupdate() {
     player.state.currentGun = GunList[player.state.gunSlots[0]];
     if (!player.state.directionLocked)   player.state.direction = Vec2_Zero;
     if (!player.state.dashing) player.state.currentSpeed = 0;
-    player.state.movementLocked = player.state.viewingLog != -1;
+    player.state.movementLocked = game.viewingLog != -1 || game.isTransitioning;
     return 0;
 }

@@ -94,7 +94,8 @@
     "ui_text.h": "c",
     "chunks.h": "c",
     "random.h": "c",
-    "memory_resource": "c"
+    "memory_resource": "c",
+    "game.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 

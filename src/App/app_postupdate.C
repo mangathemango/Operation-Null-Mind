@@ -48,6 +48,7 @@ int App_PostUpdate() {
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
                 app.state.currentScene = SCENE_PAUSE;
             }
+            Game_Update();
             break;
         case SCENE_PAUSE:
             Pause_Update();

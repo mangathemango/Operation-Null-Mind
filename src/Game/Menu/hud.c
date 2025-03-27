@@ -252,7 +252,7 @@ void HUD_RenderAmmoDisplay() {
 void HUD_RenderCurrentLevel() {
     static UIElement* levelTextElement = NULL;
     char levelText[30];
-    sprintf(levelText, "Stage %d", player.state.currentLevel);
+    sprintf(levelText, "Stage %d", game.currentStage);
     if (!levelTextElement) {
         levelTextElement = UI_CreateText(
             levelText, 

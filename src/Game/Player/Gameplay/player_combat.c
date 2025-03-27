@@ -96,5 +96,5 @@ void Player_OpenCrate(void* data, int interactableIndex) {
 
 void Player_ReadLog(void* data, int interactableIndex) {
     int* index = data;
-    player.state.viewingLog = *index;
+    game.viewingLog = *index;
 }
