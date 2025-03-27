@@ -22,7 +22,8 @@
  * Defines the different types of enemies in the game
  */
 typedef enum {
-    ENEMY_TYPE_ECHO
+    ENEMY_TYPE_ECHO,
+    ENEMY_TYPE_KAMIKAZE
 } EnemyType;
 
 /**

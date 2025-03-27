@@ -83,7 +83,7 @@ void EnemyManager_Update() {
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                Enemy_Spawn(EchoData,spawnPosition);
+                Enemy_Spawn(KamikazeData,spawnPosition);
             }
         } else {
             // Ends the combat if player has killed enough enemies
