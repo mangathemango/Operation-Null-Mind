@@ -8,6 +8,7 @@
 
 #pragma once
 #include <enemy.h>
+#include <particle_emitterpresets.h>
 
 typedef struct {
     bool exploding;
@@ -19,6 +20,7 @@ typedef struct {
 
     SDL_Texture* explosionIndicator;
 } KamikazeConfig;
+extern ParticleEmitter* KamikazeExplosionEmitter;
 
 void Kamikaze_Start (EnemyData* data);
 void Kamikaze_Update(EnemyData* data);

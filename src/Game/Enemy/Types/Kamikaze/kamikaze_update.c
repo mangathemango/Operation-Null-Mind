@@ -31,9 +31,12 @@ void Kamikaze_Update(EnemyData* data) {
     if (config->exploding) {
         config->explosionTimer += Time->deltaTimeSeconds;
         if (config->explosionTimer >= explositionTime) {
+            KamikazeExplosionEmitter->position = data->state.position;
+            ParticleEmitter_ActivateOnce(KamikazeExplosionEmitter);
             if (Vec2_Distance(data->state.position, player.state.position) < config->explosionRadius) {
                 player.state.currentHealth -= data->stats.damage;
             }
+
             free(data->config);
             Enemy_HandleDeath(data);
             return;

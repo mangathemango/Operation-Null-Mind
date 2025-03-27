@@ -34,7 +34,7 @@ EnemyData KamikazeData = {
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 15, 15},
+            .hitbox = {0, 0, 30, 30},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -87,7 +87,7 @@ EnemyData KamikazeData = {
         },
         .playOnStart = true,
         .defaultClip = "move",
-        .spriteSize = {23, 20},
+        .spriteSize = {46, 40},
     },
     .config = NULL,
     .start = &Kamikaze_Start,

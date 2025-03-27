@@ -12,6 +12,9 @@
 #include <enemy_kamikaze.h>
 #include <animation.h>
 #include <circle.h>
+#include <particle_emitterpresets.h>
+
+ParticleEmitter* KamikazeExplosionEmitter = NULL;
 
 /**
  * @brief [Start] Initializes an Echo enemy instance
@@ -26,6 +29,8 @@ void Kamikaze_Start(EnemyData* data) {
         KamikazeConfigData.explosionRadius,
         (SDL_Color){255, 0, 0, 255}
     );
+    if (!KamikazeExplosionEmitter) 
+        KamikazeExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);
     data->config = malloc(sizeof(KamikazeConfig));
     *(KamikazeConfig*)data->config = KamikazeConfigData;
 }

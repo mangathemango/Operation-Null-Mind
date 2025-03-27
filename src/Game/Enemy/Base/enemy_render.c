@@ -80,4 +80,5 @@ void Enemy_Render() {
 
         if (enemies[i].render) enemies[i].render(&enemies[i]);
     }
+    if (KamikazeExplosionEmitter) ParticleEmitter_Render(KamikazeExplosionEmitter);
 }

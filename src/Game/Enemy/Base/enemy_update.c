@@ -37,6 +37,8 @@ void Enemy_Update() {
         // Check if enemy should die
         if (enemy->state.currentHealth <= 0) Enemy_HandleDeath(enemy);
     }
+    if (KamikazeExplosionEmitter) ParticleEmitter_Update(KamikazeExplosionEmitter);
+    
 }
 
 /**
