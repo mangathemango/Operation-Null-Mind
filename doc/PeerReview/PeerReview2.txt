@@ -1,0 +1,70 @@
+Peer Review of
+Operation Null Mind Codebase
+
+Personal Opinion:
+Overall, the code is well made that demonstrated great coding skills however, it is not really beginner friendly, it requires some knowledge to code to be able to read what is going on in their game. 
+
+Correctness of Code
+The codebase appears to be well-structured and compiles without errors. 
+The game runs as expected, with all major functionalities working correctly. 
+Examples: 
+Game Running: 
+ 
+Some examples of their code:
+  
+Examples of coding explanations:
+- Main header: Holds all the headers
+- app_start.c: Starts the main functions. 
+
+Coding Effectiveness
+The code effectively accomplishes its intended purpose. There are many modules written that achieve its own purpose while maintaining coherency.  
+Examples:
+ 
+In player.h it has all the struct that the player needs, in app.h it has everything it needs. Then the main component of the code is in src/app. Where most of the components of other code is called in.
+
+Coding Efficiency
+The code runs efficiently, with no noticeable performance issues during gameplay. However, there are areas where optimization could be considered, such as reducing the number of dynamic memory allocations and improving the efficiency of collision detection algorithms.
+Example:
+Their coding efficiency comes in modularity. Everything is made in struct and functions, so their code is efficient when it comes to overall cleanliness. 
+Examples of struct that they use:
+   
+
+
+Naming of Variables, Functions, and Everything
+Variable and function names are generally descriptive and follow a consistent naming convention. 
+Example:
+Examples of function naming:
+ 
+  
+Its clean and has comments. 
+Examples of variables and stuff
+ 
+Overall, it is well-named.
+
+Indentation
+The code is consistently indented, making it easy to read and follow. The use of spaces or tabs should be standardized across the entire codebase to maintain consistency.
+Example: 
+ 
+Comments
+Comments are present throughout the code, explaining the purpose of functions and complex logic. However, some sections could benefit from additional comments to clarify the intent behind certain code blocks. Inline comments should be used sparingly to avoid clutter.
+Examples: 
+ 
+
+Readability
+The code is generally readable, with a clear structure and logical flow, however, the amount of header and files and functions create a hard time to following what the code does without sinking many hours into reading the code. There are some upsides with having many headers is that everything is searchable within the header files. 
+Examples:
+This is a great example of breaking down a bigger function using smaller functions.
+ 
+Programming Style
+The programming style is consistent, with a focus on modularization and separation of concerns. Each module handles a specific aspect of the game, which makes the code easier to maintain and extend. However, there are some areas where the code could be refactored to reduce redundancy and improve maintainability. 
+
+Effectiveness of README File(s)
+The README file provides a good overview of the project, including instructions on how to run the game and compile the code. However, it could be expanded to include more detailed information about the code structure, key algorithms, and data structures used in the project. Adding a section on how to contribute to the project would also be beneficial.
+ReadME:
+   
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+# Peer Review of Operation Null Mind Codebase
+
+## Correctness of Code
+The codebase appears to be well-structured and compiles without errors. 
+The game runs as expected, with all major functionalities working correctly. 
+
+## Coding Effectiveness
+The code effectively accomplishes its intended purpose. Each module is responsible for a specific aspect of the game, such as rendering, input handling, and particle effects. The use of SDL2 for graphics and input handling is appropriate and well-implemented.
+
+## Coding Efficiency
+The code runs efficiently, with no noticeable performance issues during gameplay. However, there are areas where optimization could be considered, such as reducing the number of dynamic memory allocations and improving the efficiency of collision detection algorithms.
+
+## Naming of Variables, Functions, and Everything
+Variable and function names are generally descriptive and follow a consistent naming convention. However, some names could be more specific to improve clarity. For example, `ParticleEmitter_Update` could be renamed to `UpdateParticleEmitter` for better readability.
+
+## Indentation
+The code is consistently indented, making it easy to read and follow. The use of spaces or tabs should be standardized across the entire codebase to maintain consistency.
+
+## Comments
+Comments are present throughout the code, explaining the purpose of functions and complex logic. However, some sections could benefit from additional comments to clarify the intent behind certain code blocks. Inline comments should be used sparingly to avoid clutter.
+
+## Readability
+The code is generally readable, with a clear structure and logical flow. Breaking down large functions into smaller, more manageable ones could further improve readability. For example, the `App_RenderMain` function could be split into separate functions for each game state.
+
+## Programming Style
+The programming style is consistent, with a focus on modularization and separation of concerns. Each module handles a specific aspect of the game, which makes the code easier to maintain and extend. However, there are some areas where the code could be refactored to reduce redundancy and improve maintainability.
+
+## Effectiveness of README File(s)
+The README file provides a good overview of the project, including instructions on how to run the game and compile the code. However, it could be expanded to include more detailed information about the code structure, key algorithms, and data structures used in the project. Adding a section on how to contribute to the project would also be beneficial.
+
+## Code Examples
+
+### Correctness of Code
+Ensure that all functions are tested and validated:
+```c
+// Example of a unit test for the ParticleEmitter_CreateFromPreset function
+void Test_ParticleEmitter_CreateFromPreset() {
+    ParticleEmitter preset = ParticleEmitter_Default;
+    ParticleEmitter* emitter = ParticleEmitter_CreateFromPreset(preset);
+    assert(emitter != NULL);
+    assert(emitter->maxParticles == preset.maxParticles);
+    // ...additional assertions...
+    ParticleEmitter_DestroyEmitter(emitter);
+}
+```
+
+### Coding Efficiency
+Optimize collision detection:
+```c
+// Example of optimizing collision detection using spatial partitioning
+void Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
+    // ...existing code...
+    // Use a spatial partitioning technique to reduce the number of collision checks
+    SpatialPartition partition = CreateSpatialPartition(ColliderList, ColliderCount);
+    for (int i = 0; i < partition.cellCount; i++) {
+        if (IsColliderInCell(collider, partition.cells[i])) {
+            // Perform collision checks within the cell
+            for (int j = 0; j < partition.cells[i].colliderCount; j++) {
+                Collider* other = partition.cells[i].colliders[j];
+                if (SDL_HasIntersection(&collider->hitbox, &other->hitbox)) {
+                    // ...handle collision...
+                }
+            }
+        }
+    }
+    DestroySpatialPartition(partition);
+}
+```
+
+### Naming of Variables, Functions, and Everything
+Use descriptive names:
+```c
+// Example of renaming a function for better clarity
+void UpdateParticleEmitter(ParticleEmitter* emitter) {
+    // ...existing code...
+}
+```
+
+### Comments
+Add comments to clarify complex logic:
+```c
+// Example of adding comments to explain complex logic
+void ParticleEmitter_Update(ParticleEmitter* emitter) {
+    // Loop through all particles and update them
+    for (int i = 0; i < emitter->maxParticles; i++) {
+        Particle* particle = &emitter->particles[i];
+        if (particle->alive) {
+            // Update particle position based on velocity and acceleration
+            particle->velocity = Vec2_Add(particle->velocity, particle->acceleration);
+            particle->position = Vec2_Add(particle->position, particle->velocity);
+            // ...additional updates...
+        }
+    }
+}
+```
+
+### Readability
+Break down large functions into smaller ones:
+```c
+// Example of breaking down a large function into smaller ones
+void App_RenderMain() {
+    switch (app.state.currentScene) {
+        case SCENE_MENU:
+            RenderMenu();
+            break;
+        case SCENE_GAME:
+            RenderGame();
+            break;
+        case SCENE_PAUSE:
+            RenderPause();
+            break;
+    }
+}
+
+void RenderMenu() {
+    // ...render menu...
+}
+
+void RenderGame() {
+    // ...render game...
+}
+
+void RenderPause() {
+    // ...render pause...
+}
+```
+
+### Effectiveness of README File(s)
+Expand the README file to include more detailed information:
+```md
+## Code Structure
+The project is organized into the following modules:
+- **Core**: Contains the main game loop, input handling, and core systems.
+- **Game**: Contains game-specific logic, such as player and enemy behavior.
+- **Utilities**: Contains utility functions and systems, such as the particle system and debug tools.
+
+## Key Algorithms and Data Structures
+### Particle System
+The particle system is used to create visual effects, such as explosions and smoke. It consists of the following components:
+- **ParticleEmitter**: Manages the emission and updating of particles.
+- **Particle**: Represents an individual particle with properties such as position, velocity, and color.
+
+### Collision System
+The collision system detects interactions between game objects using a layer-based filtering approach. It consists of the following components:
+- **Collider**: Represents a collidable object with a hitbox and collision layers.
+- **ColliderCheckResult**: Stores the results of a collision check, including the colliders that were detected.
+
+## Contribution Guidelines
+To contribute to the project, please follow these steps:
+1. Fork the repository on GitHub.
+2. Create a new branch for your feature or bug fix.
+3. Write tests for your changes.
+4. Submit a pull request with a detailed description of your changes.
