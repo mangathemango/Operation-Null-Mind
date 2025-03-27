@@ -27,7 +27,7 @@ void Map_Generate() {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
             testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
-            testMap.chunks[x][y].discovered = false;
+            testMap.chunks[x][y].discovered = true;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
             EnvironmentChunk* chunk = &testMap.chunks[x][y];
             for (int i = 0; i < chunk->colliderCount; i++) {
@@ -207,6 +207,15 @@ void Map_CreateMainPath() {
                 continue;
             }
             if (currentY + placementList[j].y < 0 || currentY + placementList[j].y >= MAP_SIZE_CHUNK) {
+                placementList[j] = Vec2_Zero;
+                continue;
+            }
+            Vec2 nextPosition = (Vec2) {
+                currentX + placementList[j].x,
+                currentY + placementList[j].y
+            };
+            if(Vec2_AreEqual(nextPosition, (Vec2) {3,3})) {
+                SDL_Log("Tile is near spawn, skipping");
                 placementList[j] = Vec2_Zero;
                 continue;
             }
