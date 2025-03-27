@@ -37,7 +37,7 @@ EnemyData EchoData = {
     .stats = {
         .damage = 0,
         .maxHealth = 100,
-        .maxSpeed = 100.0f,
+        .maxSpeed = 50.0f,
         .acceleration = 500.0f,
         .drag = 5.0f,
         .attackSpeed = 0,
@@ -51,7 +51,7 @@ EnemyData EchoData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/echo.png",
         .frameSize = {40, 40},
-        .frameCount = 1,
+        .frameCount = 8,
         .clips = {
             {
                 .name = "idle",
@@ -60,9 +60,16 @@ EnemyData EchoData = {
                 .frameDuration = 0.0f,
                 .looping = true,
             },
+            {
+                .name = "move",
+                .startFrameIndex = 0,
+                .endFrameIndex = 7,
+                .frameDuration = 0.1f,
+                .looping = true,
+            }
         },
         .playOnStart = true,
-        .defaultClip = "idle",
+        .defaultClip = "move",
         .spriteSize = {40, 40},
     },
     .config = NULL,

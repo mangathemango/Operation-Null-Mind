@@ -8,7 +8,7 @@ GameData game = {
 };
 
 void Game_Start() {
-    game.transitionTimer = Timer_Create(3.0f);
+    game.transitionTimer = Timer_Create(2.0f);
 }
 
 void Game_Update() {
