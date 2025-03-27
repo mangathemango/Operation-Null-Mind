@@ -19,6 +19,9 @@ RechargeConfig RechargeConfigData = {
     .rechargeDuration = 1.0f,
     .timer = 0.0f,
 
+    .directionChangeTime = 1.0f,
+    .directionChangeTimer = 1.0f,
+
     .rechargePosition = {0, 0}, 
     .rechargeTexture = NULL,
 };

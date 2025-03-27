@@ -18,6 +18,9 @@ typedef struct {
     float rechargeDuration;
     float timer;
 
+    float directionChangeTime;
+    float directionChangeTimer;
+
     Vec2 rechargePosition;
     SDL_Texture* rechargeTexture;
 } RechargeConfig;

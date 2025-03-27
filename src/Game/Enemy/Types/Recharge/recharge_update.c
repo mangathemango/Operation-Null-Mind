@@ -14,6 +14,28 @@
 #include <random.h>
 #include <circle.h>
 
+Vec2 Recharge_GetDirection(EnemyData* data) {
+    Vec2 closestEnemy = {0, 0};
+    float closestDistance = 9999999.0f;
+
+    for (int i = 0; i < ENEMY_MAX; i++) {
+        if (enemies[i].state.isDead || &enemies[i] == data) {
+            continue;
+        }
+        float distance = Vec2_Distance(enemies[i].state.position, data->state.position);
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestEnemy = enemies[i].state.position;
+        }
+    }
+    if (closestDistance == 9999999.0f) {
+        return Vec2_RotateDegrees(Vec2_Up, RandFloat(-180, 180));
+    }
+    Vec2 targetDirection = Vec2_Normalize(Vec2_Subtract(closestEnemy, data->state.position));
+
+    return Vec2_RotateDegrees(targetDirection, RandFloat(-45, 45));
+}
+
 /**
  * @brief [PostUpdate] Updates the Recharge enemy's state
  * 
@@ -24,7 +46,37 @@
 void Recharge_Update(EnemyData* data) {
     RechargeConfig* config = (RechargeConfig*)data->config;
     
-    // Basic movement AI (to be implemented)
-    
-    // Recharge behavior logic (to be implemented)
+    config->timer += Time->deltaTimeSeconds;
+
+    if (config->isRecharging) {
+        if (config->timer >= config->rechargeDuration) {
+            config->isRecharging = false;
+            config->timer = 0;
+        }
+    } else {
+        if (config->timer >= config->rechargeCooldown) {
+            config->isRecharging = true;
+            config->timer = 0;
+            config->rechargePosition = data->state.position;
+
+            for (int i = 0; i < ENEMY_MAX; i++) {
+                if (enemies[i].state.isDead || &enemies[i] == data) {
+                    continue;
+                }
+                if (Vec2_Distance(enemies[i].state.position, data->state.position) < config->rechargeRadius) {
+                    enemies[i].state.currentHealth += config->healAmount;
+                    if (enemies[i].state.currentHealth > enemies[i].stats.maxHealth) {
+                        enemies[i].state.currentHealth = enemies[i].stats.maxHealth;
+                    }
+                }
+            }
+        }
+    }
+
+    config->directionChangeTimer += Time->deltaTimeSeconds;
+    if (config->directionChangeTimer >= config->directionChangeTime) {
+        config->directionChangeTimer = 0;
+        config->directionChangeTime = RandFloat(0.5f, 2.0f);
+        data->state.direction = Recharge_GetDirection(data);
+    }
 }
