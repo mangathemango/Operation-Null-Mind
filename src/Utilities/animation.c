@@ -310,3 +310,8 @@ void Animation_Render(Animation* animation, Vec2 destPosition, Vec2 destSize,
         flip  // Flip horizontally/vertically if needed
     );
 }
+
+bool Animation_ClipIsFinished(Animation* animation) {
+    if (animation->currentClip < 0) return false;
+    return animation->currentFrame == animation->clips[animation->currentClip].frameCount - 1;
+}

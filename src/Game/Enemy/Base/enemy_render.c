@@ -77,5 +77,7 @@ void Enemy_Render() {
             SDL_FLIP_HORIZONTAL :
             SDL_FLIP_NONE
         );
+
+        if (enemies[i].render) enemies[i].render(&enemies[i]);
     }
 }

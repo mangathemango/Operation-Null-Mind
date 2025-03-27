@@ -11,6 +11,13 @@
 
 #include <enemy_kamikaze.h>
 
+KamikazeConfig KamikazeConfigData = {
+    .exploding = false,
+    .explosionRadius = 50,
+    .directionChangeTime = 0,
+    .explosionTimer = 0,
+};
+
 /**
  * @brief [Data] Echo enemy default data
  * 
@@ -35,9 +42,9 @@ EnemyData KamikazeData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 0,
+        .damage = 10,
         .maxHealth = 100,
-        .maxSpeed = 50.0f,
+        .maxSpeed = 100.0f,
         .acceleration = 500.0f,
         .drag = 5.0f,
         .attackSpeed = 0,
@@ -51,7 +58,7 @@ EnemyData KamikazeData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/kamikaze.png",
         .frameSize = {46, 40},
-        .frameCount = 32,
+        .frameCount = 28,
         .clips = {
             {
                 .name = "idle",
@@ -70,8 +77,8 @@ EnemyData KamikazeData = {
             {
                 .name = "explode",
                 .startFrameIndex = 8,
-                .endFrameIndex = 31,
-                .frameDuration = 0.1f,
+                .endFrameIndex = 27,
+                .frameDuration = 0.05f,
                 .looping = false,
             }
         },

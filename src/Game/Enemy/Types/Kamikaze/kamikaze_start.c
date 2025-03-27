@@ -9,7 +9,7 @@
  * @date 2025-03-05
  */
 
-#include <enemy_echo.h>
+#include <enemy_kamikaze.h>
 #include <animation.h>
 
 /**
@@ -21,5 +21,6 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Kamikaze_Start(EnemyData* data) {
-    // ...existing code...
+    data->config = malloc(sizeof(KamikazeConfig));
+    *(KamikazeConfig*)data->config = KamikazeConfigData;
 }

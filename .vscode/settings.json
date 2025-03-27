@@ -95,7 +95,9 @@
     "chunks.h": "c",
     "random.h": "c",
     "memory_resource": "c",
-    "game.h": "c"
+    "game.h": "c",
+    "enemy_kamikaze.h": "c",
+    "circle.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 

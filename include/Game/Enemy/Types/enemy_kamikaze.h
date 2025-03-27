@@ -9,8 +9,16 @@
 #pragma once
 #include <enemy.h>
 
+typedef struct {
+    bool exploding;
+    float explosionRadius;
+    float directionChangeTime;
+    float explosionTimer;
+} KamikazeConfig;
+
 void Kamikaze_Start (EnemyData* data);
 void Kamikaze_Update(EnemyData* data);
 void Kamikaze_Render(EnemyData* data);
 
+extern KamikazeConfig KamikazeConfigData;
 extern EnemyData KamikazeData;

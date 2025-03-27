@@ -8,9 +8,10 @@
  * @date 2025-03-05
  */
 
-#include <enemy_echo.h>
+#include <enemy_kamikaze.h>
 #include <camera.h>
 #include <app.h>
+#include <circle.h>
 
 /**
  * @brief [Render] Renders the Echo enemy
@@ -21,5 +22,18 @@
  * @param data Pointer to the enemy data structure
  */
 void Kamikaze_Render(EnemyData* data) {
-    // ...existing code...
+    KamikazeConfig *config = data->config;
+    if (config->exploding) {
+        float delay = 0.5f;
+        if (config->explosionTimer < delay) return;
+        int a = (50 * (config->explosionTimer - delay) / (1.5f - delay));
+
+
+
+        DrawFilledCircle(
+            Camera_WorldVecToScreen(data->state.position), 
+            config->explosionRadius, 
+            (SDL_Color){255, 0, 0, a}
+        );
+    }
 }
