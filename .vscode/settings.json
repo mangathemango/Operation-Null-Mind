@@ -97,7 +97,8 @@
     "memory_resource": "c",
     "game.h": "c",
     "enemy_kamikaze.h": "c",
-    "circle.h": "c"
+    "circle.h": "c",
+    "math.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 

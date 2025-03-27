@@ -24,16 +24,15 @@
 void Kamikaze_Render(EnemyData* data) {
     KamikazeConfig *config = data->config;
     if (config->exploding) {
-        float delay = 0.5f;
+        float delay = config->indicatorDelay;
         if (config->explosionTimer < delay) return;
-        int a = (50 * (config->explosionTimer - delay) / (1.5f - delay));
-
-
-
-        DrawFilledCircle(
+        int a = (50 * (config->explosionTimer - delay) / (config->explosionTime - delay));
+        SDL_Rect dest = Vec2_ToCenteredSquareRect(
             Camera_WorldVecToScreen(data->state.position), 
-            config->explosionRadius, 
-            (SDL_Color){255, 0, 0, a}
+            config->explosionRadius * 2
         );
+
+        SDL_SetTextureAlphaMod(config->explosionIndicator, a);
+        SDL_RenderCopy(app.resources.renderer, config->explosionIndicator, NULL, &dest);
     }
 }

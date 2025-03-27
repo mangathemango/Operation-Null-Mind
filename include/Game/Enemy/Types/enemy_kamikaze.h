@@ -12,8 +12,12 @@
 typedef struct {
     bool exploding;
     float explosionRadius;
+    float explosionTime;
+    float indicatorDelay;
     float directionChangeTime;
     float explosionTimer;
+
+    SDL_Texture* explosionIndicator;
 } KamikazeConfig;
 
 void Kamikaze_Start (EnemyData* data);

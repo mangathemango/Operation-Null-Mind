@@ -11,6 +11,7 @@
 
 #include <enemy_kamikaze.h>
 #include <animation.h>
+#include <circle.h>
 
 /**
  * @brief [Start] Initializes an Echo enemy instance
@@ -21,6 +22,10 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Kamikaze_Start(EnemyData* data) {
+    KamikazeConfigData.explosionIndicator = CreateCircleTexture(
+        KamikazeConfigData.explosionRadius,
+        (SDL_Color){255, 0, 0, 255}
+    );
     data->config = malloc(sizeof(KamikazeConfig));
     *(KamikazeConfig*)data->config = KamikazeConfigData;
 }

@@ -14,8 +14,11 @@
 KamikazeConfig KamikazeConfigData = {
     .exploding = false,
     .explosionRadius = 50,
+    .explosionTime = 1.5f,
+    .indicatorDelay = 0.5f,
     .directionChangeTime = 0,
     .explosionTimer = 0,
+    .explosionIndicator = NULL,
 };
 
 /**
