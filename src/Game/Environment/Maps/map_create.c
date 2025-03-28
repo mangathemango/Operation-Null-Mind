@@ -215,6 +215,10 @@ void Map_CreateMainPath() {
                 currentY + placementList[j].y
             };
             if(Vec2_AreEqual(nextPosition, (Vec2) {3,3})) {
+                Vec2 nextPosition = (Vec2) {
+                    currentX + placementList[j].x,
+                    currentY + placementList[j].y
+                };
                 SDL_Log("Tile is near spawn, skipping");
                 placementList[j] = Vec2_Zero;
                 continue;
