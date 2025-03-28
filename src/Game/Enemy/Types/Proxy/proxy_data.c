@@ -12,11 +12,7 @@
 #include <enemy_proxy.h>
 
 ProxyConfig ProxyConfigData = {
-    .deployTime = 2.0f,
-    .proximityRadius = 150.0f,
-    .damageMultiplier = 1.5f,
-    .isDeployed = false,
-    .deployPosition = {0, 0}
+
 };
 
 /**
@@ -58,8 +54,8 @@ EnemyData ProxyData = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/proxy.png",
-        .frameSize = {24, 30},
-        .frameCount = 2,
+        .frameSize = {30, 40},
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -69,16 +65,16 @@ EnemyData ProxyData = {
                 .looping = true,
             },
             {
-                .name = "deployed",
+                .name = "walkin",
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
-                .frameDuration = 0.0f,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
                 .looping = true,
             },
         },
         .playOnStart = true,
-        .defaultClip = "idle",
-        .spriteSize = {42, 38},
+        .defaultClip = "walkin",
+        .spriteSize = {30, 40},
     },
     .config = &ProxyConfigData,
     .start = &Proxy_Start,

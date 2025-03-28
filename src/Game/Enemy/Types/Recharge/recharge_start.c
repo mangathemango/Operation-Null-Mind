@@ -28,7 +28,7 @@ void Recharge_Start(EnemyData* data) {
     if (RechargeConfigData.rechargeTexture == NULL) {
         RechargeConfigData.rechargeTexture = CreateCircleOutlineTexture(
             RechargeConfigData.rechargeRadius, 
-            (SDL_Color) {0, 255, 0, 255},
+            (SDL_Color) {255, 255, 0, 255},
             2
         );
     }

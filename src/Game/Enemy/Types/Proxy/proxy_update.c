@@ -26,4 +26,5 @@
 void Proxy_Update(EnemyData* data) {
     ProxyConfig* config = (ProxyConfig*)data->config;
     // Specific behaviors will be implemented later
+    data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
 }

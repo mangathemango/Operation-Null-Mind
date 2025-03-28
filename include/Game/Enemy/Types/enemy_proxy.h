@@ -10,11 +10,7 @@
 #include <enemy.h>
 
 typedef struct {
-    float deployTime;        // Time required to deploy a proxy
-    float proximityRadius;   // Activation radius for proxy behavior
-    float damageMultiplier;  // Damage multiplier when proxy is active
-    bool isDeployed;         // Flag indicating if proxy is currently deployed
-    Vec2 deployPosition;     // Position where the proxy is deployed
+    
 } ProxyConfig;
 
 void Proxy_Start (EnemyData* data);

@@ -23,9 +23,6 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Proxy_Start(EnemyData* data) {
-    // Initialize animation resources
-    data->resources.animation = Animation_Create(&data->animData);
-    
     // Set up config pointer
     data->config = &ProxyConfigData;
     
