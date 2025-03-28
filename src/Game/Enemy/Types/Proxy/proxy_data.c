@@ -13,11 +13,10 @@
 
 ProxyConfig ProxyConfigData = {
     .gun = {
-        .name = GUN_BATTLE_RIFLE_NAME,
         .config = {
-            .muzzlePosition = {34, 4},
-            .ejectionPosition = {13, 3},
-            .gripPosition = {11, 6},
+            .muzzlePosition = {8, 3},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {2, 4},
         },
         .state = {
             .position = {0, 0},
@@ -35,45 +34,24 @@ ProxyConfig ProxyConfigData = {
             .ammoConsumption = 2
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Guns/Battle Rifle.png",
-            .frameSize = {35, 19},
-            .frameCount = 20,
+            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+            .frameSize = {8, 6},
+            .frameCount = 1,
             .clips = {
                 {
-                    .name = "left side idle",
+                    .name = "normal",
                     .startFrameIndex = 0,
                     .endFrameIndex = 0,
                     .frameDuration = 0.4f,
                     .looping = false
-                },
-                {
-                    .name = "right side idle",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 10,
-                    .frameDuration = 0.4f,
-                    .looping = false
-                },
-                {
-                    .name = "left side reload",
-                    .startFrameIndex = 0,
-                    .endFrameIndex = 9,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
-                {
-                    .name = "right side reload",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 19,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
+                }
             },
-            .spriteSize = {35, 19},   
-            .defaultClip = "left side idle",
+            .spriteSize = {8, 6},   
+            .defaultClip = "normal",
             .playOnStart = true
         }
     },
-    .gunOffset = {-3, 0}
+    .gunOffset = {0, -3}
 };
 
 /**

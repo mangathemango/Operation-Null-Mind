@@ -52,8 +52,8 @@ void Proxy_UpdateGun(EnemyData* data) {
     gun->state.position = Vec2_Subtract(
         data->state.position,
         (Vec2) {
-            gun->state.rotationCenter.x,
-            gun->state.rotationCenter.y - 5 // This -5 moves the gun down a bit for aesthetics.
+            gun->state.rotationCenter.x + config->gunOffset.x,
+            gun->state.rotationCenter.y + config->gunOffset.y // This -5 moves the gun down a bit for aesthetics.
         }
     );
 
