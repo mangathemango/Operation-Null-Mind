@@ -27,7 +27,13 @@ void Proxy_Start(EnemyData* data) {
     data->config = malloc(sizeof(ProxyConfig));
     memcpy(data->config, &ProxyConfigData, sizeof(ProxyConfig));
     AnimationData animData = ((ProxyConfig*) data->config)->gun.animData;
-    ((ProxyConfig*) data->config)->gun.resources.animation = Animation_Create(&animData);
+
     ((ProxyConfig*) data->config)->lastPosition = data->state.position;
+    GunData* gun = &((ProxyConfig*) data->config)->gun;
+    gun->resources.animation = Animation_Create(&animData);
+    gun->resources.bulletPreset = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletDefault);
+    gun->resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    gun->resources.muzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    gun->resources.bulletFragmentEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
     // Additional initialization will be implemented later
 }

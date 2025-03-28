@@ -24,25 +24,12 @@
 void Proxy_Render(EnemyData* data) {
     // Rendering will be implemented later
     ProxyConfig *config = (ProxyConfig*)data->config;
+    GunData *gun = &config->gun;
 
-    Vec2 offset = Vec2_Add(config->gun.config.gripPosition, config->gunOffset);
-    if (data->state.flip == SDL_FLIP_HORIZONTAL) offset.x = -offset.x;
-    config->gun.state.rotationCenter = Vec2_ToPoint(
-        config->gun.config.gripPosition
-    );
-    Vec2 renderPosition = Vec2_ToCenteredPosition(
-        Camera_WorldVecToScreen(
-            Vec2_Add(data->state.position, offset)
-        ),
-        config->gun.animData.frameSize
-    );
-
-    Animation_Render(
-        config->gun.resources.animation,
-        renderPosition,
-        config->gun.animData.frameSize,
-        config->gun.state.angle,
-        &config->gun.state.rotationCenter,
-        data->state.flip
-    );
+    Animation_Render(gun->resources.animation, 
+        Camera_WorldVecToScreen(gun->state.position), 
+        gun->animData.spriteSize,
+        gun->state.angle,
+        &gun->state.rotationCenter,
+        gun->state.flip);
 }
