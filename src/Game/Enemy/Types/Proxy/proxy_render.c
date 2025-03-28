@@ -25,7 +25,7 @@ void Proxy_Render(EnemyData* data) {
     // Rendering will be implemented later
     ProxyConfig *config = (ProxyConfig*)data->config;
     if (!config) return;
-    GunData *gun = &config->gun;
+    GunData *gun = config->gun;
 
     Animation_Render(gun->resources.animation, 
         Camera_WorldVecToScreen(gun->state.position), 

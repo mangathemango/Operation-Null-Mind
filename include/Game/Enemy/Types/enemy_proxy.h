@@ -14,13 +14,15 @@ extern ParticleEmitter* ProxyBulletEmitter;
 extern ParticleEmitter* ProxyBulletFragmentsEmitter;
 extern ParticleEmitter* ProxyMuzzleFlashEmitter;
 extern ParticleEmitter* ProxyCasingEmitter;
+extern GunData ProxyGunData;
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
 
     float shootTime;
     float shootTimer;
-    GunData gun;
+    
+    GunData* gun;
     Vec2 gunOffset;
     Vec2 lastPosition;
 } ProxyConfig;

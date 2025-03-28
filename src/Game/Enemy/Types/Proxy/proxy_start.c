@@ -30,32 +30,22 @@ ParticleEmitter* ProxyBulletFragmentsEmitter;
  */
 void Proxy_Start(EnemyData* data) {
     if (!ProxyBulletEmitter) {
-        ProxyBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
-        ProxyMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
-        ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
-        ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+        ProxyGunData.resources.bulletPreset = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+        ProxyGunData.resources.muzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+        ProxyGunData.resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+        ProxyGunData.resources.bulletFragmentEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+        ProxyGunData.resources.animation = Animation_Create(&ProxyGunData.animData);
     }
     // Set up config pointer
     data->config = malloc(sizeof(ProxyConfig));
     memcpy(data->config, &ProxyConfigData, sizeof(ProxyConfig));
-    AnimationData animData = ((ProxyConfig*) data->config)->gun.animData;
 
     ((ProxyConfig*) data->config)->lastPosition = data->state.position;
     ((ProxyConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
     ((ProxyConfig*) data->config)->directionChangeTimer = 3.0f;
+    ((ProxyConfig*) data->config)->shootTimer = 0;
     ((ProxyConfig*) data->config)->shootTime = RandFloat(
         data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
     );
-    GunData* gun = &((ProxyConfig*) data->config)->gun;
-    gun->resources.animation = Animation_Create(&animData);
-
-    gun->resources.bulletPreset = ProxyBulletEmitter;
-
-    gun->resources.casingParticleEmitter = ProxyCasingEmitter;
-
-    gun->resources.muzzleFlashEmitter = ProxyMuzzleFlashEmitter;
-
-    gun->resources.bulletFragmentEmitter = ProxyBulletFragmentsEmitter;
     // Additional initialization will be implemented later
-    
 }

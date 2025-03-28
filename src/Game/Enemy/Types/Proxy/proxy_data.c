@@ -11,49 +11,41 @@
 
 #include <enemy_proxy.h>
 
+GunData ProxyGunData = {
+    .config = {
+        .muzzlePosition = {8, 3},
+        .ejectionPosition = {5, 2},
+        .gripPosition = {2, 4},
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0,
+        .currentAmmo = 0,
+    },
+    .animData = {
+        .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+        .frameSize = {8, 6},
+        .frameCount = 1,
+        .clips = {
+            {
+                .name = "normal",
+                .startFrameIndex = 0,
+                .endFrameIndex = 0,
+                .frameDuration = 0.4f,
+                .looping = false
+            }
+        },
+        .spriteSize = {8, 6},   
+        .defaultClip = "normal",
+        .playOnStart = true
+    }
+};
+
 ProxyConfig ProxyConfigData = {
-    .directionChangeTimer = 0,
+    .directionChangeTimer = 3,
     .directionChangeTime = 1.0f,
     .shootTimer = 0,
-    .gun = {
-        .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
-        },
-        .state = {
-            .position = {0, 0},
-            .angle = 0,
-            .currentAmmo = 0,
-        },
-        .stats = {
-            .fireRate = 650,
-            .spread_angle = 2,
-            .damage = 120,
-            .fireMode = FIREMODE_AUTO,
-            .bulletLifetime = 1.0f,
-            .bulletsPerShot = 1,
-            .ammoCapacity = 20,
-            .ammoConsumption = 2
-        },
-        .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
-            .frameSize = {8, 6},
-            .frameCount = 1,
-            .clips = {
-                {
-                    .name = "normal",
-                    .startFrameIndex = 0,
-                    .endFrameIndex = 0,
-                    .frameDuration = 0.4f,
-                    .looping = false
-                }
-            },
-            .spriteSize = {8, 6},   
-            .defaultClip = "normal",
-            .playOnStart = true
-        }
-    },
+    .gun = &ProxyGunData,
     .gunOffset = {0, -3}
 };
 

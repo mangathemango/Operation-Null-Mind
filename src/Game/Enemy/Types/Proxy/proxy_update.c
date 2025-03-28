@@ -18,7 +18,7 @@
 
 void Proxy_UpdateGun(EnemyData* data) {
     ProxyConfig* config = (ProxyConfig*)data->config;
-    GunData* gun = &config->gun;
+    GunData* gun = config->gun;
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 
@@ -103,9 +103,8 @@ void Proxy_UpdateGun(EnemyData* data) {
  */
 void Proxy_Update(EnemyData* data) {
     ProxyConfig* config = (ProxyConfig*)data->config;
-    
+    GunData* gun = config->gun;
     if (data->state.currentHealth <= 0) {
-        GunData* gun = &config->gun;
         
         // Now destroy resources
         Animation_Destroy(gun->resources.animation);
@@ -120,7 +119,7 @@ void Proxy_Update(EnemyData* data) {
         return;
     }
         
-    config->gun.state.position = data->state.position;
+    config->gun->state.position = data->state.position;
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Proxy_UpdateGun(data);
 
@@ -143,28 +142,28 @@ void Proxy_Update(EnemyData* data) {
         config->shootTime = RandFloat(
             data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
         );
-        ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
-        ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-        ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+        ParticleEmitter_ActivateOnce(gun->resources.muzzleFlashEmitter);
+        ParticleEmitter_ActivateOnce(gun->resources.casingParticleEmitter);
+        ParticleEmitter_ActivateOnce(gun->resources.bulletPreset);
     }
 
     if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
-        Animation_Play(config->gun.resources.animation, "idle");
+        Animation_Play(data->resources.animation, "idle");
     } else {
-        Animation_Play(config->gun.resources.animation, "walkin");
+        Animation_Play(data->resources.animation, "walkin");
     }
     config->lastPosition = data->state.position;
 }
 
 void Proxy_UpdateParticles() {
-    if (!ProxyBulletEmitter) return;
-    ParticleEmitter_Update(ProxyBulletEmitter);
-    ParticleEmitter_Update(ProxyMuzzleFlashEmitter);
-    ParticleEmitter_Update(ProxyCasingEmitter);
-    ParticleEmitter_Update(ProxyBulletFragmentsEmitter);
-
-    for (int i = 0; i < ProxyBulletEmitter->maxParticles; i++) {
-        Particle* bullet = &ProxyBulletEmitter->particles[i];
+    if (!ProxyGunData.resources.bulletPreset) return;
+    ParticleEmitter_Update(ProxyGunData.resources.bulletPreset);
+    ParticleEmitter_Update(ProxyGunData.resources.muzzleFlashEmitter);
+    ParticleEmitter_Update(ProxyGunData.resources.casingParticleEmitter);
+    ParticleEmitter_Update(ProxyGunData.resources.bulletFragmentEmitter);
+    int maxParticles = ProxyGunData.resources.bulletPreset->maxParticles;
+    for (int i = 0; i < maxParticles; i++) {
+        Particle* bullet = &ProxyGunData.resources.bulletPreset->particles[i];
         if (!bullet->alive) continue;
         ColliderCheckResult result;
         Collider_Check(bullet->collider, &result);
@@ -173,9 +172,9 @@ void Proxy_UpdateParticles() {
                 player.state.currentHealth -= ProxyData.stats.damage;
             }
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
-                ProxyBulletFragmentsEmitter->position = bullet->position;
-                ProxyBulletFragmentsEmitter->direction = ProxyBulletEmitter->direction;
-                ParticleEmitter_ActivateOnce(ProxyBulletFragmentsEmitter);
+                ProxyGunData.resources.bulletFragmentEmitter->position = bullet->position;
+                ProxyGunData.resources.bulletFragmentEmitter->direction = bullet->direction;
+                ParticleEmitter_ActivateOnce(ProxyGunData.resources.bulletFragmentEmitter);
                 Collider_Reset(bullet->collider);
                 bullet->alive = false;
                 break;
@@ -185,9 +184,9 @@ void Proxy_UpdateParticles() {
 }
 
 void Proxy_RenderParticles() {
-    if (!ProxyBulletEmitter) return;
-    ParticleEmitter_Render(ProxyBulletEmitter);
-    ParticleEmitter_Render(ProxyMuzzleFlashEmitter);
-    ParticleEmitter_Render(ProxyCasingEmitter);
-    ParticleEmitter_Render(ProxyBulletFragmentsEmitter);
+    if (!ProxyGunData.resources.bulletPreset) return;
+    ParticleEmitter_Render(ProxyGunData.resources.bulletPreset);
+    ParticleEmitter_Render(ProxyGunData.resources.muzzleFlashEmitter);
+    ParticleEmitter_Render(ProxyGunData.resources.casingParticleEmitter);
+    ParticleEmitter_Render(ProxyGunData.resources.bulletFragmentEmitter);
 }
