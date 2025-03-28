@@ -27,7 +27,7 @@ void Map_Generate() {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
             testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
-            testMap.chunks[x][y].discovered = true;
+            testMap.chunks[x][y].discovered = false;
             testMap.chunks[x][y].inCombat = false;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
             EnvironmentChunk* chunk = &testMap.chunks[x][y];
@@ -104,7 +104,7 @@ void Map_Generate() {
 
             // Generate room details
             if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
-                testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
+                testMap.chunks[x][y].totalEnemyCount = RandInt(20, 40);
                 testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
             }
             if (testMap.chunks[x][y].roomType == ROOM_TYPE_CRATE) {

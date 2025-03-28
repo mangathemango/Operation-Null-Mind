@@ -65,34 +65,36 @@ void Gun_Update() {
         }
     );
 
-    // Update casing particles
-    gun->resources.casingParticleEmitter->position = Vec2_Add(
-        gun->state.position, 
-        Vec2_RotateAroundDegrees(
-            casingPosition,
-            (Vec2) {
-                gun->state.rotationCenter.x,
-                gun->state.rotationCenter.y 
-            },
-            gun->state.angle
-        )
-    );
-    ParticleEmitter_Update(gun->resources.casingParticleEmitter);
+    if (gun->resources.casingParticleEmitter) {
+        gun->resources.casingParticleEmitter->position = Vec2_Add(
+            gun->state.position, 
+            Vec2_RotateAroundDegrees(
+                casingPosition,
+                (Vec2) {
+                    gun->state.rotationCenter.x,
+                    gun->state.rotationCenter.y 
+                },
+                gun->state.angle
+            )
+        );
+        ParticleEmitter_Update(gun->resources.casingParticleEmitter);
+    }
     
-    // Update muzzle flash particles
-    gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-    gun->resources.muzzleFlashEmitter->position = Vec2_Add(
-        gun->state.position, 
-        Vec2_RotateAroundDegrees(
-            muzzlePosition,
-            (Vec2) {
-                gun->state.rotationCenter.x,
-                gun->state.rotationCenter.y 
-            },
-            gun->state.angle
-        )
-    );
-    ParticleEmitter_Update(gun->resources.muzzleFlashEmitter);
+    if (gun->resources.muzzleFlashEmitter) {
+        gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
+        gun->resources.muzzleFlashEmitter->position = Vec2_Add(
+            gun->state.position, 
+            Vec2_RotateAroundDegrees(
+                muzzlePosition,
+                (Vec2) {
+                    gun->state.rotationCenter.x,
+                    gun->state.rotationCenter.y 
+                },
+                gun->state.angle
+            )
+        );
+        ParticleEmitter_Update(gun->resources.muzzleFlashEmitter);
+    }
 
     // Update gun's animations
     Gun_AnimationUpdate();

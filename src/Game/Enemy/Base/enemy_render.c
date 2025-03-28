@@ -61,7 +61,7 @@ void Enemy_Render() {
         }
 
         // don't render if the enemy is not in the view
-        if (!Camera_WorldRectIsOnScreen(enemies[i].state.collider.hitbox)) continue;
+        if (Camera_WorldRectIsOnScreen(enemies[i].state.collider.hitbox))
         Animation_Render(
             enemies[i].resources.animation,
             Camera_WorldVecToScreen(
@@ -73,12 +73,10 @@ void Enemy_Render() {
             enemies[i].animData.spriteSize,
             0,
             NULL,
-            enemies[i].state.direction.x < 0 ? 
-            SDL_FLIP_HORIZONTAL :
-            SDL_FLIP_NONE
+            enemies[i].state.flip
         );
-
         if (enemies[i].render) enemies[i].render(&enemies[i]);
     }
     if (KamikazeExplosionEmitter) ParticleEmitter_Render(KamikazeExplosionEmitter);
+    Proxy_RenderParticles();
 }

@@ -40,9 +40,11 @@ extern ParticleEmitter ParticleEmitter_ARBRCasing;
 
 /** @brief Default bullet impact particle preset */
 extern ParticleEmitter ParticleEmitter_BulletDefault;
+extern ParticleEmitter ParticleEmitter_BulletEnemy;
 /** @brief Bullet fragment particles preset */
 extern ParticleEmitter ParticleEmitter_BulletFragments;
 extern ParticleEmitter ParticleEmitter_Explosion;
+
 
 extern ParticleEmitter* test_emitter; //!< This is just for debugging purposes.
 

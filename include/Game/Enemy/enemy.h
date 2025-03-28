@@ -32,7 +32,9 @@ typedef enum {
     ENEMY_TYPE_RADIUS,
     ENEMY_TYPE_JUGGERNAUT,
     ENEMY_TYPE_SENTRY,
-} EnemyType;
+    ENEMY_TYPE_COUNT
+} EnemyType;    
+
 
 /**
  * @brief Enemy state structure
@@ -48,6 +50,8 @@ typedef struct {
     int currentHealth;   /**< Current health points */
     bool isDead;         /**< Whether the enemy is dead */
     bool isSpawning;     /**< Whether the enemy is in spawning state */
+
+    SDL_RendererFlip flip;
 } EnemyState;
 
 /**
@@ -101,6 +105,7 @@ typedef struct EnemyData {
     void (*render)(EnemyData* data);   /**< Render function */
 } EnemyData;
 
+extern EnemyData* enemyList[ENEMY_TYPE_COUNT];
 /**
  * @brief Array of enemies
  *

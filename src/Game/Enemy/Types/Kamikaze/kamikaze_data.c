@@ -13,8 +13,8 @@
 
 KamikazeConfig KamikazeConfigData = {
     .exploding = false,
-    .explosionRadius = 50,
-    .explosionTime = 1.5f,
+    .explosionRadius = 100,
+    .explosionTime = 1.0f,
     .indicatorDelay = 0.5f,
     .directionChangeTime = 0,
     .explosionTimer = 0,
@@ -34,7 +34,7 @@ EnemyData KamikazeData = {
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 30, 30},
+            .hitbox = {0, 0, 15, 15},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -47,8 +47,8 @@ EnemyData KamikazeData = {
     .stats = {
         .damage = 10,
         .maxHealth = 100,
-        .maxSpeed = 100.0f,
-        .acceleration = 500.0f,
+        .maxSpeed = 250.0f,
+        .acceleration = 1000.0f,
         .drag = 5.0f,
         .attackSpeed = 0,
         .attackRange = 0,
@@ -87,7 +87,7 @@ EnemyData KamikazeData = {
         },
         .playOnStart = true,
         .defaultClip = "move",
-        .spriteSize = {46, 40},
+        .spriteSize = {23, 20},
     },
     .config = NULL,
     .start = &Kamikaze_Start,

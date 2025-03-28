@@ -11,12 +11,42 @@
 
 #include <enemy_proxy.h>
 
+GunData ProxyGunData = {
+    .config = {
+        .muzzlePosition = {8, 3},
+        .ejectionPosition = {5, 2},
+        .gripPosition = {2, 4},
+    },
+    .state = {
+        .position = {0, 0},
+        .angle = 0,
+        .currentAmmo = 0,
+    },
+    .animData = {
+        .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+        .frameSize = {8, 6},
+        .frameCount = 1,
+        .clips = {
+            {
+                .name = "normal",
+                .startFrameIndex = 0,
+                .endFrameIndex = 0,
+                .frameDuration = 0.4f,
+                .looping = false
+            }
+        },
+        .spriteSize = {8, 6},   
+        .defaultClip = "normal",
+        .playOnStart = true
+    }
+};
+
 ProxyConfig ProxyConfigData = {
-    .deployTime = 2.0f,
-    .proximityRadius = 150.0f,
-    .damageMultiplier = 1.5f,
-    .isDeployed = false,
-    .deployPosition = {0, 0}
+    .directionChangeTimer = 3,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = &ProxyGunData,
+    .gunOffset = {0, -3}
 };
 
 /**
@@ -51,15 +81,15 @@ EnemyData ProxyData = {
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 3.0f,
     },
     .resources = {
         .animation = NULL,
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/proxy.png",
-        .frameSize = {24, 30},
-        .frameCount = 2,
+        .frameSize = {30, 40},
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -69,16 +99,16 @@ EnemyData ProxyData = {
                 .looping = true,
             },
             {
-                .name = "deployed",
+                .name = "walkin",
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
-                .frameDuration = 0.0f,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
                 .looping = true,
             },
         },
         .playOnStart = true,
-        .defaultClip = "idle",
-        .spriteSize = {42, 38},
+        .defaultClip = "walkin",
+        .spriteSize = {30, 40},
     },
     .config = &ProxyConfigData,
     .start = &Proxy_Start,

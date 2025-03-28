@@ -8,18 +8,30 @@
 
 #pragma once
 #include <enemy.h>
+#include <gun.h>
 
+extern ParticleEmitter* ProxyBulletEmitter;
+extern ParticleEmitter* ProxyBulletFragmentsEmitter;
+extern ParticleEmitter* ProxyMuzzleFlashEmitter;
+extern ParticleEmitter* ProxyCasingEmitter;
+extern GunData ProxyGunData;
 typedef struct {
-    float deployTime;        // Time required to deploy a proxy
-    float proximityRadius;   // Activation radius for proxy behavior
-    float damageMultiplier;  // Damage multiplier when proxy is active
-    bool isDeployed;         // Flag indicating if proxy is currently deployed
-    Vec2 deployPosition;     // Position where the proxy is deployed
+    float directionChangeTimer;
+    float directionChangeTime;
+
+    float shootTime;
+    float shootTimer;
+    
+    GunData* gun;
+    Vec2 gunOffset;
+    Vec2 lastPosition;
 } ProxyConfig;
 
 void Proxy_Start (EnemyData* data);
 void Proxy_Update(EnemyData* data);
 void Proxy_Render(EnemyData* data);
+void Proxy_UpdateParticles();
+void Proxy_RenderParticles();
 
 extern ProxyConfig ProxyConfigData;
 extern EnemyData ProxyData;

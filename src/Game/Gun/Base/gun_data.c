@@ -155,7 +155,7 @@ GunData GunList[GUN_COUNT] = {
             .currentAmmo = 0
         },
         .stats = {
-            .fireRate = 500,
+            .fireRate = 120,
             .spread_angle = 25,
             .damage = 40,
             .fireMode = FIREMODE_SEMI,
