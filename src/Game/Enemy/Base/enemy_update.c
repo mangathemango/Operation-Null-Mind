@@ -40,6 +40,7 @@ void Enemy_Update() {
     }
     if (KamikazeExplosionEmitter) ParticleEmitter_Update(KamikazeExplosionEmitter);
     Proxy_UpdateParticles();
+    Sabot_UpdateParticles();
     
 }
 

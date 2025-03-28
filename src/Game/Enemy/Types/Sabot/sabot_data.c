@@ -12,11 +12,49 @@
 #include <enemy_sabot.h>
 
 SabotConfig SabotConfigData = {
-    .chargeTime = 1.5f,
-    .chargeSpeed = 2.5f,
-    .piercingFactor = 0.75f,
-    .isCharging = false,
-    .chargeDirection = {0, 0}
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = {
+        .config = {
+            .muzzlePosition = {8, 3},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {2, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 650,
+            .spread_angle = 2,
+            .damage = 120,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 20,
+            .ammoConsumption = 2
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",  // Kept original path
+            .frameSize = {8, 6},
+            .frameCount = 1,
+            .clips = {
+                {
+                    .name = "normal",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {8, 6},   
+            .defaultClip = "normal",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {0, -3}
 };
 
 /**
@@ -51,15 +89,15 @@ EnemyData SabotData = {
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 3.0f,  // Match Proxy's value
     },
     .resources = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/sabot.png",
-        .frameSize = {28, 32},
-        .frameCount = 3,
+        .spritesheetPath = "Assets/Images/Enemies/proxy.png",  // Use exact Proxy path
+        .frameSize = {30, 40},  // Match Proxy's frame size
+        .frameCount = 7,  // Match Proxy's frame count
         .clips = {
             {
                 .name = "idle",
@@ -69,23 +107,16 @@ EnemyData SabotData = {
                 .looping = true,
             },
             {
-                .name = "charging",
+                .name = "walkin",  // Match Proxy's clip name
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
-                .frameDuration = 0.0f,
-                .looping = true,
-            },
-            {
-                .name = "attack",
-                .startFrameIndex = 2,
-                .endFrameIndex = 2,
-                .frameDuration = 0.0f,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
                 .looping = true,
             },
         },
         .playOnStart = true,
-        .defaultClip = "idle",
-        .spriteSize = {44, 42},
+        .defaultClip = "walkin",  // Match Proxy's default
+        .spriteSize = {30, 40},  // Match Proxy's sprite size
     },
     .config = &SabotConfigData,
     .start = &Sabot_Start,

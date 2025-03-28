@@ -13,6 +13,12 @@
 #include <animation.h>
 #include <circle.h>
 #include <particle_emitterpresets.h>
+#include <random.h>
+
+ParticleEmitter* SabotBulletEmitter;
+ParticleEmitter* SabotMuzzleFlashEmitter;
+ParticleEmitter* SabotCasingEmitter;
+ParticleEmitter* SabotBulletFragmentsEmitter;
 
 /**
  * @brief [Start] Initializes a Sabot enemy instance
@@ -27,7 +33,22 @@ void Sabot_Start(EnemyData* data) {
     data->resources.animation = Animation_Create(&data->animData);
     
     // Set up config pointer
-    data->config = &SabotConfigData;
-    
-    // Additional initialization will be implemented later
+    data->config = malloc(sizeof(SabotConfig));
+    memcpy(data->config, &SabotConfigData, sizeof(SabotConfig));
+    AnimationData animData = ((SabotConfig*) data->config)->gun.animData;
+
+    ((SabotConfig*) data->config)->lastPosition = data->state.position;
+    ((SabotConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
+    ((SabotConfig*) data->config)->directionChangeTimer = 3.0f;
+    ((SabotConfig*) data->config)->shootTime = RandFloat(
+        data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+    );
+    GunData* gun = &((SabotConfig*) data->config)->gun;
+    gun->resources.animation = Animation_Create(&animData);
+
+    // Explicitly assign each resource - make sure the assignments take effect
+    gun->resources.bulletPreset = SabotBulletEmitter;
+    gun->resources.muzzleFlashEmitter = SabotMuzzleFlashEmitter;
+    gun->resources.casingParticleEmitter = SabotCasingEmitter;
+    gun->resources.bulletFragmentEmitter = SabotBulletFragmentsEmitter;
 }

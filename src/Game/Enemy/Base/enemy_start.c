@@ -6,7 +6,7 @@
  * slots and loads shared enemy resources.
  *
  * @author Mango
- * @date 2025-03-03
+ * @date 2025-03-04
  */
 
 #include <enemy.h>
@@ -58,8 +58,16 @@ void Enemy_Init() {
     );
 
     KamikazeExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);
+    
+    // Proxy particle emitters
     ProxyBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
-        ProxyMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
-        ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
-        ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    ProxyMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+
+    // Sabot particle emitters - simplified to match Proxy's approach
+    SabotBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    SabotMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    SabotCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    SabotBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
 }

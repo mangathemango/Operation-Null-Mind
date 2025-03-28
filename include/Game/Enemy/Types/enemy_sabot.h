@@ -8,18 +8,29 @@
 
 #pragma once
 #include <enemy.h>
+#include <gun.h>
+
+extern ParticleEmitter* SabotBulletEmitter;
+extern ParticleEmitter* SabotBulletFragmentsEmitter;
+extern ParticleEmitter* SabotMuzzleFlashEmitter;
+extern ParticleEmitter* SabotCasingEmitter;
 
 typedef struct {
-    float chargeTime;        // Time required to charge before attack
-    float chargeSpeed;       // Speed multiplier when charging
-    float piercingFactor;    // How much this enemy can pierce defenses
-    bool isCharging;         // Flag indicating if enemy is charging
-    Vec2 chargeDirection;    // Direction of the charge attack
+    float directionChangeTimer;
+    float directionChangeTime;
+
+    float shootTime;
+    float shootTimer;
+    GunData gun;
+    Vec2 gunOffset;
+    Vec2 lastPosition;
 } SabotConfig;
 
 void Sabot_Start (EnemyData* data);
 void Sabot_Update(EnemyData* data);
 void Sabot_Render(EnemyData* data);
+void Sabot_UpdateParticles();
+void Sabot_RenderParticles();
 
 extern SabotConfig SabotConfigData;
 extern EnemyData SabotData;

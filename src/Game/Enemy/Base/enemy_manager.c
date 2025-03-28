@@ -83,7 +83,7 @@ void EnemyManager_Update() {
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                EnemyType spawnedEnemy = RandInt(ENEMY_TYPE_KAMIKAZE, ENEMY_TYPE_PROXY);
+                EnemyType spawnedEnemy = ENEMY_TYPE_SABOT;
                 int currentTime = SDL_GetTicks();
                 Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
                 int elapsedTime = SDL_GetTicks() - currentTime;

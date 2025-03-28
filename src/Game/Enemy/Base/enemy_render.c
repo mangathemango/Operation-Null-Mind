@@ -79,4 +79,5 @@ void Enemy_Render() {
     }
     if (KamikazeExplosionEmitter) ParticleEmitter_Render(KamikazeExplosionEmitter);
     Proxy_RenderParticles();
+    Sabot_RenderParticles();
 }
