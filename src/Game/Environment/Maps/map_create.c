@@ -27,7 +27,7 @@ void Map_Generate() {
         for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
             testMap.chunks[x][y].totalEnemyCount = 0;
             testMap.chunks[x][y].empty = true;
-            testMap.chunks[x][y].discovered = true;
+            testMap.chunks[x][y].discovered = false;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
             EnvironmentChunk* chunk = &testMap.chunks[x][y];
             for (int i = 0; i < chunk->colliderCount; i++) {
