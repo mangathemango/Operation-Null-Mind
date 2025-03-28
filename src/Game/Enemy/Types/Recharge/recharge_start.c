@@ -13,6 +13,7 @@
 #include <animation.h>
 #include <circle.h>
 #include <particle_emitterpresets.h>
+#include <random.h>
 
 
 /**
@@ -35,4 +36,5 @@ void Recharge_Start(EnemyData* data) {
     // Set up config pointer
     data->config = malloc(sizeof(RechargeConfig));
     memcpy(data->config, &RechargeConfigData, sizeof(RechargeConfig));
+    ((RechargeConfig*) data->config)->rechargeCooldown = RandFloat(1.0f,3.0f);
 }

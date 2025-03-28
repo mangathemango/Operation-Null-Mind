@@ -44,7 +44,7 @@ void Bullet_Update()
             // Handle dealing damage to enemies
             if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
-                Enemy_TakeDamage(enemy, 10);
+                Enemy_TakeDamage(enemy, gun->stats.damage);
                 Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 70));
             }
 

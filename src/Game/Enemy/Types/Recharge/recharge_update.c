@@ -50,6 +50,7 @@ void Recharge_Update(EnemyData* data) {
 
     if (config->isRecharging) {
         if (config->timer >= config->rechargeDuration) {
+            config->rechargeCooldown = RandFloat(1.0f, 3.0f);
             config->isRecharging = false;
             config->timer = 0;
         }
