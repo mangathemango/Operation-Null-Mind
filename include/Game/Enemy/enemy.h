@@ -48,6 +48,8 @@ typedef struct {
     int currentHealth;   /**< Current health points */
     bool isDead;         /**< Whether the enemy is dead */
     bool isSpawning;     /**< Whether the enemy is in spawning state */
+
+    SDL_RendererFlip flip;
 } EnemyState;
 
 /**

@@ -8,9 +8,12 @@
 
 #pragma once
 #include <enemy.h>
+#include <gun.h>
 
 typedef struct {
-    
+    GunData gun;
+    Vec2 gunOffset;
+    Vec2 lastPosition;
 } ProxyConfig;
 
 void Proxy_Start (EnemyData* data);

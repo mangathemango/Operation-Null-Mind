@@ -23,4 +23,19 @@
  */
 void Proxy_Render(EnemyData* data) {
     // Rendering will be implemented later
+    ProxyConfig *config = (ProxyConfig*)data->config;
+    Animation_Render(
+        config->gun.resources.animation,
+        Vec2_Add(
+            Vec2_ToCenteredPosition(
+                Camera_WorldVecToScreen(data->state.position),
+                config->gun.animData.frameSize
+            ),
+            config->gunOffset
+        ),
+        config->gun.animData.frameSize,
+        0,
+        NULL,
+        data->state.flip
+    );
 }

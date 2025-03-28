@@ -12,7 +12,68 @@
 #include <enemy_proxy.h>
 
 ProxyConfig ProxyConfigData = {
-
+    .gun = {
+        .name = GUN_BATTLE_RIFLE_NAME,
+        .config = {
+            .muzzlePosition = {34, 4},
+            .ejectionPosition = {13, 3},
+            .gripPosition = {11, 6},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 650,
+            .spread_angle = 2,
+            .damage = 120,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 20,
+            .ammoConsumption = 2
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Battle Rifle.png",
+            .frameSize = {35, 19},
+            .frameCount = 20,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "right side idle",
+                    .startFrameIndex = 10,
+                    .endFrameIndex = 10,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "left side reload",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 9,
+                    .frameDuration = 0.1f,
+                    .looping = true
+                },
+                {
+                    .name = "right side reload",
+                    .startFrameIndex = 10,
+                    .endFrameIndex = 19,
+                    .frameDuration = 0.1f,
+                    .looping = true
+                },
+            },
+            .spriteSize = {35, 19},   
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {5, 5}
 };
 
 /**

@@ -30,7 +30,7 @@ void Enemy_Update() {
         }
         // Call enemy-specific update function if available
         if (enemy->update) enemy->update(enemy);
-
+        enemy->state.flip = enemy->state.direction.x > 0 ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
         Enemy_HandleMovement(enemy);
         Animation_Update(enemy->resources.animation);
 

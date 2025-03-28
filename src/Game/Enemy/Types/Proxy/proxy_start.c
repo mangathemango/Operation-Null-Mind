@@ -24,7 +24,11 @@
  */
 void Proxy_Start(EnemyData* data) {
     // Set up config pointer
-    data->config = &ProxyConfigData;
-    
+    data->config = malloc(sizeof(ProxyConfig));
+    memcpy(data->config, &ProxyConfigData, sizeof(ProxyConfig));
+    AnimationData animData = ((ProxyConfig*) data->config)->gun.animData;
+    ((ProxyConfig*) data->config)->gun.resources.animation = Animation_Create(&animData);
+    ((ProxyConfig*) data->config)->gunOffset = (Vec2) {0, 0};
+    ((ProxyConfig*) data->config)->lastPosition = data->state.position;
     // Additional initialization will be implemented later
 }

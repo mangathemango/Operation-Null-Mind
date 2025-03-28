@@ -25,6 +25,16 @@
  */
 void Proxy_Update(EnemyData* data) {
     ProxyConfig* config = (ProxyConfig*)data->config;
+
+    config->gun.state.position = data->state.position;
     // Specific behaviors will be implemented later
     data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+
+    
+    if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
+        Animation_Play(config->gun.resources.animation, "idle");
+    } else {
+        Animation_Play(config->gun.resources.animation, "walkin");
+    }
+    config->lastPosition = data->state.position;
 }
