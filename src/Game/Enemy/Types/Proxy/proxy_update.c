@@ -13,6 +13,7 @@
 #include <time_system.h>
 #include <random.h>
 #include <circle.h>
+#include <math.h>
 
 /**
  * @brief [PostUpdate] Updates the Proxy enemy's state
@@ -37,4 +38,9 @@ void Proxy_Update(EnemyData* data) {
         Animation_Play(config->gun.resources.animation, "walkin");
     }
     config->lastPosition = data->state.position;
+
+    config->gun.state.angle = atan2(
+        Vec2_Subtract(player.state.position, data->state.position).y, 
+        Vec2_Subtract(player.state.position, data->state.position).x
+    ) * 180 / M_PI;
 }

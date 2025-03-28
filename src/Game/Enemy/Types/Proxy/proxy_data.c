@@ -73,7 +73,7 @@ ProxyConfig ProxyConfigData = {
             .playOnStart = true
         }
     },
-    .gunOffset = {5, 5}
+    .gunOffset = {-3, 0}
 };
 
 /**
