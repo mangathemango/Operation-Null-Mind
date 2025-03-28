@@ -19,7 +19,7 @@ Vec2 Recharge_GetDirection(EnemyData* data) {
     float closestDistance = 9999999.0f;
 
     for (int i = 0; i < ENEMY_MAX; i++) {
-        if (enemies[i].state.isDead || &enemies[i] == data) {
+        if (enemies[i].state.isDead || enemies[i].type == ENEMY_TYPE_RECHARGE) {
             continue;
         }
         float distance = Vec2_Distance(enemies[i].state.position, data->state.position);

@@ -103,7 +103,7 @@ void Map_Generate() {
 
             // Generate room details
             if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
-                testMap.chunks[x][y].totalEnemyCount = RandInt(10, 20);
+                testMap.chunks[x][y].totalEnemyCount = RandInt(20, 40);
                 testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
             }
             if (testMap.chunks[x][y].roomType == ROOM_TYPE_CRATE) {
