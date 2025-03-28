@@ -14,12 +14,23 @@
 #include <SDL_mixer.h>
 #include <stdbool.h>
 
+typedef enum {
+    SOUND_SWOOSH = 0,     //** Swoosh sound (Assets/Audio/swoosh.wav)*/
+    SOUND_GUNSHOT = 1,    //** Gun firing sound (Assets/Audio/gunshot.wav)*/
+    SOUND_VINE_BOOM = 2,  //** Vine whip sound (Assets/Audio/VineWhip.wav) */
+    
+    SOUND_COUNT           //** Total number of sound effects (automatically updated) */
+} SoundEffect;
+
+
 // Sound resources structure
 typedef struct {
     Mix_Music* backgroundMusic;
-    Mix_Chunk* soundEffects[10]; // Array to store sound effects, add more if needed.
-    int soundEffectCount;
+    Mix_Chunk* soundEffects[SOUND_COUNT]; // Array to store sound effects, add more if needed.
+    char* soundPaths[SOUND_COUNT]; // Array to store sound paths, add more if needed.
 } SoundResources;
+
+
 
 extern SoundResources soundResources;
 

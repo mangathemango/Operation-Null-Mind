@@ -30,6 +30,7 @@
 #include <logs.h>
 #include <hud.h>
 #include <game.h>
+#include <death.h>
 
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.
@@ -47,7 +48,8 @@
 typedef enum {
     SCENE_MENU,    /**< Menu scene of the application */
     SCENE_GAME,    /**< Main gameplay scene */
-    SCENE_PAUSE    /**< Pause menu scene */
+    SCENE_PAUSE,    /**< Pause menu scene */
+    SCENE_DEATH /**Death scene */
 } AppScene;
 
 /**

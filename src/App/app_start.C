@@ -49,6 +49,7 @@ int App_Start() {
     Sound_System_Initialize();
     Menu_PrepareTextures();
     Pause_Start();
+    Death_Start();
     Log_Start();
     HUD_Start();
     Game_Start();

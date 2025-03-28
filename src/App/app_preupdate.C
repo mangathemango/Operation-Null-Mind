@@ -34,6 +34,8 @@ int App_PreUpdate() {
             break;
         case SCENE_PAUSE:
             break;
+        case SCENE_DEATH:
+            break;
     }
     return 0;
 }

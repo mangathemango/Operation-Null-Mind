@@ -48,6 +48,10 @@ int App_RenderMain() {
         case SCENE_PAUSE:
             Pause_Render();
             break;
+
+        case SCENE_DEATH:
+            Death_Render();
+            break;
     }
     Debug_RenderFPSCount();
     Debug_RenderSpikeCount();

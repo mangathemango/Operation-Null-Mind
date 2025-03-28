@@ -49,9 +49,19 @@ int App_PostUpdate() {
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
                 app.state.currentScene = SCENE_PAUSE;
             }
+            if(player.state.currentHealth <= 0) {
+                app.state.currentScene = SCENE_DEATH;
+                Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
+                player.state.currentHealth = 50;
+                Game_Restart();
+            }
             break;
         case SCENE_PAUSE:
             Pause_Update();
+            break;
+
+        case SCENE_DEATH:
+            Death_Update();
             break;
     }
     return 0;

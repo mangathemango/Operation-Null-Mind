@@ -14,4 +14,5 @@ extern GameData game;
 
 void Game_Start();
 void Game_Update();
+void Game_Restart();
 void Game_TransitionNextLevel();
