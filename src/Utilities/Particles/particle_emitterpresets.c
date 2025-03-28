@@ -336,8 +336,8 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
 
     .startColor = {255, 0, 0, 255},
     .endColor = {255, 0, 0, 255},
-    .startSize = {7, 7},
-    .endSize = {7, 7},
+    .startSize = {4, 4},
+    .endSize = {4, 4},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
