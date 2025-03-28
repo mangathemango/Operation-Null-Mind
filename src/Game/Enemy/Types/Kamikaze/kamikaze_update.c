@@ -14,6 +14,7 @@
 #include <time_system.h>
 #include <random.h>
 #include <circle.h>
+#include <sound.h>
 
 /**
  * @brief [PostUpdate] Updates the Echo enemy's state
@@ -37,6 +38,7 @@ void Kamikaze_Update(EnemyData* data) {
                 player.state.currentHealth -= data->stats.damage;
             }
 
+            Sound_Play_Effect(SOUND_VINE_BOOM);
             free(data->config);
             Enemy_HandleDeath(data);
             return;

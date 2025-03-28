@@ -98,7 +98,9 @@
     "game.h": "c",
     "enemy_kamikaze.h": "c",
     "circle.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "enemy_types.h": "c",
+    "enemy.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 
