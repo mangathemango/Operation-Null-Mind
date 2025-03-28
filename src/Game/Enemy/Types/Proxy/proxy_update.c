@@ -135,10 +135,17 @@ void Proxy_Update(EnemyData* data) {
         } else {
             data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
         }
+    }
 
-        ParticleEmitter_Emit(config->gun.resources.muzzleFlashEmitter);
-        ParticleEmitter_Emit(config->gun.resources.casingParticleEmitter);
-        ParticleEmitter_Emit(config->gun.resources.bulletPreset);
+    config->shootTimer += Time->deltaTimeSeconds;
+    if (config->shootTimer >= config->shootTime) {
+        config->shootTimer = 0;
+        config->shootTime = RandFloat(
+            data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+        );
+        ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
+        ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
+        ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
     }
 
     if (Vec2_AreEqual(data->state.position, config->lastPosition)) {

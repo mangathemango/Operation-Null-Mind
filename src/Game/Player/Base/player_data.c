@@ -54,7 +54,7 @@ PlayerData player = {
         .dashSpeed = 1000,
         .dashCooldown = 1,
         .dashDuration = 0.1,
-        .maxHealth = 100,
+        .maxHealth = 200,
         .maxAmmo = 200,
     },
     .animData = {

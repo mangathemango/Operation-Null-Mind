@@ -43,6 +43,9 @@ void Proxy_Start(EnemyData* data) {
     ((ProxyConfig*) data->config)->lastPosition = data->state.position;
     ((ProxyConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
     ((ProxyConfig*) data->config)->directionChangeTimer = 3.0f;
+    ((ProxyConfig*) data->config)->shootTime = RandFloat(
+        data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+    );
     GunData* gun = &((ProxyConfig*) data->config)->gun;
     gun->resources.animation = Animation_Create(&animData);
 
@@ -54,4 +57,5 @@ void Proxy_Start(EnemyData* data) {
 
     gun->resources.bulletFragmentEmitter = ProxyBulletFragmentsEmitter;
     // Additional initialization will be implemented later
+    
 }

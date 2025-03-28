@@ -294,9 +294,9 @@ bool ParticleEmitter_ParticlesAlive(ParticleEmitter* emitter) {
  * @param emitter A pointer to the particle emitter
  */
 void ParticleEmitter_ActivateOnce(ParticleEmitter* emitter) {
-    emitter->active = true;
-    emitter->emitterAge = 0;
-    if (emitter->loopCount == 0) emitter->loopCount = 1;
+    for (int i = 0; i < emitter->emissionNumber; i++) {
+        ParticleEmitter_Emit(emitter);
+    }
 }
 
 /**

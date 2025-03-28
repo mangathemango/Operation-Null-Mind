@@ -14,6 +14,7 @@
 ProxyConfig ProxyConfigData = {
     .directionChangeTimer = 0,
     .directionChangeTime = 1.0f,
+    .shootTimer = 0,
     .gun = {
         .config = {
             .muzzlePosition = {8, 3},
@@ -88,7 +89,7 @@ EnemyData ProxyData = {
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 3.0f,
     },
     .resources = {
         .animation = NULL,

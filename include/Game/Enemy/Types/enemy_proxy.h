@@ -17,6 +17,9 @@ extern ParticleEmitter* ProxyCasingEmitter;
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
+
+    float shootTime;
+    float shootTimer;
     GunData gun;
     Vec2 gunOffset;
     Vec2 lastPosition;

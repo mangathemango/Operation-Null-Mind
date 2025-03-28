@@ -331,13 +331,13 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
     .destroyWhenDone = false,
 
     .particleLifetime = 5,
-    .particleSpeed = 100,
+    .particleSpeed = 200,
     .custom_Movement = NULL,
 
     .startColor = {255, 0, 0, 255},
     .endColor = {255, 0, 0, 255},
-    .startSize = {4, 4},
-    .endSize = {4, 4},
+    .startSize = {3, 3},
+    .endSize = {3, 3},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
