@@ -83,7 +83,7 @@ void EnemyManager_Update() {
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                Enemy_Spawn(ProxyData,spawnPosition);
+                Enemy_Spawn(*enemyList[RandInt(ENEMY_TYPE_KAMIKAZE, ENEMY_TYPE_PROXY)],spawnPosition);
             }
         } else {
             // Ends the combat if player has killed enough enemies

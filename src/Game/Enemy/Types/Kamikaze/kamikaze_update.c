@@ -54,6 +54,10 @@ void Kamikaze_Update(EnemyData* data) {
     }
     if (Vec2_Distance(data->state.position, player.state.position) < 100) {
         data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+        if (config->directionChangeTime <= 0) {
+            config->directionChangeTime = RandFloat(0.2f, 0.3f);
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-30, 30));
+        }
     }
     if (Vec2_Distance(data->state.position, player.state.position) < 50) {
         Animation_Play(data->resources.animation, "explode");
