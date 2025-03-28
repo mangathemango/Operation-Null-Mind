@@ -28,9 +28,10 @@ void Enemy_Update() {
             Enemy_HandleSpawning(enemy);
             continue;
         }
+        enemy->state.flip = enemy->state.direction.x > 0 ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
         // Call enemy-specific update function if available
         if (enemy->update) enemy->update(enemy);
-        enemy->state.flip = enemy->state.direction.x > 0 ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+        if (enemy->state.isDead) continue;
         Enemy_HandleMovement(enemy);
         Animation_Update(enemy->resources.animation);
 
@@ -176,4 +177,5 @@ void Enemy_HandleDeath(EnemyData* enemy) {
     enemy->state.currentHealth = 0;
     enemy->state.isDead = true;
     Collider_Reset(&enemy->state.collider);
+    enemy->config = NULL;
 }

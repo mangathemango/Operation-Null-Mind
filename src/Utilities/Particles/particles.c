@@ -266,7 +266,7 @@ void ParticleEmitter_DestroyEmitter(ParticleEmitter* emitter) {
     if (!emitter) return;
     free(emitter->particles);
     Timer_Destroy(emitter->emissionTimer);
-    *(emitter->selfReference) = NULL;
+    if (*emitter->selfReference) *(emitter->selfReference) = NULL;
     free(emitter);
 }
 

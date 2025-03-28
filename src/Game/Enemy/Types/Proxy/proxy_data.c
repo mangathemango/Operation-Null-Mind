@@ -12,6 +12,8 @@
 #include <enemy_proxy.h>
 
 ProxyConfig ProxyConfigData = {
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
     .gun = {
         .config = {
             .muzzlePosition = {8, 3},

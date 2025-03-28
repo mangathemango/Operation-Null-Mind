@@ -11,6 +11,8 @@
 #include <gun.h>
 
 typedef struct {
+    float directionChangeTimer;
+    float directionChangeTime;
     GunData gun;
     Vec2 gunOffset;
     Vec2 lastPosition;
