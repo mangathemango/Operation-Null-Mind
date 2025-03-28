@@ -1,4 +1,5 @@
 #include <game.h>
+#include <enemy.h>
 
 GameData game = {
     .currentStage = 1,
@@ -19,6 +20,21 @@ void Game_Update() {
         Map_Generate(); 
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
         camera.position = player.state.position;
+    }
+}
+
+void Game_Restart()
+{
+    game.isTransitioning = false;
+    game.currentStage = 0;
+    Map_Generate(); 
+    player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+    camera.position = player.state.position;
+
+    for(int i = 0;i < ENEMY_MAX;i++)
+    {
+        EnemyData* enemy = &enemies[i];
+        Enemy_HandleDeath(enemy);
     }
 }
 
