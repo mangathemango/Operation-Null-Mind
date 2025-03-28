@@ -27,10 +27,9 @@ void Kamikaze_Update(EnemyData* data) {
     if (data->state.isDead) return;
     KamikazeConfig *config = data->config;
 
-    float explositionTime = 1.5f;
     if (config->exploding) {
         config->explosionTimer += Time->deltaTimeSeconds;
-        if (config->explosionTimer >= explositionTime) {
+        if (config->explosionTimer >= config->explosionTime) {
             KamikazeExplosionEmitter->position = data->state.position;
             ParticleEmitter_ActivateOnce(KamikazeExplosionEmitter);
             if (Vec2_Distance(data->state.position, player.state.position) < config->explosionRadius) {

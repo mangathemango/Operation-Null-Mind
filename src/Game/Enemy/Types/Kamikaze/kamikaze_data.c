@@ -13,7 +13,7 @@
 
 KamikazeConfig KamikazeConfigData = {
     .exploding = false,
-    .explosionRadius = 50,
+    .explosionRadius = 100,
     .explosionTime = 1.0f,
     .indicatorDelay = 0.5f,
     .directionChangeTime = 0,
