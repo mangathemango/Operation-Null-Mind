@@ -65,9 +65,39 @@ void Enemy_Init() {
     ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
 
-    // Sabot particle emitters - simplified to match Proxy's approach
+    // Sabot particle emitters
     SabotBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
     SabotMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
     SabotCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     SabotBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    
+    // Vantage particle emitters
+    VantageBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    VantageMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    VantageCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    VantageBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    
+    // Tactician particle emitters
+    TacticianBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    TacticianMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    TacticianCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    TacticianBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    
+    // Sentry particle emitters
+    SentryBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    SentryMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    SentryCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    SentryBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    
+    // Radius particle emitters
+    RadiusBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    RadiusMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    RadiusCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    RadiusBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    
+    // Juggernaut particle emitters
+    JuggernautBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    JuggernautMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+    JuggernautCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+    JuggernautBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
 }

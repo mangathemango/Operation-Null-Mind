@@ -1,25 +1,39 @@
 /**
  * @file enemy_radius.h
  * @brief This file contains the data for the Radius enemy type.
- *
- * @author Mango
- * @date 2025-03-22
  */
 
 #pragma once
 #include <enemy.h>
+#include <gun.h>
+
+extern ParticleEmitter* RadiusBulletEmitter;
+extern ParticleEmitter* RadiusBulletFragmentsEmitter;
+extern ParticleEmitter* RadiusMuzzleFlashEmitter;
+extern ParticleEmitter* RadiusCasingEmitter;
 
 typedef struct {
-    float aoeRadius;         // Radius of area-of-effect attacks
-    float explosionDamage;   // Damage of area-of-effect attacks
-    float chargeupTime;      // Time to charge up area attack
-    bool isCharging;         // Flag indicating if enemy is charging attack
-    float currentCharge;     // Current charge level (0.0-1.0)
+    float directionChangeTimer;
+    float directionChangeTime;
+    float shootTime;
+    float shootTimer;
+    GunData gun;
+    Vec2 gunOffset;
+    Vec2 lastPosition;
+    
+    // Radius-specific fields
+    float shotSpreadRadius;
+    float orbitDistance;
+    bool isOrbiting;
+    float orbitSpeed;
+    float orbitAngle;
 } RadiusConfig;
 
-void Radius_Start (EnemyData* data);
+void Radius_Start(EnemyData* data);
 void Radius_Update(EnemyData* data);
 void Radius_Render(EnemyData* data);
+void Radius_UpdateParticles();
+void Radius_RenderParticles();
 
 extern RadiusConfig RadiusConfigData;
 extern EnemyData RadiusData;

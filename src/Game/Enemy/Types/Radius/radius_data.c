@@ -12,19 +12,56 @@
 #include <enemy_radius.h>
 
 RadiusConfig RadiusConfigData = {
-    .aoeRadius = 120.0f,
-    .explosionDamage = 35.0f,
-    .chargeupTime = 2.0f,
-    .isCharging = false,
-    .currentCharge = 0.0f
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = {
+        .config = {
+            .muzzlePosition = {8, 3},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {2, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 500,
+            .spread_angle = 5,
+            .damage = 8,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 30,
+            .ammoConsumption = 1
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+            .frameSize = {8, 6},
+            .frameCount = 1,
+            .clips = {
+                {
+                    .name = "normal",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {8, 6},   
+            .defaultClip = "normal",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {0, -3},
+    .shotSpreadRadius = 15.0f,
+    .orbitDistance = 180.0f,
+    .isOrbiting = false,
+    .orbitSpeed = 100.0f,
+    .orbitAngle = 0.0f
 };
 
-/**
- * @brief [Data] Radius enemy default data
- * 
- * This structure defines the default properties, stats and
- * settings for the Radius enemy type.
- */
 EnemyData RadiusData = {
     .type = ENEMY_TYPE_RADIUS,
     .state = {
@@ -32,7 +69,7 @@ EnemyData RadiusData = {
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 30, 30},
+            .hitbox = {0, 0, 26, 26},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -43,23 +80,23 @@ EnemyData RadiusData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 20,
-        .maxHealth = 85,
-        .maxSpeed = 85.0f,
-        .acceleration = 420.0f,
-        .drag = 4.5f,
+        .damage = 12,
+        .maxHealth = 70,
+        .maxSpeed = 160.0f, // Faster than average for orbiting
+        .acceleration = 400.0f,
+        .drag = 3.0f,
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 2.5f,
     },
     .resources = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/radius.png",
-        .frameSize = {32, 32},
-        .frameCount = 3,
+        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .frameSize = {30, 40},
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -69,23 +106,16 @@ EnemyData RadiusData = {
                 .looping = true,
             },
             {
-                .name = "charging",
+                .name = "walkin",
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
-                .frameDuration = 0.0f,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
                 .looping = true,
-            },
-            {
-                .name = "explosion",
-                .startFrameIndex = 2,
-                .endFrameIndex = 2,
-                .frameDuration = 0.0f,
-                .looping = false,
             },
         },
         .playOnStart = true,
-        .defaultClip = "idle",
-        .spriteSize = {48, 48},
+        .defaultClip = "walkin",
+        .spriteSize = {30, 40},
     },
     .config = &RadiusConfigData,
     .start = &Radius_Start,

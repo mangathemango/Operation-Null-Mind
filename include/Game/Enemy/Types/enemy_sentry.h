@@ -1,25 +1,39 @@
 /**
  * @file enemy_sentry.h
  * @brief This file contains the data for the Sentry enemy type.
- *
- * @author Mango
- * @date 2025-03-22
  */
 
 #pragma once
 #include <enemy.h>
+#include <gun.h>
+
+extern ParticleEmitter* SentryBulletEmitter;
+extern ParticleEmitter* SentryBulletFragmentsEmitter;
+extern ParticleEmitter* SentryMuzzleFlashEmitter;
+extern ParticleEmitter* SentryCasingEmitter;
 
 typedef struct {
-    float guardRadius;       // Radius that the sentry will guard
-    float alertLevel;        // Current alert level (0.0-1.0)
-    float alertThreshold;    // Threshold at which sentry becomes alerted
-    bool isAlerted;          // Flag indicating if sentry is alerted
-    Vec2 guardPosition;      // Central position the sentry is guarding
+    float directionChangeTimer;
+    float directionChangeTime;
+    float shootTime;
+    float shootTimer;
+    GunData gun;
+    Vec2 gunOffset;
+    Vec2 lastPosition;
+    
+    // Sentry-specific fields
+    float guardRadius;
+    float alertLevel;
+    float alertThreshold;
+    bool isAlerted;
+    Vec2 guardPosition;
 } SentryConfig;
 
-void Sentry_Start (EnemyData* data);
+void Sentry_Start(EnemyData* data);
 void Sentry_Update(EnemyData* data);
 void Sentry_Render(EnemyData* data);
+void Sentry_UpdateParticles();
+void Sentry_RenderParticles();
 
 extern SentryConfig SentryConfigData;
 extern EnemyData SentryData;

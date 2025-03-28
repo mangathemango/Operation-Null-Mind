@@ -12,9 +12,52 @@
 #include <enemy_sentry.h>
 
 SentryConfig SentryConfigData = {
-    .guardRadius = 180.0f,
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = {
+        .config = {
+            .muzzlePosition = {8, 3},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {2, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 550,
+            .spread_angle = 1, // More accurate than proxy
+            .damage = 15,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 30,
+            .ammoConsumption = 1
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+            .frameSize = {8, 6},
+            .frameCount = 1,
+            .clips = {
+                {
+                    .name = "normal",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {8, 6},   
+            .defaultClip = "normal",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {0, -3},
+    .guardRadius = 250.0f,
     .alertLevel = 0.0f,
-    .alertThreshold = 0.7f,
+    .alertThreshold = 1.0f,
     .isAlerted = false,
     .guardPosition = {0, 0}
 };
@@ -32,7 +75,7 @@ EnemyData SentryData = {
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 28, 28},
+            .hitbox = {0, 0, 26, 26},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -45,40 +88,40 @@ EnemyData SentryData = {
     .stats = {
         .damage = 15,
         .maxHealth = 120,
-        .maxSpeed = 50.0f,
-        .acceleration = 200.0f,
-        .drag = 6.0f,
+        .maxSpeed = 50.0f, // Slower than other enemies
+        .acceleration = 300.0f,
+        .drag = 5.0f,
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 3.0f,
     },
     .resources = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/sentry.png",
-        .frameSize = {32, 32},
-        .frameCount = 2,
+        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .frameSize = {30, 40},
+        .frameCount = 7,
         .clips = {
             {
-                .name = "patrol",
+                .name = "idle",
                 .startFrameIndex = 0,
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
             },
             {
-                .name = "alerted",
+                .name = "walkin",
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
-                .frameDuration = 0.0f,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
                 .looping = true,
             },
         },
         .playOnStart = true,
-        .defaultClip = "patrol",
-        .spriteSize = {48, 48},
+        .defaultClip = "idle", // Sentries are mostly stationary
+        .spriteSize = {30, 40},
     },
     .config = &SentryConfigData,
     .start = &Sentry_Start,

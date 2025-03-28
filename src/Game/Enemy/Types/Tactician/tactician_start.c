@@ -12,6 +12,13 @@
 #include <enemy_tactician.h>
 #include <animation.h>
 #include <circle.h>
+#include <particle_emitterpresets.h>
+#include <random.h>
+
+ParticleEmitter* TacticianBulletEmitter;
+ParticleEmitter* TacticianMuzzleFlashEmitter;
+ParticleEmitter* TacticianCasingEmitter;
+ParticleEmitter* TacticianBulletFragmentsEmitter;
 
 /**
  * @brief [Start] Initializes a Tactician enemy instance
@@ -22,9 +29,20 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Tactician_Start(EnemyData* data) {
-    // Initialize animation resources
-    data->resources.animation = Animation_Create(&data->animData);
-    
-    // Set up config pointer
-    data->config = &TacticianConfigData;
+    data->config = malloc(sizeof(TacticianConfig));
+    memcpy(data->config, &TacticianConfigData, sizeof(TacticianConfig));
+    AnimationData animData = ((TacticianConfig*) data->config)->gun.animData;
+
+    ((TacticianConfig*) data->config)->lastPosition = data->state.position;
+    ((TacticianConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
+    ((TacticianConfig*) data->config)->directionChangeTimer = 3.0f;
+    ((TacticianConfig*) data->config)->shootTime = RandFloat(
+        data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+    );
+    GunData* gun = &((TacticianConfig*) data->config)->gun;
+    gun->resources.animation = Animation_Create(&animData);
+    gun->resources.bulletPreset = TacticianBulletEmitter;
+    gun->resources.casingParticleEmitter = TacticianCasingEmitter;
+    gun->resources.muzzleFlashEmitter = TacticianMuzzleFlashEmitter;
+    gun->resources.bulletFragmentEmitter = TacticianBulletFragmentsEmitter;
 }

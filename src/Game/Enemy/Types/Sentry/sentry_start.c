@@ -12,6 +12,13 @@
 #include <enemy_sentry.h>
 #include <animation.h>
 #include <circle.h>
+#include <particle_emitterpresets.h>
+#include <random.h>
+
+ParticleEmitter* SentryBulletEmitter;
+ParticleEmitter* SentryMuzzleFlashEmitter;
+ParticleEmitter* SentryCasingEmitter;
+ParticleEmitter* SentryBulletFragmentsEmitter;
 
 /**
  * @brief [Start] Initializes a Sentry enemy instance
@@ -22,13 +29,21 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Sentry_Start(EnemyData* data) {
-    // Initialize animation resources
-    data->resources.animation = Animation_Create(&data->animData);
-    
-    // Set up config pointer
-    data->config = &SentryConfigData;
-    
-    // Save initial position as guard position
-    SentryConfig* config = (SentryConfig*)data->config;
-    config->guardPosition = data->state.position;
+    data->config = malloc(sizeof(SentryConfig));
+    memcpy(data->config, &SentryConfigData, sizeof(SentryConfig));
+    AnimationData animData = ((SentryConfig*) data->config)->gun.animData;
+
+    ((SentryConfig*) data->config)->lastPosition = data->state.position;
+    ((SentryConfig*) data->config)->guardPosition = data->state.position;
+    ((SentryConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
+    ((SentryConfig*) data->config)->directionChangeTimer = 3.0f;
+    ((SentryConfig*) data->config)->shootTime = RandFloat(
+        data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+    );
+    GunData* gun = &((SentryConfig*) data->config)->gun;
+    gun->resources.animation = Animation_Create(&animData);
+    gun->resources.bulletPreset = SentryBulletEmitter;
+    gun->resources.casingParticleEmitter = SentryCasingEmitter;
+    gun->resources.muzzleFlashEmitter = SentryMuzzleFlashEmitter;
+    gun->resources.bulletFragmentEmitter = SentryBulletFragmentsEmitter;
 }

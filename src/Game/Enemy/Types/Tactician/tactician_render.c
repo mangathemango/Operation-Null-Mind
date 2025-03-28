@@ -1,24 +1,35 @@
 /**
  * @file tactician_render.c
  * @brief Renders Tactician enemy type
- *
- * Handles the visual presentation of Tactician enemies.
- * 
- * @author Mango
- * @date 2025-03-22
  */
 
 #include <enemy_tactician.h>
 #include <camera.h>
 #include <app.h>
+#include <circle.h>
 
-/**
- * @brief [Render] Renders the Tactician enemy
- * 
- * This function handles the rendering of the Tactician enemy type.
- * 
- * @param data Pointer to the enemy data structure
- */
 void Tactician_Render(EnemyData* data) {
-    // Rendering will be implemented later
+    TacticianConfig *config = (TacticianConfig*)data->config;
+    if (!config) return;
+    GunData *gun = &config->gun;
+
+    // Optionally render command radius if actively commanding
+    if (config->isCommanding) {
+        // Draw command radius visualization
+    }
+
+    Animation_Render(gun->resources.animation, 
+        Camera_WorldVecToScreen(gun->state.position), 
+        gun->animData.spriteSize,
+        gun->state.angle,
+        &gun->state.rotationCenter,
+        gun->state.flip);
+}
+
+void Tactician_RenderParticles() {
+    if (!TacticianBulletEmitter) return;
+    ParticleEmitter_Render(TacticianBulletEmitter);
+    ParticleEmitter_Render(TacticianMuzzleFlashEmitter);
+    ParticleEmitter_Render(TacticianCasingEmitter);
+    ParticleEmitter_Render(TacticianBulletFragmentsEmitter);
 }

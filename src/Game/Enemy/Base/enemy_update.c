@@ -41,7 +41,11 @@ void Enemy_Update() {
     if (KamikazeExplosionEmitter) ParticleEmitter_Update(KamikazeExplosionEmitter);
     Proxy_UpdateParticles();
     Sabot_UpdateParticles();
-    
+    Vantage_UpdateParticles();
+    Tactician_UpdateParticles();
+    Sentry_UpdateParticles();
+    Radius_UpdateParticles();
+    Juggernaut_UpdateParticles();
 }
 
 /**

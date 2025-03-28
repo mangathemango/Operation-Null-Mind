@@ -12,6 +12,13 @@
 #include <enemy_juggernaut.h>
 #include <animation.h>
 #include <circle.h>
+#include <particle_emitterpresets.h>
+#include <random.h>
+
+ParticleEmitter* JuggernautBulletEmitter;
+ParticleEmitter* JuggernautMuzzleFlashEmitter;
+ParticleEmitter* JuggernautCasingEmitter;
+ParticleEmitter* JuggernautBulletFragmentsEmitter;
 
 /**
  * @brief [Start] Initializes a Juggernaut enemy instance
@@ -22,9 +29,21 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Juggernaut_Start(EnemyData* data) {
-    // Initialize animation resources
-    data->resources.animation = Animation_Create(&data->animData);
+    data->config = malloc(sizeof(JuggernautConfig));
+    memcpy(data->config, &JuggernautConfigData, sizeof(JuggernautConfig));
+    AnimationData animData = ((JuggernautConfig*) data->config)->gun.animData;
+
+    ((JuggernautConfig*) data->config)->lastPosition = data->state.position;
+    ((JuggernautConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
+    ((JuggernautConfig*) data->config)->directionChangeTimer = 3.0f;
+    ((JuggernautConfig*) data->config)->shootTime = RandFloat(
+        data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+    );
     
-    // Set up config pointer
-    data->config = &JuggernautConfigData;
+    GunData* gun = &((JuggernautConfig*) data->config)->gun;
+    gun->resources.animation = Animation_Create(&animData);
+    gun->resources.bulletPreset = JuggernautBulletEmitter;
+    gun->resources.casingParticleEmitter = JuggernautCasingEmitter;
+    gun->resources.muzzleFlashEmitter = JuggernautMuzzleFlashEmitter;
+    gun->resources.bulletFragmentEmitter = JuggernautBulletFragmentsEmitter;
 }

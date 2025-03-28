@@ -101,7 +101,8 @@
     "math.h": "c",
     "enemy_proxy.h": "c",
     "enemy.h": "c",
-    "enemy_types.h": "c"
+    "enemy_types.h": "c",
+    "enemy_vantage.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 

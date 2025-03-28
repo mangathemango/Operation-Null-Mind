@@ -80,4 +80,9 @@ void Enemy_Render() {
     if (KamikazeExplosionEmitter) ParticleEmitter_Render(KamikazeExplosionEmitter);
     Proxy_RenderParticles();
     Sabot_RenderParticles();
+    Vantage_RenderParticles();
+    Tactician_RenderParticles();
+    Sentry_RenderParticles();
+    Radius_RenderParticles();
+    Juggernaut_RenderParticles();
 }

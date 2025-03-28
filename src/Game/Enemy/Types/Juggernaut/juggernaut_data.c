@@ -12,11 +12,55 @@
 #include <enemy_juggernaut.h>
 
 JuggernautConfig JuggernautConfigData = {
-    .armorValue = 0.5f,
-    .slowFactor = 0.7f,
-    .rageMeter = 0.0f,
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = {
+        .config = {
+            .muzzlePosition = {8, 3},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {2, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 300,
+            .spread_angle = 8,
+            .damage = 20,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 40,
+            .ammoConsumption = 1
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+            .frameSize = {8, 6},
+            .frameCount = 1,
+            .clips = {
+                {
+                    .name = "normal",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {8, 6},   
+            .defaultClip = "normal",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {0, -3},
+    .armorValue = 0.25f,         // Reduces damage taken by 25%
+    .chargeDistance = 200.0f,    // Distance at which to consider charging
+    .rageThreshold = 0.4f,       // Enrages at 40% health
     .isEnraged = false,
-    .enrageThreshold = 75.0f
+    .stampedeDuration = 1.5f,
+    .stampedeTimer = 0
 };
 
 /**
@@ -32,7 +76,7 @@ EnemyData JuggernautData = {
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 40, 40},
+            .hitbox = {0, 0, 38, 38},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -43,23 +87,23 @@ EnemyData JuggernautData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 35,
+        .damage = 30,
         .maxHealth = 200,
-        .maxSpeed = 60.0f,
+        .maxSpeed = 80.0f,      // Slow but powerful
         .acceleration = 250.0f,
-        .drag = 8.0f,
+        .drag = 2.0f,
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 5.0f,  // Long base cooldown
     },
     .resources = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/juggernaut.png",
-        .frameSize = {48, 48},
-        .frameCount = 2,
+        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .frameSize = {30, 40},
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -69,16 +113,23 @@ EnemyData JuggernautData = {
                 .looping = true,
             },
             {
-                .name = "enraged",
+                .name = "walkin",
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
+                .looping = true,
+            },
+            {
+                .name = "attack",
+                .startFrameIndex = 2,
+                .endFrameIndex = 2,
                 .frameDuration = 0.0f,
                 .looping = true,
             },
         },
         .playOnStart = true,
         .defaultClip = "idle",
-        .spriteSize = {64, 64},
+        .spriteSize = {30, 40},
     },
     .config = &JuggernautConfigData,
     .start = &Juggernaut_Start,

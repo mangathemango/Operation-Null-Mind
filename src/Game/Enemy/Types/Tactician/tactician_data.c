@@ -12,6 +12,49 @@
 #include <enemy_tactician.h>
 
 TacticianConfig TacticianConfigData = {
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = {
+        .config = {
+            .muzzlePosition = {8, 3},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {2, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 450,
+            .spread_angle = 3,
+            .damage = 10,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 30,
+            .ammoConsumption = 1
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+            .frameSize = {8, 6},
+            .frameCount = 1,
+            .clips = {
+                {
+                    .name = "normal",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {8, 6},   
+            .defaultClip = "normal",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {0, -3},
     .commandRadius = 200.0f,
     .buffStrength = 1.25f,
     .maxControlledUnits = 5,
@@ -51,15 +94,15 @@ EnemyData TacticianData = {
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 4.0f,
     },
     .resources = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/tactician.png",
-        .frameSize = {30, 34},
-        .frameCount = 2,
+        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .frameSize = {30, 40},
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -69,16 +112,16 @@ EnemyData TacticianData = {
                 .looping = true,
             },
             {
-                .name = "commanding",
+                .name = "walkin",
                 .startFrameIndex = 1,
-                .endFrameIndex = 1,
-                .frameDuration = 0.0f,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
                 .looping = true,
             },
         },
         .playOnStart = true,
-        .defaultClip = "idle",
-        .spriteSize = {40, 44},
+        .defaultClip = "walkin",
+        .spriteSize = {30, 40},
     },
     .config = &TacticianConfigData,
     .start = &Tactician_Start,
