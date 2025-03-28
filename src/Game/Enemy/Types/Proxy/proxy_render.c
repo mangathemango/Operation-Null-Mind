@@ -33,4 +33,8 @@ void Proxy_Render(EnemyData* data) {
         gun->state.angle,
         &gun->state.rotationCenter,
         gun->state.flip);
+
+    ParticleEmitter_Render(gun->resources.casingParticleEmitter);
+    ParticleEmitter_Render(gun->resources.muzzleFlashEmitter);
+    ParticleEmitter_Render(gun->resources.bulletPreset);
 }

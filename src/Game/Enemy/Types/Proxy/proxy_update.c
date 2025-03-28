@@ -87,6 +87,12 @@ void Proxy_UpdateGun(EnemyData* data) {
         );
         ParticleEmitter_Update(gun->resources.muzzleFlashEmitter);
     }
+
+    if (gun->resources.bulletPreset) {
+        gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
+        gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;
+        ParticleEmitter_Update(gun->resources.bulletPreset);
+    }
 }
 
 /**
@@ -120,9 +126,11 @@ void Proxy_Update(EnemyData* data) {
         Enemy_HandleDeath(data);
         return;
     }
-
+        
     config->gun.state.position = data->state.position;
-    
+    data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    Proxy_UpdateGun(data);
+
     config->directionChangeTimer += Time->deltaTimeSeconds;
     if (config->directionChangeTimer >= config->directionChangeTime) {
         config->directionChangeTime = RandFloat(0.5f, 1.0f);
@@ -130,10 +138,14 @@ void Proxy_Update(EnemyData* data) {
         data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
 
         if (Vec2_Distance(player.state.position, data->state.position) > 150) {
-            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-45, 45));
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
         } else {
             data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
         }
+
+        ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
+        ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
+        ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
     }
 
     if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
@@ -142,6 +154,4 @@ void Proxy_Update(EnemyData* data) {
         Animation_Play(config->gun.resources.animation, "walkin");
     }
     config->lastPosition = data->state.position;
-    data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    Proxy_UpdateGun(data);
 }

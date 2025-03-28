@@ -312,6 +312,58 @@ ParticleEmitter ParticleEmitter_BulletDefault = {
 };
 
 /** 
+ * @brief Default bullet particle emitter preset
+ * Base configuration for all projectiles in the game
+ */
+ParticleEmitter ParticleEmitter_BulletEnemy = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0,
+    .emissionNumber = 1,
+    .maxParticles = 1000,
+    .angleRange = 10,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 5,
+    .particleSpeed = 200,
+    .custom_Movement = NULL,
+
+    .startColor = {255, 0, 0, 255},
+    .endColor = {255, 0, 0, 255},
+    .startSize = {3,3},
+    .endSize = {3, 3},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+
+    .useCollider = true,
+    .collider = {
+        .layer = COLLISION_LAYER_PLAYER_PROJECTILE,
+        .collidesWith = 
+            COLLISION_LAYER_ENVIRONMENT |
+            COLLISION_LAYER_ENEMY |
+            COLLISION_LAYER_ENEMY_PROJECTILE,
+        .hitbox = {
+            .x = 0,
+            .y = 0,
+            .w = 6,
+            .h = 6
+        }
+    },
+};
+
+/** 
  * @brief Bullet impact fragment particle preset
  * Creates sparks and fragments when bullets hit surfaces
  */
