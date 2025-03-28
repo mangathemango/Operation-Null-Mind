@@ -13,6 +13,7 @@
 #include <app.h>
 #include <stdbool.h>
 #include <input.h>
+#include <sound.h>
 
 static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
@@ -34,6 +35,7 @@ void Menu_PrepareTextures() {
     title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
     startButtonElement = UI_CreateText("start",(SDL_Rect) {30, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     exitButtonElement = UI_CreateText("exit",  (SDL_Rect) {30, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
 }
 
 /**
@@ -57,6 +59,7 @@ void Menu_Update() {
 
     if (Input_MouseIsOnRect(startButtonRect) && Input->mouse.leftButton.pressed) {
         app.state.currentScene = SCENE_GAME;
+        Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
     }
 
     if (Input_MouseIsOnRect(exitButtonRect)) {
