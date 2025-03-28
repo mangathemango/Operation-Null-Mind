@@ -83,7 +83,23 @@ void EnemyManager_Update() {
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                Enemy_Spawn(*enemyList[RandInt(ENEMY_TYPE_KAMIKAZE, ENEMY_TYPE_PROXY)],spawnPosition);
+                EnemyType spawnedEnemy = RandInt(ENEMY_TYPE_KAMIKAZE, ENEMY_TYPE_PROXY);
+                int currentTime = SDL_GetTicks();
+                Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
+                int elapsedTime = SDL_GetTicks() - currentTime;
+
+                char enemyName[20];
+                if (spawnedEnemy == ENEMY_TYPE_ECHO) strcpy(enemyName, "Echo");
+                else if (spawnedEnemy == ENEMY_TYPE_KAMIKAZE) strcpy(enemyName, "Kamikaze");
+                else if (spawnedEnemy == ENEMY_TYPE_RECHARGE) strcpy(enemyName, "Recharge");
+                else if (spawnedEnemy == ENEMY_TYPE_PROXY) strcpy(enemyName, "Proxy");
+                else if (spawnedEnemy == ENEMY_TYPE_SABOT) strcpy(enemyName, "Sabot");
+                else if (spawnedEnemy == ENEMY_TYPE_VANTAGE) strcpy(enemyName, "Vantage");
+                else if (spawnedEnemy == ENEMY_TYPE_TACTICIAN) strcpy(enemyName, "Tactician");
+                else if (spawnedEnemy == ENEMY_TYPE_RADIUS) strcpy(enemyName, "Radius");
+                else if (spawnedEnemy == ENEMY_TYPE_JUGGERNAUT) strcpy(enemyName, "Juggernaut");
+                else if (spawnedEnemy == ENEMY_TYPE_SENTRY) strcpy(enemyName, "Sentry");
+                SDL_Log("Spawned %s, took %d ms", enemyName, elapsedTime);
             }
         } else {
             // Ends the combat if player has killed enough enemies

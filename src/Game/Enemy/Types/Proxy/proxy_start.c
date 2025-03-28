@@ -29,12 +29,6 @@ ParticleEmitter* ProxyBulletFragmentsEmitter;
  * @param data Pointer to the enemy data structure to initialize
  */
 void Proxy_Start(EnemyData* data) {
-    if (!ProxyBulletEmitter) {
-        ProxyBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
-        ProxyMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
-        ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
-        ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
-    }
     // Set up config pointer
     data->config = malloc(sizeof(ProxyConfig));
     memcpy(data->config, &ProxyConfigData, sizeof(ProxyConfig));

@@ -24,13 +24,7 @@ ParticleEmitter* KamikazeExplosionEmitter = NULL;
  * 
  * @param data Pointer to the enemy data structure to initialize
  */
-void Kamikaze_Start(EnemyData* data) {
-    KamikazeConfigData.explosionIndicator = CreateCircleTexture(
-        KamikazeConfigData.explosionRadius,
-        (SDL_Color){255, 0, 0, 255}
-    );
-    if (!KamikazeExplosionEmitter) 
-        KamikazeExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);
+void Kamikaze_Start(EnemyData* data) {        
     data->config = malloc(sizeof(KamikazeConfig));
     *(KamikazeConfig*)data->config = KamikazeConfigData;
 }

@@ -26,7 +26,6 @@
 void Enemy_Spawn(EnemyData data, Vec2 position) {
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (!enemies[i].state.isDead) continue;
-        SDL_Log("Spawning enemy at index %d", i);
         EnemyData* enemy = &enemies[i];
         memcpy(enemy, &data, sizeof(EnemyData));
 

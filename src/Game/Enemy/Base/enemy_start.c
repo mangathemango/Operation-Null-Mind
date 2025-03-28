@@ -12,6 +12,7 @@
 #include <enemy.h>
 #include <enemy_types.h>
 #include <app.h>
+#include <circle.h>
 
 /**
  * @brief [Data] Global arrays for enemy storage and spawn indicator texture
@@ -49,4 +50,16 @@ void Enemy_Init() {
     enemyList[ENEMY_TYPE_RADIUS] = &RadiusData;
     enemyList[ENEMY_TYPE_JUGGERNAUT] = &JuggernautData;
     enemyList[ENEMY_TYPE_SENTRY] = &SentryData;
+
+
+    KamikazeConfigData.explosionIndicator = CreateCircleTexture(
+        KamikazeConfigData.explosionRadius,
+        (SDL_Color){255, 0, 0, 255}
+    );
+
+    KamikazeExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);
+    ProxyBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+        ProxyMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+        ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+        ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
 }
