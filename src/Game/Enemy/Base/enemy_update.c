@@ -39,6 +39,7 @@ void Enemy_Update() {
         if (enemy->state.currentHealth <= 0) Enemy_HandleDeath(enemy);
     }
     if (KamikazeExplosionEmitter) ParticleEmitter_Update(KamikazeExplosionEmitter);
+    Proxy_UpdateParticles();
     
 }
 

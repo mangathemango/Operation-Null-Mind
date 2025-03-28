@@ -15,6 +15,11 @@
 #include <particle_emitterpresets.h>
 #include <random.h>
 
+ParticleEmitter* ProxyBulletEmitter;
+ParticleEmitter* ProxyMuzzleFlashEmitter;
+ParticleEmitter* ProxyCasingEmitter;
+ParticleEmitter* ProxyBulletFragmentsEmitter;
+
 /**
  * @brief [Start] Initializes a Proxy enemy instance
  * 
@@ -24,6 +29,12 @@
  * @param data Pointer to the enemy data structure to initialize
  */
 void Proxy_Start(EnemyData* data) {
+    if (!ProxyBulletEmitter) {
+        ProxyBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+        ProxyMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
+        ProxyCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
+        ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    }
     // Set up config pointer
     data->config = malloc(sizeof(ProxyConfig));
     memcpy(data->config, &ProxyConfigData, sizeof(ProxyConfig));
@@ -35,16 +46,12 @@ void Proxy_Start(EnemyData* data) {
     GunData* gun = &((ProxyConfig*) data->config)->gun;
     gun->resources.animation = Animation_Create(&animData);
 
-    gun->resources.bulletPreset = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
-    gun->resources.bulletPreset->selfReference = &gun->resources.bulletPreset;
+    gun->resources.bulletPreset = ProxyBulletEmitter;
 
-    gun->resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
-    gun->resources.casingParticleEmitter->selfReference = &gun->resources.casingParticleEmitter;
+    gun->resources.casingParticleEmitter = ProxyCasingEmitter;
 
-    gun->resources.muzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
-    gun->resources.muzzleFlashEmitter->selfReference = &gun->resources.muzzleFlashEmitter;
+    gun->resources.muzzleFlashEmitter = ProxyMuzzleFlashEmitter;
 
-    gun->resources.bulletFragmentEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
-    gun->resources.bulletFragmentEmitter->selfReference = &gun->resources.bulletFragmentEmitter;
+    gun->resources.bulletFragmentEmitter = ProxyBulletFragmentsEmitter;
     // Additional initialization will be implemented later
 }

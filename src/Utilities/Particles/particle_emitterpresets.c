@@ -331,13 +331,13 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
     .destroyWhenDone = false,
 
     .particleLifetime = 5,
-    .particleSpeed = 200,
+    .particleSpeed = 100,
     .custom_Movement = NULL,
 
     .startColor = {255, 0, 0, 255},
     .endColor = {255, 0, 0, 255},
-    .startSize = {3,3},
-    .endSize = {3, 3},
+    .startSize = {7, 7},
+    .endSize = {7, 7},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
@@ -352,8 +352,7 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
         .layer = COLLISION_LAYER_PLAYER_PROJECTILE,
         .collidesWith = 
             COLLISION_LAYER_ENVIRONMENT |
-            COLLISION_LAYER_ENEMY |
-            COLLISION_LAYER_ENEMY_PROJECTILE,
+            COLLISION_LAYER_PLAYER ,
         .hitbox = {
             .x = 0,
             .y = 0,

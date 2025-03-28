@@ -10,6 +10,10 @@
 #include <enemy.h>
 #include <gun.h>
 
+extern ParticleEmitter* ProxyBulletEmitter;
+extern ParticleEmitter* ProxyBulletFragmentsEmitter;
+extern ParticleEmitter* ProxyMuzzleFlashEmitter;
+extern ParticleEmitter* ProxyCasingEmitter;
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
@@ -21,6 +25,8 @@ typedef struct {
 void Proxy_Start (EnemyData* data);
 void Proxy_Update(EnemyData* data);
 void Proxy_Render(EnemyData* data);
+void Proxy_UpdateParticles();
+void Proxy_RenderParticles();
 
 extern ProxyConfig ProxyConfigData;
 extern EnemyData ProxyData;
