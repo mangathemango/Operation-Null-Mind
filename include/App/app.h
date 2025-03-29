@@ -8,11 +8,14 @@
 
 #pragma once
 
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdbool.h>
 #include <debug.h>
+
+typedef bool flag;
 
 #include <gun.h>
 #include <player.h>

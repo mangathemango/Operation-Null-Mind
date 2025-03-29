@@ -20,6 +20,7 @@ void LevelTransition_Start() {
         UI_TEXT_ALIGN_CENTER,
         app.resources.textFont
     );
+    currentOffset = -app.config.screen_height;
 }
 
 void LevelTransition_Update() {

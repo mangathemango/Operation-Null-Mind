@@ -5,9 +5,12 @@
 #include <SDL_ttf.h>
 #include <gun.h>
 #include <UI_text.h>
+#include <app.h>
 
 #define MAX_INTERACTABLES 100
 
+extern flag hasInteraction;
+extern UIElement* interactionText;
 typedef enum {
     INTERACTABLE_WEAPONCRATEOPEN,
     INTERACTABLE_WEAPONCRATECLOSED,
