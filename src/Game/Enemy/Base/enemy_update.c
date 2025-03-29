@@ -187,10 +187,9 @@ void Enemy_HandleDeath(EnemyData* enemy) {
     enemy->state.isDead = true;
     Collider_Reset(&enemy->state.collider);
     enemy->config = NULL;
-    if (RandBool()) {
-        player.state.currentAmmo += 10;
-        if (player.state.currentAmmo > player.stats.maxAmmo) {
-            player.state.currentAmmo = player.stats.maxAmmo;
-        }
+    player.state.currentAmmo += 10;
+    if (player.state.currentAmmo > player.stats.maxAmmo) {
+        player.state.currentAmmo = player.stats.maxAmmo;
     }
+    
 }
