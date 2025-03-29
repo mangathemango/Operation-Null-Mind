@@ -225,7 +225,7 @@ void Debug_RenderCurrentChunk() {
             nextChunkY = testMap.mainPath[i+1].y;
         }
     }   
-    sprintf(text, "Current Chunk: (%d,%d) - Next Chunk (%d,%d)", ChunkX, ChunkY, nextChunkX, nextChunkY);
+    sprintf(text, "Player Position: (%d,%d)", (int) player.state.position.x, (int) player.state.position.y);
 
     if (!spikeTextElement) {
         // Create text element if it doesn't exist 

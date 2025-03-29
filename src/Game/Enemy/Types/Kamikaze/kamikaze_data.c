@@ -29,6 +29,7 @@ KamikazeConfig KamikazeConfigData = {
  */
 EnemyData KamikazeData = {
     .type = ENEMY_TYPE_KAMIKAZE,
+    .name = "Kamikaze",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
@@ -60,8 +61,8 @@ EnemyData KamikazeData = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/kamikaze.png",
-        .frameSize = {46, 40},
-        .frameCount = 28,
+        .frameSize = {30, 30},
+        .frameCount = 1,
         .clips = {
             {
                 .name = "idle",
@@ -69,25 +70,11 @@ EnemyData KamikazeData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
-            },
-            {
-                .name = "move",
-                .startFrameIndex = 0,
-                .endFrameIndex = 7,
-                .frameDuration = 0.1f,
-                .looping = true,
-            },
-            {
-                .name = "explode",
-                .startFrameIndex = 8,
-                .endFrameIndex = 27,
-                .frameDuration = 0.05f,
-                .looping = false,
             }
         },
         .playOnStart = true,
-        .defaultClip = "move",
-        .spriteSize = {23, 20},
+        .defaultClip = "idle",
+        .spriteSize = {30, 30},
     },
     .config = NULL,
     .start = &Kamikaze_Start,

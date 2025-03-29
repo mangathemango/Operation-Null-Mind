@@ -5,14 +5,17 @@
 #include <SDL_ttf.h>
 #include <gun.h>
 #include <UI_text.h>
+#include <app.h>
 
 #define MAX_INTERACTABLES 100
 
+extern flag hasInteraction;
+extern UIElement* interactionText;
 typedef enum {
     INTERACTABLE_WEAPONCRATEOPEN,
     INTERACTABLE_WEAPONCRATECLOSED,
     INTERACTABLE_LOG,
-    // INTERACTABLE_EXIT,
+    INTERACTABLE_EXIT,
     INTERACTABLE_WEAPON,
     INTERACTABLE_COUNT
 } InteractableType;
@@ -51,6 +54,7 @@ void Interactable_CreateLog(int logIndex, Vec2 position);
 void Interactable_Start();
 void Interactable_Update();
 void Interactable_Render();
+void Interactable_RenderEndRoom();
 void Interactable_RenderInteractionText();
 void Interactable_Reset();
 void Interactable_Deactivate(int index);

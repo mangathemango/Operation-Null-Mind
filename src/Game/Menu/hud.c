@@ -4,6 +4,7 @@
 #include <string.h>
 #include <minimap.h>
 #include <stdio.h>
+#include <interactable.h>
 
 static SDL_Texture* healthTexture;
 static SDL_Texture* ammoTexture;
@@ -169,9 +170,8 @@ void HUD_RenderCurrentGun() {
 
 void HUD_RenderAmmoDisplay() {
     static UIElement* ammoTextElement = NULL;
-    char ammoText[3];
+    char ammoText[4] = "--";
     int currentAmmo = player.state.currentGun.state.currentAmmo;
-    sprintf(ammoText, "%02d", currentAmmo);
     if (!ammoTextElement) {
         ammoTextElement = UI_CreateText(
             ammoText, 
@@ -281,4 +281,7 @@ void HUD_Render() {
     HUD_RenderCurrentGun();
     HUD_RenderCurrentLevel();
     HUD_RenderAmmoDisplay();
+    if (hasInteraction) {
+        UI_RenderText(interactionText);
+    }
 }

@@ -97,6 +97,16 @@ void EnemyManager_Update() {
         }
     }
 
+    static float funnyTimer = 0;
+    if (chunk->inCombat && player.state.currentAmmo <= player.state.currentGun.stats.ammoConsumption) {
+        funnyTimer += Time->deltaTimeSeconds;
+        if (funnyTimer >= 0.5f) {
+            Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
+            Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], spawnPosition);
+            funnyTimer = 0;
+        }
+    }
+
     if (chunk->currentEnemyCount <= 0 && chunk->totalEnemyCount <= 0 && !chunk->inCombat) {
         chunk->discovered = true;
     }
