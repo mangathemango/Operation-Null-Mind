@@ -52,13 +52,22 @@ int Player_Dash() {
  */
 int Player_HandleDash() {
     // Ends the dash state when the timer is finished
-    if (Timer_IsFinished(player.resources.dashDurationTimer))
+    ColliderCheckResult result;
+    Collider_Check(&player.state.collider, &result);
+    bool insideEnemy = false;
+    for (int i = 0; i < result.count; i++){
+        if (result.objects[i]->layer & COLLISION_LAYER_ENEMY){
+            insideEnemy = true;
+            break;
+        }
+    }
+    if (Timer_IsFinished(player.resources.dashDurationTimer) && !insideEnemy)
     {
         player.state.dashing = false; //Just unchecks dashing
         player.state.directionLocked = false; //Just unchecks movementlock
         return 0;
     }
-
+    if (Timer_IsFinished(player.resources.dashDurationTimer) && insideEnemy) player.state.directionLocked = false;
     // Update dash particles
     float timeLeft = Timer_GetTimeLeft(player.resources.dashDurationTimer) / player.stats.dashDuration;
     player.resources.dashParticleEmitter->position = player.state.position;
@@ -67,6 +76,5 @@ int Player_HandleDash() {
     ParticleEmitter_ActivateOnce(player.resources.dashParticleEmitter);
 
     player.state.currentSpeed = player.stats.dashSpeed;
-
     return 0;
 }
