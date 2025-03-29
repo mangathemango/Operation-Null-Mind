@@ -1,10 +1,25 @@
 #include <game.h>
+#include <stdio.h>
 
 SDL_Texture* LevelTransition_background = NULL;
+UIElement* LevelNumberText = NULL;
 static float currentOffset = 0;
 static float targetOffset = 0;
 void LevelTransition_Start() {
     targetOffset = app.config.screen_height;
+    LevelNumberText = UI_CreateText(
+        "1",
+        (SDL_Rect) {
+            app.config.screen_width / 2, 
+            app.config.screen_height / 2, 
+            app.config.screen_width, 
+            app.config.screen_height
+        },
+        (SDL_Color) {255, 255, 255, 255}, 
+        5.0f,
+        UI_TEXT_ALIGN_CENTER,
+        app.resources.textFont
+    );
 }
 
 void LevelTransition_Update() {
@@ -13,7 +28,14 @@ void LevelTransition_Update() {
     } else {
         targetOffset = -app.config.screen_height;
     }
-    currentOffset += (targetOffset - currentOffset) * 0.1f;
+    currentOffset += (targetOffset - currentOffset) * 5 * Time->deltaTimeSeconds;
+
+    char levelText[10] = "0";
+    snprintf(levelText, sizeof(levelText), "%d", game.currentStage);
+
+    LevelNumberText->rect.y = currentOffset + app.config.screen_height / 2 - LevelNumberText->textureSize.h / 2; 
+    UI_ChangeText(LevelNumberText, levelText);
+    UI_UpdateText(LevelNumberText);
 }
 
 void LevelTransition_Render() {
@@ -28,4 +50,6 @@ void LevelTransition_Render() {
         app.config.screen_height
     };
     SDL_RenderFillRect(app.resources.renderer, &dest);
+
+    UI_RenderText(LevelNumberText);
 }

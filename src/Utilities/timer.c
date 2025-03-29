@@ -44,6 +44,7 @@ Timer* Timer_Create(float duration) {
  */
 void Timer_Start(Timer *timer) {
     timer->startTime = Time->programElapsedTimeSeconds;
+    timer->elapsedTime = 0;
     timer->inProgress = true;
     timer->finished = false;
 }
