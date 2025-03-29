@@ -37,7 +37,7 @@ void Kamikaze_Update(EnemyData* data) {
                 Player_TakeDamage(data->stats.damage);
             }
 
-            Sound_Play_Effect(SOUND_VINE_BOOM);
+            Sound_Play_Effect(SOUND_EXPLOSION);
             free(data->config);
             Enemy_HandleDeath(data);
             return;

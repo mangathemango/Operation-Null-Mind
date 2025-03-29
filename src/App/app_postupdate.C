@@ -52,7 +52,7 @@ int App_PostUpdate() {
             }
             if(player.state.currentHealth <= 0) {
                 app.state.currentScene = SCENE_DEATH;
-                Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
+                Sound_Play_Music("Assets/Audio/Music/return0 lofi death music BEGINNING.wav", 1);
                 Game_Restart();
             }
             break;
