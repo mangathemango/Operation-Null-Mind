@@ -17,9 +17,9 @@ VantageConfig VantageConfigData = {
     .shootTimer = 0,
     .gun = {
         .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
+            .muzzlePosition = {25, 5},
+            .ejectionPosition = {9, 4},
+            .gripPosition = {9, 6},
         },
         .state = {
             .position = {0, 0},
@@ -37,8 +37,8 @@ VantageConfig VantageConfigData = {
             .ammoConsumption = 1
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
-            .frameSize = {8, 6},
+            .spritesheetPath = "Assets/Images/Enemies/vantage_gun.png",
+            .frameSize = {25, 9},
             .frameCount = 1,
             .clips = {
                 {
@@ -49,7 +49,7 @@ VantageConfig VantageConfigData = {
                     .looping = false
                 }
             },
-            .spriteSize = {8, 6},   
+            .spriteSize = {25, 9},   
             .defaultClip = "normal",
             .playOnStart = true
         }
