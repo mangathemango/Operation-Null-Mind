@@ -17,9 +17,9 @@ RadiusConfig RadiusConfigData = {
     .shootTimer = 0,
     .gun = {
         .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
+            .muzzlePosition = {21, 3},
+            .ejectionPosition = {7, 2},
+            .gripPosition = {8, 5},
         },
         .state = {
             .position = {0, 0},
@@ -37,8 +37,8 @@ RadiusConfig RadiusConfigData = {
             .ammoConsumption = 1
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
-            .frameSize = {8, 6},
+            .spritesheetPath = "Assets/Images/Enemies/radius_gun.png",
+            .frameSize = {21, 8},
             .frameCount = 1,
             .clips = {
                 {
@@ -49,7 +49,7 @@ RadiusConfig RadiusConfigData = {
                     .looping = false
                 }
             },
-            .spriteSize = {8, 6},   
+            .spriteSize = {21, 8},   
             .defaultClip = "normal",
             .playOnStart = true
         }
