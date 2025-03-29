@@ -20,17 +20,17 @@ Pretty easy, just click on build/Operation-Null-Mind.exe
 
 ## Controls:
 
-WASD - Move character
+WASD/Arrows - Move character
 
 Esc - Pause
 
-F - Interact (Pressing F in the middle of a blue room enters a new level)
+E - Interact 
+Q - Switch weapon
 
 Left click - Shoot
 
-1 2 3 4 5 -  Switch weapons (for now)
-
 Shift  - Skill 1 (Dash)
+Ctrl   - Skill 2 (Crashout)
 
 ## How to install & compile for Windows
 
