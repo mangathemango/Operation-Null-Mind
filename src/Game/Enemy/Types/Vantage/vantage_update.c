@@ -226,7 +226,7 @@ void Vantage_UpdateLazer(EnemyData* data) {
                     Player_TakeDamage(VantageData.stats.damage);
                 }
             }
-            if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
+            if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT)) {
                 hitWall = true;
                 break;
             }
