@@ -17,9 +17,9 @@ SentryConfig SentryConfigData = {
     .shootTimer = 0,
     .gun = {
         .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
+            .muzzlePosition = {30, 8},
+            .ejectionPosition = {11, 8},
+            .gripPosition = {11, 8},
         },
         .state = {
             .position = {0, 0},
@@ -37,8 +37,8 @@ SentryConfig SentryConfigData = {
             .ammoConsumption = 1
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
-            .frameSize = {8, 6},
+            .spritesheetPath = "Assets/Images/Enemies/sentry_gun.png",
+            .frameSize = {30, 16},
             .frameCount = 1,
             .clips = {
                 {
@@ -49,12 +49,12 @@ SentryConfig SentryConfigData = {
                     .looping = false
                 }
             },
-            .spriteSize = {8, 6},   
+            .spriteSize = {30, 16},   
             .defaultClip = "normal",
             .playOnStart = true
         }
     },
-    .gunOffset = {0, -3},
+    .gunOffset = {0, 10},
     .guardRadius = 250.0f,
     .alertLevel = 0.0f,
     .alertThreshold = 1.0f,
@@ -102,7 +102,7 @@ EnemyData SentryData = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/sentry.png", // Updated to match enemy name
-        .frameSize = {30, 40},
+        .frameSize = {38, 26},
         .frameCount = 1,  // Changed from 7 to 1
         .clips = {
             {
@@ -116,7 +116,7 @@ EnemyData SentryData = {
         },
         .playOnStart = true,
         .defaultClip = "idle", // Sentries are mostly stationary
-        .spriteSize = {30, 40},
+        .spriteSize = {38, 26},
     },
     .config = &SentryConfigData,
     .start = &Sentry_Start,
