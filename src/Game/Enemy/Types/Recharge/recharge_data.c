@@ -34,6 +34,7 @@ RechargeConfig RechargeConfigData = {
  */
 EnemyData RechargeData = {
     .type = ENEMY_TYPE_RECHARGE,
+    .name = "Recharge",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},

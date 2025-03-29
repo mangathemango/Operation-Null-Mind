@@ -106,6 +106,7 @@
     "camera.h": "c",
     "stdio.h": "c",
     "sound.h": "c"
+    "interactable.h": "c",
   },
   "C_Cpp.errorSquiggles": "enabled"
 

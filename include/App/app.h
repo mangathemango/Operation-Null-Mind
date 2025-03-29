@@ -8,11 +8,14 @@
 
 #pragma once
 
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdbool.h>
 #include <debug.h>
+
+typedef bool flag;
 
 #include <gun.h>
 #include <player.h>
@@ -31,6 +34,7 @@
 #include <hud.h>
 #include <game.h>
 #include <death.h>
+#include <level_transition.h>
 
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.

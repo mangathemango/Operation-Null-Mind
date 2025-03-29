@@ -53,6 +53,7 @@ int App_Start() {
     Log_Start();
     HUD_Start();
     Game_Start();
+    LevelTransition_Start();
     return 0;
     
 }

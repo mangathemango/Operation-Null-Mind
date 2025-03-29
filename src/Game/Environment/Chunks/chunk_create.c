@@ -514,15 +514,25 @@ void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) 
     Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
     Vec2 colliderSizePixels = Vec2_Multiply(colliderSizeTiles, TILE_SIZE_PIXELS - 10);
     
-    Collider* collider = malloc(sizeof(Collider));
-    collider->hitbox = (SDL_Rect) {
-        startPixel.x + chunk->position.x * CHUNK_SIZE_PIXEL + TILE_SIZE_PIXELS * chunk->roomSize.x / 4,
-        startPixel.y + chunk->position.y * CHUNK_SIZE_PIXEL + TILE_SIZE_PIXELS * chunk->roomSize.y / 4,
-        colliderSizePixels.x,
-        colliderSizePixels.y,
-    };
-    collider->collidesWith = COLLISION_LAYER_NONE;
-    collider->layer = COLLISION_LAYER_TRIGGER;
-    Collider_Register(collider, &Chunk_HandlePlayerInsideEnd);
-    chunk->colliders[chunk->colliderCount++] = collider;
+    int index = Interactable_Create(
+        INTERACTABLE_EXIT, 
+        Vec2_Add(Chunk_GetChunkCenter(chunk), (Vec2) {0, -20})
+    );
+
+    Vec2 chunkPosition, tilePosition;
+    Tile_FromPixelPoint(
+        Chunk_GetChunkCenter(chunk), 
+        &chunkPosition, 
+        &tilePosition
+    );
+    Vec2 pixelPoint = Tile_TileIndexToPixel(
+        tilePosition, 
+        chunkPosition
+    );
+    SDL_Log("Creating end wall collider at: (%d, %d)", (int)pixelPoint.x, (int)pixelPoint.y);
+    Chunk_AddWallCollider(
+        Vec2_Subtract(tilePosition, (Vec2) {3, 3}),
+        Vec2_Add(tilePosition, (Vec2) {2, -1}),
+        chunk
+    );
 }

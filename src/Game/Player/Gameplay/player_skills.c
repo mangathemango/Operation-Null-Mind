@@ -16,6 +16,7 @@
 #include <timer.h>
 #include <sound.h>
 #include <camera.h>
+#include <gun.h>
 
 /**
  * @brief [Utility] Initiates player dash movement if conditions are met
@@ -76,5 +77,91 @@ int Player_HandleDash() {
     ParticleEmitter_ActivateOnce(player.resources.dashParticleEmitter);
 
     player.state.currentSpeed = player.stats.dashSpeed;
+    return 0;
+}
+
+/**
+ * @brief [Utility] Activates the Crashout skill, sacrificing health for damage
+ * 
+ * Takes 25% of the player's current health and gives a 2x damage multiplier
+ * for 15 seconds. Has a cooldown before it can be used again.
+ * 
+ * @return int Status code (0 for success, 1 for on cooldown)
+ */
+int Player_CrashOut() {
+    // Don't activate if already active or on cooldown
+    if (player.state.crashOut) return 1;
+    if (!Timer_IsFinished(player.resources.crashOutCooldown)) return 1;
+    SDL_Log("Player_Crashout Activated");
+    
+    // Calculate health cost (25% of current health)
+    int healthCost = player.state.currentHealth * 0.25f;
+    
+    // Ensure player has enough health to use this ability (at least 5 HP left)
+    if (player.state.currentHealth - healthCost < 10) {
+        player.state.currentHealth = 10;
+    }
+    else {
+        player.state.currentHealth -= healthCost;
+    }
+    
+    player.state.crashOut = true; // Activate crashout state
+    
+    // Activate skill effects
+    // player.state.crashoutActive = true;
+    // player.state.crashoutMultiplier = 2.0f;  // 2x damage multiplier
+    
+    // Start timers
+    Timer_Start(player.resources.crashOutDuration);
+    
+    // Play effect
+    Sound_Play_Effect(SOUND_VINE_BOOM);  // Use an appropriate sound
+
+    
+    // Create visual effect (red glow around player)
+    // ParticleEmitter_ActivateOnce(player.resources.crashoutParticleEmitter);
+    
+    return 0;
+}
+
+/**
+ * @brief [Update] Handles the Crashout skill state and effects
+ * 
+ * Updates visual effects, checks duration, and resets state when completed.
+ * 
+ * @return int Status code (0 for success)
+ */
+int Player_HandleCrashOut() {
+    if (!player.state.crashOut) return 0;
+    
+
+    // Check if duration has expired
+    if (Timer_IsFinished(player.resources.crashOutDuration)) {
+        // Reset state
+        player.state.crashOut = false;
+        // player.state.crashoutMultiplier = 1.0f;
+        
+        // Start cooldown
+        Timer_Start(player.resources.crashOutCooldown);
+        
+        player.stats.crashOutCurrentMultipler = 1.0f; // Reset damage multiplier
+        
+        return 0;
+    }
+    
+    player.stats.crashOutCurrentMultipler = player.state.crashOutMultiplier; // Maintain damage multiplier while active
+    SDL_Log("Player_Crashout Active");
+    
+    // Update visual effects while active
+    // float timeLeft = Timer_GetTimeLeft(player.resources.crashoutDurationTimer) / 15.0f;
+    
+    // Pulsing red effect increases as time runs out
+    // float pulseIntensity = 0.5f + 0.5f * (1.0f - timeLeft);
+    
+    // Update particle effect
+    // player.resources.crashoutParticleEmitter->position = player.state.position;
+    // player.resources.crashoutParticleEmitter->startColor.r = 255;
+    // player.resources.crashoutParticleEmitter->startColor.a = 100 + 155 * pulseIntensity;
+    
     return 0;
 }

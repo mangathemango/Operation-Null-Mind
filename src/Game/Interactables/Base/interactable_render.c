@@ -15,6 +15,21 @@ void Interactable_Render() {
     }
 }
 
+void Interactable_RenderEndRoom() {
+    for (int i = 0; i < MAX_INTERACTABLES; i++) {
+        if (interactables[i].active && interactables[i].type == INTERACTABLE_EXIT) {
+            SDL_Rect dest =  Vec2_ToCenteredRect(
+                Camera_WorldVecToScreen(interactables[i].position),
+                (Vec2) {120, 80}
+            );
+            dest.h = 50;
+            SDL_Rect src = {0, 0, 120, 50};
+            SDL_RenderCopy(app.resources.renderer, interactables[i].spriteTexture, &src, &dest);
+            break;
+        }
+    }
+}
+
 void Interactable_RenderInteractionText() {
     for (int i = 0; i < MAX_INTERACTABLES; i++) {
         if (interactables[i].active && interactables[i].interactable) {

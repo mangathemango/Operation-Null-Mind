@@ -82,10 +82,14 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
     ColliderCheckResult result;
     Collider_Check(&enemy->state.collider, &result);
     for (int i = 0; i < result.count; i++) {
+        if (result.objects[i]->layer & COLLISION_LAYER_PLAYER) {
+            // Kill player if spawning inside another object
+            Player_TakeDamage(75);
+            break;
+        }
         if (result.objects[i]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY | COLLISION_LAYER_PLAYER)) {
             if (result.objects[i]->owner == enemy) continue;
             // Kill enemy if spawning inside another object
-            Enemy_HandleDeath(enemy);
             break;
         }
     }

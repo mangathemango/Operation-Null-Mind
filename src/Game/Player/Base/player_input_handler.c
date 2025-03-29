@@ -36,15 +36,10 @@ void Player_Input_Handler() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
 
+    if (Input->keyboard.keys[SDL_SCANCODE_LCTRL].pressed) Player_CrashOut();
+
     if (Input->keyboard.keys[SDL_SCANCODE_Q].pressed) Player_SwitchGun(0);
     
-    /**
-     * @todo [player_input_handler.c:50] Implement level switching animation + sfx
-     * 
-     */
-    if (Input->keyboard.keys[SDL_SCANCODE_E].pressed && player.state.insideEnd) {
-        Game_TransitionNextLevel();
-    }
     if (Input->keyboard.keys[SDL_SCANCODE_F].pressed) {
         Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y]);

@@ -36,6 +36,7 @@ int App_RenderMain() {
             Interactable_Render();
             Enemy_Render();
             Player_Render();
+            Interactable_RenderEndRoom();
             Gun_Render();
             Bullet_Render();
             Debug_RenderHitboxes();
@@ -43,6 +44,7 @@ int App_RenderMain() {
             Minimap_Render();
             HUD_Render();
             Log_Render();
+            LevelTransition_Render();
             break;
         
         case SCENE_PAUSE:

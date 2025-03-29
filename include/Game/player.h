@@ -30,6 +30,8 @@ typedef struct {
     bool directionLocked; ///< Whether movement direction is locked
     bool moving;        ///< Whether the player is moving
     bool movementLocked; ///< Whether movement is locked
+    bool crashOut;     ///< Whether the player is in crashout state
+    float crashOutMultiplier; ///< Multipler that will be used fro crashout
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
 
@@ -49,6 +51,8 @@ typedef struct {
     Timer* dashCooldownTimer;             ///< Timer for dash cooldown
     Timer* shootCooldownTimer;            ///< Timer for shoot cooldown
     Timer* INVINCIBLE_Timer;               ///< [Title card] timer
+    Timer* crashOutCooldown;                ///< Timer for crashout cooldown
+    Timer* crashOutDuration;              ///< Timer for crashout duration
 } PlayerResources;
 
 /**
@@ -62,6 +66,9 @@ typedef struct {
     float dashSpeed;    ///< Speed during dash
     float dashDuration; ///< How long dash lasts
     float dashCooldown; ///< Time between dashes
+    float crashOutCooldown; ///< Cooldown for crashout ability
+    float crashOutDuration; ///< Duration of the crashout effect
+    float crashOutCurrentMultipler; ///< Damage multiplier during crashout
 } PlayerStat;
 
 /**
@@ -141,6 +148,19 @@ int Player_Dash();
  * @return Status code
  */
 int Player_HandleDash();
+
+/**
+ * @brief Activates crashout ability
+ * @return Status code
+ */
+int Player_CrashOut();
+
+/**
+ * @brief Handles ongoing crashout state
+ * @return Status code
+ */
+int Player_HandleCrashOut();
+
 
 /**
  * @brief Makes player shoot current weapon
