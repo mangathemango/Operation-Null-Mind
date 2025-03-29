@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['acceleration_0',['acceleration',['../structParticle.html#a88892ae2669e6c7f939fb53caf93185c',1,'Particle::acceleration'],['../structEnemyStats.html#a9a9637c87c6b562d2df66dbe8cbf26d3',1,'EnemyStats::acceleration']]],
+  ['active_1',['active',['../structCollider.html#a481adf4e845adbecf51efae4f9938392',1,'Collider::active'],['../structInteractable.html#aef64c5a44f76b52a13f5aac82b84e179',1,'Interactable::active'],['../structParticleEmitter.html#a2081d76d8c01c9fbbce278b1c19e49b1',1,'ParticleEmitter::active']]],
+  ['aiming_2',['aiming',['../structVantageConfig.html#a23dc936346d9272f6105ebdbf1c36dc8',1,'VantageConfig']]],
+  ['aimtime_3',['aimTime',['../structVantageConfig.html#a305261f690d260db7db36abca7b0c9be',1,'VantageConfig']]],
+  ['aimtimer_4',['aimTimer',['../structVantageConfig.html#a860606810e08023511617e80eb92512b',1,'VantageConfig']]],
+  ['alertlevel_5',['alertLevel',['../structSentryConfig.html#af550e9587230187b8931f40d83492e1f',1,'SentryConfig']]],
+  ['alertthreshold_6',['alertThreshold',['../structSentryConfig.html#af366367f688787e9af501cc8b07f577b',1,'SentryConfig']]],
+  ['alignment_7',['alignment',['../structUI__TextData.html#aaa551fbdc60dcb997a2e67cc7f0b670a',1,'UI_TextData']]],
+  ['alive_8',['alive',['../structParticle.html#affebffa1e11f05041c9c46e8b684275b',1,'Particle']]],
+  ['alternatepath_9',['alternatePath',['../structEnvironmentMap.html#a39d4bd4c8aa5e106dd8a8f1139378eba',1,'EnvironmentMap']]],
+  ['alternatepathlength_10',['alternatePathLength',['../structEnvironmentMap.html#a2f4ed72a9836d9345318c03a5df55a44',1,'EnvironmentMap']]],
+  ['ammocapacity_11',['ammoCapacity',['../structGunStats.html#a9157d4c075f635e58331436a2cdb7c62',1,'GunStats']]],
+  ['ammoconsumption_12',['ammoConsumption',['../structGunStats.html#a7cacd1d5b25064a6f5be00447363b71c',1,'GunStats']]],
+  ['angle_13',['angle',['../structGunState.html#ac3a596689c83f19cf72d199208d79d80',1,'GunState']]],
+  ['anglerange_14',['angleRange',['../structParticleEmitter.html#a5fef2816d8adfe7535909ca5073cd3e2',1,'ParticleEmitter']]],
+  ['animation_15',['animation',['../structEnemyResources.html#ab228aba496a6e9e487fc45c87c5d9692',1,'EnemyResources::animation'],['../structGunResources.html#a422e7f42648c4cd7d05e4998f46bfc48',1,'GunResources::animation'],['../structPlayerResources.html#ae7967f2ea9ef47305c604d3aac65bc87',1,'PlayerResources::animation']]],
+  ['animdata_16',['animdata',['../structEnemyData.html#af002a4a42776fbdf74a5fe49fd88c42f',1,'EnemyData::animData'],['../structGunData.html#aa9176db0924bbbe783c4752a541f1a79',1,'GunData::animData'],['../structPlayerData.html#ad109d7ae4e21dc79facf462311bc20b1',1,'PlayerData::animData']]],
+  ['app_17',['app',['../app_8h.html#acba9e07ef435011f26b8acb7bb0e4627',1,'app.h']]],
+  ['armorvalue_18',['armorValue',['../structJuggernautConfig.html#a1feb1c9c1b135159833e2147803cee21',1,'JuggernautConfig']]],
+  ['attackcooldown_19',['attackCooldown',['../structEnemyStats.html#a71f41f4de98dc5c1617bcd0125d1e729',1,'EnemyStats']]],
+  ['attackdamage_20',['attackDamage',['../structEnemyStats.html#afa43e68a65da6bb6f3ca363a0ed88578',1,'EnemyStats']]],
+  ['attackrange_21',['attackRange',['../structEnemyStats.html#a893f16e6b5b6c04365fcbd134ed817d2',1,'EnemyStats']]],
+  ['attackspeed_22',['attackSpeed',['../structEnemyStats.html#ac41461fa8ce13626eabab1580130c267',1,'EnemyStats']]],
+  ['averagefps_23',['averageFps',['../structAppState.html#a1c7c2cc963a448a642aabd8f7cbbcf1a',1,'AppState']]]
+];
