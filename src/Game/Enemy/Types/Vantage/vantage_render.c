@@ -50,11 +50,39 @@ void Vantage_Render(EnemyData* data) {
     }
     Vec2 hitPoint = Camera_WorldVecToScreen(currentLazerPosition);
     Vec2 lazerStartPoint = Camera_WorldVecToScreen(gun->resources.muzzleFlashEmitter->position);
+    
+    // Laser width configuration
+    int lazerWidth = 3; // Adjust this to control thickness
+    
+    // Draw the red outer glow
     SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
+    
+    // Draw multiple red lines based on lazerWidth
+    for (int dx = -lazerWidth; dx <= lazerWidth; dx++) {
+        for (int dy = -lazerWidth; dy <= lazerWidth; dy++) {
+            // Skip the center point and points too far from center (for a circular appearance)
+            if ((dx == 0 && dy == 0) || (dx*dx + dy*dy > lazerWidth*lazerWidth)) {
+                continue;
+            }
+            
+            SDL_RenderDrawLine(
+                app.resources.renderer, 
+                lazerStartPoint.x + dx, 
+                lazerStartPoint.y + dy, 
+                hitPoint.x + dx, 
+                hitPoint.y + dy
+            );
+        }
+    }
+    
+    // Draw the white center line
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
     SDL_RenderDrawLine(
         app.resources.renderer, 
-        lazerStartPoint.x, lazerStartPoint.y, 
-        hitPoint.x, hitPoint.y
+        lazerStartPoint.x, 
+        lazerStartPoint.y, 
+        hitPoint.x, 
+        hitPoint.y
     );
     Collider_Reset(&lazer);
 }
