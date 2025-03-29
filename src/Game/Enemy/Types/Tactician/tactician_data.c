@@ -17,9 +17,9 @@ TacticianConfig TacticianConfigData = {
     .shootTimer = 0,
     .gun = {
         .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
+            .muzzlePosition = {17, 4},
+            .ejectionPosition = {10, 2},
+            .gripPosition = {7, 6},
         },
         .state = {
             .position = {0, 0},
@@ -37,8 +37,8 @@ TacticianConfig TacticianConfigData = {
             .ammoConsumption = 1
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
-            .frameSize = {8, 6},
+            .spritesheetPath = "Assets/Images/Enemies/tactician_gun.png",
+            .frameSize = {17, 10},
             .frameCount = 1,
             .clips = {
                 {
@@ -49,7 +49,7 @@ TacticianConfig TacticianConfigData = {
                     .looping = false
                 }
             },
-            .spriteSize = {8, 6},   
+            .spriteSize = {17, 10},   
             .defaultClip = "normal",
             .playOnStart = true
         }
