@@ -25,15 +25,11 @@ typedef struct {
     Vec2 lastPosition;
     
     // Vantage-specific fields - keep original functionality
-    float detectionRange;
-    float sniperRange;
-    float aimTime;
-    bool isAiming;
-    Vec2 targetPosition;
 } VantageConfig;
 
 void Vantage_Start(EnemyData* data);
 void Vantage_Update(EnemyData* data);
+void Vantage_UpdateGun(EnemyData* data);
 void Vantage_Render(EnemyData* data);
 void Vantage_UpdateParticles();
 void Vantage_RenderParticles();

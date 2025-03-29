@@ -37,6 +37,7 @@ void Debug_RenderHitboxes() {
     if (!app.config.debug) return;
     for (int i = 0; i < ColliderCount; i++) {
         Collider* collider = ColliderList[i];
+        if (!collider) continue;
         if (!collider->active) continue;
         SDL_Rect hitbox = collider->hitbox;
         hitbox.x = Camera_WorldVecToScreen((Vec2) {hitbox.x, hitbox.y}).x;

@@ -117,40 +117,33 @@ void Vantage_Update(EnemyData* data) {
 
     float distanceToPlayer = Vec2_Distance(data->state.position, player.state.position);
     
-    // Combine sniper mechanics with normal movement
-    if (distanceToPlayer < config->detectionRange) {
-        if (distanceToPlayer > config->sniperRange) {
-            // Move towards optimal shooting range
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-            config->isAiming = false;
-        } else {
-            // At optimal range, stop and aim
-            config->isAiming = true;
-            config->targetPosition = player.state.position;
-            data->state.direction = Vec2_Zero;
+    
             
-            // Shoot after aiming
-            config->shootTimer += Time->deltaTimeSeconds;
-            if (config->shootTimer >= config->shootTime) {
-                config->shootTimer = 0;
-                config->shootTime = RandFloat(
-                    data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
-                );
-                ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
-                ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-                ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
-            }
-        }
-    } else {
-        // Normal movement behavior when player is out of detection range
-        config->directionChangeTimer += Time->deltaTimeSeconds;
-        if (config->directionChangeTimer >= config->directionChangeTime) {
-            config->directionChangeTime = RandFloat(0.5f, 1.0f);
-            config->directionChangeTimer = 0;
-            data->state.direction = Vec2_Normalize((Vec2){RandFloat(-1, 1), RandFloat(-1, 1)});
-        }
-        config->isAiming = false;
+    // Shoot after aiming
+    config->shootTimer += Time->deltaTimeSeconds;
+    if (config->shootTimer >= config->shootTime) {
+        config->shootTimer = 0;
+        config->shootTime = RandFloat(
+            data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+        );
     }
+        
+    config->directionChangeTimer += Time->deltaTimeSeconds;
+    if (config->directionChangeTimer >= config->directionChangeTime) {
+        config->directionChangeTime = RandFloat(0.5f, 1.0f);
+        config->directionChangeTimer = 0;
+        
+        // Circle around the player
+        float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
+        if (distToPlayer > 200) {
+            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
+        } else {
+            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
+        }
+    }
+    
 
     // Replace animation state handling with just "idle"
     Animation_Play(config->gun.resources.animation, "idle");

@@ -38,7 +38,6 @@ void Collider_Register(Collider* collider, void* owner) {
         printf("Error: Maximum collidables reached\n");
         return;
     }
-
     // Find first available slot
     int id = 0;
     while (id < MAX_COLLIDABLES) {
@@ -66,20 +65,22 @@ void Collider_Register(Collider* collider, void* owner) {
  * @return true if collision detected, false otherwise
  */
 bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
+    if (!collider) return false; // Check if collider is NULL
     if (!collider->active) return false;
     
     bool selfFound = false;
-    if (checkResult!=NULL) {
+    if (checkResult != NULL) {
         checkResult->count = 0;
     }
 
     // Check against all other collidables
     for (int i = 0; i < ColliderCount; i++) {
+        if (ColliderList[i] == NULL) continue; // Skip empty slots
         if (ColliderList[i] == collider) {
             selfFound = true;
             continue;
         } // Skip input collider
-        if (checkResult->count >= MAX_COLLISIONS_PER_CHECK) continue;
+        if (checkResult) if (checkResult->count >= MAX_COLLISIONS_PER_CHECK) continue;
         if (!ColliderList[i]->active) continue; // Skip inactive colliders
         if ((collider->collidesWith & ColliderList[i]->layer) == 0) continue; // Skip non intersecting layers
         
@@ -93,8 +94,11 @@ bool Collider_Check(Collider* collider, ColliderCheckResult* checkResult) {
         SDL_Log("Warning: Collider object not found in registry\n Please register the object with Collider_Register() before checking collisions\n"); 
         return false;
     }
-    
-    return checkResult->count > 0;
+    if (checkResult != NULL) {
+        return checkResult->count > 0;
+    }
+
+    return false;
 }
 
 /**
@@ -107,4 +111,10 @@ void Collider_Reset(Collider* collider) {
     collider->owner = NULL;
     collider->layer = COLLISION_LAYER_NONE;
     collider->collidesWith = COLLISION_LAYER_NONE;
+    for (int i = 0; i < ColliderCount; i++) {
+        if (ColliderList[i] == collider) {
+            ColliderList[i] = NULL;
+            break;
+        }
+    }
 }
