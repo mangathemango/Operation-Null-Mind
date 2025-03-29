@@ -33,7 +33,7 @@ int Player_Dash() {
     if (player.state.movementLocked) return 0;
     if (!Timer_IsFinished(player.resources.dashCooldownTimer)) return 0;
     
-    Sound_Play_Effect(0);
+    Sound_Play_Effect(SOUND_DASH); // Play dash sound effect
     player.state.dashing = true; 
     player.state.directionLocked = true; // Player can't control movement during dash
 

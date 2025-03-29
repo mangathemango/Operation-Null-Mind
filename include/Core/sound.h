@@ -62,6 +62,7 @@ bool Sound_System_Initialize();
 bool Sound_Load_Resources();
 void Sound_Play_Music(const char* path, int loops);
 void Sound_Play_Effect(int index);
+float Sound_Get_Music_Duration(const char* path);
 void Sound_Stop_Music();
 void Sound_System_Cleanup();
 

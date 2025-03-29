@@ -105,6 +105,19 @@ void Sound_Play_Effect(int index) {
     }
 }
 
+
+float Sound_Get_Music_Duration(const char* path) {
+    Mix_Music* music = Mix_LoadMUS(path);
+    if (!music) {
+        printf("Failed to load music: %s\n", Mix_GetError());
+        return -1.0f;
+    }
+    
+    double duration = Mix_MusicDuration(music);
+    Mix_FreeMusic(music);
+    return (float)duration;
+};
+
 /**
  * [Utility] Stop background music
  */
