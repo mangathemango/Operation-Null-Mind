@@ -31,6 +31,7 @@ void Map_Generate() {
             testMap.chunks[x][y].discovered = false;
             testMap.chunks[x][y].inCombat = false;
             testMap.chunks[x][y].roomType = ROOM_TYPE_NORMAL;
+            testMap.chunks[x][y].position = (Vec2){x, y};
             EnvironmentChunk* chunk = &testMap.chunks[x][y];
             for (int i = 0; i < chunk->colliderCount; i++) {
                 Collider_Reset(chunk->colliders[i]);
@@ -67,13 +68,15 @@ void Map_Generate() {
             if (testMap.chunks[x][y].empty) {
                 continue;
             }
-            SDL_Log("Checking chunk at (%d, %d)", x, y);
+            
             if (Vec2_AreEqual((Vec2) {x, y}, testMap.startChunk->position) || Vec2_AreEqual((Vec2) {x, y}, testMap.endChunk->position)) {
                 continue;
             }
             if (!Chunk_IsOnMainPath(&testMap.chunks[x][y])) {
                 SDL_Log("Alternate path at (%d, %d)", x, y);
                 testMap.alternatePath[testMap.alternatePathLength++] = (Vec2){x, y};
+            } else {
+                SDL_Log("Chunk at (%d, %d) is on main path", x, y);
             }
         }
     }
