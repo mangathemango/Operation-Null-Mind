@@ -19,11 +19,34 @@
 // Initialize the sound resources structure
 SoundResources soundResources = {
     .backgroundMusic = NULL,
-    .soundEffects = {NULL}, //If you have more sound effects, increase the array size first. 
+    .soundEffects = {NULL}, // Will be populated in Sound_Load_Resources()
     .soundPaths = {
-        "Assets/Audio/swoosh.wav",
-        "Assets/Audio/gunshot.wav",
-        "Assets/Audio/VineBoom.wav"
+        [SOUND_SWOOSH] = "Assets/Audio/swoosh.wav",                // SOUND_SWOOSH
+        [SOUND_GUNSHOT] = "Assets/Audio/gunshot.wav",               // SOUND_GUNSHOT
+        [SOUND_VINE_BOOM] = "Assets/Audio/VineBoom.wav",            // SOUND_VINE_BOOM
+        [SOUND_BOOST_UP] = "Assets/Audio/boost up.wav",             // SOUND_BOOST_UP
+        [SOUND_BUFFING] = "Assets/Audio/buffing.wav",               // SOUND_BUFFING
+        [SOUND_CRATE_OPENING] = "Assets/Audio/crate opening.wav",   // SOUND_CRATE_OPENING
+        [SOUND_DASH] = "Assets/Audio/dash.wav",                     // SOUND_DASH
+        [SOUND_ELEVATOR_CLOSE] = "Assets/Audio/elevator close.wav", // SOUND_ELEVATOR_CLOSE
+        [SOUND_ELEVATOR_OPEN] = "Assets/Audio/elevator open.wav",   // SOUND_ELEVATOR_OPEN
+        [SOUND_ENEMY_HEALING] = "Assets/Audio/enemy healing.wav",   // SOUND_ENEMY_HEALING
+        [SOUND_ENERGY_GUNSHOT] = "Assets/Audio/Energy Gunshot.wav",   // SOUND_ENERGY_GUNSHOT
+        [SOUND_EXPLOSION] = "Assets/Audio/explosion.wav",           // SOUND_EXPLOSION
+        [SOUND_GRENADE_LAUNCHER] = "Assets/Audio/grenade launcher.wav", // SOUND_GRENADE_LAUNCHER
+        [SOUND_GUN_PICKUP] = "Assets/Audio/gun pickup.wav",         // SOUND_GUN_PICKUP
+        [SOUND_HITMARKER] = "Assets/Audio/hitmarker.wav",           // SOUND_HITMARKER
+        [SOUND_KAMIKAZE_BEEP] = "Assets/Audio/kamikaze beep.wav",   // SOUND_KAMIKAZE_BEEP
+        [SOUND_LAST_STAND] = "Assets/Audio/Last Stand Used Up.wav",   // SOUND_LAST_STAND
+        [SOUND_PARRY] = "Assets/Audio/parry.wav",                   // SOUND_PARRY
+        [SOUND_PASSIVE_OBTAINED] = "Assets/Audio/passive obtained.wav", // SOUND_PASSIVE_OBTAINED
+        [SOUND_PLAYER_HEALING] = "Assets/Audio/player healing.wav",   // SOUND_PLAYER_HEALING
+        [SOUND_PLAYER_HURT] = "Assets/Audio/player hurt.wav",         // SOUND_PLAYER_HURT
+        [SOUND_RECALL] = "Assets/Audio/recall.wav",                  // SOUND_RECALL
+        [SOUND_ROCKET_LAUNCH] = "Assets/Audio/rocket launch.wav",     // SOUND_ROCKET_LAUNCH
+        [SOUND_SENTRY_LASER] = "Assets/Audio/Sentry Laser Cannon.wav", // SOUND_SENTRY_LASER
+        [SOUND_SPAWN_IN] = "Assets/Audio/spawn in.wav",              // SOUND_SPAWN_IN
+        [SOUND_VANTAGE_LASER] = "Assets/Audio/vantage laser gunshot.wav" // SOUND_VANTAGE_LASER
     }
 };
 
