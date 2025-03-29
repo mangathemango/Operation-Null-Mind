@@ -31,7 +31,7 @@ static SDL_Texture* background = NULL;
 void Menu_PrepareTextures() {
     SDL_Color textColor = {255, 255, 255, 255};
 
-    background = IMG_LoadTexture(app.resources.renderer, "Assets/Images/textless_menu.png");
+    background = IMG_LoadTexture(app.resources.renderer, "Assets/Images/night_pixel (2).png");
     title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
     startButtonElement = UI_CreateText("start",(SDL_Rect) {30, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     exitButtonElement = UI_CreateText("exit",  (SDL_Rect) {30, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
