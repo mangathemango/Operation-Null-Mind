@@ -56,6 +56,7 @@ PlayerData player = {
         .dashDuration = 0.1,
         .maxHealth = 200,
         .maxAmmo = 200,
+        .INVINCIBLE_Time = 0.25
     },
     .animData = {
         .spritesheetPath = "Assets/Images/robert.png",

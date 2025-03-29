@@ -30,6 +30,7 @@ typedef struct {
     float aimTimer;
     int lazerWidth;
     bool shooting;
+
     Vec2 lazerStart;
     Vec2 lazerDirection;
     Vec2 lazerEnd;

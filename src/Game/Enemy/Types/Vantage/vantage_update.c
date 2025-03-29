@@ -118,8 +118,6 @@ void Vantage_Update(EnemyData* data) {
     Vantage_UpdateGun(data);
     Vantage_UpdateLazer(data);
 
-    float distanceToPlayer = Vec2_Distance(data->state.position, player.state.position);
-    
     config->shooting = false;
     if (!config->aiming) {
         data->stats.maxSpeed = 200;
@@ -167,12 +165,6 @@ void Vantage_Update(EnemyData* data) {
             config->aimTimer = 0;
         }
     }
-    // Shoot after aiming
-
-        
-    
-    
-
     // Replace animation state handling with just "idle"
     Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
@@ -216,11 +208,30 @@ void Vantage_UpdateLazer(EnemyData* data) {
         .active = true,
         .hitbox = Vec2_ToSquareRect(currentLazerPosition, 1
         ),
-        .collidesWith = COLLISION_LAYER_ENVIRONMENT
+        .collidesWith = COLLISION_LAYER_ENVIRONMENT | 
+                        COLLISION_LAYER_PLAYER
     };
+    
     Collider_Register(&lazer, NULL);
-    for (int i = 0; !Collider_Check(&lazer, NULL) && i < 1000; i++) {
+    for (int i = 0; i < 1000; i++) {
         if (Vec2_AreEqual(targetDirection, Vec2_Zero)) {
+            break;
+        }
+        ColliderCheckResult result;
+        bool hitWall = false;
+        Collider_Check(&lazer, &result);
+        for (int j = 0; j < result.count; j++) {
+            if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
+                if (config->shooting) {
+                    Player_TakeDamage(VantageData.stats.damage);
+                }
+            }
+            if (result.objects[j]->layer & COLLISION_LAYER_ENVIRONMENT) {
+                hitWall = true;
+                break;
+            }
+        }
+        if (hitWall) {
             break;
         }
         Vec2_Increment(&currentLazerPosition, targetDirection);

@@ -15,7 +15,7 @@
 #include <input.h>
 
 CameraSystem camera = {
-    .position = {0, 0}
+    .position = {4200, 4200}
 };
 
 /**

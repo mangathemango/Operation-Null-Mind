@@ -98,3 +98,19 @@ void Player_ReadLog(void* data, int interactableIndex) {
     int* index = data;
     game.viewingLog = *index;
 }
+
+void Player_TakeDamage(int damage) {
+    if (!player.resources.INVINCIBLE_Timer) {
+        player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
+        Timer_Start(player.resources.INVINCIBLE_Timer);
+        player.state.currentHealth -= damage;
+        return;
+    }
+    if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
+    
+    player.state.currentHealth -= damage;
+    if (player.state.currentHealth <= 0) {
+        player.state.currentHealth = 0;
+    }
+    Timer_Start(player.resources.INVINCIBLE_Timer);
+}

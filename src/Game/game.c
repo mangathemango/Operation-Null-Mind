@@ -26,7 +26,8 @@ void Game_Update() {
 void Game_Restart()
 {
     game.isTransitioning = false;
-    game.currentStage = 0;
+    game.currentStage = 1;
+    player.state.currentHealth = player.stats.maxHealth;
     Map_Generate(); 
     player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
     camera.position = player.state.position;
