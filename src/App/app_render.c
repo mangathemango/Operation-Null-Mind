@@ -44,6 +44,7 @@ int App_RenderMain() {
             Minimap_Render();
             HUD_Render();
             Log_Render();
+            LevelTransition_Render();
             break;
         
         case SCENE_PAUSE:

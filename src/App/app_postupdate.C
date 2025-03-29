@@ -46,6 +46,7 @@ int App_PostUpdate() {
             Interactable_Update();
             Camera_UpdatePosition();
             Game_Update();
+            LevelTransition_Update();
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
                 app.state.currentScene = SCENE_PAUSE;
             }

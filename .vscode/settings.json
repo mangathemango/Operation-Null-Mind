@@ -104,7 +104,8 @@
     "enemy_types.h": "c",
     "enemy_vantage.h": "c",
     "camera.h": "c",
-    "interactable.h": "c"
+    "interactable.h": "c",
+    "stdio.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 

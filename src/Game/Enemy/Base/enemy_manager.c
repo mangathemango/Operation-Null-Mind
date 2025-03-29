@@ -100,7 +100,7 @@ void EnemyManager_Update() {
     static float funnyTimer = 0;
     if (chunk->inCombat && player.state.currentAmmo <= player.state.currentGun.stats.ammoConsumption) {
         funnyTimer += Time->deltaTimeSeconds;
-        if (funnyTimer >= 0.1f) {
+        if (funnyTimer >= 0.5f) {
             Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
             Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], spawnPosition);
             funnyTimer = 0;
