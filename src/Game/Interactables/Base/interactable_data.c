@@ -44,4 +44,15 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .callback = Player_PickUpGun,
         .renderSize = {10, 10}
     },
+
+    [INTERACTABLE_EXIT] = {
+        .type = INTERACTABLE_EXIT,
+        .enabled = true,
+        .hitboxSize = {120, 80},
+        .interactionText = "Next Stage",
+        .spritePath = "Assets/Images/Interactables/exit_door.png",
+        .srcRect = ENTIRE_SRC_RECT,
+        .callback = Game_TransitionNextLevel,
+        .renderSize = {120, 80}
+    },
 };

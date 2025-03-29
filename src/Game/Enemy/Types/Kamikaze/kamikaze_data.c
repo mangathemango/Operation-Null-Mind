@@ -29,6 +29,7 @@ KamikazeConfig KamikazeConfigData = {
  */
 EnemyData KamikazeData = {
     .type = ENEMY_TYPE_KAMIKAZE,
+    .name = "Kamikaze",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},

@@ -39,7 +39,7 @@ void Game_Restart()
     }
 }
 
-void Game_TransitionNextLevel() {
+void Game_TransitionNextLevel(void* data, int interactableIndex) {
     game.isTransitioning = true;
     Timer_Start(game.transitionTimer);
 }
