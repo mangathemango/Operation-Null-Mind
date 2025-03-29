@@ -469,7 +469,7 @@ ParticleEmitter ParticleEmitter_Gernade = {
 
     .useCollider = true,
     .collider = {
-        .collidesWith = COLLISION_LAYER_ENVIRONMENT,
+        .collidesWith = COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER,
         .layer = COLLISION_LAYER_ENEMY_PROJECTILE,
     }
 };

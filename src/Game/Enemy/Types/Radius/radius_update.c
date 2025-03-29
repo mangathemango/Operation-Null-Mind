@@ -108,6 +108,19 @@ void Radius_Update(EnemyData* data) {
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Radius_UpdateGun(data);
 
+    config->directionChangeTimer += Time->deltaTimeSeconds;
+    if (config->directionChangeTimer >= config->directionChangeTime) {
+        config->directionChangeTime = RandFloat(0.5f, 1.0f);
+        config->directionChangeTimer = 0;
+        data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+
+        if (Vec2_Distance(player.state.position, data->state.position) > 150) {
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
+        } else {
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
+        }
+    }
+
     
     // Handle shooting - Radius always tries to maintain optimal distance for shooting
     config->shootTimer += Time->deltaTimeSeconds;
