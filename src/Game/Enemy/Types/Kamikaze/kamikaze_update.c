@@ -34,7 +34,7 @@ void Kamikaze_Update(EnemyData* data) {
             KamikazeExplosionEmitter->position = data->state.position;
             ParticleEmitter_ActivateOnce(KamikazeExplosionEmitter);
             if (Vec2_Distance(data->state.position, player.state.position) < config->explosionRadius) {
-                player.state.currentHealth -= data->stats.damage;
+                Player_TakeDamage(data->stats.damage);
             }
 
             Sound_Play_Effect(SOUND_VINE_BOOM);

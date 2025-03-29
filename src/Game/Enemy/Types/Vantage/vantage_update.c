@@ -222,11 +222,9 @@ void Vantage_UpdateLazer(EnemyData* data) {
         Collider_Check(&lazer, &result);
         for (int j = 0; j < result.count; j++) {
             if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                if (config->shooting) {
-                    Player_TakeDamage(VantageData.stats.damage);
-                }
+                Player_TakeDamage(VantageData.stats.damage);
             }
-            if (result.objects[j]->layer & COLLISION_LAYER_ENVIRONMENT) {
+            if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                 hitWall = true;
                 break;
             }

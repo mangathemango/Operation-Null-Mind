@@ -164,7 +164,7 @@ void Sabot_UpdateParticles() {
         Collider_Check(bullet->collider, &result);
         for (int j = 0; j < result.count; j++) {
             if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                player.state.currentHealth -= SabotData.stats.damage;
+                Player_TakeDamage(SabotData.stats.damage);
             }
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                 SabotBulletFragmentsEmitter->position = bullet->position;
