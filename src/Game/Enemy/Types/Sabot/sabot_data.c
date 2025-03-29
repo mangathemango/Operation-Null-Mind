@@ -17,9 +17,9 @@ SabotConfig SabotConfigData = {
     .shootTimer = 0,
     .gun = {
         .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
+            .muzzlePosition = {30, 4},
+            .ejectionPosition = {14, 3},
+            .gripPosition = {13, 7},
         },
         .state = {
             .position = {0, 0},
@@ -37,8 +37,8 @@ SabotConfig SabotConfigData = {
             .ammoConsumption = 2
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",  // Kept original path
-            .frameSize = {8, 6},
+            .spritesheetPath = "Assets/Images/Enemies/sabot_gun.png",  // Kept original path
+            .frameSize = {30, 9},
             .frameCount = 1,
             .clips = {
                 {
@@ -49,7 +49,7 @@ SabotConfig SabotConfigData = {
                     .looping = false
                 }
             },
-            .spriteSize = {8, 6},   
+            .spriteSize = {30, 9},   
             .defaultClip = "normal",
             .playOnStart = true
         }
