@@ -15,7 +15,6 @@ void Vantage_Render(EnemyData* data) {
     VantageConfig *config = (VantageConfig*)data->config;
     if (!config) return;
     GunData *gun = &config->gun;
-    Vantage_UpdateGun(data);
     Animation_Render(
         gun->resources.animation, 
         Camera_WorldVecToScreen(gun->state.position), 
@@ -24,67 +23,10 @@ void Vantage_Render(EnemyData* data) {
         &gun->state.rotationCenter,
         gun->state.flip
     );
-
-    Vec2 currentLazerPosition = gun->resources.muzzleFlashEmitter->position;
-    Vec2 targetDirection = Vec2_Normalize(
-        Vec2_Subtract(
-            player.state.position, 
-            gun->resources.muzzleFlashEmitter->position
-        )
-    );
-    Collider lazer = (Collider) {
-        .active = true,
-        .hitbox = Vec2_ToSquareRect(
-            currentLazerPosition, 
-            1
-        ),
-        .collidesWith = COLLISION_LAYER_ENVIRONMENT
-    };
-    Collider_Register(&lazer, NULL);
-    for (int i = 0; !Collider_Check(&lazer, NULL) && i < 1000; i++) {
-        if (Vec2_AreEqual(targetDirection, Vec2_Zero)) {
-            break;
-        }
-        Vec2_Increment(&currentLazerPosition, targetDirection);
-        lazer.hitbox = Vec2_ToSquareRect(currentLazerPosition, 1);
+    
+    if (config->aiming || config->shooting) {
+        Vantage_RenderLaser(data);
     }
-    Vec2 hitPoint = Camera_WorldVecToScreen(currentLazerPosition);
-    Vec2 lazerStartPoint = Camera_WorldVecToScreen(gun->resources.muzzleFlashEmitter->position);
-    
-    // Laser width configuration
-    int lazerWidth = 3; // Adjust this to control thickness
-    
-    // Draw the red outer glow
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
-    
-    // Draw multiple red lines based on lazerWidth
-    for (int dx = -lazerWidth; dx <= lazerWidth; dx++) {
-        for (int dy = -lazerWidth; dy <= lazerWidth; dy++) {
-            // Skip the center point and points too far from center (for a circular appearance)
-            if ((dx == 0 && dy == 0) || (dx*dx + dy*dy > lazerWidth*lazerWidth)) {
-                continue;
-            }
-            
-            SDL_RenderDrawLine(
-                app.resources.renderer, 
-                lazerStartPoint.x + dx, 
-                lazerStartPoint.y + dy, 
-                hitPoint.x + dx, 
-                hitPoint.y + dy
-            );
-        }
-    }
-    
-    // Draw the white center line
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-    SDL_RenderDrawLine(
-        app.resources.renderer, 
-        lazerStartPoint.x, 
-        lazerStartPoint.y, 
-        hitPoint.x, 
-        hitPoint.y
-    );
-    Collider_Reset(&lazer);
 }
 
 void Vantage_RenderParticles() {
@@ -93,4 +35,46 @@ void Vantage_RenderParticles() {
     ParticleEmitter_Render(VantageMuzzleFlashEmitter);
     ParticleEmitter_Render(VantageCasingEmitter);
     ParticleEmitter_Render(VantageBulletFragmentsEmitter);
+}
+
+void Vantage_RenderLaser(EnemyData* data) {
+    VantageConfig* config = (VantageConfig*)data->config;
+    if (!config) return;
+    GunData* gun = &config->gun;
+
+    // Laser width configuration
+    int lazerWidth = config->lazerWidth;
+    // Draw the red outer glow
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
+    Vec2 lazerStart = Camera_WorldVecToScreen(config->lazerStart);
+    Vec2 lazerEnd = Camera_WorldVecToScreen(config->lazerEnd);
+    // Draw multiple red lines based on lazerWidth
+    for (int dx = -lazerWidth; dx <= lazerWidth; dx++) {
+        for (int dy = -lazerWidth; dy <= lazerWidth; dy++) {
+            // Skip the center point and points too far from center (for a circular appearance)
+            if ((dx == 0 && dy == 0) || (dx*dx + dy*dy > lazerWidth*lazerWidth)) {
+                continue;
+            }
+
+            SDL_RenderDrawLine(
+                app.resources.renderer, 
+                lazerStart.x + dx, 
+                lazerStart.y + dy, 
+                lazerEnd.x + dx, 
+                lazerEnd.y + dy
+            );
+        }
+    }
+
+    // Draw the white center line
+    if (lazerWidth > 0) {
+        SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+    }
+    SDL_RenderDrawLine(
+        app.resources.renderer, 
+        lazerStart.x, 
+        lazerStart.y, 
+        lazerEnd.x, 
+        lazerEnd.y
+    );
 }

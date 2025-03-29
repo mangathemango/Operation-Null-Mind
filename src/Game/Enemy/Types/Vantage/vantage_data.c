@@ -55,6 +55,13 @@ VantageConfig VantageConfigData = {
         }
     },
     .gunOffset = {0, -3},
+    .aiming = false,
+    .aimTime = 0.8f,         // Time to aim before shooting
+    .aimTimer = 0,
+    .shooting = false,
+    .lazerStart = {0, 0},
+    .lazerEnd = {0, 0},
+
 };
 
 /**
