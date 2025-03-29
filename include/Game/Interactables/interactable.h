@@ -51,6 +51,7 @@ void Interactable_CreateLog(int logIndex, Vec2 position);
 void Interactable_Start();
 void Interactable_Update();
 void Interactable_Render();
+void Interactable_RenderEndRoom();
 void Interactable_RenderInteractionText();
 void Interactable_Reset();
 void Interactable_Deactivate(int index);
