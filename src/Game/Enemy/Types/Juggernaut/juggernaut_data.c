@@ -17,9 +17,9 @@ JuggernautConfig JuggernautConfigData = {
     .shootTimer = 0,
     .gun = {
         .config = {
-            .muzzlePosition = {8, 3},
-            .ejectionPosition = {5, 2},
-            .gripPosition = {2, 4},
+            .muzzlePosition = {27, 5},
+            .ejectionPosition = {9, 3},
+            .gripPosition = {9, 8},
         },
         .state = {
             .position = {0, 0},
@@ -38,7 +38,7 @@ JuggernautConfig JuggernautConfigData = {
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
-            .frameSize = {8, 6},
+            .frameSize = {27, 11},
             .frameCount = 1,
             .clips = {
                 {
@@ -49,7 +49,7 @@ JuggernautConfig JuggernautConfigData = {
                     .looping = false
                 }
             },
-            .spriteSize = {8, 6},   
+            .spriteSize = {27, 11},   
             .defaultClip = "normal",
             .playOnStart = true
         }
@@ -102,7 +102,7 @@ EnemyData JuggernautData = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/juggernaut.png", 
-        .frameSize = {30, 40},
+        .frameSize = {40, 50},
         .frameCount = 1,  // Changed from 7 to 1
         .clips = {
             {
@@ -116,7 +116,7 @@ EnemyData JuggernautData = {
         },
         .playOnStart = true,
         .defaultClip = "idle",
-        .spriteSize = {30, 40},
+        .spriteSize = {40, 50},
     },
     .config = &JuggernautConfigData,
     .start = &Juggernaut_Start,
