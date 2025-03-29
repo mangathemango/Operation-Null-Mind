@@ -28,7 +28,10 @@ int Player_Start() {
 
     player.resources.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
     player.resources.dashDurationTimer = Timer_Create(player.stats.dashDuration);
+    player.resources.crashOutCooldown = Timer_Create(player.stats.crashOutCooldown);
+    player.resources.crashOutDuration = Timer_Create(player.stats.crashOutDuration);
     Timer_Start(player.resources.dashCooldownTimer);
+    player.resources.crashOutCooldown->finished = true; // Start with crashout off cooldown
     Collider_Register(&player.state.collider, &player);
     player.state.currentGun = GunList[player.state.gunSlots[0]];
     player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);

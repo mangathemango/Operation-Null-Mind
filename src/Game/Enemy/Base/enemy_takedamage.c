@@ -10,6 +10,7 @@
  */
 
 #include <enemy.h>
+#include <player.h>
 
 /**
  * @brief [Utility] Applies damage to an enemy
@@ -23,5 +24,6 @@
 void Enemy_TakeDamage(EnemyData* enemy, int damage) {
     if (enemy->state.isDead) return;
     
-    enemy->state.currentHealth -= damage;
+    enemy->state.currentHealth -= (damage * player.stats.crashOutCurrentMultipler);
+    SDL_Log("Enemy %s took %f damage, current health: %d", enemy->name, damage * player.stats.crashOutCurrentMultipler, enemy->state.currentHealth);
 }

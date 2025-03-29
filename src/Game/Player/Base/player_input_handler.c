@@ -36,6 +36,8 @@ void Player_Input_Handler() {
 
     if (Input->keyboard.keys[SDL_SCANCODE_LSHIFT].pressed) Player_Dash();
 
+    if (Input->keyboard.keys[SDL_SCANCODE_LCTRL].pressed) Player_CrashOut();
+
     if (Input->keyboard.keys[SDL_SCANCODE_Q].pressed) Player_SwitchGun(0);
     
     /**
