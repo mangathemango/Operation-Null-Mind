@@ -14,6 +14,7 @@
 #include <random.h>
 #include <circle.h>
 #include <math.h>
+#include <enemy_kamikaze.h>
 
 void Radius_UpdateGun(EnemyData* data) {
     RadiusConfig* config = (RadiusConfig*)data->config;
@@ -107,66 +108,17 @@ void Radius_Update(EnemyData* data) {
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Radius_UpdateGun(data);
 
-    float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
-    
-    // Orbit behavior - key feature of the Radius enemy
-    if (distToPlayer < config->orbitDistance * 1.2f && 
-        distToPlayer > config->orbitDistance * 0.8f) {
-        // Continue orbiting
-        config->isOrbiting = true;
-        
-        // Update orbit angle
-        config->orbitAngle += config->orbitSpeed * Time->deltaTimeSeconds;
-        if (config->orbitAngle > 360.0f) config->orbitAngle -= 360.0f;
-        
-        // Calculate ideal orbit position
-        Vec2 orbitCenter = player.state.position;
-        Vec2 idealOrbitPos = {
-            orbitCenter.x + cos(config->orbitAngle * M_PI / 180.0f) * config->orbitDistance,
-            orbitCenter.y + sin(config->orbitAngle * M_PI / 180.0f) * config->orbitDistance
-        };
-        
-        // Set direction toward ideal orbit position
-        data->state.direction = Vec2_Normalize(Vec2_Subtract(idealOrbitPos, data->state.position));
-    }
-    else {
-        // Not in orbit range - approach player or back off
-        config->isOrbiting = false;
-        
-        if (distToPlayer > config->orbitDistance * 1.2f) {
-            // Too far - approach
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-        }
-        else {
-            // Too close - back away
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(data->state.position, player.state.position));
-        }
-    }
     
     // Handle shooting - Radius always tries to maintain optimal distance for shooting
     config->shootTimer += Time->deltaTimeSeconds;
-    if (config->shootTimer >= config->shootTime && distToPlayer < config->orbitDistance * 1.5) {
+    if (config->shootTimer >= config->shootTime) {
         config->shootTimer = 0;
         config->shootTime = RandFloat(
             data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
         );
-        
-        // Orbital enemies fire in patterns (spread shots)
-        for (int i = 0; i < 3; i++) {
-            float angleOffset = (i - 1) * config->shotSpreadRadius;
-            
-            // Adjust bullet emitter direction for spread shots
-            if (config->gun.resources.bulletPreset) {
-                config->gun.resources.bulletPreset->direction = Vec2_RotateDegrees(
-                    Vec2_RotateDegrees(Vec2_Right, config->gun.state.angle),
-                    angleOffset
-                );
-                
-                ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
-            }
-        }
-        
+
         // Visual effects
+        ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
         ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
     }
@@ -178,28 +130,31 @@ void Radius_Update(EnemyData* data) {
 
 void Radius_UpdateParticles() {
     if (!RadiusBulletEmitter) return;
+    
+    for (int i = 0; i < RadiusBulletEmitter->maxParticles; i++) {
+        Particle* bullet = &RadiusBulletEmitter->particles[i];
+        if (!bullet->alive) continue;
+        if (Collider_Check(bullet->collider, NULL))  {
+            bullet->speed = 0;
+            bullet->velocity = Vec2_Zero;
+        }
+        if (bullet->timeAlive + Time->deltaTimeSeconds >= bullet->maxLifeTime) {
+            RadiusExplosionEmitter->position = bullet->position;
+            ParticleEmitter_ActivateOnce(RadiusExplosionEmitter);
+            if (IsRectOverlappingCircle(
+                player.state.collider.hitbox,
+                bullet->position, 
+                RadiusConfigData.explosionRadius
+                 
+            )) {
+                Player_TakeDamage(RadiusData.stats.damage);
+            }
+        }
+    }
+
     ParticleEmitter_Update(RadiusBulletEmitter);
     ParticleEmitter_Update(RadiusMuzzleFlashEmitter);
     ParticleEmitter_Update(RadiusCasingEmitter);
     ParticleEmitter_Update(RadiusBulletFragmentsEmitter);
-
-    for (int i = 0; i < RadiusBulletEmitter->maxParticles; i++) {
-        Particle* bullet = &RadiusBulletEmitter->particles[i];
-        if (!bullet->alive) continue;
-        ColliderCheckResult result;
-        Collider_Check(bullet->collider, &result);
-        for (int j = 0; j < result.count; j++) {
-            if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                Player_TakeDamage(RadiusData.stats.damage);
-            }
-            if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
-                RadiusBulletFragmentsEmitter->position = bullet->position;
-                RadiusBulletFragmentsEmitter->direction = RadiusBulletEmitter->direction;
-                ParticleEmitter_ActivateOnce(RadiusBulletFragmentsEmitter);
-                Collider_Reset(bullet->collider);
-                bullet->alive = false;
-                break;
-            }
-        }
-    }
-}
+    ParticleEmitter_Update(RadiusExplosionEmitter);
+}   

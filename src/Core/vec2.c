@@ -48,6 +48,7 @@ float Vec2_Distance(Vec2 a, Vec2 b) {
  */
 Vec2 Vec2_Normalize(Vec2 v) {
     float mag = Vec2_Magnitude(v);
+    if (mag < 0.0001f) return Vec2_Zero;
     return (Vec2) {v.x / mag, v.y / mag};
 }
 

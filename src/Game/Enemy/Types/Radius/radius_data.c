@@ -55,11 +55,7 @@ RadiusConfig RadiusConfigData = {
         }
     },
     .gunOffset = {0, -3},
-    .shotSpreadRadius = 15.0f,
-    .orbitDistance = 180.0f,
-    .isOrbiting = false,
-    .orbitSpeed = 100.0f,
-    .orbitAngle = 0.0f
+    .explosionRadius = 20.0f,
 };
 
 EnemyData RadiusData = {
