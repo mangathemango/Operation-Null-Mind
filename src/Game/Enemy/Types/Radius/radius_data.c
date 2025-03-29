@@ -94,9 +94,9 @@ EnemyData RadiusData = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .spritesheetPath = "Assets/Images/Enemies/radius.png", // Updated to match enemy name
         .frameSize = {30, 40},
-        .frameCount = 7,
+        .frameCount = 1,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -104,19 +104,13 @@ EnemyData RadiusData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
-            },
-            {
-                .name = "walkin",
-                .startFrameIndex = 1,
-                .endFrameIndex = 6,
-                .frameDuration = 0.1f,
-                .looping = true,
-            },
+            }
         },
         .playOnStart = true,
-        .defaultClip = "walkin",
+        .defaultClip = "idle",
         .spriteSize = {30, 40},
     },
+    .name = "Radius",
     .config = &RadiusConfigData,
     .start = &Radius_Start,
     .update = &Radius_Update,

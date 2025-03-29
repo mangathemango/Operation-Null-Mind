@@ -65,6 +65,7 @@ ProxyConfig ProxyConfigData = {
  */
 EnemyData ProxyData = {
     .type = ENEMY_TYPE_PROXY,
+    .name = "Proxy",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},

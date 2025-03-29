@@ -101,9 +101,9 @@ EnemyData JuggernautData = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .spritesheetPath = "Assets/Images/Enemies/juggernaut.png", 
         .frameSize = {30, 40},
-        .frameCount = 7,
+        .frameCount = 1,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -111,21 +111,8 @@ EnemyData JuggernautData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
-            },
-            {
-                .name = "walkin",
-                .startFrameIndex = 1,
-                .endFrameIndex = 6,
-                .frameDuration = 0.1f,
-                .looping = true,
-            },
-            {
-                .name = "attack",
-                .startFrameIndex = 2,
-                .endFrameIndex = 2,
-                .frameDuration = 0.0f,
-                .looping = true,
-            },
+            }
+            // Removed walkin and attack clips
         },
         .playOnStart = true,
         .defaultClip = "idle",
@@ -135,4 +122,5 @@ EnemyData JuggernautData = {
     .start = &Juggernaut_Start,
     .update = &Juggernaut_Update,
     .render = &Juggernaut_Render,
+    .name = "Juggernaut",
 };

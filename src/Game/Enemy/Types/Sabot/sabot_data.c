@@ -65,6 +65,7 @@ SabotConfig SabotConfigData = {
  */
 EnemyData SabotData = {
     .type = ENEMY_TYPE_SABOT,
+    .name = "Sabot",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
@@ -95,9 +96,9 @@ EnemyData SabotData = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/proxy.png",  // Use exact Proxy path
+        .spritesheetPath = "Assets/Images/Enemies/sabot.png", // Updated to match enemy name
         .frameSize = {30, 40},  // Match Proxy's frame size
-        .frameCount = 7,  // Match Proxy's frame count
+        .frameCount = 1,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -105,17 +106,11 @@ EnemyData SabotData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
-            },
-            {
-                .name = "walkin",  // Match Proxy's clip name
-                .startFrameIndex = 1,
-                .endFrameIndex = 6,
-                .frameDuration = 0.1f,
-                .looping = true,
-            },
+            }
+            // Removed walkin clip
         },
         .playOnStart = true,
-        .defaultClip = "walkin",  // Match Proxy's default
+        .defaultClip = "idle",
         .spriteSize = {30, 40},  // Match Proxy's sprite size
     },
     .config = &SabotConfigData,

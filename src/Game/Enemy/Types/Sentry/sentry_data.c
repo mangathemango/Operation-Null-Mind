@@ -70,6 +70,7 @@ SentryConfig SentryConfigData = {
  */
 EnemyData SentryData = {
     .type = ENEMY_TYPE_SENTRY,
+    .name = "Sentry",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
@@ -100,9 +101,9 @@ EnemyData SentryData = {
         .animation = NULL,
     },
     .animData = {
-        .spritesheetPath = "Assets/Images/Enemies/proxy.png",
+        .spritesheetPath = "Assets/Images/Enemies/sentry.png", // Updated to match enemy name
         .frameSize = {30, 40},
-        .frameCount = 7,
+        .frameCount = 1,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -110,14 +111,8 @@ EnemyData SentryData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
-            },
-            {
-                .name = "walkin",
-                .startFrameIndex = 1,
-                .endFrameIndex = 6,
-                .frameDuration = 0.1f,
-                .looping = true,
-            },
+            }
+            // Removed walkin clip
         },
         .playOnStart = true,
         .defaultClip = "idle", // Sentries are mostly stationary

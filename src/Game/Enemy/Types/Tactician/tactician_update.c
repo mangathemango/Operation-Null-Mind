@@ -146,11 +146,7 @@ void Tactician_Update(EnemyData* data) {
         ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
     }
 
-    if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
-        Animation_Play(config->gun.resources.animation, "idle");
-    } else {
-        Animation_Play(config->gun.resources.animation, "walkin");
-    }
+    Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
 }
 

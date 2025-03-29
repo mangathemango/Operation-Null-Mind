@@ -150,7 +150,7 @@ void Juggernaut_Update(EnemyData* data) {
             // Occasionally enter stampede state
             if (RandFloat(0, 1) < 0.3f && distToPlayer > config->chargeDistance) {
                 config->stampedeTimer = config->stampedeDuration;
-                Animation_Play(data->resources.animation, "attack");
+                Animation_Play(data->resources.animation, "idle");
                 return;
             }
         }
@@ -196,11 +196,7 @@ void Juggernaut_Update(EnemyData* data) {
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
     }
 
-    if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
-        Animation_Play(config->gun.resources.animation, "idle");
-    } else if (!config->stampedeTimer > 0) {
-        Animation_Play(config->gun.resources.animation, "walkin");
-    }
+    Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
 }
 

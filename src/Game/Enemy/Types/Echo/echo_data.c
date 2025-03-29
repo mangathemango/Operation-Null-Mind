@@ -50,7 +50,7 @@ EnemyData EchoData = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/echo.png",
-        .frameSize = {40, 40},
+        .frameSize = {30, 40},
         .frameCount = 8,
         .clips = {
             {
@@ -59,18 +59,11 @@ EnemyData EchoData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
-            },
-            {
-                .name = "move",
-                .startFrameIndex = 0,
-                .endFrameIndex = 7,
-                .frameDuration = 0.1f,
-                .looping = true,
             }
         },
         .playOnStart = true,
-        .defaultClip = "move",
-        .spriteSize = {40, 40},
+        .defaultClip = "idle",
+        .spriteSize = {30, 40},
     },
     .config = NULL,
     .start = &Echo_Start,

@@ -171,11 +171,8 @@ void Radius_Update(EnemyData* data) {
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
     }
 
-    if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
-        Animation_Play(config->gun.resources.animation, "idle");
-    } else {
-        Animation_Play(config->gun.resources.animation, "walkin");
-    }
+    // Replace animation state handling with just "idle"
+    Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
 }
 

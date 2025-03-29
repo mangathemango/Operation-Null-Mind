@@ -103,6 +103,8 @@ typedef struct EnemyData {
     void (*start)(EnemyData* data);    /**< Initialization function */
     void (*update)(EnemyData* data);   /**< Update logic function */
     void (*render)(EnemyData* data);   /**< Render function */
+    
+    const char* name;                  /**< Name of the enemy */
 } EnemyData;
 
 extern EnemyData* enemyList[ENEMY_TYPE_COUNT];
