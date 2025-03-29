@@ -55,8 +55,13 @@ EchoConfig EchoConfigData = {
         }
     },
     .gunOffset = {0, -3},
-    .echoDelay = 1.5f,
-    .isEchoing = false
+
+    .burstCount = 0,
+    .burstMaxCount = 3,
+    .burstTimer = 0.0f,
+    .burstTime = 0.1f,
+    .bursting = false,
+    
 };
 
 /**

@@ -90,11 +90,16 @@ void Enemy_Init() {
     SentryBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
     
     // Radius particle emitters
-    RadiusBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    RadiusBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Gernade);
     RadiusMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
     RadiusCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     RadiusBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
-    
+    RadiusExplosionIndicator = CreateCircleTexture(
+        KamikazeConfigData.explosionRadius,
+        (SDL_Color){255, 0, 0, 255}
+    );
+    RadiusExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);
+    RadiusExplosionEmitter->particleSpeed /= 2;
     // Juggernaut particle emitters
     JuggernautBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
     JuggernautMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);

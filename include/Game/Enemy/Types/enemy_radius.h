@@ -6,12 +6,14 @@
 #pragma once
 #include <enemy.h>
 #include <gun.h>
+#include <circle.h>
 
 extern ParticleEmitter* RadiusBulletEmitter;
 extern ParticleEmitter* RadiusBulletFragmentsEmitter;
 extern ParticleEmitter* RadiusMuzzleFlashEmitter;
 extern ParticleEmitter* RadiusCasingEmitter;
-
+extern ParticleEmitter* RadiusExplosionEmitter;
+extern SDL_Texture* RadiusExplosionIndicator;
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
@@ -22,11 +24,7 @@ typedef struct {
     Vec2 lastPosition;
     
     // Radius-specific fields
-    float shotSpreadRadius;
-    float orbitDistance;
-    bool isOrbiting;
-    float orbitSpeed;
-    float orbitAngle;
+    float explosionRadius;
 } RadiusConfig;
 
 void Radius_Start(EnemyData* data);

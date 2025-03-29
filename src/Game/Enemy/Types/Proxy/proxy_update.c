@@ -130,7 +130,7 @@ void Proxy_Update(EnemyData* data) {
         config->directionChangeTimer = 0;
         data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
 
-        if (Vec2_Distance(player.state.position, data->state.position) > 150) {
+        if (Vec2_Distance(player.state.position, data->state.position) > 100) {
             data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
         } else {
             data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
@@ -170,7 +170,7 @@ void Proxy_UpdateParticles() {
         Collider_Check(bullet->collider, &result);
         for (int j = 0; j < result.count; j++) {
             if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                player.state.currentHealth -= ProxyData.stats.damage;
+                Player_TakeDamage(ProxyData.stats.damage);
             }
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                 ProxyBulletFragmentsEmitter->position = bullet->position;

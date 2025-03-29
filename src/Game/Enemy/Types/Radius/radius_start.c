@@ -19,6 +19,8 @@ ParticleEmitter* RadiusBulletEmitter;
 ParticleEmitter* RadiusMuzzleFlashEmitter;
 ParticleEmitter* RadiusCasingEmitter;
 ParticleEmitter* RadiusBulletFragmentsEmitter;
+ParticleEmitter* RadiusExplosionEmitter;
+SDL_Texture* RadiusExplosionIndicator;
 
 /**
  * @brief [Start] Initializes a Radius enemy instance
@@ -39,8 +41,7 @@ void Radius_Start(EnemyData* data) {
     ((RadiusConfig*) data->config)->shootTime = RandFloat(
         data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
     );
-    // Initialize orbit angle randomly to spread out multiple Radius enemies
-    ((RadiusConfig*) data->config)->orbitAngle = RandFloat(0, 360);
+
     
     GunData* gun = &((RadiusConfig*) data->config)->gun;
     gun->resources.animation = Animation_Create(&animData);

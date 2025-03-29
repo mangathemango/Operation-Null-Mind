@@ -25,7 +25,6 @@
  * @return int Status code (0 for success)
  */
 int Player_PostUpdate() {
-    
     Player_DetectCollision();
 
     // Handle player input, i.e movement and dashing
@@ -42,5 +41,6 @@ int Player_PostUpdate() {
 
     // Update player animation
     Player_AnimationUpdate();
+
     return 0;
 }

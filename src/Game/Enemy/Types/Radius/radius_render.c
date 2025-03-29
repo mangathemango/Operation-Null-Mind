@@ -25,11 +25,6 @@ void Radius_Render(EnemyData* data) {
     if (!config) return;
     GunData *gun = &config->gun;
 
-    // Optional: render orbit path when actively orbiting
-    if (config->isOrbiting) {
-        // Visual indicator could be implemented here
-    }
-
     Animation_Render(gun->resources.animation, 
         Camera_WorldVecToScreen(gun->state.position), 
         gun->animData.spriteSize,
@@ -44,4 +39,30 @@ void Radius_RenderParticles() {
     ParticleEmitter_Render(RadiusMuzzleFlashEmitter);
     ParticleEmitter_Render(RadiusCasingEmitter);
     ParticleEmitter_Render(RadiusBulletFragmentsEmitter);
+    ParticleEmitter_Render(RadiusExplosionEmitter);
+
+    for (int i = 0; i < RadiusBulletEmitter->maxParticles; i++) {
+        Particle* bullet = &RadiusBulletEmitter->particles[i];
+        if (!bullet->alive) continue;
+        float lifetimeRatio = bullet->timeAlive / bullet->maxLifeTime;
+        int alpha = (lifetimeRatio) * 150;
+        SDL_Rect dest = Vec2_ToCenteredSquareRect(
+            Vec2_Add(
+                Camera_WorldVecToScreen(bullet->position),
+                Vec2_Divide(
+                    bullet->size, 
+                    2
+                )
+            ), 
+            RadiusConfigData.explosionRadius * 2
+        );
+        SDL_SetTextureAlphaMod(RadiusExplosionIndicator, alpha);
+        SDL_RenderCopy(
+            app.resources.renderer, 
+            RadiusExplosionIndicator, 
+            NULL, 
+            &dest
+        );
+
+    }
 }

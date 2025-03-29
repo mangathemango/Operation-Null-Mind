@@ -57,7 +57,7 @@ typedef struct {
 typedef struct {
     int maxHealth;
     int maxAmmo;
-    int INVINCIBLE_Time; ///< Time the player is [Title card] before taking damage again
+    float INVINCIBLE_Time; ///< Time the player is [Title card] before taking damage again
     float walkSpeed;    ///< Normal walking speed
     float dashSpeed;    ///< Speed during dash
     float dashDuration; ///< How long dash lasts
@@ -163,6 +163,8 @@ int Player_AnimationInit();
  * @return Status code
  */
 int Player_AnimationUpdate();
+
+void Player_TakeDamage(int damage);
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);

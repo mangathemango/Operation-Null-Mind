@@ -52,7 +52,6 @@ int App_PostUpdate() {
             if(player.state.currentHealth <= 0) {
                 app.state.currentScene = SCENE_DEATH;
                 Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
-                player.state.currentHealth = 50;
                 Game_Restart();
             }
             break;

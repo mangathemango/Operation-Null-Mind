@@ -21,11 +21,13 @@ void Vantage_UpdateGun(EnemyData* data) {
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 
-    // Calculate angle between gun -> mouse position
-    gun->state.angle = atan2(
-        player.state.position.y - gun->state.position.y,
-        player.state.position.x - gun->state.position.x
-    ) * 180 / M_PI;
+    if (!config->aiming) {
+        // Calculate angle between gun -> mouse position
+        gun->state.angle = atan2(
+            player.state.position.y - gun->state.position.y,
+            player.state.position.x - gun->state.position.x
+        ) * 180 / M_PI;
+    }
 
     // Flip the gun's sprite if mouse is on the left side of the player
     if (player.state.position.x < gun->state.position.x) {
@@ -100,9 +102,9 @@ void Vantage_UpdateGun(EnemyData* data) {
  */
 void Vantage_Update(EnemyData* data) {
     VantageConfig* config = (VantageConfig*)data->config;
-    
+    GunData* gun = &config->gun;
+
     if (data->state.currentHealth <= 0) {
-        GunData* gun = &config->gun;
         Animation_Destroy(gun->resources.animation);
         void* configToFree = config;
         data->config = NULL;
@@ -114,44 +116,55 @@ void Vantage_Update(EnemyData* data) {
     config->gun.state.position = data->state.position;
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Vantage_UpdateGun(data);
+    Vantage_UpdateLazer(data);
 
-    float distanceToPlayer = Vec2_Distance(data->state.position, player.state.position);
-    
-    // Combine sniper mechanics with normal movement
-    if (distanceToPlayer < config->detectionRange) {
-        if (distanceToPlayer > config->sniperRange) {
-            // Move towards optimal shooting range
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-            config->isAiming = false;
-        } else {
-            // At optimal range, stop and aim
-            config->isAiming = true;
-            config->targetPosition = player.state.position;
-            data->state.direction = Vec2_Zero;
-            
-            // Shoot after aiming
-            config->shootTimer += Time->deltaTimeSeconds;
-            if (config->shootTimer >= config->shootTime) {
-                config->shootTimer = 0;
-                config->shootTime = RandFloat(
-                    data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
-                );
-                ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
-                ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-                ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
-            }
-        }
-    } else {
-        // Normal movement behavior when player is out of detection range
+    config->shooting = false;
+    if (!config->aiming) {
+        data->stats.maxSpeed = 200;
         config->directionChangeTimer += Time->deltaTimeSeconds;
         if (config->directionChangeTimer >= config->directionChangeTime) {
             config->directionChangeTime = RandFloat(0.5f, 1.0f);
             config->directionChangeTimer = 0;
-            data->state.direction = Vec2_Normalize((Vec2){RandFloat(-1, 1), RandFloat(-1, 1)});
-        }
-        config->isAiming = false;
-    }
 
+            // Circle around the player
+            float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
+            if (distToPlayer > 200) {
+                data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+                data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
+            } else {
+                data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+                data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
+            }
+        }
+
+        config->shootTimer += Time->deltaTimeSeconds;
+        if (config->shootTimer >= config->shootTime) {
+            config->shootTimer = 0;
+            config->shootTime = RandFloat(
+                data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+            );
+            config->aiming = true;
+            config->lazerDirection = Vec2_Normalize(
+                Vec2_Subtract(
+                    player.state.position, 
+                    gun->resources.muzzleFlashEmitter->position
+                )
+            );
+        }
+    } else {
+        config->lazerWidth = 0; 
+        data->stats.maxSpeed = 0;
+        config->aimTimer += Time->deltaTimeSeconds;
+        if (config->aimTimer >= config->aimTime - 0.3f) {
+            config->lazerWidth = 5;
+            config->lazerWidth = (5.0f * (1.0f - (config->aimTimer - 0.5f) / 0.3f)); // Gradually increase width
+            config->shooting = true;
+        }
+        if (config->aimTimer >= config->aimTime) {
+            config->aiming = false;
+            config->aimTimer = 0;
+        }
+    }
     // Replace animation state handling with just "idle"
     Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
@@ -183,4 +196,48 @@ void Vantage_UpdateParticles() {
             }
         }
     }
+}
+
+void Vantage_UpdateLazer(EnemyData* data) {
+    VantageConfig* config = (VantageConfig*)data->config;
+    GunData* gun = &config->gun;
+
+    Vec2 currentLazerPosition = gun->resources.muzzleFlashEmitter->position;
+    Vec2 targetDirection = config->lazerDirection;
+    Collider lazer = (Collider) {
+        .active = true,
+        .hitbox = Vec2_ToSquareRect(currentLazerPosition, 1
+        ),
+        .collidesWith = COLLISION_LAYER_ENVIRONMENT | 
+                        COLLISION_LAYER_PLAYER
+    };
+    
+    Collider_Register(&lazer, NULL);
+    for (int i = 0; i < 1000; i++) {
+        if (Vec2_AreEqual(targetDirection, Vec2_Zero)) {
+            break;
+        }
+        ColliderCheckResult result;
+        bool hitWall = false;
+        Collider_Check(&lazer, &result);
+        for (int j = 0; j < result.count; j++) {
+            if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
+                if (config->shooting) {
+                    Player_TakeDamage(VantageData.stats.damage);
+                }
+            }
+            if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT)) {
+                hitWall = true;
+                break;
+            }
+        }
+        if (hitWall) {
+            break;
+        }
+        Vec2_Increment(&currentLazerPosition, targetDirection);
+        lazer.hitbox = Vec2_ToSquareRect(currentLazerPosition, 1);
+    }
+    config->lazerStart = gun->resources.muzzleFlashEmitter->position;
+    config->lazerEnd = currentLazerPosition;
+    Collider_Reset(&lazer);
 }

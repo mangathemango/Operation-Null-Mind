@@ -55,11 +55,13 @@ VantageConfig VantageConfigData = {
         }
     },
     .gunOffset = {0, -3},
-    .detectionRange = 400.0f,    // Can detect player from far away
-    .sniperRange = 250.0f,      // Optimal shooting range
-    .aimTime = 1.0f,           // Time spent aiming before shooting
-    .isAiming = false,
-    .targetPosition = {0, 0}
+    .aiming = false,
+    .aimTime = 0.8f,         // Time to aim before shooting
+    .aimTimer = 0,
+    .shooting = false,
+    .lazerStart = {0, 0},
+    .lazerEnd = {0, 0},
+
 };
 
 /**

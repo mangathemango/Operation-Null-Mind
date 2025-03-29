@@ -25,9 +25,11 @@ typedef struct {
     Vec2 lastPosition;
     
     // Echo-specific fields
-    float echoDelay;     // Time before echoing player movement
-    Vec2 echoPosition;   // Position to echo
-    bool isEchoing;      // Whether currently echoing
+    int burstCount;
+    int burstMaxCount;
+    float burstTimer;
+    float burstTime;
+    bool bursting;
 } EchoConfig;
 
 void Echo_Start(EnemyData* data);
