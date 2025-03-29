@@ -6,10 +6,58 @@
  * for the Echo enemy type.
  *
  * @author Mango
- * @date 2025-03-04
+ * @date 2025-03-22
  */
 
 #include <enemy_echo.h>
+
+EchoConfig EchoConfigData = {
+    .directionChangeTimer = 0,
+    .directionChangeTime = 1.0f,
+    .shootTimer = 0,
+    .gun = {
+        .config = {
+            .muzzlePosition = {21, 4},
+            .ejectionPosition = {9, 2},
+            .gripPosition = {8, 5},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+            .currentAmmo = 0,
+        },
+        .stats = {
+            .fireRate = 600,
+            .spread_angle = 3,
+            .damage = 12,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoCapacity = 24,
+            .ammoConsumption = 1
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Enemies/echo_gun.png",
+            .frameSize = {21, 9},
+            .frameCount = 1,
+            .clips = {
+                {
+                    .name = "normal",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {21, 9},   
+            .defaultClip = "normal",
+            .playOnStart = true
+        }
+    },
+    .gunOffset = {0, -3},
+    .echoDelay = 1.5f,
+    .isEchoing = false
+};
 
 /**
  * @brief [Data] Echo enemy default data
@@ -19,12 +67,13 @@
  */
 EnemyData EchoData = {
     .type = ENEMY_TYPE_ECHO,
+    .name = "Echo",
     .state = {
         .position = {0, 0},
         .velocity = {0, 0},
         .direction = {0, 0},
         .collider = {
-            .hitbox = {0, 0, 20, 32},
+            .hitbox = {0, 0, 26, 26},
             .layer = COLLISION_LAYER_ENEMY,
             .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
                             | COLLISION_LAYER_PLAYER
@@ -35,15 +84,15 @@ EnemyData EchoData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 0,
-        .maxHealth = 100,
-        .maxSpeed = 50.0f,
-        .acceleration = 500.0f,
-        .drag = 5.0f,
+        .damage = 12,
+        .maxHealth = 85,
+        .maxSpeed = 110.0f,
+        .acceleration = 450.0f,
+        .drag = 4.0f,
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0,
+        .attackCooldown = 3.5f,
     },
     .resources = {
         .animation = NULL,
@@ -51,7 +100,7 @@ EnemyData EchoData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/echo.png",
         .frameSize = {30, 40},
-        .frameCount = 8,
+        .frameCount = 1,
         .clips = {
             {
                 .name = "idle",
@@ -65,7 +114,7 @@ EnemyData EchoData = {
         .defaultClip = "idle",
         .spriteSize = {30, 40},
     },
-    .config = NULL,
+    .config = &EchoConfigData,
     .start = &Echo_Start,
     .update = &Echo_Update,
     .render = &Echo_Render,

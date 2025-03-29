@@ -46,6 +46,7 @@ void Enemy_Update() {
     Sentry_UpdateParticles();
     Radius_UpdateParticles();
     Juggernaut_UpdateParticles();
+    Echo_UpdateParticles();  // Add Echo particles update
 }
 
 /**

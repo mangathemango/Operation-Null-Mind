@@ -8,9 +8,33 @@
 
 #pragma once
 #include <enemy.h>
+#include <gun.h>
 
-void Echo_Start (EnemyData* data);
+extern ParticleEmitter* EchoBulletEmitter;
+extern ParticleEmitter* EchoBulletFragmentsEmitter;
+extern ParticleEmitter* EchoMuzzleFlashEmitter;
+extern ParticleEmitter* EchoCasingEmitter;
+
+typedef struct {
+    float directionChangeTimer;
+    float directionChangeTime;
+    float shootTime;
+    float shootTimer;
+    GunData gun;
+    Vec2 gunOffset;
+    Vec2 lastPosition;
+    
+    // Echo-specific fields
+    float echoDelay;     // Time before echoing player movement
+    Vec2 echoPosition;   // Position to echo
+    bool isEchoing;      // Whether currently echoing
+} EchoConfig;
+
+void Echo_Start(EnemyData* data);
 void Echo_Update(EnemyData* data);
 void Echo_Render(EnemyData* data);
+void Echo_UpdateParticles();
+void Echo_RenderParticles();
 
+extern EchoConfig EchoConfigData;
 extern EnemyData EchoData;

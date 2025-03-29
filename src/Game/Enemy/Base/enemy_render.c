@@ -85,4 +85,5 @@ void Enemy_Render() {
     Sentry_RenderParticles();
     Radius_RenderParticles();
     Juggernaut_RenderParticles();
+    Echo_RenderParticles();  // Add Echo particles render
 }
