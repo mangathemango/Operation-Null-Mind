@@ -90,10 +90,12 @@ void HUD_RenderAmmoBar() {
     SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
     SDL_RenderFillRect(app.resources.renderer, &fillingDest);
     
+    static float currentBarWidth = 0;
+    currentBarWidth += (player.state.currentAmmo - currentBarWidth) * 0.1f;
     SDL_Rect barDest = Vec2_ToRect(
         ammoBarPosition, 
         (Vec2) {
-            barSize.x * ((float) player.state.currentAmmo / (float) player.stats.maxAmmo), 
+            barSize.x * currentBarWidth / (float) player.stats.maxAmmo, 
             barSize.y
         }
     );

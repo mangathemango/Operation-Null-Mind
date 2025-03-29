@@ -15,6 +15,7 @@
 #include <enemy_types.h>
 #include <interactable.h>
 #include <random.h>
+#include <game.h>
 
 /**
  * @brief Generates a complete game map
@@ -104,7 +105,8 @@ void Map_Generate() {
 
             // Generate room details
             if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
-                testMap.chunks[x][y].totalEnemyCount = RandInt(20, 40);
+                int totalEnemyCount = 10 + game.currentStage * 2;
+                testMap.chunks[x][y].totalEnemyCount = RandInt(totalEnemyCount / 2, totalEnemyCount * 3 / 2);
                 testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
             }
             if (testMap.chunks[x][y].roomType == ROOM_TYPE_CRATE) {

@@ -23,8 +23,10 @@
  */
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
+    int ammoComsumption = player.state.currentGun.stats.ammoConsumption;
+    if (player.state.currentAmmo < ammoComsumption) return;
     Sound_Play_Effect(1);
-    player.state.currentAmmo--;
+    player.state.currentAmmo -= player.state.currentGun.stats.ammoConsumption;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);

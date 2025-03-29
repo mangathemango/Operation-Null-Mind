@@ -22,10 +22,13 @@
  * Defines the different types of enemies in the game
  */
 typedef enum {
+    ENEMY_TYPE_PROXY,
     ENEMY_TYPE_ECHO,
     ENEMY_TYPE_KAMIKAZE,
     ENEMY_TYPE_RECHARGE,
-    ENEMY_TYPE_PROXY,
+    ENEMY_TYPE_VANTAGE,
+    ENEMY_TYPE_RADIUS,
+    ENEMY_TYPE_SABOT,
     ENEMY_TYPE_VANTAGE,
     ENEMY_TYPE_RADIUS,
     ENEMY_TYPE_SABOT,
