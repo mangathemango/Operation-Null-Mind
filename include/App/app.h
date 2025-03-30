@@ -63,6 +63,7 @@ typedef struct {
     SDL_Window* window; /**< The SDL window */
     SDL_Renderer* renderer; /**< The SDL renderer */
     SDL_Texture* screenTexture; /**< The screen texture */
+    SDL_Texture* cursorTexture; /**< The cursor texture */
     TTF_Font* textFont; /**< The font for text */
     TTF_Font* title1Font; /**< The font for title 1 */
     TTF_Font* title2Font; /**< The font for title 2 */

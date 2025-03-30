@@ -62,5 +62,7 @@ int Initialize_SDL() {
         SDL_Log("Failed to load font! TTF_Error: %s\n", TTF_GetError());
         return -1;
     }
+
+    SDL_ShowCursor(SDL_DISABLE);
     return 0;
 }

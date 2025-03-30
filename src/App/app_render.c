@@ -16,6 +16,7 @@
 
 #include <debug.h>
 #include <bullet.h>
+#include <input.h>
 
 /**
  * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
@@ -57,6 +58,13 @@ int App_RenderMain() {
     Debug_RenderFPSCount();
     Debug_RenderSpikeCount();
     Debug_RenderCurrentChunk();
+
+    SDL_Rect cursorRect = Vec2_ToCenteredRect(
+        Input->mouse.position,
+        (Vec2) {7, 7} // Size of the cursor texture
+    );
+    
+    SDL_RenderCopy(app.resources.renderer, app.resources.cursorTexture, NULL, &cursorRect);
     return 0;
 }
 
