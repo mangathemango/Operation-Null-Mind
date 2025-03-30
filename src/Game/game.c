@@ -8,6 +8,7 @@ GameData game = {
     .isTransitioning = false,
     .viewingLog = -1,
     .transitionTimer = NULL,
+    .hudToggled = false,
 };
 
 void Game_Start() {

@@ -50,6 +50,8 @@ void Player_Input_Handler() {
     } else {
         if (Input->mouse.leftButton.pressed) Player_Shoot();
     }
+
+    if (Input->keyboard.keys[SDL_SCANCODE_TAB].pressed) game.hudToggled = !game.hudToggled;
     
     if (Input->mouse.leftButton.pressed) {
         game.viewingLog = -1;

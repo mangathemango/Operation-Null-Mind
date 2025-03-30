@@ -41,7 +41,6 @@ int App_RenderMain() {
             Bullet_Render();
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
-            Minimap_Render();
             HUD_Render();
             Log_Render();
             LevelTransition_Render();

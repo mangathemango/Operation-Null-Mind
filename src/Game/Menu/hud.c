@@ -276,6 +276,8 @@ void HUD_RenderCurrentLevel() {
 }
 
 void HUD_Render() {
+    if (game.hudToggled) return;
+    Minimap_Render();
     HUD_RenderHealthBar();
     HUD_RenderAmmoBar();
     HUD_RenderCurrentGun();

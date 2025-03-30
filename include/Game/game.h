@@ -8,6 +8,7 @@ typedef struct {
     Timer* transitionTimer;
 
     int viewingLog;
+    bool hudToggled;
 } GameData;
 
 extern GameData game;
