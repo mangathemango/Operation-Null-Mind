@@ -1,5 +1,6 @@
 #include <game.h>
 #include <enemy.h>
+#include <sound.h>
 
 GameData game = {
     .currentStage = 1,
@@ -31,6 +32,7 @@ void Game_Restart()
     Map_Generate(); 
     player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
     camera.position = player.state.position;
+    Sound_Play_Music("Assets/Audio/Music/return0 lofi death music BEGINNING.wav", 1);
 
     for(int i = 0;i < ENEMY_MAX;i++)
     {
