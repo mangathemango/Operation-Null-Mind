@@ -77,6 +77,7 @@ void Enemy_Render() {
         );
         if (enemies[i].render) enemies[i].render(&enemies[i]);
     }
+    Enemy_RenderHealthTexts();
     if (KamikazeExplosionEmitter) ParticleEmitter_Render(KamikazeExplosionEmitter);
     Proxy_RenderParticles();
     Sabot_RenderParticles();

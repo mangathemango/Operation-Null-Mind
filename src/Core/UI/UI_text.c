@@ -104,6 +104,16 @@ void UI_RenderText(UIElement* element) {
     SDL_RenderCopy(app.resources.renderer, data->textTexture, NULL, &element->dstRect);
 }
 
+void UI_DestroyText(UIElement* element) {
+    UI_TextData* data = element->data;
+    if (data) {
+        free(data->text);
+        SDL_DestroyTexture(data->textTexture);
+        free(data);
+    }
+    free(element);
+}
+
 void UI_ChangeText(UIElement* element, const char* text) {
     UI_TextData* data = element->data;
     if (strcmp(text, data->text) == 0) return;

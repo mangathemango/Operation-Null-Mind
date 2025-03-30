@@ -40,6 +40,7 @@ void Enemy_Update() {
         // Check if enemy should die
         if (enemy->state.currentHealth <= 0) Enemy_HandleDeath(enemy);
     }
+    Enemy_UpdateHealthTexts();
     if (KamikazeExplosionEmitter) ParticleEmitter_Update(KamikazeExplosionEmitter);
     Proxy_UpdateParticles();
     Sabot_UpdateParticles();
