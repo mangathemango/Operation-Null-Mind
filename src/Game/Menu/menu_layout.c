@@ -59,7 +59,7 @@ void Menu_Update() {
 
     if (Input_MouseIsOnRect(startButtonRect) && Input->mouse.leftButton.pressed) {
         app.state.currentScene = SCENE_GAME;
-        Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
+        Sound_Play_Music("Assets/Audio/Music/return0 early level music.wav", -1);
     }
 
     if (Input_MouseIsOnRect(exitButtonRect)) {
