@@ -80,7 +80,6 @@
     static float timer = 0;
     static bool isPlayed = 0;
     timer += Time->deltaTimeSeconds;
-    SDL_Log("Timer: %f", timer);
     if(timer > 39.428569 && !isPlayed) {
         Sound_Play_Music("Assets/Audio/Music/return0 lofi death music LOOP.wav", -1);
         isPlayed = 1;
