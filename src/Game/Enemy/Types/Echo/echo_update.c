@@ -141,6 +141,7 @@ void Echo_Update(EnemyData* data) {
             ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+            Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
             config->burstCount++;
             config->burstTimer = 0;
             if (config->burstCount >= config->burstMaxCount) {

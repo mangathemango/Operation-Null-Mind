@@ -146,6 +146,7 @@ void Proxy_Update(EnemyData* data) {
         ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+        Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
     }
 
     if (Vec2_AreEqual(data->state.position, config->lastPosition)) {

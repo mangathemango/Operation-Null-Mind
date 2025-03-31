@@ -15,6 +15,7 @@
 #include <particle_emitterpresets.h>
 #include <colliders.h>
 #include <game.h>
+#include <sound.h>
 
 /**
  * @brief Contains the player's current state information
