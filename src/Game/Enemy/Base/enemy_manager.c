@@ -83,7 +83,7 @@ void EnemyManager_Update() {
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                EnemyType spawnedEnemy = RandInt(0, game.currentStage);
+                EnemyType spawnedEnemy = game.currentStage - 1;
                 int currentTime = SDL_GetTicks();
                 Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
                 int elapsedTime = SDL_GetTicks() - currentTime;
