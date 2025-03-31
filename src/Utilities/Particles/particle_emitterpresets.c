@@ -474,5 +474,44 @@ ParticleEmitter ParticleEmitter_Gernade = {
     }
 };
 
+
+ParticleEmitter ParticleEmitter_CrashOut = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 0.1,
+    .emissionNumber = 10,
+    .maxParticles = 10000,
+    .angleRange = 360,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+    .particleLifetime = 0.1f,
+    .particleSpeed = 200,
+    .custom_Movement = Particle_SpiralMovement,
+
+    .startColor = {255, 255, 0, 255},
+    .endColor = {255, 0, 0, 0},
+    .startSize = {3, 3},
+    .endSize = {3, 3},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 2.0f,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+
+    .useCollider = false,
+    .collider = {
+        .collidesWith = COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER,
+        .layer = COLLISION_LAYER_ENEMY_PROJECTILE,
+    }
+};
+
 /** @brief Test emitter for development purposes */
 ParticleEmitter* test_emitter = NULL;

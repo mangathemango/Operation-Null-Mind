@@ -119,7 +119,7 @@ int Player_CrashOut() {
 
     
     // Create visual effect (red glow around player)
-    // ParticleEmitter_ActivateOnce(player.resources.crashoutParticleEmitter);
+
     
     return 0;
 }
@@ -150,6 +150,9 @@ int Player_HandleCrashOut() {
     }
     
     player.stats.crashOutCurrentMultipler = player.state.crashOutMultiplier; // Maintain damage multiplier while active
+    player.resources.crashOut->position = player.state.position;
+    ParticleEmitter_ActivateOnce(player.resources.crashOut);
+    ParticleEmitter_Update(player.resources.crashOut);
     SDL_Log("Player_Crashout Active");
     
     // Update visual effects while active

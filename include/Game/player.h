@@ -46,6 +46,7 @@ typedef struct {
  */
 typedef struct {
     ParticleEmitter* dashParticleEmitter; ///< Particle effect for dashing
+    ParticleEmitter* crashOut;  ///< Particle effect for crashout
     Animation* animation;                 ///< Player animation data
     Timer* dashDurationTimer;             ///< Timer for dash duration
     Timer* dashCooldownTimer;             ///< Timer for dash cooldown

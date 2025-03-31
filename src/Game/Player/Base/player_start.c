@@ -25,6 +25,7 @@ int Player_Start() {
     Player_AnimationInit();
     player.resources.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
     player.resources.dashParticleEmitter->selfReference = &player.resources.dashParticleEmitter;
+    player.resources.crashOut = ParticleEmitter_CreateFromPreset(ParticleEmitter_CrashOut);
 
     player.resources.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
     player.resources.dashDurationTimer = Timer_Create(player.stats.dashDuration);
