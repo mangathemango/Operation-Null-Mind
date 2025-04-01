@@ -14,22 +14,17 @@
 #include <sound.h>
 #include <stdio.h>
 #include <SDL_mixer.h>
+#include <stdlib.h>  
+#include <string.h>
+#include <SDL.h> 
 
-
-// Add to sound.c
-MusicQueue musicQueue = {
-    .front = 0,
-    .rear = -1,
-    .count = 0,
-    .isPlaying = false,
-    .loopQueue = false
-};
 
 
 // Initialize the sound resources structure
 SoundResources soundResources = {
     .backgroundMusic = NULL,
     .soundEffects = {NULL}, // Will be populated in Sound_Load_Resources()
+    .musicQueue.nextSongPath = "Assets/Audio/SoundEffect/explosion.wav",
     .soundPaths = {
         [SOUND_SWOOSH] = "Assets/Audio/SoundEffect/swoosh.wav",                // SOUND_SWOOSH
         [SOUND_GUNSHOT] = "Assets/Audio/SoundEffect/gunshot.wav",               // SOUND_GUNSHOT
@@ -98,10 +93,10 @@ bool Sound_Load_Resources() {
     @param path - path to the music file
     @param loops - number of times to loop the music. -1 for infinite loops
 */
-void Sound_Play_Music(const char* path, int loops) {
-    soundResources.backgroundMusic = Mix_LoadMUS(path);
-    Mix_PlayMusic(soundResources.backgroundMusic, loops); //To do infinite loops, use -1
-}
+// void Sound_Play_Music(const char* path, int loops) {
+//     soundResources.backgroundMusic = Mix_LoadMUS(path);
+//     Mix_PlayMusic(soundResources.backgroundMusic, loops); //To do infinite loops, use -1
+// }
 
 /**
  * [Utility] Play sound effect
@@ -154,4 +149,80 @@ void Sound_System_Cleanup() {
     }
     
     Mix_CloseAudio();
+}
+
+
+// Add to sound.c
+SimpleQueue musicQueue = {
+    .nextSongPath = NULL,
+    .hasNextSong = false
+};
+
+/**
+ * [Callback] Called when music finishes playing
+ * Plays the next queued song if available
+ */
+void Music_Finished_Callback() {
+    Sound_Play_Music(musicQueue.nextSongPath, 0); // Play once
+        
+    // Clear the queue
+    free(musicQueue.nextSongPath);
+    musicQueue.nextSongPath = NULL;
+    musicQueue.hasNextSong = false;
+}
+
+/**
+ * [Utility] Queue a single song to play next
+ * @param path Path to the music file to play next
+ * @return true if queued successfully, false if failed
+ */
+bool Sound_Queue_Next_Song(const char* path) {
+    // If there's already a song queued, replace it
+    if (musicQueue.nextSongPath != NULL) {
+        free(musicQueue.nextSongPath);
+    }
+    
+    // Queue the new song
+    musicQueue.nextSongPath = strdup(path);
+    musicQueue.hasNextSong = true;
+    
+    // Enable the callback to handle transition
+    Mix_HookMusicFinished(Music_Finished_Callback);
+    
+    return true;
+}
+
+/**
+ * [Utility] Clear the queued song
+ */
+void Sound_Clear_Queue() {
+    if (musicQueue.nextSongPath != NULL) {
+        free(musicQueue.nextSongPath);
+        musicQueue.nextSongPath = NULL;
+    }
+    
+    musicQueue.hasNextSong = false;
+    Mix_HookMusicFinished(NULL); // Disable the callback
+}
+
+/**
+ * [Update] Update Sound_Play_Music to free previous music
+ */
+void Sound_Play_Music(const char* path, int loops) {
+    // Free previous music if it exists
+    if (soundResources.backgroundMusic != NULL) {
+        Mix_FreeMusic(soundResources.backgroundMusic);
+        soundResources.backgroundMusic = NULL;
+    }
+    
+    // Load and play new music
+    soundResources.backgroundMusic = Mix_LoadMUS(path);
+    soundResources.musicQueue.currentSongPath = path;
+    SDL_Log("Loading music: %s", path);
+    if (soundResources.backgroundMusic == NULL) {
+        printf("Failed to load music: %s\n", Mix_GetError());
+        return;
+    }
+    
+    Mix_PlayMusic(soundResources.backgroundMusic, loops);
 }

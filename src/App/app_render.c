@@ -44,6 +44,9 @@ int App_RenderMain() {
             HUD_Render();
             Log_Render();
             LevelTransition_Render();
+            if(game.currentStage < 3) Sound_Queue_Next_Song("Assets/Audio/Music/return0 early level music.wav");
+            else if (game.currentStage >= 3 && game.currentStage < 7)Sound_Queue_Next_Song("Assets/Audio/Music/return0 mid level music.wav");
+            else if (game.currentStage >= 7) Sound_Queue_Next_Song("Assets/Audio/Music/return0 late level music.wav");
             break;
         
         case SCENE_PAUSE:
