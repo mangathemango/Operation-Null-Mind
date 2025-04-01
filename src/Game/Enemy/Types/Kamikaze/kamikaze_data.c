@@ -12,7 +12,7 @@
 #include <enemy_kamikaze.h>
 
 KamikazeConfig KamikazeConfigData = {
-    .exploding = false,
+    .state = KAMIKAZE_STATE_WALKING,
     .explosionRadius = 100,
     .explosionTime = 1.0f,
     .indicatorDelay = 0.5f,

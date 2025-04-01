@@ -16,14 +16,13 @@
 /**
  * @brief [Render] Renders the Echo enemy
  * 
- * This function handles the rendering of the Echo enemy type,
- * including its special visual effects like transparency and afterimages.
+ * Renders the kamikaze explosion indicator
  * 
  * @param data Pointer to the enemy data structure
  */
 void Kamikaze_Render(EnemyData* data) {
     KamikazeConfig *config = data->config;
-    if (config->exploding) {
+    if (config->state == KAMIKAZE_STATE_EXPLODING) {
         float delay = config->indicatorDelay;
         if (config->explosionTimer < delay) return;
         int a = (50 * (config->explosionTimer - delay) / (config->explosionTime - delay));
@@ -33,6 +32,12 @@ void Kamikaze_Render(EnemyData* data) {
         );
 
         SDL_SetTextureAlphaMod(config->explosionIndicator, a);
+        if (!config->explosionIndicator) {
+            config->explosionIndicator = CreateCircleTexture(
+                KamikazeConfigData.explosionRadius,
+                (SDL_Color){255, 0, 0, 255}
+            );
+        }
         SDL_RenderCopy(app.resources.renderer, config->explosionIndicator, NULL, &dest);
     }
 }

@@ -10,8 +10,14 @@
 #include <enemy.h>
 #include <particle_emitterpresets.h>
 
+typedef enum {
+    KAMIKAZE_STATE_WALKING,
+    KAMIKAZE_STATE_CHARGING,
+    KAMIKAZE_STATE_EXPLODING,
+} KamikazeState;
+
 typedef struct {
-    bool exploding;
+    KamikazeState state;
     float explosionRadius;
     float explosionTime;
     float indicatorDelay;
