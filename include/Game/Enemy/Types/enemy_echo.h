@@ -15,7 +15,12 @@ extern ParticleEmitter* EchoBulletFragmentsEmitter;
 extern ParticleEmitter* EchoMuzzleFlashEmitter;
 extern ParticleEmitter* EchoCasingEmitter;
 
+typedef enum {
+    ECHO_STATE_WALKING,
+    ECHO_STATE_BURSTING
+} EchoState;
 typedef struct {
+    EchoState state;
     float directionChangeTimer;
     float directionChangeTime;
     float shootTime;
@@ -29,11 +34,11 @@ typedef struct {
     int burstMaxCount;
     float burstTimer;
     float burstTime;
-    bool bursting;
 } EchoConfig;
 
 void Echo_Start(EnemyData* data);
 void Echo_Update(EnemyData* data);
+void Echo_UpdateGun(EnemyData* data);
 void Echo_Render(EnemyData* data);
 void Echo_UpdateParticles();
 void Echo_RenderParticles();

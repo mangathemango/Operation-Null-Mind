@@ -12,6 +12,7 @@
 #include <enemy_echo.h>
 
 EchoConfig EchoConfigData = {
+    .state = ECHO_STATE_WALKING,
     .directionChangeTimer = 0,
     .directionChangeTime = 1.0f,
     .shootTimer = 0,
@@ -60,7 +61,6 @@ EchoConfig EchoConfigData = {
     .burstMaxCount = 3,
     .burstTimer = 0.0f,
     .burstTime = 0.1f,
-    .bursting = false,
     
 };
 

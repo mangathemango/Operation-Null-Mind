@@ -15,6 +15,83 @@
 #include <circle.h>
 #include <math.h>
 
+/**
+ * @brief [PostUpdate] Updates the Echo enemy's state
+ * 
+ * This function is called each frame to update the Echo enemy's behavior.
+ * The Echo enemy mimics player movements with a delay.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
+void Echo_Update(EnemyData* data) {
+    EchoConfig* config = (EchoConfig*)data->config;
+    
+    if (data->state.currentHealth <= 0) {
+        GunData* gun = &config->gun;
+        Animation_Destroy(gun->resources.animation);
+        void* configToFree = config;
+        data->config = NULL;
+        free(configToFree);
+        Enemy_HandleDeath(data);
+        return;
+    }
+        
+    config->gun.state.position = data->state.position;
+    data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    Echo_UpdateGun(data);
+    
+
+    config->directionChangeTimer += Time->deltaTimeSeconds;
+    if (config->directionChangeTimer >= config->directionChangeTime) {
+        config->directionChangeTime = RandFloat(0.5f, 1.0f);
+        config->directionChangeTimer = 0;
+        
+        // Circle around the player
+        float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
+        if (distToPlayer > 200) {
+            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
+        } else {
+            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
+        }
+    }
+    
+    switch (config->state) {
+    
+    case ECHO_STATE_WALKING:
+        config->shootTimer += Time->deltaTimeSeconds;
+        if (config->shootTimer >= config->shootTime) {
+            config->shootTimer = 0;
+            config->shootTime = RandFloat(
+                data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+            );
+            config->state = ECHO_STATE_BURSTING;
+        }
+        break;
+    case ECHO_STATE_BURSTING:
+        config->burstTimer += Time->deltaTimeSeconds;
+        if (config->burstTimer >= config->burstTime) {
+            ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
+            ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
+            ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+            config->burstCount++;
+            config->burstTimer = 0;
+        }
+
+        if (config->burstCount >= config->burstMaxCount) {
+            config->burstCount = 0;
+            config->state = ECHO_STATE_WALKING;
+        }
+        break;
+    }
+
+
+
+    Animation_Play(config->gun.resources.animation, "idle");
+    config->lastPosition = data->state.position;
+}
+
 void Echo_UpdateGun(EnemyData* data) {
     EchoConfig* config = (EchoConfig*)data->config;
     GunData* gun = &config->gun;
@@ -90,79 +167,6 @@ void Echo_UpdateGun(EnemyData* data) {
     }
 }
 
-/**
- * @brief [PostUpdate] Updates the Echo enemy's state
- * 
- * This function is called each frame to update the Echo enemy's behavior.
- * The Echo enemy mimics player movements with a delay.
- * 
- * @param data Pointer to the enemy data structure
- */
-void Echo_Update(EnemyData* data) {
-    EchoConfig* config = (EchoConfig*)data->config;
-    
-    if (data->state.currentHealth <= 0) {
-        GunData* gun = &config->gun;
-        Animation_Destroy(gun->resources.animation);
-        void* configToFree = config;
-        data->config = NULL;
-        free(configToFree);
-        Enemy_HandleDeath(data);
-        return;
-    }
-        
-    config->gun.state.position = data->state.position;
-    data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    Echo_UpdateGun(data);
-    
-
-    // While not echoing, circle the player
-    config->directionChangeTimer += Time->deltaTimeSeconds;
-    if (config->directionChangeTimer >= config->directionChangeTime) {
-        config->directionChangeTime = RandFloat(0.5f, 1.0f);
-        config->directionChangeTimer = 0;
-        
-        // Circle around the player
-        float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
-        if (distToPlayer > 200) {
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-60, 60));
-        } else {
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(90, 270));
-        }
-    }
-    
-
-    // Shooting behavior
-    if (config->bursting) {
-        config->burstTimer += Time->deltaTimeSeconds;
-        if (config->burstTimer >= config->burstTime) {
-            ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
-            ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-            ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
-            config->burstCount++;
-            config->burstTimer = 0;
-            if (config->burstCount >= config->burstMaxCount) {
-                config->burstCount = 0;
-                config->bursting = false;
-            }
-        }
-    } else {
-        config->shootTimer += Time->deltaTimeSeconds;
-        if (config->shootTimer >= config->shootTime) {
-            config->bursting = true;
-            config->shootTimer = 0;
-            config->shootTime = RandFloat(
-                data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
-            );
-        }
-    }
-
-
-    Animation_Play(config->gun.resources.animation, "idle");
-    config->lastPosition = data->state.position;
-}
 
 void Echo_UpdateParticles() {
     if (!EchoBulletEmitter) return;
