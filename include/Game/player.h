@@ -15,6 +15,7 @@
 #include <particle_emitterpresets.h>
 #include <colliders.h>
 #include <game.h>
+#include <sound.h>
 
 /**
  * @brief Contains the player's current state information
@@ -46,6 +47,7 @@ typedef struct {
  */
 typedef struct {
     ParticleEmitter* dashParticleEmitter; ///< Particle effect for dashing
+    ParticleEmitter* crashOut;  ///< Particle effect for crashout
     Animation* animation;                 ///< Player animation data
     Timer* dashDurationTimer;             ///< Timer for dash duration
     Timer* dashCooldownTimer;             ///< Timer for dash cooldown

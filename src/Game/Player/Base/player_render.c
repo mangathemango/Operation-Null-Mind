@@ -23,6 +23,7 @@
  */
 int Player_Render() {
     ParticleEmitter_Render(player.resources.dashParticleEmitter);
+    ParticleEmitter_Render(player.resources.crashOut);
     
     SDL_RendererFlip flip;
     // Flip the sprite when mouse is on the left side of the player

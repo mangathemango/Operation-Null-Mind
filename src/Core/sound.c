@@ -14,39 +14,44 @@
 #include <sound.h>
 #include <stdio.h>
 #include <SDL_mixer.h>
+#include <stdlib.h>  
+#include <string.h>
+#include <SDL.h> 
+
 
 
 // Initialize the sound resources structure
 SoundResources soundResources = {
     .backgroundMusic = NULL,
     .soundEffects = {NULL}, // Will be populated in Sound_Load_Resources()
+    .musicQueue.nextSongPath = "Assets/Audio/SoundEffect/explosion.wav",
     .soundPaths = {
-        [SOUND_SWOOSH] = "Assets/Audio/swoosh.wav",                // SOUND_SWOOSH
-        [SOUND_GUNSHOT] = "Assets/Audio/gunshot.wav",               // SOUND_GUNSHOT
-        [SOUND_VINE_BOOM] = "Assets/Audio/VineBoom.wav",            // SOUND_VINE_BOOM
-        [SOUND_BOOST_UP] = "Assets/Audio/boost up.wav",             // SOUND_BOOST_UP
-        [SOUND_BUFFING] = "Assets/Audio/buffing.wav",               // SOUND_BUFFING
-        [SOUND_CRATE_OPENING] = "Assets/Audio/crate opening.wav",   // SOUND_CRATE_OPENING
-        [SOUND_DASH] = "Assets/Audio/dash.wav",                     // SOUND_DASH
-        [SOUND_ELEVATOR_CLOSE] = "Assets/Audio/elevator close.wav", // SOUND_ELEVATOR_CLOSE
-        [SOUND_ELEVATOR_OPEN] = "Assets/Audio/elevator open.wav",   // SOUND_ELEVATOR_OPEN
-        [SOUND_ENEMY_HEALING] = "Assets/Audio/enemy healing.wav",   // SOUND_ENEMY_HEALING
-        [SOUND_ENERGY_GUNSHOT] = "Assets/Audio/Energy Gunshot.wav",   // SOUND_ENERGY_GUNSHOT
-        [SOUND_EXPLOSION] = "Assets/Audio/explosion.wav",           // SOUND_EXPLOSION
-        [SOUND_GRENADE_LAUNCHER] = "Assets/Audio/grenade launcher.wav", // SOUND_GRENADE_LAUNCHER
-        [SOUND_GUN_PICKUP] = "Assets/Audio/gun pickup.wav",         // SOUND_GUN_PICKUP
-        [SOUND_HITMARKER] = "Assets/Audio/hitmarker.wav",           // SOUND_HITMARKER
-        [SOUND_KAMIKAZE_BEEP] = "Assets/Audio/kamikaze beep.wav",   // SOUND_KAMIKAZE_BEEP
-        [SOUND_LAST_STAND] = "Assets/Audio/Last Stand Used Up.wav",   // SOUND_LAST_STAND
-        [SOUND_PARRY] = "Assets/Audio/parry.wav",                   // SOUND_PARRY
-        [SOUND_PASSIVE_OBTAINED] = "Assets/Audio/passive obtained.wav", // SOUND_PASSIVE_OBTAINED
-        [SOUND_PLAYER_HEALING] = "Assets/Audio/player healing.wav",   // SOUND_PLAYER_HEALING
-        [SOUND_PLAYER_HURT] = "Assets/Audio/player hurt.wav",         // SOUND_PLAYER_HURT
-        [SOUND_RECALL] = "Assets/Audio/recall.wav",                  // SOUND_RECALL
-        [SOUND_ROCKET_LAUNCH] = "Assets/Audio/rocket launch.wav",     // SOUND_ROCKET_LAUNCH
-        [SOUND_SENTRY_LASER] = "Assets/Audio/Sentry Laser Cannon.wav", // SOUND_SENTRY_LASER
-        [SOUND_SPAWN_IN] = "Assets/Audio/spawn in.wav",              // SOUND_SPAWN_IN
-        [SOUND_VANTAGE_LASER] = "Assets/Audio/vantage laser gunshot.wav" // SOUND_VANTAGE_LASER
+        [SOUND_SWOOSH] = "Assets/Audio/SoundEffect/swoosh.wav",                // SOUND_SWOOSH
+        [SOUND_GUNSHOT] = "Assets/Audio/SoundEffect/gunshot.wav",               // SOUND_GUNSHOT
+        [SOUND_VINE_BOOM] = "Assets/Audio/SoundEffect/VineBoom.wav",            // SOUND_VINE_BOOM
+        [SOUND_BOOST_UP] = "Assets/Audio/SoundEffect/boost up.wav",             // SOUND_BOOST_UP
+        [SOUND_BUFFING] = "Assets/Audio/SoundEffect/buffing.wav",               // SOUND_BUFFING
+        [SOUND_CRATE_OPENING] = "Assets/Audio/SoundEffect/crate opening.wav",   // SOUND_CRATE_OPENING
+        [SOUND_DASH] = "Assets/Audio/SoundEffect/dash.wav",                     // SOUND_DASH
+        [SOUND_ELEVATOR_CLOSE] = "Assets/Audio/SoundEffect/elevator close.wav", // SOUND_ELEVATOR_CLOSE
+        [SOUND_ELEVATOR_OPEN] = "Assets/Audio/SoundEffect/elevator open.wav",   // SOUND_ELEVATOR_OPEN
+        [SOUND_ENEMY_HEALING] = "Assets/Audio/SoundEffect/enemy healing.wav",   // SOUND_ENEMY_HEALING
+        [SOUND_ENERGY_GUNSHOT] = "Assets/Audio/SoundEffect/Energy Gunshot.wav",   // SOUND_ENERGY_GUNSHOT
+        [SOUND_EXPLOSION] = "Assets/Audio/SoundEffect/explosion.wav",           // SOUND_EXPLOSION
+        [SOUND_GRENADE_LAUNCHER] = "Assets/Audio/SoundEffect/grenade launcher.wav", // SOUND_GRENADE_LAUNCHER
+        [SOUND_GUN_PICKUP] = "Assets/Audio/SoundEffect/gun pickup.wav",         // SOUND_GUN_PICKUP
+        [SOUND_HITMARKER] = "Assets/Audio/SoundEffect/hitmarker.wav",           // SOUND_HITMARKER
+        [SOUND_KAMIKAZE_BEEP] = "Assets/Audio/SoundEffect/kamikaze beep.wav",   // SOUND_KAMIKAZE_BEEP
+        [SOUND_LAST_STAND] = "Assets/Audio/SoundEffect/Last Stand Used Up.wav",   // SOUND_LAST_STAND
+        [SOUND_PARRY] = "Assets/Audio/SoundEffect/parry.wav",                   // SOUND_PARRY
+        [SOUND_PASSIVE_OBTAINED] = "Assets/Audio/SoundEffect/passive obtained.wav", // SOUND_PASSIVE_OBTAINED
+        [SOUND_PLAYER_HEALING] = "Assets/Audio/SoundEffect/player healing.wav",   // SOUND_PLAYER_HEALING
+        [SOUND_PLAYER_HURT] = "Assets/Audio/SoundEffect/player hurt.wav",         // SOUND_PLAYER_HURT
+        [SOUND_RECALL] = "Assets/Audio/SoundEffect/recall.wav",                  // SOUND_RECALL
+        [SOUND_ROCKET_LAUNCH] = "Assets/Audio/SoundEffect/rocket launch.wav",     // SOUND_ROCKET_LAUNCH
+        [SOUND_SENTRY_LASER] = "Assets/Audio/SoundEffect/Sentry Laser Cannon.wav", // SOUND_SENTRY_LASER
+        [SOUND_SPAWN_IN] = "Assets/Audio/SoundEffect/spawn in.wav",              // SOUND_SPAWN_IN
+        [SOUND_VANTAGE_LASER] = "Assets/Audio/SoundEffect/vantage laser gunshot.wav" // SOUND_VANTAGE_LASER
     }
 };
 
@@ -88,10 +93,10 @@ bool Sound_Load_Resources() {
     @param path - path to the music file
     @param loops - number of times to loop the music. -1 for infinite loops
 */
-void Sound_Play_Music(const char* path, int loops) {
-    soundResources.backgroundMusic = Mix_LoadMUS(path);
-    Mix_PlayMusic(soundResources.backgroundMusic, loops); //To do infinite loops, use -1
-}
+// void Sound_Play_Music(const char* path, int loops) {
+//     soundResources.backgroundMusic = Mix_LoadMUS(path);
+//     Mix_PlayMusic(soundResources.backgroundMusic, loops); //To do infinite loops, use -1
+// }
 
 /**
  * [Utility] Play sound effect
@@ -144,4 +149,80 @@ void Sound_System_Cleanup() {
     }
     
     Mix_CloseAudio();
+}
+
+
+// Add to sound.c
+SimpleQueue musicQueue = {
+    .nextSongPath = NULL,
+    .hasNextSong = false
+};
+
+/**
+ * [Callback] Called when music finishes playing
+ * Plays the next queued song if available
+ */
+void Music_Finished_Callback() {
+    Sound_Play_Music(musicQueue.nextSongPath, 0); // Play once
+        
+    // Clear the queue
+    free(musicQueue.nextSongPath);
+    musicQueue.nextSongPath = NULL;
+    musicQueue.hasNextSong = false;
+}
+
+/**
+ * [Utility] Queue a single song to play next
+ * @param path Path to the music file to play next
+ * @return true if queued successfully, false if failed
+ */
+bool Sound_Queue_Next_Song(const char* path) {
+    // If there's already a song queued, replace it
+    if (musicQueue.nextSongPath != NULL) {
+        free(musicQueue.nextSongPath);
+    }
+    
+    // Queue the new song
+    musicQueue.nextSongPath = strdup(path);
+    musicQueue.hasNextSong = true;
+    
+    // Enable the callback to handle transition
+    Mix_HookMusicFinished(Music_Finished_Callback);
+    
+    return true;
+}
+
+/**
+ * [Utility] Clear the queued song
+ */
+void Sound_Clear_Queue() {
+    if (musicQueue.nextSongPath != NULL) {
+        free(musicQueue.nextSongPath);
+        musicQueue.nextSongPath = NULL;
+    }
+    
+    musicQueue.hasNextSong = false;
+    Mix_HookMusicFinished(NULL); // Disable the callback
+}
+
+/**
+ * [Update] Update Sound_Play_Music to free previous music
+ */
+void Sound_Play_Music(const char* path, int loops) {
+    // Free previous music if it exists
+    if (soundResources.backgroundMusic != NULL) {
+        Mix_FreeMusic(soundResources.backgroundMusic);
+        soundResources.backgroundMusic = NULL;
+    }
+    
+    // Load and play new music
+    soundResources.backgroundMusic = Mix_LoadMUS(path);
+    soundResources.musicQueue.currentSongPath = path;
+    SDL_Log("Loading music: %s", path);
+    if (soundResources.backgroundMusic == NULL) {
+        printf("Failed to load music: %s\n", Mix_GetError());
+        return;
+    }
+    
+    Mix_PlayMusic(soundResources.backgroundMusic, loops);
 }

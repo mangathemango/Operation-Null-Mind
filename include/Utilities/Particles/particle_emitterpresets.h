@@ -45,6 +45,7 @@ extern ParticleEmitter ParticleEmitter_BulletEnemy;
 extern ParticleEmitter ParticleEmitter_BulletFragments;
 extern ParticleEmitter ParticleEmitter_Explosion;
 extern ParticleEmitter ParticleEmitter_Gernade;
+extern ParticleEmitter ParticleEmitter_CrashOut;
 
 extern ParticleEmitter* test_emitter; //!< This is just for debugging purposes.
 

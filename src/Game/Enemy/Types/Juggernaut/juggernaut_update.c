@@ -189,6 +189,7 @@ void Juggernaut_Update(EnemyData* data) {
                     angleOffset
                 );
                 ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+                Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
             }
         }
         

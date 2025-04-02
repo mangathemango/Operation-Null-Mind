@@ -163,6 +163,7 @@ void Vantage_Update(EnemyData* data) {
         if (config->aimTimer >= config->aimTime) {
             config->aiming = false;
             config->aimTimer = 0;
+            Sound_Play_Effect(SOUND_VANTAGE_LASER);
         }
     }
     // Replace animation state handling with just "idle"

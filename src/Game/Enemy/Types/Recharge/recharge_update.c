@@ -59,6 +59,7 @@ void Recharge_Update(EnemyData* data) {
             config->isRecharging = true;
             config->timer = 0;
             config->rechargePosition = data->state.position;
+            Sound_Play_Effect(SOUND_ENEMY_HEALING);
 
             for (int i = 0; i < ENEMY_MAX; i++) {
                 if (enemies[i].state.isDead) {
