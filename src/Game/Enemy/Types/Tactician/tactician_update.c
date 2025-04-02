@@ -107,23 +107,6 @@ void Tactician_Update(EnemyData* data) {
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Tactician_UpdateGun(data);
 
-    // Track nearby enemies to buff them
-    config->controlledUnitCount = 0;
-    for (int i = 0; i < ENEMY_MAX; i++) {
-        if (enemies[i].state.isDead || &enemies[i] == data) continue;
-        
-        if (Vec2_Distance(enemies[i].state.position, data->state.position) < config->commandRadius) {
-            config->controlledUnitCount++;
-            if (config->controlledUnitCount <= config->maxControlledUnits) {
-                // Apply buff to enemy stats (in a real implementation)
-                config->isCommanding = true;
-            }
-        }
-    }
-    
-    if (config->controlledUnitCount == 0) {
-        config->isCommanding = false;
-    }
 
     config->directionChangeTimer += Time->deltaTimeSeconds;
     if (config->directionChangeTimer >= config->directionChangeTime) {
@@ -131,20 +114,44 @@ void Tactician_Update(EnemyData* data) {
         config->directionChangeTimer = 0;
         
         // Prefer to maintain distance from player
-        data->state.direction = Vec2_Normalize(Vec2_Subtract(data->state.position, player.state.position));
-        data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-45, 45));
+        data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+        float distFromPlayer = Vec2_Distance(data->state.position, player.state.position);
+
+        if (distFromPlayer > 250) {
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-45, 45));
+        } else {
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(135, 225));
+        }
     }
 
-    config->shootTimer += Time->deltaTimeSeconds;
-    if (config->shootTimer >= config->shootTime) {
-        config->shootTimer = 0;
-        config->shootTime = RandFloat(
-            data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
-        );
-        ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
-        ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-        ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+   
+    if (config->state & TACTICIAN_STATE_SHOOTING) {
+        config->burstTimer += Time->deltaTimeSeconds;
+        if (config->burstTimer >= config->burstTime) {
+            config->burstTimer = 0;
+            config->currentBurstCount++;
+            ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
+            ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
+            ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+
+            if (config->currentBurstCount >= config->maxBurstCount) {
+                config->state &= ~TACTICIAN_STATE_SHOOTING;
+                config->currentBurstCount = 0;
+            }
+        }
+    } else {
+        config->shootTimer += Time->deltaTimeSeconds;
+        if (config->shootTimer >= config->shootTime) {
+            config->shootTimer = 0;
+            config->shootTime = RandFloat(
+                data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+            );
+            config->currentBurstCount = 0;
+            config->burstTimer = 0;
+            config->state |= TACTICIAN_STATE_SHOOTING;
+        }
     }
+
 
     Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;

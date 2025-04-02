@@ -12,6 +12,12 @@ extern ParticleEmitter* TacticianBulletFragmentsEmitter;
 extern ParticleEmitter* TacticianMuzzleFlashEmitter;
 extern ParticleEmitter* TacticianCasingEmitter;
 
+typedef enum {
+    TACTICIAN_STATE_WALKING   = 0,
+    TACTICIAN_STATE_SHOOTING    = 1 << 0,
+    TACTICIAN_STATE_COMMANDING  = 1 << 1,
+} TacticianState;
+
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
@@ -21,12 +27,13 @@ typedef struct {
     Vec2 gunOffset;
     Vec2 lastPosition;
     
-    // Tactician-specific fields
+    TacticianState state;
     float commandRadius;
     float buffStrength;
-    int maxControlledUnits;
-    bool isCommanding;
-    int controlledUnitCount;
+    float burstTimer;
+    float burstTime;
+    int currentBurstCount;
+    int maxBurstCount;
 } TacticianConfig;
 
 void Tactician_Start(EnemyData* data);

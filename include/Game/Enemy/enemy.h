@@ -52,6 +52,9 @@ typedef struct {
     bool isSpawning;     /**< Whether the enemy is in spawning state */
 
     SDL_RendererFlip flip;
+
+    float tacticianBuff; /**< Buff applied by Tactician */
+    float tacticianBuffTimeLeft; /**< Time left for Tactician buff */
 } EnemyState;
 
 /**
