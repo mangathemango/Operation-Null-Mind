@@ -28,14 +28,14 @@ PlayerData player = {
         .moving = false,
         .dashing = false,
         .directionLocked = false,
-        .skills = {
+        .skillState = {
             .armoredUp = false,
             .ghostLoad = false,
             .hemoCycle = false,
             .kineticArmor = false,
             .lastStand = false,
             .oneMore = false,
-            .overPressured = false,
+            .overPressured = true,
             .scavenger = false,
         },
         .collider = {
@@ -58,6 +58,11 @@ PlayerData player = {
         .dashParticleEmitter = NULL,
         .dashCooldownTimer = NULL,
         .dashDurationTimer = NULL,
+        .skillResources = {
+            .overPressuredBulletConsumptionMultipler = 1,
+            .overPressuredFireRate = 1.0f,
+            .overPressuredProjectileSpeed = 1.0f,
+        },
     },
     .stats = {
         .walkSpeed = 150,
@@ -66,7 +71,12 @@ PlayerData player = {
         .dashDuration = 0.1,
         .maxHealth = 200,
         .maxAmmo = 200,
-        .INVINCIBLE_Time = 0.25
+        .INVINCIBLE_Time = 0.25,
+        .skillStat = {
+            .overPressuredOriginalFireRate = 1.5f,
+            .overPressuredOriginalProjectileSpeed = 1.5f,
+            .overPressuredOriginalMultipler = 2,
+        },
     },
     .animData = {
         .spritesheetPath = "Assets/Images/robert.png",

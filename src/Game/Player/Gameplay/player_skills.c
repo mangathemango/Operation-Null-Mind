@@ -79,16 +79,16 @@ int Player_HandleDash() {
     return 0;
 }
 
+
 bool LastStand()
 {
-    if(player.state.skills.lastStand == true)
+    if(player.state.skillState.lastStand == true)
     {
         static bool lastStandActive = false;
         if(player.state.currentHealth <= 0 && !lastStandActive)
         {
             player.state.currentHealth = player.stats.maxHealth;
             lastStandActive = true;
-            player.state.skills.lastStand = false;
             Timer_Start(player.resources.INVINCIBLE_Timer);
             Sound_Play_Effect(1);
             return true;
@@ -96,4 +96,28 @@ bool LastStand()
     }
 
     return false;
+}
+
+int overPressured()
+{
+    if(player.state.skillState.overPressured == true)
+    {
+        player.resources.skillResources.overPressuredBulletConsumptionMultipler = player.stats.skillStat.overPressuredOriginalMultipler;
+        player.resources.skillResources.overPressuredFireRate = player.stats.skillStat.overPressuredOriginalFireRate;
+        player.resources.skillResources.overPressuredProjectileSpeed = player.stats.skillStat.overPressuredOriginalProjectileSpeed;
+        return 1;
+    }
+    else 
+    {
+        player.resources.skillResources.overPressuredBulletConsumptionMultipler = 1;
+        player.resources.skillResources.overPressuredFireRate = 1;
+        player.resources.skillResources.overPressuredProjectileSpeed = 1;
+    }
+    return 0;
+}
+
+void Skill_Update()
+{
+    LastStand();
+    overPressured();
 }

@@ -39,6 +39,7 @@ int App_PostUpdate() {
             break;
         case SCENE_GAME:
             Player_PostUpdate();
+            Skill_Update();
             Gun_Update();
             Bullet_Update();
             EnemyManager_Update();
@@ -50,7 +51,7 @@ int App_PostUpdate() {
                 app.state.currentScene = SCENE_PAUSE;
             }
             if(player.state.currentHealth <= 0) {
-                if(!LastStand())
+                if(player.state.skillState.lastStand == false)
                 {
                     app.state.currentScene = SCENE_DEATH;
                     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);

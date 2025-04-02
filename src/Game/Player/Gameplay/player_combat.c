@@ -26,10 +26,14 @@ void Player_Shoot() {
     int ammoComsumption = player.state.currentGun.stats.ammoConsumption;
     if (player.state.currentAmmo < ammoComsumption) return;
     Sound_Play_Effect(1);
-    player.state.currentAmmo -= player.state.currentGun.stats.ammoConsumption;
+    player.state.currentAmmo -= player.state.currentGun.stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
+    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed * player.resources.skillResources.overPressuredProjectileSpeed;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
+    SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
+    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed / player.resources.skillResources.overPressuredProjectileSpeed;
+    SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
     Timer_Start(player.resources.shootCooldownTimer);
     
 }

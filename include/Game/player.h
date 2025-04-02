@@ -27,8 +27,21 @@ typedef struct
     bool armoredUp;
     bool scavenger;
     bool hemoCycle;
-} PlayerSkills;
+} SkillState;
 
+typedef struct
+{
+    int overPressuredBulletConsumptionMultipler; ///< Amount of ammo consumed when overpressured
+    float overPressuredFireRate; ///< Fire rate when overpressured
+    float overPressuredProjectileSpeed; ///< Speed of overpressured bullets
+} SkillResources;
+
+typedef struct
+{
+    int overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
+    float overPressuredOriginalFireRate; ///< Fire rate when overpressured
+    float overPressuredOriginalProjectileSpeed; ///< Speed of overpressured bullets
+} SkillStat;
 
 /**
  * @brief Contains the player's current state information
@@ -46,7 +59,7 @@ typedef struct {
     bool movementLocked; ///< Whether movement is locked
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
-    PlayerSkills skills; ///< Player skills and abilities
+    SkillState skillState; ///< Player skills and abilities
 
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
@@ -64,6 +77,7 @@ typedef struct {
     Timer* dashCooldownTimer;             ///< Timer for dash cooldown
     Timer* shootCooldownTimer;            ///< Timer for shoot cooldown
     Timer* INVINCIBLE_Timer;               ///< [Title card] timer
+    SkillResources skillResources;        ///< Resources for player skills
 } PlayerResources;
 
 /**
@@ -77,6 +91,7 @@ typedef struct {
     float dashSpeed;    ///< Speed during dash
     float dashDuration; ///< How long dash lasts
     float dashCooldown; ///< Time between dashes
+    SkillStat skillStat;   ///< Player skills and abilities    
 } PlayerStat;
 
 /**
@@ -179,7 +194,7 @@ int Player_AnimationInit();
  */
 int Player_AnimationUpdate();
 
-bool LastStand();
+void Skill_Update();
 
 void Player_TakeDamage(int damage);
 
