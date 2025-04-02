@@ -20,6 +20,8 @@ ParticleEmitter* TacticianMuzzleFlashEmitter;
 ParticleEmitter* TacticianCasingEmitter;
 ParticleEmitter* TacticianBulletFragmentsEmitter;
 ParticleEmitter* TacticianBuffEffectEmitter;
+SDL_Texture* TacticianBuffCircleTexture;
+
 
 /**
  * @brief [Start] Initializes a Tactician enemy instance

@@ -83,6 +83,11 @@ void Enemy_Init() {
     TacticianCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     TacticianBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
     TacticianBuffEffectEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_CrashOut);
+    TacticianBuffCircleTexture = CreateCircleOutlineTexture(
+        KamikazeConfigData.explosionRadius,
+        (SDL_Color){255, 255, 0, 255},
+        2
+    );
     // Sentry particle emitters
     SentryBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
     SentryMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);

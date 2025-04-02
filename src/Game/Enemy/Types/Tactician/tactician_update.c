@@ -155,14 +155,14 @@ void Tactician_Update(EnemyData* data) {
     if (config->state & TACTICIAN_STATE_COMMANDING) {
         config->commandTimer += Time->deltaTimeSeconds;
         if (config->commandTimer >= config->commandTime) {
-            config->commandTimer = RandFloat(3.0f, 5.0f);
+            config->commandTime = RandFloat(3.0f, 5.0f);
             config->state &= ~TACTICIAN_STATE_COMMANDING;
         }
     } else {
         config->commandTimer += Time->deltaTimeSeconds;
         if (config->commandTimer >= config->commandTime) {
             config->commandTimer = 0;
-            config->commandTime = 5.0f;
+            config->commandTime = 0.5f;
             config->state |= TACTICIAN_STATE_COMMANDING;
 
             for (int i = 0; i < ENEMY_MAX; i++) {
