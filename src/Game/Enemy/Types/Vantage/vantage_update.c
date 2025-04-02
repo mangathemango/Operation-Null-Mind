@@ -104,6 +104,8 @@ void Vantage_Update(EnemyData* data) {
     VantageConfig* config = (VantageConfig*)data->config;
     GunData* gun = &config->gun;
 
+    float effectiveCooldown = data->stats.attackCooldown * data->state.tacticianBuff;
+
     if (data->state.currentHealth <= 0) {
         Animation_Destroy(gun->resources.animation);
         void* configToFree = config;
@@ -141,7 +143,7 @@ void Vantage_Update(EnemyData* data) {
         if (config->shootTimer >= config->shootTime) {
             config->shootTimer = 0;
             config->shootTime = RandFloat(
-                data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+                effectiveCooldown / 2, effectiveCooldown * 3 / 2
             );
             config->aiming = true;
             config->lazerDirection = Vec2_Normalize(

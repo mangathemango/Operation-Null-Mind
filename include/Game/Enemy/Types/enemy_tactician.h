@@ -11,7 +11,7 @@ extern ParticleEmitter* TacticianBulletEmitter;
 extern ParticleEmitter* TacticianBulletFragmentsEmitter;
 extern ParticleEmitter* TacticianMuzzleFlashEmitter;
 extern ParticleEmitter* TacticianCasingEmitter;
-
+extern ParticleEmitter* TacticianBuffEffectEmitter;
 typedef enum {
     TACTICIAN_STATE_WALKING   = 0,
     TACTICIAN_STATE_SHOOTING    = 1 << 0,
