@@ -23,21 +23,19 @@
 void Kamikaze_Render(EnemyData* data) {
     KamikazeConfig *config = data->config;
     if (config->state == KAMIKAZE_STATE_EXPLODING) {
+        // Delay the explosion indicator by a certain amount of time
         float delay = config->indicatorDelay;
         if (config->explosionTimer < delay) return;
-        int a = (50 * (config->explosionTimer - delay) / (config->explosionTime - delay));
+
+        // Set the opacity of explosion indicator
+        int opacity = (50 * (config->explosionTimer - delay) / (config->explosionTime - delay));
+        SDL_SetTextureAlphaMod(config->explosionIndicator, opacity);
+
+        // Render the explosion indicator
         SDL_Rect dest = Vec2_ToCenteredSquareRect(
             Camera_WorldVecToScreen(data->state.position), 
             config->explosionRadius * 2
         );
-
-        SDL_SetTextureAlphaMod(config->explosionIndicator, a);
-        if (!config->explosionIndicator) {
-            config->explosionIndicator = CreateCircleTexture(
-                KamikazeConfigData.explosionRadius,
-                (SDL_Color){255, 0, 0, 255}
-            );
-        }
         SDL_RenderCopy(app.resources.renderer, config->explosionIndicator, NULL, &dest);
     }
 }
