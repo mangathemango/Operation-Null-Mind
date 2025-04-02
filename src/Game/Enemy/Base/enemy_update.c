@@ -34,6 +34,13 @@ void Enemy_Update() {
         // Call enemy-specific update function if available
         if (enemy->update) enemy->update(enemy);
         if (enemy->state.isDead) continue;
+        if (enemy->state.tacticianBuffTimeLeft > 0) {
+            enemy->state.tacticianBuffTimeLeft -= Time->deltaTimeSeconds;
+            if (enemy->state.tacticianBuffTimeLeft <= 0) {
+                enemy->state.tacticianBuff = 1.0f;
+                enemy->state.tacticianBuffTimeLeft = 0;
+            }
+        }
         Enemy_HandleMovement(enemy);
         Animation_Update(enemy->resources.animation);
 

@@ -152,7 +152,29 @@ void Tactician_Update(EnemyData* data) {
         }
     }
 
+    if (config->state & TACTICIAN_STATE_COMMANDING) {
+        config->commandTimer += Time->deltaTimeSeconds;
+        if (config->commandTimer >= config->commandTime) {
+            config->commandTimer = RandFloat(3.0f, 5.0f);
+            config->state &= ~TACTICIAN_STATE_COMMANDING;
+        }
+    } else {
+        config->commandTimer += Time->deltaTimeSeconds;
+        if (config->commandTimer >= config->commandTime) {
+            config->commandTimer = 0;
+            config->commandTime = 2.0f;
+            config->state |= TACTICIAN_STATE_COMMANDING;
 
+            for (int i = 0; i < ENEMY_MAX; i++) {
+                if (enemies[i].state.isDead) continue;
+                if (enemies[i].type != ENEMY_TYPE_TACTICIAN) continue;
+                if (Vec2_Distance(data->state.position, enemies[i].state.position) > config->commandRadius) continue;
+
+                enemies[i].state.tacticianBuff = config->buffStrength;
+                enemies[i].state.tacticianBuffTimeLeft = 2.0f;
+            }
+        }
+    }
     Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
 }

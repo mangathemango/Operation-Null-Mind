@@ -30,6 +30,9 @@ typedef struct {
     TacticianState state;
     float commandRadius;
     float buffStrength;
+    float commandTimer;
+    float commandTime;
+
     float burstTimer;
     float burstTime;
     int currentBurstCount;
