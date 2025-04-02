@@ -23,6 +23,7 @@
  * conditions for each enemy.
  */
 void Enemy_Update() {
+    ParticleEmitter_Render(TacticianBuffEffectEmitter);
     for (int i = 0; i < ENEMY_MAX; i++) {
         EnemyData* enemy = &enemies[i];
         if (enemy->state.isDead) continue;  // Skip processing dead enemies
@@ -35,6 +36,8 @@ void Enemy_Update() {
         if (enemy->update) enemy->update(enemy);
         if (enemy->state.isDead) continue;
         if (enemy->state.tacticianBuffTimeLeft > 0) {
+            TacticianBuffEffectEmitter->position = enemy->state.position;
+            ParticleEmitter_ActivateOnce(TacticianBuffEffectEmitter);
             enemy->state.tacticianBuffTimeLeft -= Time->deltaTimeSeconds;
         } else {
             enemy->state.tacticianBuff = 1.0f;

@@ -19,6 +19,7 @@ ParticleEmitter* TacticianBulletEmitter;
 ParticleEmitter* TacticianMuzzleFlashEmitter;
 ParticleEmitter* TacticianCasingEmitter;
 ParticleEmitter* TacticianBulletFragmentsEmitter;
+ParticleEmitter* TacticianBuffEffectEmitter;
 
 /**
  * @brief [Start] Initializes a Tactician enemy instance

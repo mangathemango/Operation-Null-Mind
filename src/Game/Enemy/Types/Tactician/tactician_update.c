@@ -162,16 +162,17 @@ void Tactician_Update(EnemyData* data) {
         config->commandTimer += Time->deltaTimeSeconds;
         if (config->commandTimer >= config->commandTime) {
             config->commandTimer = 0;
-            config->commandTime = 2.0f;
+            config->commandTime = 5.0f;
             config->state |= TACTICIAN_STATE_COMMANDING;
 
             for (int i = 0; i < ENEMY_MAX; i++) {
                 if (enemies[i].state.isDead) continue;
-                if (enemies[i].type != ENEMY_TYPE_TACTICIAN) continue;
+                if (enemies[i].type == ENEMY_TYPE_TACTICIAN) continue;
                 if (Vec2_Distance(data->state.position, enemies[i].state.position) > config->commandRadius) continue;
 
                 enemies[i].state.tacticianBuff = config->buffStrength;
-                enemies[i].state.tacticianBuffTimeLeft = 2.0f;
+                enemies[i].state.tacticianBuffTimeLeft = 5.0f;
+                SDL_Log("Tactician buff applied to enemy %d", i);
             }
         }
     }
@@ -179,12 +180,13 @@ void Tactician_Update(EnemyData* data) {
     config->lastPosition = data->state.position;
 }
 
-void Tactician_UpdateParticles() {
+void    Tactician_UpdateParticles() {
     if (!TacticianBulletEmitter) return;
     ParticleEmitter_Update(TacticianBulletEmitter);
     ParticleEmitter_Update(TacticianMuzzleFlashEmitter);
     ParticleEmitter_Update(TacticianCasingEmitter);
     ParticleEmitter_Update(TacticianBulletFragmentsEmitter);
+    ParticleEmitter_Update(TacticianBuffEffectEmitter);
 
     for (int i = 0; i < TacticianBulletEmitter->maxParticles; i++) {
         Particle* bullet = &TacticianBulletEmitter->particles[i];

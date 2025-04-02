@@ -93,7 +93,7 @@ void Radius_UpdateGun(EnemyData* data) {
 
 void Radius_Update(EnemyData* data) {
     RadiusConfig* config = (RadiusConfig*)data->config;
-    float effectiveCooldown = data->stats.attackCooldown * data->state.tacticianBuff;
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
     float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
 
     if (data->state.currentHealth <= 0) {

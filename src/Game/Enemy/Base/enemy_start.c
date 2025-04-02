@@ -82,7 +82,7 @@ void Enemy_Init() {
     TacticianMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
     TacticianCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     TacticianBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
-    
+    TacticianBuffEffectEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_CrashOut);
     // Sentry particle emitters
     SentryBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
     SentryMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);

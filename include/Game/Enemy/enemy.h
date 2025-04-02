@@ -13,8 +13,11 @@
 #include <colliders.h>
 #include <animation.h>
 #include <timer.h>
+#include <particle_emitterpresets.h>
 
 #define ENEMY_MAX 100
+
+extern ParticleEmitter* TacticianBuffEffectEmitter;
 
 /**
  * @brief Enemy type enumeration

@@ -103,7 +103,7 @@ void Proxy_UpdateGun(EnemyData* data) {
  */
 void Proxy_Update(EnemyData* data) {
     ProxyConfig* config = (ProxyConfig*)data->config;
-    float effectiveCooldown = data->stats.attackCooldown * data->state.tacticianBuff;
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
     float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
 
     if (data->state.currentHealth <= 0) {

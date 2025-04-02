@@ -26,7 +26,7 @@
 void Echo_Update(EnemyData* data) {
     EchoConfig* config = (EchoConfig*)data->config;
     
-    float effectiveCooldown = data->stats.attackCooldown * data->state.tacticianBuff;
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
     float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
 
 

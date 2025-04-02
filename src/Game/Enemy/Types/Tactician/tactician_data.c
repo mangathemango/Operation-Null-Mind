@@ -58,7 +58,7 @@ TacticianConfig TacticianConfigData = {
 
     .state = TACTICIAN_STATE_WALKING,
     .commandRadius = 200.0f,
-    .buffStrength = 1.25f,
+    .buffStrength = 2.0f,
     .commandTimer = 0.0f,
     .commandTime = 0.5f,
 
