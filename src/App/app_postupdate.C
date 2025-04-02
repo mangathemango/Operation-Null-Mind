@@ -50,9 +50,12 @@ int App_PostUpdate() {
                 app.state.currentScene = SCENE_PAUSE;
             }
             if(player.state.currentHealth <= 0) {
-                app.state.currentScene = SCENE_DEATH;
-                Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
-                Game_Restart();
+                if(!LastStand())
+                {
+                    app.state.currentScene = SCENE_DEATH;
+                    Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
+                    Game_Restart();
+                }
             }
             break;
         case SCENE_PAUSE:

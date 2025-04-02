@@ -28,6 +28,16 @@ PlayerData player = {
         .moving = false,
         .dashing = false,
         .directionLocked = false,
+        .skills = {
+            .armoredUp = false,
+            .ghostLoad = false,
+            .hemoCycle = false,
+            .kineticArmor = false,
+            .lastStand = false,
+            .oneMore = false,
+            .overPressured = false,
+            .scavenger = false,
+        },
         .collider = {
             .active = true,
             .collidesWith = 

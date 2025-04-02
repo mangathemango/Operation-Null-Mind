@@ -16,6 +16,20 @@
 #include <colliders.h>
 #include <game.h>
 
+
+typedef struct
+{
+    bool overPressured;
+    bool lastStand;
+    bool kineticArmor;
+    bool ghostLoad;
+    bool oneMore;
+    bool armoredUp;
+    bool scavenger;
+    bool hemoCycle;
+} PlayerSkills;
+
+
 /**
  * @brief Contains the player's current state information
  */
@@ -32,6 +46,7 @@ typedef struct {
     bool movementLocked; ///< Whether movement is locked
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
+    PlayerSkills skills; ///< Player skills and abilities
 
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
@@ -163,6 +178,8 @@ int Player_AnimationInit();
  * @return Status code
  */
 int Player_AnimationUpdate();
+
+bool LastStand();
 
 void Player_TakeDamage(int damage);
 

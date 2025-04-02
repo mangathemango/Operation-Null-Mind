@@ -78,3 +78,22 @@ int Player_HandleDash() {
     player.state.currentSpeed = player.stats.dashSpeed;
     return 0;
 }
+
+bool LastStand()
+{
+    if(player.state.skills.lastStand == true)
+    {
+        static bool lastStandActive = false;
+        if(player.state.currentHealth <= 0 && !lastStandActive)
+        {
+            player.state.currentHealth = player.stats.maxHealth;
+            lastStandActive = true;
+            player.state.skills.lastStand = false;
+            Timer_Start(player.resources.INVINCIBLE_Timer);
+            Sound_Play_Effect(1);
+            return true;
+        }
+    }
+
+    return false;
+}
