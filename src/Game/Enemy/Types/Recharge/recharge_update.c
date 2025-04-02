@@ -14,10 +14,18 @@
 #include <random.h>
 #include <circle.h>
 
+/**
+ * @brief Gets the direction for the Recharge enemy to move towards
+ * Recharge typically moves towards the closest non-recharge enemy detected. 
+ * 
+ * @param data 
+ * @return Vec2 
+ */
 Vec2 Recharge_GetDirection(EnemyData* data) {
     Vec2 closestEnemy = {0, 0};
     float closestDistance = 9999999.0f;
 
+    // Loop through every enemy in the enemy pool
     for (int i = 0; i < ENEMY_MAX; i++) {
         if (enemies[i].state.isDead || enemies[i].type == ENEMY_TYPE_RECHARGE) {
             continue;
@@ -46,6 +54,14 @@ Vec2 Recharge_GetDirection(EnemyData* data) {
 void Recharge_Update(EnemyData* data) {
     RechargeConfig* config = (RechargeConfig*)data->config;
     
+
+    config->directionChangeTimer += Time->deltaTimeSeconds;
+    if (config->directionChangeTimer >= config->directionChangeTime) {
+        config->directionChangeTimer = 0;
+        config->directionChangeTime = RandFloat(0.5f, 2.0f);
+        data->state.direction = Recharge_GetDirection(data);
+    }
+
     config->timer += Time->deltaTimeSeconds;
 
     if (config->isRecharging) {
@@ -77,12 +93,5 @@ void Recharge_Update(EnemyData* data) {
                 }
             }
         }
-    }
-
-    config->directionChangeTimer += Time->deltaTimeSeconds;
-    if (config->directionChangeTimer >= config->directionChangeTime) {
-        config->directionChangeTimer = 0;
-        config->directionChangeTime = RandFloat(0.5f, 2.0f);
-        data->state.direction = Recharge_GetDirection(data);
     }
 }

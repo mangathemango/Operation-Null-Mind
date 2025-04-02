@@ -24,17 +24,16 @@ void Recharge_Render(EnemyData* data) {
     RechargeConfig* config = (RechargeConfig*)data->config;
 
 
-    if (!config->isRecharging) return;
-    float timePassedRatio = config->timer / config->rechargeDuration;
-    float radius = config->rechargeRadius * sqrt(timePassedRatio);
-
-    SDL_Rect dest = Vec2_ToCenteredSquareRect(
-       Camera_WorldVecToScreen(config->rechargePosition),
-       radius * 2
-    );
-
-    int alpha = 255 - 255 * timePassedRatio;
-    SDL_SetTextureAlphaMod(config->rechargeTexture, alpha);
-
-    SDL_RenderCopy(app.resources.renderer, config->rechargeTexture, NULL, &dest);
+    if (config->isRecharging) {
+        float timePassedRatio = config->timer / config->rechargeDuration;
+        int alpha = 255 - 255 * timePassedRatio;
+        SDL_SetTextureAlphaMod(config->rechargeTexture, alpha);
+    
+        float radius = config->rechargeRadius * sqrt(timePassedRatio);
+        SDL_Rect dest = Vec2_ToCenteredSquareRect(
+            Camera_WorldVecToScreen(config->rechargePosition),
+            radius * 2
+         );
+        SDL_RenderCopy(app.resources.renderer, config->rechargeTexture, NULL, &dest);
+    }
 }
