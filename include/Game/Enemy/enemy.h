@@ -13,8 +13,11 @@
 #include <colliders.h>
 #include <animation.h>
 #include <timer.h>
+#include <particle_emitterpresets.h>
 
 #define ENEMY_MAX 100
+
+extern ParticleEmitter* TacticianBuffEffectEmitter;
 
 /**
  * @brief Enemy type enumeration
@@ -52,6 +55,9 @@ typedef struct {
     bool isSpawning;     /**< Whether the enemy is in spawning state */
 
     SDL_RendererFlip flip;
+
+    float tacticianBuff; /**< Buff applied by Tactician */
+    float tacticianBuffTimeLeft; /**< Time left for Tactician buff */
 } EnemyState;
 
 /**

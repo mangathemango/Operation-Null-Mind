@@ -55,11 +55,19 @@ TacticianConfig TacticianConfigData = {
         }
     },
     .gunOffset = {0, -3},
+
+    .state = TACTICIAN_STATE_WALKING,
     .commandRadius = 200.0f,
-    .buffStrength = 1.25f,
-    .maxControlledUnits = 5,
-    .isCommanding = false,
-    .controlledUnitCount = 0
+    .buffStrength = 2.0f,
+    .commandTimer = 0.0f,
+    .commandTime = 0.5f,
+
+    .burstTimer = 0.0f,
+    .burstTime = 0.1f,
+    .currentBurstCount = 0,
+    .maxBurstCount = 5,
+    .shootTime = 2.0f,
+    .lastPosition = {0, 0},
 };
 
 /**

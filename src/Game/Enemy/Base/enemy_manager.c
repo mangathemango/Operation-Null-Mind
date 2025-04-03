@@ -83,11 +83,13 @@ void EnemyManager_Update() {
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                EnemyType spawnedEnemy = ENEMY_TYPE_SABOT;
-                int currentTime = SDL_GetTicks();
+                EnemyType spawnedEnemy = 1000;
+
+                if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
+                    spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
+                }
+
                 Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
-                int elapsedTime = SDL_GetTicks() - currentTime;
-                SDL_Log("Spawned %s, took %d ms", enemyList[spawnedEnemy]->name, elapsedTime);
             }
         } else {
             // Ends the combat if player has killed enough enemies

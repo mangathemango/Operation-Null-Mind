@@ -77,7 +77,7 @@ void Kamikaze_Update(EnemyData* data) {
     case KAMIKAZE_STATE_EXPLODING:
         // Stop moving
         data->stats.maxSpeed = 0;
-        config->explosionTimer += Time->deltaTimeSeconds;
+        config->explosionTimer += Time->deltaTimeSeconds * data->state.tacticianBuff;
 
         if (config->explosionTimer >= config->explosionTime) {
             // Handles ACTUAL kamikaze explosion

@@ -53,7 +53,7 @@ Vec2 Recharge_GetDirection(EnemyData* data) {
  */
 void Recharge_Update(EnemyData* data) {
     RechargeConfig* config = (RechargeConfig*)data->config;
-    
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
 
     config->directionChangeTimer += Time->deltaTimeSeconds;
     if (config->directionChangeTimer >= config->directionChangeTime) {
@@ -62,7 +62,7 @@ void Recharge_Update(EnemyData* data) {
         data->state.direction = Recharge_GetDirection(data);
     }
 
-    config->timer += Time->deltaTimeSeconds;
+    config->timer += Time->deltaTimeSeconds * data->state.tacticianBuff;
 
     if (config->isRecharging) {
         if (config->timer >= config->rechargeDuration) {

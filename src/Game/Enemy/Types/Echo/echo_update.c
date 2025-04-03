@@ -26,6 +26,10 @@
 void Echo_Update(EnemyData* data) {
     EchoConfig* config = (EchoConfig*)data->config;
     
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
+    float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
+
+
     if (data->state.currentHealth <= 0) {
         GunData* gun = &config->gun;
         Animation_Destroy(gun->resources.animation);
@@ -64,7 +68,7 @@ void Echo_Update(EnemyData* data) {
         if (config->shootTimer >= config->shootTime) {
             config->shootTimer = 0;
             config->shootTime = RandFloat(
-                data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+                effectiveCooldown / 2, effectiveCooldown * 3 / 2
             );
             config->state = ECHO_STATE_BURSTING;
         }
@@ -72,6 +76,7 @@ void Echo_Update(EnemyData* data) {
     case ECHO_STATE_BURSTING:
         config->burstTimer += Time->deltaTimeSeconds;
         if (config->burstTimer >= config->burstTime) {
+            config->gun.resources.bulletPreset->particleSpeed = effectiveProjectileSpeed;
             ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
