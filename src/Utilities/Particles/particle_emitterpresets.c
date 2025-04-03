@@ -383,7 +383,7 @@ ParticleEmitter ParticleEmitter_BulletFragments = {
 
     .particleLifetime = 0.05,
     .particleSpeed = 500,
-    .custom_Movement = NULL,
+    .custom_Movement = Particle_RandomMovement,
 
     .startColor = {255, 225, 0, 255},
     .endColor = {255, 225, 0, 0},
