@@ -25,11 +25,6 @@ void Juggernaut_Render(EnemyData* data) {
     if (!config) return;
     GunData *gun = &config->gun;
 
-    // Optional: render different visual when enraged
-    if (config->isEnraged) {
-        // Visual indicator could be implemented here
-    }
-
     Animation_Render(gun->resources.animation, 
         Camera_WorldVecToScreen(gun->state.position), 
         gun->animData.spriteSize,

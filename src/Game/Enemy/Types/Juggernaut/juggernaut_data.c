@@ -15,6 +15,7 @@ JuggernautConfig JuggernautConfigData = {
     .directionChangeTimer = 0,
     .directionChangeTime = 1.0f,
     .shootTimer = 0,
+    .shootTime = 0.1f,
     .gun = {
         .config = {
             .muzzlePosition = {27, 5},
@@ -55,12 +56,11 @@ JuggernautConfig JuggernautConfigData = {
         }
     },
     .gunOffset = {0, -3},
-    .armorValue = 0.25f,         // Reduces damage taken by 25%
-    .chargeDistance = 200.0f,    // Distance at which to consider charging
-    .rageThreshold = 0.4f,       // Enrages at 40% health
-    .isEnraged = false,
-    .stampedeDuration = 1.5f,
-    .stampedeTimer = 0
+    .timer = 0,
+    .walkDuration = 3,
+    .chargeDuration = 0.5,
+    .enragedDuration = 5,
+    .spinSpeedDegrees = 360,
 };
 
 /**
@@ -87,15 +87,15 @@ EnemyData JuggernautData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 30,
-        .maxHealth = 200,
-        .maxSpeed = 80.0f,      // Slow but powerful
+        .damage = 1,
+        .maxHealth = 600,
+        .maxSpeed = 200.0f,      // Slow but powerful
         .acceleration = 250.0f,
         .drag = 2.0f,
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 5.0f,  // Long base cooldown
+        .attackCooldown = 0.20f,  // Long base cooldown
     },
     .resources = {
         .animation = NULL,
