@@ -15,7 +15,7 @@
 #include <particle_emitterpresets.h>
 #include <colliders.h>
 #include <game.h>
-
+#include <sound.h>
 
 typedef struct
 {
@@ -95,6 +95,8 @@ typedef struct {
     Timer* shootCooldownTimer;            ///< Timer for shoot cooldown
     Timer* INVINCIBLE_Timer;               ///< [Title card] timer
     SkillResources skillResources;        ///< Resources for player skills
+    Timer* crashOutCooldown; ///< Timer for crashout cooldown
+    Timer* crashOutDuration; ///< Timer for crashout duration
 } PlayerResources;
 
 /**
@@ -109,6 +111,9 @@ typedef struct {
     float dashDuration; ///< How long dash lasts
     float dashCooldown; ///< Time between dashes
     int enemiesKilled; ///< Number of enemies killed
+    int crashOutCurrentMultipler;
+    int crashOutCooldown;
+    int crashOutDuration;
     SkillStat skillStat;   ///< Player skills and abilities  
 } PlayerStat;
 
