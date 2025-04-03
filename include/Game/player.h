@@ -17,6 +17,53 @@
 #include <game.h>
 #include <sound.h>
 
+typedef struct
+{
+    bool overPressured;
+    bool lastStand;
+    bool kineticArmor;
+    bool ghostLoad;
+    bool oneMore;
+    bool armoredUp;
+    bool scavenger;
+    bool hemoCycle;
+    int crashOutMultiplier;
+    bool crashOut;
+} SkillState;
+
+typedef struct
+{
+    int overPressuredBulletConsumptionMultipler; ///< Amount of ammo consumed when overpressured
+    float overPressuredFireRate; ///< Fire rate when overpressured
+    float overPressuredProjectileSpeed; ///< Speed of overpressured bullets
+    int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
+    int scavengerAmmoCapacity; ///< Amount of capacity reduced percentage from scavenger skill
+    int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
+    int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
+    int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
+    int ammoShoot; ///< Amount of ammo shot from the gun
+    float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
+    Timer* crashOutCooldown; ///< Timer for crashout cooldown
+    Timer* crashOutDuration; ///< Timer for crashout duration
+} SkillResources;
+
+typedef struct
+{
+    int overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
+    float overPressuredOriginalFireRate; ///< Fire rate when overpressured
+    float overPressuredOriginalProjectileSpeed; ///< Speed of overpressured bullets
+    int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
+    int scavengerAmmoCapacity; ///< Amount of capacity reduced percentage from scavenger skill
+    int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
+    int hemocycleHealthGained; ///< Amount of health gained from hemocycle skill
+    int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
+    int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
+    float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
+    int crashOutCurrentMultipler;
+    int crashOutCooldown;
+    int crashOutDuration;
+} SkillStat;
+
 /**
  * @brief Contains the player's current state information
  */
@@ -31,10 +78,10 @@ typedef struct {
     bool directionLocked; ///< Whether movement direction is locked
     bool moving;        ///< Whether the player is moving
     bool movementLocked; ///< Whether movement is locked
-    bool crashOut;     ///< Whether the player is in crashout state
     float crashOutMultiplier; ///< Multipler that will be used fro crashout
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
+    SkillState skillState; ///< Player skills and abilities
 
     Collider collider;   ///< Player collision data
     bool insideRoom;     ///< Whether player is in a room
@@ -54,8 +101,7 @@ typedef struct {
     Timer* dashCooldownTimer;             ///< Timer for dash cooldown
     Timer* shootCooldownTimer;            ///< Timer for shoot cooldown
     Timer* INVINCIBLE_Timer;               ///< [Title card] timer
-    Timer* crashOutCooldown;                ///< Timer for crashout cooldown
-    Timer* crashOutDuration;              ///< Timer for crashout duration
+    SkillResources skillResources;        ///< Resources for player skills
 } PlayerResources;
 
 /**
@@ -69,9 +115,8 @@ typedef struct {
     float dashSpeed;    ///< Speed during dash
     float dashDuration; ///< How long dash lasts
     float dashCooldown; ///< Time between dashes
-    float crashOutCooldown; ///< Cooldown for crashout ability
-    float crashOutDuration; ///< Duration of the crashout effect
-    float crashOutCurrentMultipler; ///< Damage multiplier during crashout
+    int enemiesKilled; ///< Number of enemies killed
+    SkillStat skillStat;   ///< Player skills and abilities  
 } PlayerStat;
 
 /**
@@ -187,7 +232,15 @@ int Player_AnimationInit();
  */
 int Player_AnimationUpdate();
 
+void Skill_Update();
+
+void scavenger();
+
 void Player_TakeDamage(int damage);
+
+bool kineticArmor();
+
+bool ghostLoad();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);

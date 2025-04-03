@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 UIElement* EnemyHealthTexts[ENEMY_MAX * 10] = {NULL};
+#include <player.h>
 
 /**
  * @brief [Utility] Applies damage to an enemy
@@ -26,9 +27,9 @@ UIElement* EnemyHealthTexts[ENEMY_MAX * 10] = {NULL};
  */
 void Enemy_TakeDamage(EnemyData* enemy, int damage) {
     if (enemy->state.isDead) return;
-    
-    enemy->state.currentHealth -= damage;
-    Enemy_CreateHealthText(enemy, damage);
+    int effectiveDamage = damage * (100 - player.resources.skillResources.armoredUpDamageOutputDamageReduction) / 100;
+    enemy->state.currentHealth -= effectiveDamage;
+    Enemy_CreateHealthText(enemy, effectiveDamage);
 }
 
 void Enemy_CreateHealthText(EnemyData* enemy, int damage) {

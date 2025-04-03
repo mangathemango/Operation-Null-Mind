@@ -66,10 +66,18 @@ void Enemy_Init() {
     ProxyBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
 
     // Sabot particle emitters
-    SabotBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    SabotBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Gernade);  // Changed from BulletEnemy to Gernade
+    SabotBulletEmitter->drag = 0.0f;  // Added this
+    SabotBulletEmitter->particleSpeed = 200;
     SabotMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
     SabotCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     SabotBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
+    SabotExplosionIndicator = CreateCircleTexture(  // Added this
+        SabotConfigData.explosionRadius,
+        (SDL_Color){255, 0, 0, 255}
+    );
+    SabotExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);  // Added this
+    SabotExplosionEmitter->particleSpeed /= 2;  // Added this
     
     // Vantage particle emitters
     VantageBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);

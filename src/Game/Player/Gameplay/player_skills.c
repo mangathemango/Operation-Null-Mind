@@ -16,6 +16,7 @@
 #include <timer.h>
 #include <sound.h>
 #include <camera.h>
+#include <random.h>
 #include <gun.h>
 
 /**
@@ -80,6 +81,160 @@ int Player_HandleDash() {
     return 0;
 }
 
+
+bool LastStand()
+{
+    if(player.state.skillState.lastStand == true)
+    {
+        static bool lastStandActive = false;
+        if(player.state.currentHealth <= 0 && !lastStandActive)
+        {
+            player.state.currentHealth = player.stats.maxHealth;
+            lastStandActive = true;
+            Timer_Start(player.resources.INVINCIBLE_Timer);
+            Sound_Play_Effect(1);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int overPressured()
+{
+    if(player.state.skillState.overPressured == true)
+    {
+        player.resources.skillResources.overPressuredBulletConsumptionMultipler = player.stats.skillStat.overPressuredOriginalMultipler;
+        player.resources.skillResources.overPressuredFireRate = player.stats.skillStat.overPressuredOriginalFireRate;
+        player.resources.skillResources.overPressuredProjectileSpeed = player.stats.skillStat.overPressuredOriginalProjectileSpeed;
+        return 1;
+    }
+    else 
+    {
+        player.resources.skillResources.overPressuredBulletConsumptionMultipler = 1;
+        player.resources.skillResources.overPressuredFireRate = 1;
+        player.resources.skillResources.overPressuredProjectileSpeed = 1;
+    }
+    return 0;
+}
+
+void scavenger()
+{
+    if(player.state.skillState.scavenger == true)
+    {
+        player.resources.skillResources.scavengerAmmoBonus = player.stats.skillStat.scavengerAmmoBonus;
+        player.stats.maxAmmo = 200 * (100 - player.stats.skillStat.scavengerAmmoCapacity) / 100;
+    }
+    else
+    {
+        player.resources.skillResources.scavengerAmmoBonus = 0;
+        player.stats.maxAmmo = 200;
+    }
+}
+
+void hemocycle()
+{
+    static bool JustHealed = false;
+    if(player.state.skillState.hemoCycle == true)
+    {
+        if(player.stats.enemiesKilled % 4 == 0 && JustHealed == false)
+        {
+            JustHealed = true;
+            player.state.currentHealth += player.stats.skillStat.hemocycleHealthGained;
+            if(player.state.currentHealth > player.stats.maxHealth) player.state.currentHealth = player.stats.maxHealth;
+            SDL_Log("Hemocycle: %d", player.stats.skillStat.hemocycleHealthGained);
+        }
+        else if(player.stats.enemiesKilled % 4 != 0)
+        {
+            JustHealed = false;
+        }
+
+        player.resources.skillResources.hemocycleMultipler = player.stats.skillStat.hemocycleMultipler;
+    }
+
+
+    else 
+    {
+        player.resources.skillResources.hemocycleMultipler = 0;
+    }
+}
+
+void armoredUp()
+{
+    if(player.state.skillState.armoredUp == true)
+    {
+        player.resources.skillResources.armoredUpIncomingDamageReduction = player.stats.skillStat.armoredUpIncomingDamageReduction;
+        player.resources.skillResources.armoredUpDamageOutputDamageReduction = player.stats.skillStat.armoredUpDamageOutputDamageReduction;
+    }
+    else
+    {
+        player.resources.skillResources.armoredUpIncomingDamageReduction = 0;
+        player.resources.skillResources.armoredUpDamageOutputDamageReduction = 0;
+    }
+}
+
+bool kineticArmor()
+{
+    if(player.state.skillState.kineticArmor == true)
+    {
+        bool randomizer = RandInt(0,1);
+        if(randomizer == 0)
+        {
+            player.state.currentAmmo -= 20;
+        }
+        SDL_Log("Kinetic Armor: %d", randomizer);
+        return randomizer;
+    }
+
+    else
+    {
+        return 1;
+    }
+}
+
+bool ghostLoad()
+{
+    int randomizer = RandInt(1,10);
+    if(player.state.skillState.ghostLoad == true)
+    {
+        if(player.resources.skillResources.ammoShoot % 8 == 0 && player.resources.skillResources.ammoShoot != 0)
+        {
+            SDL_Log("Ghost Load mweh");
+            if(randomizer == 1)
+            {
+                player.resources.skillResources.ghostLoadRandomizer = player.stats.skillStat.ghostLoadRandomizer;
+                SDL_Log("Gun jammed");
+            }
+            else
+            {
+                player.resources.skillResources.ghostLoadRandomizer = 0;
+            }
+            return true;
+        }
+        else
+        {
+            player.resources.skillResources.ghostLoadRandomizer = 0;
+            return false;
+        }
+    }
+    else
+    {
+        player.resources.skillResources.ghostLoadRandomizer = 0;
+        return false;
+    }
+}
+
+void Skill_Update()
+{
+    LastStand();
+    overPressured();
+    scavenger();
+    hemocycle();
+    armoredUp();
+   // i call kinetic armor where player gets damaged.
+   //i call ghostload when player shoots.
+}
+
 /**
  * @brief [Utility] Activates the Crashout skill, sacrificing health for damage
  * 
@@ -90,8 +245,8 @@ int Player_HandleDash() {
  */
 int Player_CrashOut() {
     // Don't activate if already active or on cooldown
-    if (player.state.crashOut) return 1;
-    if (!Timer_IsFinished(player.resources.crashOutCooldown)) return 1;
+    if (player.state.skillState.crashOut) return 1;
+    if (!Timer_IsFinished(player.resources.skillResources.crashOutCooldown)) return 1;
     SDL_Log("Player_Crashout Activated");
     
     // Calculate health cost (25% of current health)
@@ -105,14 +260,14 @@ int Player_CrashOut() {
         player.state.currentHealth -= healthCost;
     }
     
-    player.state.crashOut = true; // Activate crashout state
+    player.state.skillState.crashOut = true; // Activate crashout state
     
     // Activate skill effects
     // player.state.crashoutActive = true;
     // player.state.crashoutMultiplier = 2.0f;  // 2x damage multiplier
     
     // Start timers
-    Timer_Start(player.resources.crashOutDuration);
+    Timer_Start(player.resources.skillResources.crashOutDuration);
     
     // Play effect
     Sound_Play_Effect(SOUND_VINE_BOOM);  // Use an appropriate sound
@@ -132,27 +287,26 @@ int Player_CrashOut() {
  * @return int Status code (0 for success)
  */
 int Player_HandleCrashOut() {
-    if (!player.state.crashOut) return 0;
+    if (!player.state.skillState.crashOut) return 0;
     
 
     // Check if duration has expired
-    if (Timer_IsFinished(player.resources.crashOutDuration)) {
+    if (Timer_IsFinished(player.resources.skillResources.crashOutDuration)) {
         // Reset state
-        player.state.crashOut = false;
+        player.state.skillState.crashOut = false;
         // player.state.crashoutMultiplier = 1.0f;
         
         // Start cooldown
-        Timer_Start(player.resources.crashOutCooldown);
+        Timer_Start(player.resources.skillResources.crashOutCooldown);
         
-        player.stats.crashOutCurrentMultipler = 1.0f; // Reset damage multiplier
+        player.stats.skillStat.crashOutCurrentMultipler = 1.0f; // Reset damage multiplier
         
         return 0;
     }
     
-    player.stats.crashOutCurrentMultipler = player.state.crashOutMultiplier; // Maintain damage multiplier while active
+    player.stats.skillStat.crashOutCurrentMultipler = player.state.skillState.crashOutMultiplier; // Maintain damage multiplier while active
     player.resources.crashOut->position = player.state.position;
     ParticleEmitter_ActivateOnce(player.resources.crashOut);
-    ParticleEmitter_Update(player.resources.crashOut);
     SDL_Log("Player_Crashout Active");
     
     // Update visual effects while active
