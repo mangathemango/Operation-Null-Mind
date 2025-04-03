@@ -88,14 +88,14 @@ EnemyData JuggernautData = {
     },
     .stats = {
         .damage = 1,
-        .maxHealth = 200,
-        .maxSpeed = 600.0f,      // Slow but powerful
+        .maxHealth = 600,
+        .maxSpeed = 200.0f,      // Slow but powerful
         .acceleration = 250.0f,
         .drag = 2.0f,
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 0.3f,  // Long base cooldown
+        .attackCooldown = 0.20f,  // Long base cooldown
     },
     .resources = {
         .animation = NULL,
