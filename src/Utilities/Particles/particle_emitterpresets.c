@@ -475,7 +475,7 @@ ParticleEmitter ParticleEmitter_Gernade = {
 };
 
 
-ParticleEmitter ParticleEmitter_CrashOut = {
+ParticleEmitter ParticleEmitter_Fire = {
     .position = {100, 100},
 
     .direction = {0, -1},

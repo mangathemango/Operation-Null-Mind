@@ -90,7 +90,7 @@ void Enemy_Init() {
     TacticianMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
     TacticianCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     TacticianBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
-    TacticianBuffEffectEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_CrashOut);
+    TacticianBuffEffectEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Fire);
     TacticianBuffCircleTexture = CreateCircleOutlineTexture(
         KamikazeConfigData.explosionRadius,
         (SDL_Color){255, 255, 0, 255},
