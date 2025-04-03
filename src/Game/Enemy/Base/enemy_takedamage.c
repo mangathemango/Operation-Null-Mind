@@ -10,6 +10,7 @@
  */
 
 #include <enemy.h>
+#include <player.h>
 
 /**
  * @brief [Utility] Applies damage to an enemy
@@ -23,5 +24,6 @@
 void Enemy_TakeDamage(EnemyData* enemy, int damage) {
     if (enemy->state.isDead) return;
     
-    enemy->state.currentHealth -= damage;
+    enemy->state.currentHealth -= (int) damage * (100 - player.resources.skillResources.armoredUpDamageOutputDamageReduction) / 100;
+    SDL_Log("Enemy %d took %d damage, current health: %d", enemy->type, damage, enemy->state.currentHealth);
 }

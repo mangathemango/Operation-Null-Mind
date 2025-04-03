@@ -157,10 +157,25 @@ void hemocycle()
     }
 }
 
+void armoredUp()
+{
+    if(player.state.skillState.armoredUp == true)
+    {
+        player.resources.skillResources.armoredUpIncomingDamageReduction = player.stats.skillStat.armoredUpIncomingDamageReduction;
+        player.resources.skillResources.armoredUpDamageOutputDamageReduction = player.stats.skillStat.armoredUpDamageOutputDamageReduction;
+    }
+    else
+    {
+        player.resources.skillResources.armoredUpIncomingDamageReduction = 0;
+        player.resources.skillResources.armoredUpDamageOutputDamageReduction = 0;
+    }
+}
+
 void Skill_Update()
 {
     LastStand();
     overPressured();
     scavenger();
     hemocycle();
+    armoredUp();
 }

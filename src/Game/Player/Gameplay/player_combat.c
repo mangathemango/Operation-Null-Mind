@@ -109,12 +109,14 @@ void Player_TakeDamage(int damage) {
     if (!player.resources.INVINCIBLE_Timer) {
         player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
         Timer_Start(player.resources.INVINCIBLE_Timer);
-        player.state.currentHealth -= damage;
+        player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100);
         return;
     }
     if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
     
-    player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler) / 100);
+    SDL_Log("%d armoredUp", player.resources.skillResources.armoredUpIncomingDamageReduction);
+    SDL_Log("%d hemocycle", player.resources.skillResources.hemocycleMultipler);
+    player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100);
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }

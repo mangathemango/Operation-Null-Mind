@@ -29,11 +29,11 @@ PlayerData player = {
         .dashing = false,
         .directionLocked = false,
         .skillState = {
-            .armoredUp = false,
+            .armoredUp = true,
             .ghostLoad = false,
             .hemoCycle = true,
             .kineticArmor = false,
-            .lastStand = false,
+            .lastStand = true,
             .oneMore = false,
             .overPressured = true,
             .scavenger = true,
@@ -83,6 +83,8 @@ PlayerData player = {
             .scavengerAmmoCapacity = 20,
             .hemocycleMultipler = 20,
             .hemocycleHealthGained = 100,
+            .armoredUpIncomingDamageReduction = 25,
+            .armoredUpDamageOutputDamageReduction = 15,
         },
     },
     .animData = {

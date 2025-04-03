@@ -37,6 +37,8 @@ typedef struct
     int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
     int scavengerAmmoCapacity; ///< Amount of capacity reduced percentage from scavenger skill
     int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
+    int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
+    int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
 } SkillResources;
 
 typedef struct
@@ -48,6 +50,8 @@ typedef struct
     int scavengerAmmoCapacity; ///< Amount of capacity reduced percentage from scavenger skill
     int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
     int hemocycleHealthGained; ///< Amount of health gained from hemocycle skill
+    int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
+    int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
 } SkillStat;
 
 /**
