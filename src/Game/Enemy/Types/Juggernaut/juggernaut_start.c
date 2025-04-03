@@ -36,9 +36,8 @@ void Juggernaut_Start(EnemyData* data) {
     ((JuggernautConfig*) data->config)->lastPosition = data->state.position;
     ((JuggernautConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
     ((JuggernautConfig*) data->config)->directionChangeTimer = 3.0f;
-    ((JuggernautConfig*) data->config)->shootTime = RandFloat(
-        data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
-    );
+    ((JuggernautConfig*) data->config)->walkDuration = RandFloat(2.0f, 4.0f);
+    ((JuggernautConfig*) data->config)->spinSpeedDegrees = RandFloat(360, 720);
     
     GunData* gun = &((JuggernautConfig*) data->config)->gun;
     gun->resources.animation = Animation_Create(&animData);

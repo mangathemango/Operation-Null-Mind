@@ -12,6 +12,12 @@ extern ParticleEmitter* JuggernautBulletFragmentsEmitter;
 extern ParticleEmitter* JuggernautMuzzleFlashEmitter;
 extern ParticleEmitter* JuggernautCasingEmitter;
 
+typedef enum {
+    JUGGERNAUT_STATE_WALKING,
+    JUGGERNAUT_STATE_CHARGING,
+    JUGGERNAUT_STATE_ENRAGED
+} JuggernautState;
+
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
@@ -22,7 +28,12 @@ typedef struct {
     Vec2 lastPosition;
     
     // Juggernaut-specific fields
-    
+    JuggernautState state;
+    float timer;
+    float walkDuration;
+    float chargeDuration;
+    float enragedDuration;
+    float spinSpeedDegrees;
 } JuggernautConfig;
 
 void Juggernaut_Start(EnemyData* data);
