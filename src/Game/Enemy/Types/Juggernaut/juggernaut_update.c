@@ -107,34 +107,6 @@ void Juggernaut_Update(EnemyData* data) {
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Juggernaut_UpdateGun(data);
 
-    // Check if health is below rage threshold
-    if (data->state.currentHealth < data->stats.maxHealth * config->rageThreshold && !config->isEnraged) {
-        // Enter enraged state
-        config->isEnraged = true;
-        // Could add visual effects or sound cues here
-    }
-
-    float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
-    
-    // Handle stampede state (rushing toward player)
-    if (config->stampedeTimer > 0) {
-        config->stampedeTimer -= Time->deltaTimeSeconds;
-        
-        // Direct charge toward player
-        data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-        
-        // Check for collision with player during charge
-        if (distToPlayer < 20) {
-            player.state.currentHealth -= data->stats.damage * 1.5f;
-        }
-        
-        if (config->stampedeTimer <= 0) {
-            // End stampede state, back to normal behavior
-            Animation_Play(data->resources.animation, "idle");
-        }
-        
-        return;
-    }
     
     // Normal movement behavior
     config->directionChangeTimer += Time->deltaTimeSeconds;
@@ -142,56 +114,41 @@ void Juggernaut_Update(EnemyData* data) {
         config->directionChangeTime = RandFloat(0.5f, 1.0f);
         config->directionChangeTimer = 0;
         
-        if (config->isEnraged) {
-            // When enraged, move directly toward player more often
+        float distToPlayer = Vec2_Distance(player.state.position, data->state.position);
+        // Normal movement logic
+        if (distToPlayer > 150) {
+            // Move toward player with some randomness
             data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-20, 20));
-            
-            // Occasionally enter stampede state
-            if (RandFloat(0, 1) < 0.3f && distToPlayer > config->chargeDistance) {
-                config->stampedeTimer = config->stampedeDuration;
-                Animation_Play(data->resources.animation, "idle");
-                return;
-            }
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-45, 45));
+        } else {
+            // Circle around at medium range
+            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(45, 135));
         }
-        else {
-            // Normal movement logic
-            if (distToPlayer > 150) {
-                // Move toward player with some randomness
-                data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-                data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-45, 45));
-            } else {
-                // Circle around at medium range
-                data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-                data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(45, 135));
-            }
-        }
+        
     }
 
     // Shooting logic is more aggressive when enraged
     config->shootTimer += Time->deltaTimeSeconds;
-    if (config->shootTimer >= (config->isEnraged ? config->shootTime * 0.7f : config->shootTime)) {
+    if (config->shootTimer >= 0.1f) {
         config->shootTimer = 0;
         config->shootTime = RandFloat(
             data->stats.attackCooldown / 2, 
-            data->stats.attackCooldown * (config->isEnraged ? 1.0f : 1.5f)
+            data->stats.attackCooldown * 3 / 2
         );
         
-        // Juggernaut fires more bullets when enraged
-        int bulletCount = config->isEnraged ? 3 : 1;
-        for (int i = 0; i < bulletCount; i++) {
-            // Add slight spread for multiple bullets
-            float angleOffset = (i - (bulletCount-1)/2.0f) * 10.0f;
-            
-            if (config->gun.resources.bulletPreset) {
-                config->gun.resources.bulletPreset->direction = Vec2_RotateDegrees(
-                    Vec2_RotateDegrees(Vec2_Right, config->gun.state.angle),
-                    angleOffset
-                );
-                ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
-                Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
-            }
+        // Add slight spread for multiple bullets
+        float angleOffset = 60;
+        
+        if (config->gun.resources.bulletPreset) {
+            config->gun.resources.bulletPreset->direction = Vec2_RotateDegrees(
+                Vec2_RotateDegrees(Vec2_Right, config->gun.state.angle),
+                angleOffset
+            );
+            ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+            Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
         }
+        
         
         ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);

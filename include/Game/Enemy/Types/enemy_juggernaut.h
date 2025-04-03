@@ -22,12 +22,7 @@ typedef struct {
     Vec2 lastPosition;
     
     // Juggernaut-specific fields
-    float armorValue;
-    float chargeDistance;
-    float rageThreshold;
-    bool isEnraged;
-    float stampedeDuration;
-    float stampedeTimer;
+    
 } JuggernautConfig;
 
 void Juggernaut_Start(EnemyData* data);

@@ -54,13 +54,7 @@ JuggernautConfig JuggernautConfigData = {
             .playOnStart = true
         }
     },
-    .gunOffset = {0, -3},
-    .armorValue = 0.25f,         // Reduces damage taken by 25%
-    .chargeDistance = 200.0f,    // Distance at which to consider charging
-    .rageThreshold = 0.4f,       // Enrages at 40% health
-    .isEnraged = false,
-    .stampedeDuration = 1.5f,
-    .stampedeTimer = 0
+    .gunOffset = {0, -3}
 };
 
 /**
