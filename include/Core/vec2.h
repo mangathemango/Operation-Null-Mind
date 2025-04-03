@@ -297,4 +297,5 @@ bool Vec2_AreEqual(Vec2 a, Vec2 b);
 Vec2 Vec2_Square(float side);
 SDL_Rect Vec2_ToSquareRect(Vec2 position, float side);
 SDL_Rect Vec2_ToCenteredSquareRect(Vec2 position, float side);
+float Vec2_AngleBetween(Vec2 a, Vec2 b);
 #endif

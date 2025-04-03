@@ -67,6 +67,8 @@ void Enemy_Init() {
 
     // Sabot particle emitters
     SabotBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Gernade);  // Changed from BulletEnemy to Gernade
+    SabotBulletEmitter->drag = 0.0f;  // Added this
+    SabotBulletEmitter->particleSpeed = 200;
     SabotMuzzleFlashEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_MuzzleFlash);
     SabotCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     SabotBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);

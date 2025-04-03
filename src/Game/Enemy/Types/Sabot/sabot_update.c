@@ -146,13 +146,22 @@ void Sabot_UpdateParticles() {
     for (int i = 0; i < SabotBulletEmitter->maxParticles; i++) {
         Particle* bullet = &SabotBulletEmitter->particles[i];
         if (!bullet->alive) continue;
-        if (Collider_Check(bullet->collider, NULL))  {
-            bullet->speed = 0;
-            bullet->velocity = Vec2_Zero;
+
+
+        if (bullet->timeAlive <= 1) {
+            Vec2 targetDirection = Vec2_Normalize(
+                Vec2_Subtract(player.state.position, bullet->position)
+            );
+            float nextAngleRotation = Vec2_AngleBetween(
+                bullet->direction, targetDirection
+            ) * 5 * Time->deltaTimeSeconds;
+            bullet->direction = Vec2_RotateDegrees(bullet->direction, nextAngleRotation);
         }
-        if (bullet->timeAlive + Time->deltaTimeSeconds >= bullet->maxLifeTime) {
+        
+        if (Collider_Check(bullet->collider, NULL))  {
             SabotExplosionEmitter->position = bullet->position;
             ParticleEmitter_ActivateOnce(SabotExplosionEmitter);
+            
             Sound_Play_Effect(SOUND_EXPLOSION);
             if (IsRectOverlappingCircle(
                 player.state.collider.hitbox,
@@ -161,9 +170,9 @@ void Sabot_UpdateParticles() {
             )) {
                 Player_TakeDamage(SabotData.stats.damage);
             }
+            bullet->alive = false;
         }
     }
-
     ParticleEmitter_Update(SabotBulletEmitter);
     ParticleEmitter_Update(SabotMuzzleFlashEmitter);
     ParticleEmitter_Update(SabotCasingEmitter);
