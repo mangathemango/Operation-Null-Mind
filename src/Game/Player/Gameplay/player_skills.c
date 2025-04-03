@@ -16,6 +16,7 @@
 #include <timer.h>
 #include <sound.h>
 #include <camera.h>
+#include <random.h>
 #include <gun.h>
 
 /**
@@ -78,6 +79,160 @@ int Player_HandleDash() {
 
     player.state.currentSpeed = player.stats.dashSpeed;
     return 0;
+}
+
+
+bool LastStand()
+{
+    if(player.state.skillState.lastStand == true)
+    {
+        static bool lastStandActive = false;
+        if(player.state.currentHealth <= 0 && !lastStandActive)
+        {
+            player.state.currentHealth = player.stats.maxHealth;
+            lastStandActive = true;
+            Timer_Start(player.resources.INVINCIBLE_Timer);
+            Sound_Play_Effect(1);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int overPressured()
+{
+    if(player.state.skillState.overPressured == true)
+    {
+        player.resources.skillResources.overPressuredBulletConsumptionMultipler = player.stats.skillStat.overPressuredOriginalMultipler;
+        player.resources.skillResources.overPressuredFireRate = player.stats.skillStat.overPressuredOriginalFireRate;
+        player.resources.skillResources.overPressuredProjectileSpeed = player.stats.skillStat.overPressuredOriginalProjectileSpeed;
+        return 1;
+    }
+    else 
+    {
+        player.resources.skillResources.overPressuredBulletConsumptionMultipler = 1;
+        player.resources.skillResources.overPressuredFireRate = 1;
+        player.resources.skillResources.overPressuredProjectileSpeed = 1;
+    }
+    return 0;
+}
+
+void scavenger()
+{
+    if(player.state.skillState.scavenger == true)
+    {
+        player.resources.skillResources.scavengerAmmoBonus = player.stats.skillStat.scavengerAmmoBonus;
+        player.stats.maxAmmo = 200 * (100 - player.stats.skillStat.scavengerAmmoCapacity) / 100;
+    }
+    else
+    {
+        player.resources.skillResources.scavengerAmmoBonus = 0;
+        player.stats.maxAmmo = 200;
+    }
+}
+
+void hemocycle()
+{
+    static bool JustHealed = false;
+    if(player.state.skillState.hemoCycle == true)
+    {
+        if(player.stats.enemiesKilled % 4 == 0 && JustHealed == false)
+        {
+            JustHealed = true;
+            player.state.currentHealth += player.stats.skillStat.hemocycleHealthGained;
+            if(player.state.currentHealth > player.stats.maxHealth) player.state.currentHealth = player.stats.maxHealth;
+            SDL_Log("Hemocycle: %d", player.stats.skillStat.hemocycleHealthGained);
+        }
+        else if(player.stats.enemiesKilled % 4 != 0)
+        {
+            JustHealed = false;
+        }
+
+        player.resources.skillResources.hemocycleMultipler = player.stats.skillStat.hemocycleMultipler;
+    }
+
+
+    else 
+    {
+        player.resources.skillResources.hemocycleMultipler = 0;
+    }
+}
+
+void armoredUp()
+{
+    if(player.state.skillState.armoredUp == true)
+    {
+        player.resources.skillResources.armoredUpIncomingDamageReduction = player.stats.skillStat.armoredUpIncomingDamageReduction;
+        player.resources.skillResources.armoredUpDamageOutputDamageReduction = player.stats.skillStat.armoredUpDamageOutputDamageReduction;
+    }
+    else
+    {
+        player.resources.skillResources.armoredUpIncomingDamageReduction = 0;
+        player.resources.skillResources.armoredUpDamageOutputDamageReduction = 0;
+    }
+}
+
+bool kineticArmor()
+{
+    if(player.state.skillState.kineticArmor == true)
+    {
+        bool randomizer = RandInt(0,1);
+        if(randomizer == 0)
+        {
+            player.state.currentAmmo -= 20;
+        }
+        SDL_Log("Kinetic Armor: %d", randomizer);
+        return randomizer;
+    }
+
+    else
+    {
+        return 1;
+    }
+}
+
+bool ghostLoad()
+{
+    int randomizer = RandInt(1,10);
+    if(player.state.skillState.ghostLoad == true)
+    {
+        if(player.resources.skillResources.ammoShoot % 8 == 0 && player.resources.skillResources.ammoShoot != 0)
+        {
+            SDL_Log("Ghost Load mweh");
+            if(randomizer == 1)
+            {
+                player.resources.skillResources.ghostLoadRandomizer = player.stats.skillStat.ghostLoadRandomizer;
+                SDL_Log("Gun jammed");
+            }
+            else
+            {
+                player.resources.skillResources.ghostLoadRandomizer = 0;
+            }
+            return true;
+        }
+        else
+        {
+            player.resources.skillResources.ghostLoadRandomizer = 0;
+            return false;
+        }
+    }
+    else
+    {
+        player.resources.skillResources.ghostLoadRandomizer = 0;
+        return false;
+    }
+}
+
+void Skill_Update()
+{
+    LastStand();
+    overPressured();
+    scavenger();
+    hemocycle();
+    armoredUp();
+   // i call kinetic armor where player gets damaged.
+   //i call ghostload when player shoots.
 }
 
 /**

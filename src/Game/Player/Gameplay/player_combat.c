@@ -26,10 +26,23 @@ void Player_Shoot() {
     int ammoComsumption = player.state.currentGun.stats.ammoConsumption;
     if (player.state.currentAmmo < ammoComsumption) return;
     Sound_Play_Effect(1);
-    player.state.currentAmmo -= player.state.currentGun.stats.ammoConsumption;
+    player.state.currentAmmo -= player.state.currentGun.stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
+    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed * player.resources.skillResources.overPressuredProjectileSpeed;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
+    SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
+    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed / player.resources.skillResources.overPressuredProjectileSpeed;
+    SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
+
+    player.resources.skillResources.ammoShoot++;
+    SDL_Log("ammo shot %d",player.resources.skillResources.ammoShoot);
+    if(ghostLoad() == true)
+    {
+        player.state.currentAmmo++;
+        SDL_Log("Ghost Load");
+    }
+    player.resources.shootCooldownTimer = Timer_Create((60.0f + player.resources.skillResources.ghostLoadRandomizer)/(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate));
     Timer_Start(player.resources.shootCooldownTimer);
     
 }
@@ -105,12 +118,14 @@ void Player_TakeDamage(int damage) {
     if (!player.resources.INVINCIBLE_Timer) {
         player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
         Timer_Start(player.resources.INVINCIBLE_Timer);
-        player.state.currentHealth -= damage;
+        player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100);
         return;
     }
     if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
     
-    player.state.currentHealth -= damage;
+    SDL_Log("%d armoredUp", player.resources.skillResources.armoredUpIncomingDamageReduction);
+    SDL_Log("%d hemocycle", player.resources.skillResources.hemocycleMultipler);
+    player.state.currentHealth -= (int) ((damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100)) * kineticArmor();
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }
