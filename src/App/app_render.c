@@ -31,7 +31,27 @@ int App_RenderMain() {
         case SCENE_MENU:
             Menu_Render();
             break;
+
+        case SCENE_DEATH:
+            Death_Render();
+            break;
         
+        case SCENE_PAUSE:
+            Map_Render();
+            Interactable_Render();
+            Enemy_Render();
+            Player_Render();
+            Interactable_RenderEndRoom();
+            Gun_Render();
+            Bullet_Render();
+            Debug_RenderHitboxes();
+            Interactable_RenderInteractionText();
+            HUD_Render();
+            Log_Render();
+            LevelTransition_Render();
+            Pause_Render();
+            break;
+
         case SCENE_GAME:
             Map_Render();
             Interactable_Render();
@@ -45,14 +65,6 @@ int App_RenderMain() {
             HUD_Render();
             Log_Render();
             LevelTransition_Render();
-            break;
-        
-        case SCENE_PAUSE:
-            Pause_Render();
-            break;
-
-        case SCENE_DEATH:
-            Death_Render();
             break;
     }
     Debug_RenderFPSCount();

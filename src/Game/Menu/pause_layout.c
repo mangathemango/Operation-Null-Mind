@@ -73,6 +73,14 @@ void Pause_Update() {
  * the game.
  */
 void Pause_Render() {
+    SDL_Rect dest = {
+        0,
+        0,
+        app.config.screen_width, 
+        app.config.screen_height
+    };
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 150);
+    SDL_RenderFillRect(app.resources.renderer, &dest);
     UI_RenderText(pauseTextElement);
     UI_RenderText(resumeTextElement);
 }
