@@ -14,6 +14,8 @@ extern ParticleEmitter* SabotBulletEmitter;
 extern ParticleEmitter* SabotBulletFragmentsEmitter;
 extern ParticleEmitter* SabotMuzzleFlashEmitter;
 extern ParticleEmitter* SabotCasingEmitter;
+extern ParticleEmitter* SabotExplosionEmitter;
+extern SDL_Texture* SabotExplosionIndicator;
 
 typedef struct {
     float directionChangeTimer;
@@ -24,6 +26,9 @@ typedef struct {
     GunData gun;
     Vec2 gunOffset;
     Vec2 lastPosition;
+    
+    // Added from Radius
+    float explosionRadius;
 } SabotConfig;
 
 void Sabot_Start (EnemyData* data);

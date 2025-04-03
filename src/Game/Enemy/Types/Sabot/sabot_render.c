@@ -32,3 +32,36 @@ void Sabot_Render(EnemyData* data) {
         &gun->state.rotationCenter,
         gun->state.flip);
 }
+
+void Sabot_RenderParticles() {
+    if (!SabotBulletEmitter) return;
+    ParticleEmitter_Render(SabotBulletEmitter);
+    ParticleEmitter_Render(SabotMuzzleFlashEmitter);
+    ParticleEmitter_Render(SabotCasingEmitter);
+    ParticleEmitter_Render(SabotBulletFragmentsEmitter);
+    ParticleEmitter_Render(SabotExplosionEmitter);
+
+    for (int i = 0; i < SabotBulletEmitter->maxParticles; i++) {
+        Particle* bullet = &SabotBulletEmitter->particles[i];
+        if (!bullet->alive) continue;
+        float lifetimeRatio = bullet->timeAlive / bullet->maxLifeTime;
+        int alpha = (lifetimeRatio) * 150;
+        SDL_Rect dest = Vec2_ToCenteredSquareRect(
+            Vec2_Add(
+                Camera_WorldVecToScreen(bullet->position),
+                Vec2_Divide(
+                    bullet->size, 
+                    2
+                )
+            ), 
+            SabotConfigData.explosionRadius * 2
+        );
+        SDL_SetTextureAlphaMod(SabotExplosionIndicator, alpha);
+        SDL_RenderCopy(
+            app.resources.renderer, 
+            SabotExplosionIndicator, 
+            NULL, 
+            &dest
+        );
+    }
+}
