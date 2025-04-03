@@ -191,6 +191,38 @@ bool kineticArmor()
     }
 }
 
+bool ghostLoad()
+{
+    int randomizer = RandInt(1,10);
+    if(player.state.skillState.ghostLoad == true)
+    {
+        if(player.resources.skillResources.ammoShoot % 8 == 0 && player.resources.skillResources.ammoShoot != 0)
+        {
+            SDL_Log("Ghost Load mweh");
+            if(randomizer == 1)
+            {
+                player.resources.skillResources.ghostLoadRandomizer = player.stats.skillStat.ghostLoadRandomizer;
+                SDL_Log("Gun jammed");
+            }
+            else
+            {
+                player.resources.skillResources.ghostLoadRandomizer = 0;
+            }
+            return true;
+        }
+        else
+        {
+            player.resources.skillResources.ghostLoadRandomizer = 0;
+            return false;
+        }
+    }
+    else
+    {
+        player.resources.skillResources.ghostLoadRandomizer = 0;
+        return false;
+    }
+}
+
 void Skill_Update()
 {
     LastStand();
@@ -199,4 +231,5 @@ void Skill_Update()
     hemocycle();
     armoredUp();
    // i call kinetic armor where player gets damaged.
+   //i call ghostload when player shoots.
 }

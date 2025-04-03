@@ -39,6 +39,8 @@ typedef struct
     int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
     int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
     int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
+    int ammoShoot; ///< Amount of ammo shot from the gun
+    float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
 } SkillResources;
 
 typedef struct
@@ -52,6 +54,7 @@ typedef struct
     int hemocycleHealthGained; ///< Amount of health gained from hemocycle skill
     int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
     int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
+    float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
 } SkillStat;
 
 /**
@@ -213,6 +216,8 @@ void scavenger();
 void Player_TakeDamage(int damage);
 
 bool kineticArmor();
+
+bool ghostLoad();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);

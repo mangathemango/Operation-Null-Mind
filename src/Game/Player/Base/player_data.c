@@ -30,7 +30,7 @@ PlayerData player = {
         .directionLocked = false,
         .skillState = {
             .armoredUp = true,
-            .ghostLoad = false,
+            .ghostLoad = true,
             .hemoCycle = true,
             .kineticArmor = true,
             .lastStand = true,
@@ -64,6 +64,8 @@ PlayerData player = {
             .overPressuredProjectileSpeed = 1.0f,
             .scavengerAmmoBonus = 0,
             .scavengerAmmoCapacity = 0,
+            .ammoShoot = 0,
+            .ghostLoadRandomizer = 0,
         },
     },
     .stats = {
@@ -85,6 +87,7 @@ PlayerData player = {
             .hemocycleHealthGained = 100,
             .armoredUpIncomingDamageReduction = 25,
             .armoredUpDamageOutputDamageReduction = 15,
+            .ghostLoadRandomizer = 1000.0f,
         },
     },
     .animData = {

@@ -34,6 +34,15 @@ void Player_Shoot() {
     SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
     player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed / player.resources.skillResources.overPressuredProjectileSpeed;
     SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
+
+    player.resources.skillResources.ammoShoot++;
+    SDL_Log("ammo shot %d",player.resources.skillResources.ammoShoot);
+    if(ghostLoad() == true)
+    {
+        player.state.currentAmmo++;
+        SDL_Log("Ghost Load");
+    }
+    player.resources.shootCooldownTimer = Timer_Create((60.0f + player.resources.skillResources.ghostLoadRandomizer)/(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate));
     Timer_Start(player.resources.shootCooldownTimer);
     
 }
