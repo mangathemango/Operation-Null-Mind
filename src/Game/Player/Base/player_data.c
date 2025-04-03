@@ -31,12 +31,12 @@ PlayerData player = {
         .skillState = {
             .armoredUp = false,
             .ghostLoad = false,
-            .hemoCycle = false,
+            .hemoCycle = true,
             .kineticArmor = false,
             .lastStand = false,
             .oneMore = false,
             .overPressured = true,
-            .scavenger = false,
+            .scavenger = true,
         },
         .collider = {
             .active = true,
@@ -62,6 +62,8 @@ PlayerData player = {
             .overPressuredBulletConsumptionMultipler = 1,
             .overPressuredFireRate = 1.0f,
             .overPressuredProjectileSpeed = 1.0f,
+            .scavengerAmmoBonus = 0,
+            .scavengerAmmoCapacity = 0,
         },
     },
     .stats = {
@@ -72,10 +74,15 @@ PlayerData player = {
         .maxHealth = 200,
         .maxAmmo = 200,
         .INVINCIBLE_Time = 0.25,
+        .enemiesKilled = 0,
         .skillStat = {
             .overPressuredOriginalFireRate = 1.5f,
             .overPressuredOriginalProjectileSpeed = 1.5f,
             .overPressuredOriginalMultipler = 2,
+            .scavengerAmmoBonus = 3,
+            .scavengerAmmoCapacity = 20,
+            .hemocycleMultipler = 20,
+            .hemocycleHealthGained = 100,
         },
     },
     .animData = {

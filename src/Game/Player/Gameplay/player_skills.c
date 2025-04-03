@@ -116,8 +116,51 @@ int overPressured()
     return 0;
 }
 
+void scavenger()
+{
+    if(player.state.skillState.scavenger == true)
+    {
+        player.resources.skillResources.scavengerAmmoBonus = player.stats.skillStat.scavengerAmmoBonus;
+        player.stats.maxAmmo = 200 * (100 - player.stats.skillStat.scavengerAmmoCapacity) / 100;
+    }
+    else
+    {
+        player.resources.skillResources.scavengerAmmoBonus = 0;
+        player.stats.maxAmmo = 200;
+    }
+}
+
+void hemocycle()
+{
+    static bool JustHealed = false;
+    if(player.state.skillState.hemoCycle == true)
+    {
+        if(player.stats.enemiesKilled % 4 == 0 && JustHealed == false)
+        {
+            JustHealed = true;
+            player.state.currentHealth += player.stats.skillStat.hemocycleHealthGained;
+            if(player.state.currentHealth > player.stats.maxHealth) player.state.currentHealth = player.stats.maxHealth;
+            SDL_Log("Hemocycle: %d", player.stats.skillStat.hemocycleHealthGained);
+        }
+        else if(player.stats.enemiesKilled % 4 != 0)
+        {
+            JustHealed = false;
+        }
+
+        player.resources.skillResources.hemocycleMultipler = player.stats.skillStat.hemocycleMultipler;
+    }
+
+
+    else 
+    {
+        player.resources.skillResources.hemocycleMultipler = 0;
+    }
+}
+
 void Skill_Update()
 {
     LastStand();
     overPressured();
+    scavenger();
+    hemocycle();
 }

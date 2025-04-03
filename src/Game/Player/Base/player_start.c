@@ -34,7 +34,15 @@ int Player_Start() {
     player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
 
+
     player.state.currentHealth = player.stats.maxHealth;
-    player.state.currentAmmo   = player.stats.maxAmmo;
+
+    //skill related stuff
+    player.stats.enemiesKilled = 0;
+    if(player.state.skillState.scavenger == true)
+    {
+        scavenger();
+    }
+    player.state.currentAmmo = player.stats.maxAmmo;
     return 0;
 }

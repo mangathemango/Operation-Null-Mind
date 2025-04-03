@@ -114,7 +114,7 @@ void Player_TakeDamage(int damage) {
     }
     if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
     
-    player.state.currentHealth -= damage;
+    player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler) / 100);
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }

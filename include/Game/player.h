@@ -34,6 +34,9 @@ typedef struct
     int overPressuredBulletConsumptionMultipler; ///< Amount of ammo consumed when overpressured
     float overPressuredFireRate; ///< Fire rate when overpressured
     float overPressuredProjectileSpeed; ///< Speed of overpressured bullets
+    int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
+    int scavengerAmmoCapacity; ///< Amount of capacity reduced percentage from scavenger skill
+    int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
 } SkillResources;
 
 typedef struct
@@ -41,6 +44,10 @@ typedef struct
     int overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
     float overPressuredOriginalFireRate; ///< Fire rate when overpressured
     float overPressuredOriginalProjectileSpeed; ///< Speed of overpressured bullets
+    int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
+    int scavengerAmmoCapacity; ///< Amount of capacity reduced percentage from scavenger skill
+    int hemocycleMultipler; ///< Amount of health gained from hemocycle skill
+    int hemocycleHealthGained; ///< Amount of health gained from hemocycle skill
 } SkillStat;
 
 /**
@@ -91,7 +98,8 @@ typedef struct {
     float dashSpeed;    ///< Speed during dash
     float dashDuration; ///< How long dash lasts
     float dashCooldown; ///< Time between dashes
-    SkillStat skillStat;   ///< Player skills and abilities    
+    int enemiesKilled; ///< Number of enemies killed
+    SkillStat skillStat;   ///< Player skills and abilities  
 } PlayerStat;
 
 /**
@@ -195,6 +203,8 @@ int Player_AnimationInit();
 int Player_AnimationUpdate();
 
 void Skill_Update();
+
+void scavenger();
 
 void Player_TakeDamage(int damage);
 
