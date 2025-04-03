@@ -212,6 +212,8 @@ void scavenger();
 
 void Player_TakeDamage(int damage);
 
+bool kineticArmor();
+
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);
 void Player_ReadLog(void* data, int interactableIndex);

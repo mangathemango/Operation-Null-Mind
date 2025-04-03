@@ -16,6 +16,7 @@
 #include <timer.h>
 #include <sound.h>
 #include <camera.h>
+#include <random.h>
 
 /**
  * @brief [Utility] Initiates player dash movement if conditions are met
@@ -171,6 +172,25 @@ void armoredUp()
     }
 }
 
+bool kineticArmor()
+{
+    if(player.state.skillState.kineticArmor == true)
+    {
+        bool randomizer = RandInt(0,1);
+        if(randomizer == 0)
+        {
+            player.state.currentAmmo -= 20;
+        }
+        SDL_Log("Kinetic Armor: %d", randomizer);
+        return randomizer;
+    }
+
+    else
+    {
+        return 1;
+    }
+}
+
 void Skill_Update()
 {
     LastStand();
@@ -178,4 +198,5 @@ void Skill_Update()
     scavenger();
     hemocycle();
     armoredUp();
+   // i call kinetic armor where player gets damaged.
 }

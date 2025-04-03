@@ -116,7 +116,7 @@ void Player_TakeDamage(int damage) {
     
     SDL_Log("%d armoredUp", player.resources.skillResources.armoredUpIncomingDamageReduction);
     SDL_Log("%d hemocycle", player.resources.skillResources.hemocycleMultipler);
-    player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100);
+    player.state.currentHealth -= (int) ((damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100)) * kineticArmor();
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }
