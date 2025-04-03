@@ -87,6 +87,7 @@ typedef struct {
     bool insideRoom;     ///< Whether player is in a room
     bool insideHallway;  ///< Whether player is in a hallway
     bool insideEnd;      ///< Whether player is at an endpoint
+    SDL_RendererFlip flip; ///< Flip state for rendering
 } PlayerState;
 
 /**
