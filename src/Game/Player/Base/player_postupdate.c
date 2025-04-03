@@ -41,6 +41,7 @@ int Player_PostUpdate() {
     Player_UpdateHitbox();
     // Update player collider
     ParticleEmitter_Update(player.resources.dashParticleEmitter);
+    ParticleEmitter_Update(player.resources.crashOut);
 
     // Update player animation
     Player_AnimationUpdate();
