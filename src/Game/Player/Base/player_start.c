@@ -29,16 +29,24 @@ int Player_Start() {
 
     player.resources.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
     player.resources.dashDurationTimer = Timer_Create(player.stats.dashDuration);
-    player.resources.crashOutCooldown = Timer_Create(player.stats.crashOutCooldown);
-    player.resources.crashOutDuration = Timer_Create(player.stats.crashOutDuration);
+    player.resources.skillResources.crashOutCooldown = Timer_Create(player.stats.skillStat.crashOutCooldown);
+    player.resources.skillResources.crashOutDuration = Timer_Create(player.stats.skillStat.crashOutDuration);
     Timer_Start(player.resources.dashCooldownTimer);
-    player.resources.crashOutCooldown->finished = true; // Start with crashout off cooldown
+    player.resources.skillResources.crashOutCooldown->finished = true; // Start with crashout off cooldown
     Collider_Register(&player.state.collider, &player);
     player.state.currentGun = GunList[player.state.gunSlots[0]];
     player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
 
+
     player.state.currentHealth = player.stats.maxHealth;
-    player.state.currentAmmo   = player.stats.maxAmmo;
+
+    //skill related stuff
+    player.stats.enemiesKilled = 0;
+    if(player.state.skillState.scavenger == true)
+    {
+        scavenger();
+    }
+    player.state.currentAmmo = player.stats.maxAmmo;
     return 0;
 }

@@ -32,3 +32,12 @@ void Sabot_Render(EnemyData* data) {
         &gun->state.rotationCenter,
         gun->state.flip);
 }
+
+void Sabot_RenderParticles() {
+    if (!SabotBulletEmitter) return;
+    ParticleEmitter_Render(SabotBulletEmitter);
+    ParticleEmitter_Render(SabotMuzzleFlashEmitter);
+    ParticleEmitter_Render(SabotCasingEmitter);
+    ParticleEmitter_Render(SabotBulletFragmentsEmitter);
+    ParticleEmitter_Render(SabotExplosionEmitter);
+}

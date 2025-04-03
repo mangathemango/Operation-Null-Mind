@@ -77,17 +77,20 @@ void EnemyManager_Update() {
             // Spawns in another wave of enemy if there are still enemies left
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
             
-            for (int i = 0; i < spawnCount; i++) {
+            for (int i = 0; i < 1; i++) {
                 // Each enemy spawn decrements totalEnemyCount btw
                 if (chunk->totalEnemyCount <= 0) break;
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                EnemyType spawnedEnemy = ENEMY_TYPE_JUGGERNAUT;
-                int currentTime = SDL_GetTicks();
+
+                EnemyType spawnedEnemy = 1000;
+
+                if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
+                    spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
+                }
+              
                 Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
-                int elapsedTime = SDL_GetTicks() - currentTime;
-                SDL_Log("Spawned %s, took %d ms", enemyList[spawnedEnemy]->name, elapsedTime);
             }
         } else {
             // Ends the combat if player has killed enough enemies

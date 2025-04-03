@@ -93,7 +93,9 @@ void Radius_UpdateGun(EnemyData* data) {
 
 void Radius_Update(EnemyData* data) {
     RadiusConfig* config = (RadiusConfig*)data->config;
-    
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
+    float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
+
     if (data->state.currentHealth <= 0) {
         GunData* gun = &config->gun;
         Animation_Destroy(gun->resources.animation);
@@ -127,10 +129,11 @@ void Radius_Update(EnemyData* data) {
     if (config->shootTimer >= config->shootTime) {
         config->shootTimer = 0;
         config->shootTime = RandFloat(
-            data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
+            effectiveCooldown / 2, effectiveCooldown * 3 / 2
         );
 
         // Visual effects
+        config->gun.resources.bulletPreset->particleSpeed = effectiveProjectileSpeed;
         ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
         ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
