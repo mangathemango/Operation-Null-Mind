@@ -15,6 +15,7 @@
 #include <player.h>
 #include <app.h>
 #include <camera.h>
+#include <input.h>
 
 /**
  * @brief [PostUpdate] Main player update routine
@@ -26,6 +27,13 @@
  */
 int Player_PostUpdate() {
     Player_DetectCollision();
+
+    // Flip the sprite when mouse is on the left side of the player
+    if (Camera_ScreenVecToWorld(Input->mouse.position).x < player.state.position.x) {
+        player.state.flip = SDL_FLIP_HORIZONTAL;
+    } else {
+        player.state.flip = SDL_FLIP_NONE;
+    }
 
     // Handle player input, i.e movement and dashing
     Player_Input_Handler();

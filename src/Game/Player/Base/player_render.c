@@ -25,13 +25,8 @@ int Player_Render() {
     ParticleEmitter_Render(player.resources.dashParticleEmitter);
     ParticleEmitter_Render(player.resources.crashOut);
     
-    SDL_RendererFlip flip;
-    // Flip the sprite when mouse is on the left side of the player
-    if (Camera_ScreenVecToWorld(Input->mouse.position).x < player.state.position.x) {
-        flip = SDL_FLIP_HORIZONTAL;
-    } else {
-        flip = SDL_FLIP_NONE;
-    }
+    SDL_RendererFlip flip = player.state.flip;
+
     Animation_Render(
         player.resources.animation,            
         Camera_WorldVecToScreen(
