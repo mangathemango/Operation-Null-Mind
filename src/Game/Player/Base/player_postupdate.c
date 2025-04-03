@@ -34,7 +34,7 @@ int Player_PostUpdate() {
     if(player.state.dashing) Player_HandleDash();
 
     //Handle when the player is in crashout state
-    if(player.state.crashOut) Player_HandleCrashOut();
+    if(player.state.skillState.crashOut) Player_HandleCrashOut();
 
     // Handles player movement (will be optimized later)
     Player_Move();

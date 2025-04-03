@@ -27,6 +27,8 @@ typedef struct
     bool armoredUp;
     bool scavenger;
     bool hemoCycle;
+    int crashOutMultiplier;
+    bool crashOut;
 } SkillState;
 
 typedef struct
@@ -41,6 +43,8 @@ typedef struct
     int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
     int ammoShoot; ///< Amount of ammo shot from the gun
     float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
+    Timer* crashOutCooldown; ///< Timer for crashout cooldown
+    Timer* crashOutDuration; ///< Timer for crashout duration
 } SkillResources;
 
 typedef struct
@@ -55,6 +59,9 @@ typedef struct
     int armoredUpIncomingDamageReduction; /// Amount of damage reduction from armored up skill
     int armoredUpDamageOutputDamageReduction; ///< Amount of damage reduction from armored up skill
     float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
+    int crashOutCurrentMultipler;
+    int crashOutCooldown;
+    int crashOutDuration;
 } SkillStat;
 
 /**
@@ -71,7 +78,6 @@ typedef struct {
     bool directionLocked; ///< Whether movement direction is locked
     bool moving;        ///< Whether the player is moving
     bool movementLocked; ///< Whether movement is locked
-    bool crashOut;     ///< Whether the player is in crashout state
     float crashOutMultiplier; ///< Multipler that will be used fro crashout
     GunData currentGun; ///< Currently equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
@@ -95,8 +101,6 @@ typedef struct {
     Timer* shootCooldownTimer;            ///< Timer for shoot cooldown
     Timer* INVINCIBLE_Timer;               ///< [Title card] timer
     SkillResources skillResources;        ///< Resources for player skills
-    Timer* crashOutCooldown; ///< Timer for crashout cooldown
-    Timer* crashOutDuration; ///< Timer for crashout duration
 } PlayerResources;
 
 /**
@@ -111,9 +115,6 @@ typedef struct {
     float dashDuration; ///< How long dash lasts
     float dashCooldown; ///< Time between dashes
     int enemiesKilled; ///< Number of enemies killed
-    int crashOutCurrentMultipler;
-    int crashOutCooldown;
-    int crashOutDuration;
     SkillStat skillStat;   ///< Player skills and abilities  
 } PlayerStat;
 

@@ -245,8 +245,8 @@ void Skill_Update()
  */
 int Player_CrashOut() {
     // Don't activate if already active or on cooldown
-    if (player.state.crashOut) return 1;
-    if (!Timer_IsFinished(player.resources.crashOutCooldown)) return 1;
+    if (player.state.skillState.crashOut) return 1;
+    if (!Timer_IsFinished(player.resources.skillResources.crashOutCooldown)) return 1;
     SDL_Log("Player_Crashout Activated");
     
     // Calculate health cost (25% of current health)
@@ -260,14 +260,14 @@ int Player_CrashOut() {
         player.state.currentHealth -= healthCost;
     }
     
-    player.state.crashOut = true; // Activate crashout state
+    player.state.skillState.crashOut = true; // Activate crashout state
     
     // Activate skill effects
     // player.state.crashoutActive = true;
     // player.state.crashoutMultiplier = 2.0f;  // 2x damage multiplier
     
     // Start timers
-    Timer_Start(player.resources.crashOutDuration);
+    Timer_Start(player.resources.skillResources.crashOutDuration);
     
     // Play effect
     Sound_Play_Effect(SOUND_VINE_BOOM);  // Use an appropriate sound
@@ -287,24 +287,24 @@ int Player_CrashOut() {
  * @return int Status code (0 for success)
  */
 int Player_HandleCrashOut() {
-    if (!player.state.crashOut) return 0;
+    if (!player.state.skillState.crashOut) return 0;
     
 
     // Check if duration has expired
-    if (Timer_IsFinished(player.resources.crashOutDuration)) {
+    if (Timer_IsFinished(player.resources.skillResources.crashOutDuration)) {
         // Reset state
-        player.state.crashOut = false;
+        player.state.skillState.crashOut = false;
         // player.state.crashoutMultiplier = 1.0f;
         
         // Start cooldown
-        Timer_Start(player.resources.crashOutCooldown);
+        Timer_Start(player.resources.skillResources.crashOutCooldown);
         
-        player.stats.crashOutCurrentMultipler = 1.0f; // Reset damage multiplier
+        player.stats.skillStat.crashOutCurrentMultipler = 1.0f; // Reset damage multiplier
         
         return 0;
     }
     
-    player.stats.crashOutCurrentMultipler = player.state.crashOutMultiplier; // Maintain damage multiplier while active
+    player.stats.skillStat.crashOutCurrentMultipler = player.state.skillState.crashOutMultiplier; // Maintain damage multiplier while active
     player.resources.crashOut->position = player.state.position;
     ParticleEmitter_ActivateOnce(player.resources.crashOut);
     SDL_Log("Player_Crashout Active");

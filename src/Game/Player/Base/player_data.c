@@ -37,9 +37,9 @@ PlayerData player = {
             .oneMore = false,
             .overPressured = true,
             .scavenger = true,
+            .crashOut = false,
+            .crashOutMultiplier = 2,
         },
-        .crashOut = false,
-        .crashOutMultiplier = 2,
         .collider = {
             .active = true,
             .collidesWith = 
@@ -68,9 +68,9 @@ PlayerData player = {
             .scavengerAmmoCapacity = 0,
             .ammoShoot = 0,
             .ghostLoadRandomizer = 0,
+            .crashOutCooldown = NULL,
+            .crashOutDuration = NULL,
         },
-        .crashOutCooldown = NULL,
-        .crashOutDuration = NULL,
     },
     .stats = {
         .walkSpeed = 150,
@@ -92,11 +92,11 @@ PlayerData player = {
             .armoredUpIncomingDamageReduction = 25,
             .armoredUpDamageOutputDamageReduction = 15,
             .ghostLoadRandomizer = 1000.0f,
+            .crashOutCooldown = 15,
+            .crashOutDuration = 15,
+            .crashOutCurrentMultipler = 1,
         },
         .INVINCIBLE_Time = 0.25,
-        .crashOutCooldown = 15,
-        .crashOutDuration = 15,
-        .crashOutCurrentMultipler = 1,
     },
     .animData = {
         .spritesheetPath = "Assets/Images/robert.png",
