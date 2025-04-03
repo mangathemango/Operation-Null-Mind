@@ -21,15 +21,10 @@ void Juggernaut_UpdateGun(EnemyData* data) {
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 
-    // Calculate angle between gun -> player position
-    gun->state.angle = atan2(
-        player.state.position.y - gun->state.position.y,
-        player.state.position.x - gun->state.position.x
-    ) * 180 / M_PI;
-
     // Flip the gun's sprite if player is on the left side
-    if (player.state.position.x < gun->state.position.x) {
+    if (((int) gun->state.angle + 360) % 360 > 90 && ((int) gun->state.angle + 360) % 360 < 270) {
         gun->state.flip = SDL_FLIP_VERTICAL;
+        data->state.flip = SDL_FLIP_HORIZONTAL;
         gun->state.rotationCenter = (SDL_Point) {
             gun->config.gripPosition.x, 
             gun->animData.spriteSize.y - gun->config.gripPosition.y,
@@ -39,6 +34,7 @@ void Juggernaut_UpdateGun(EnemyData* data) {
         gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
     } else {
         gun->state.flip = SDL_FLIP_NONE;
+        data->state.flip = SDL_FLIP_NONE;
         gun->state.rotationCenter = (SDL_Point) {
             gun->config.gripPosition.x,
             gun->config.gripPosition.y
@@ -92,7 +88,9 @@ void Juggernaut_UpdateGun(EnemyData* data) {
 
 void Juggernaut_Update(EnemyData* data) {
     JuggernautConfig* config = (JuggernautConfig*)data->config;
-    
+    GunData* gun = &config->gun;
+    float effectiveCooldown = 0.1f;
+
     if (data->state.currentHealth <= 0) {
         GunData* gun = &config->gun;
         Animation_Destroy(gun->resources.animation);
@@ -105,56 +103,29 @@ void Juggernaut_Update(EnemyData* data) {
         
     config->gun.state.position = data->state.position;
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
     Juggernaut_UpdateGun(data);
+    config->timer += Time->deltaTimeSeconds;
 
-    // Check if health is below rage threshold
-    if (data->state.currentHealth < data->stats.maxHealth * config->rageThreshold && !config->isEnraged) {
-        // Enter enraged state
-        config->isEnraged = true;
-        // Could add visual effects or sound cues here
-    }
+    switch (config->state) {
+        
+    case JUGGERNAUT_STATE_WALKING:
 
-    float distToPlayer = Vec2_Distance(data->state.position, player.state.position);
-    
-    // Handle stampede state (rushing toward player)
-    if (config->stampedeTimer > 0) {
-        config->stampedeTimer -= Time->deltaTimeSeconds;
-        
-        // Direct charge toward player
-        data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-        
-        // Check for collision with player during charge
-        if (distToPlayer < 20) {
-            player.state.currentHealth -= data->stats.damage * 1.5f;
-        }
-        
-        if (config->stampedeTimer <= 0) {
-            // End stampede state, back to normal behavior
-            Animation_Play(data->resources.animation, "idle");
-        }
-        
-        return;
-    }
-    
-    // Normal movement behavior
-    config->directionChangeTimer += Time->deltaTimeSeconds;
-    if (config->directionChangeTimer >= config->directionChangeTime) {
-        config->directionChangeTime = RandFloat(0.5f, 1.0f);
-        config->directionChangeTimer = 0;
-        
-        if (config->isEnraged) {
-            // When enraged, move directly toward player more often
-            data->state.direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-            data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-20, 20));
-            
-            // Occasionally enter stampede state
-            if (RandFloat(0, 1) < 0.3f && distToPlayer > config->chargeDistance) {
-                config->stampedeTimer = config->stampedeDuration;
-                Animation_Play(data->resources.animation, "idle");
-                return;
-            }
-        }
-        else {
+
+        data->stats.maxSpeed = 80;
+        // Calculate angle between gun -> player position
+        gun->state.angle = atan2(
+            player.state.position.y - gun->state.position.y,
+            player.state.position.x - gun->state.position.x
+        ) * 180 / M_PI;
+
+        // Normal movement behavior
+        config->directionChangeTimer += Time->deltaTimeSeconds;
+        if (config->directionChangeTimer >= config->directionChangeTime) {
+            config->directionChangeTime = RandFloat(0.5f, 1.0f);
+            config->directionChangeTimer = 0;
+
+            float distToPlayer = Vec2_Distance(player.state.position, data->state.position);
             // Normal movement logic
             if (distToPlayer > 150) {
                 // Move toward player with some randomness
@@ -166,36 +137,47 @@ void Juggernaut_Update(EnemyData* data) {
                 data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(45, 135));
             }
         }
+
+        if (config->timer >= config->walkDuration) {
+            config->timer = 0;
+            config->state = JUGGERNAUT_STATE_CHARGING;
+            config->walkDuration = RandFloat(2.0f, 4.0f);
+        }
+        break;
+
+    case JUGGERNAUT_STATE_CHARGING:
+        data->stats.maxSpeed = 0;
+        if (config->timer >= config->chargeDuration) {
+            config->timer = 0;
+            config->shootTimer = 0;
+            config->state = JUGGERNAUT_STATE_ENRAGED;
+            config->enragedDuration = RandFloat(3.0f, 5.0f);
+        }
+        break;
+
+    case JUGGERNAUT_STATE_ENRAGED:
+        // Handle enraged state logic here
+        gun->state.angle += config->spinSpeedDegrees * Time->deltaTimeSeconds;
+        config->shootTimer += Time->deltaTimeSeconds;
+        if (config->shootTimer >= effectiveCooldown) {
+            config->shootTimer = 0;
+            ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
+            ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
+            ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
+            Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
+        }
+
+        if (config->timer >= config->enragedDuration) {
+            config->timer = 0;
+            config->state = JUGGERNAUT_STATE_WALKING;
+            config->walkDuration = RandFloat(2.0f, 4.0f);
+        }
+        break;
+
+    default:
+        break;
     }
 
-    // Shooting logic is more aggressive when enraged
-    config->shootTimer += Time->deltaTimeSeconds;
-    if (config->shootTimer >= (config->isEnraged ? config->shootTime * 0.7f : config->shootTime)) {
-        config->shootTimer = 0;
-        config->shootTime = RandFloat(
-            data->stats.attackCooldown / 2, 
-            data->stats.attackCooldown * (config->isEnraged ? 1.0f : 1.5f)
-        );
-        
-        // Juggernaut fires more bullets when enraged
-        int bulletCount = config->isEnraged ? 3 : 1;
-        for (int i = 0; i < bulletCount; i++) {
-            // Add slight spread for multiple bullets
-            float angleOffset = (i - (bulletCount-1)/2.0f) * 10.0f;
-            
-            if (config->gun.resources.bulletPreset) {
-                config->gun.resources.bulletPreset->direction = Vec2_RotateDegrees(
-                    Vec2_RotateDegrees(Vec2_Right, config->gun.state.angle),
-                    angleOffset
-                );
-                ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
-                Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
-            }
-        }
-        
-        ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
-        ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-    }
 
     Animation_Play(config->gun.resources.animation, "idle");
     config->lastPosition = data->state.position;
