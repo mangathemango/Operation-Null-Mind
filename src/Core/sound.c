@@ -51,7 +51,8 @@ SoundResources soundResources = {
         [SOUND_ROCKET_LAUNCH] = "Assets/Audio/SoundEffect/rocket launch.wav",     // SOUND_ROCKET_LAUNCH
         [SOUND_SENTRY_LASER] = "Assets/Audio/SoundEffect/Sentry Laser Cannon.wav", // SOUND_SENTRY_LASER
         [SOUND_SPAWN_IN] = "Assets/Audio/SoundEffect/spawn in.wav",              // SOUND_SPAWN_IN
-        [SOUND_VANTAGE_LASER] = "Assets/Audio/SoundEffect/vantage laser gunshot.wav" // SOUND_VANTAGE_LASER
+        [SOUND_VANTAGE_LASER] = "Assets/Audio/SoundEffect/vantage laser gunshot.wav", // SOUND_VANTAGE_LASER
+        [SOUND_BOOST_DOWN] = "Assets/Audio/SoundEffect/boost down.wav",             // SOUND_BOOST_DOWN
     }
 };
 

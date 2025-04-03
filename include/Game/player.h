@@ -29,6 +29,9 @@ typedef struct
     bool hemoCycle;
     int crashOutMultiplier;
     bool crashOut;
+    bool parryActive;         ///< Whether Parry ability is active
+    float parryCooldown;      ///< Cooldown time for parry ability
+    float parryDuration;      ///< How long parry lasts when activated
 } SkillState;
 
 typedef struct
@@ -45,6 +48,9 @@ typedef struct
     float ghostLoadRandomizer; ///< Randomizer for ghost load jamming
     Timer* crashOutCooldown; ///< Timer for crashout cooldown
     Timer* crashOutDuration; ///< Timer for crashout duration
+    Timer* parryTimer;             ///< Timer for Parry ability cooldown
+    Timer* parryDurationTimer;     ///< Timer for Parry ability duration
+    ParticleEmitter* parryParticleEmitter;  ///< Visual effect for Parry
 } SkillResources;
 
 typedef struct

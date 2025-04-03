@@ -44,6 +44,7 @@ typedef enum {
     SOUND_SENTRY_LASER = 23,      // Sentry weapon firing (Assets/Audio/SoundEffect/Sentry Laser Cannon.wav)
     SOUND_SPAWN_IN = 24,          // Player/enemy spawn sound (Assets/Audio/SoundEffect/spawn in.wav)
     SOUND_VANTAGE_LASER = 25,     // Vantage laser firing (Assets/Audio/SoundEffect/vantage laser gunshot.wav)
+    SOUND_BOOST_DOWN = 26,        // Boost down sound (Assets/Audio/SoundEffect/boost down.wav)
     
     SOUND_COUNT                   // Total number of sound effects (automatically updated)
 } SoundEffect;

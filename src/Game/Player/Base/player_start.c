@@ -48,5 +48,9 @@ int Player_Start() {
         scavenger();
     }
     player.state.currentAmmo = player.stats.maxAmmo;
+
+    player.resources.skillResources.parryTimer = Timer_Create(1.5f);        // 1.5 second cooldown
+    player.resources.skillResources.parryDurationTimer = Timer_Create(0.3f); // 0.3 second duration
+    player.state.skillState.parryActive = false;
     return 0;
 }

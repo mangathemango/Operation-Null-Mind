@@ -270,7 +270,7 @@ int Player_CrashOut() {
     Timer_Start(player.resources.skillResources.crashOutDuration);
     
     // Play effect
-    Sound_Play_Effect(SOUND_VINE_BOOM);  // Use an appropriate sound
+    Sound_Play_Effect(SOUND_BOOST_UP);  // Use an appropriate sound
 
     
     // Create visual effect (red glow around player)
@@ -298,6 +298,8 @@ int Player_HandleCrashOut() {
         
         // Start cooldown
         Timer_Start(player.resources.skillResources.crashOutCooldown);
+
+        Sound_Play_Effect(SOUND_BOOST_DOWN); // Use an appropriate sound
         
         player.stats.skillStat.crashOutCurrentMultipler = 1.0f; // Reset damage multiplier
         
