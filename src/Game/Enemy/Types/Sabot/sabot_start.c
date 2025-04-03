@@ -19,6 +19,8 @@ ParticleEmitter* SabotBulletEmitter;
 ParticleEmitter* SabotMuzzleFlashEmitter;
 ParticleEmitter* SabotCasingEmitter;
 ParticleEmitter* SabotBulletFragmentsEmitter;
+ParticleEmitter* SabotExplosionEmitter;
+SDL_Texture* SabotExplosionIndicator;
 
 /**
  * @brief [Start] Initializes a Sabot enemy instance
