@@ -54,7 +54,8 @@ SabotConfig SabotConfigData = {
             .playOnStart = true
         }
     },
-    .gunOffset = {0, -3}
+    .gunOffset = {0, -3},
+    .explosionRadius = 20.0f,  // Added from Radius
 };
 
 /**

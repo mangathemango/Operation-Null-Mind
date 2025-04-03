@@ -358,3 +358,24 @@ SDL_Rect Vec2_ToSquareRect(Vec2 position, float side) {
 SDL_Rect Vec2_ToCenteredSquareRect(Vec2 position, float side) {
     return Vec2_ToCenteredRect(position, Vec2_Square(side));
 }
+
+/**
+ * @brief Calculates the angle between two vectors in degrees.
+ * 
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The angle in degrees between the two vectors.
+ * This means that Vec2_RotateDegrees(a, angle) will be equal to b.
+ */
+float Vec2_AngleBetween(Vec2 a, Vec2 b) {
+    float cross = a.x * b.y - a.y * b.x;
+    
+    // Dot product for angle magnitude
+    float dot = Vec2_Dot(a, b);
+    
+    // Angle in radians
+    float angle = atan2(cross, dot);
+    
+    // Convert to degrees
+    return angle * (180.0f / M_PI);
+}
