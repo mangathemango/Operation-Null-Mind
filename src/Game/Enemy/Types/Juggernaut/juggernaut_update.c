@@ -89,7 +89,8 @@ void Juggernaut_UpdateGun(EnemyData* data) {
 void Juggernaut_Update(EnemyData* data) {
     JuggernautConfig* config = (JuggernautConfig*)data->config;
     GunData* gun = &config->gun;
-    float effectiveCooldown = 0.1f;
+    float effectiveCooldown = 0.1f / data->state.tacticianBuff;
+    float effectiveProjectileSpeed = 300 * data->state.tacticianBuff;
 
     if (data->state.currentHealth <= 0) {
         GunData* gun = &config->gun;
@@ -161,6 +162,7 @@ void Juggernaut_Update(EnemyData* data) {
         config->shootTimer += Time->deltaTimeSeconds;
         if (config->shootTimer >= effectiveCooldown) {
             config->shootTimer = 0;
+            config->gun.resources.bulletPreset->particleSpeed = effectiveProjectileSpeed;
             ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
             ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);

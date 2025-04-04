@@ -132,7 +132,7 @@ void Player_TakeDamage(int damage) {
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }
-    damageEffectOpacity = 50;
+    damageEffectOpacity = 100;
     Timer_Start(player.resources.INVINCIBLE_Timer);
 }
 
@@ -151,5 +151,5 @@ void Player_RenderDamageEffect() {
         damageEffectOpacity
     );
     SDL_RenderFillRect(app.resources.renderer, &dest);
-    damageEffectOpacity *= 0.9;
+    damageEffectOpacity -= damageEffectOpacity * Time->deltaTimeSeconds * 5;
 }

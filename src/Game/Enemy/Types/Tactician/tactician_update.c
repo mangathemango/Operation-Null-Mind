@@ -171,7 +171,7 @@ void Tactician_Update(EnemyData* data) {
                 if (Vec2_Distance(data->state.position, enemies[i].state.position) > config->commandRadius) continue;
 
                 enemies[i].state.tacticianBuff = config->buffStrength;
-                enemies[i].state.tacticianBuffTimeLeft = 5.0f;
+                enemies[i].state.tacticianBuffTimeLeft = 3.0f;
                 SDL_Log("Tactician buff applied to enemy %d", i);
             }
         }
