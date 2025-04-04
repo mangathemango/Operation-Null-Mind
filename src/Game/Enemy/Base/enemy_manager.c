@@ -84,7 +84,7 @@ void EnemyManager_Update() {
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
 
-                EnemyType spawnedEnemy = 1000;
+                EnemyType spawnedEnemy = ENEMY_TYPE_SENTRY;
 
                 if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
                     spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);

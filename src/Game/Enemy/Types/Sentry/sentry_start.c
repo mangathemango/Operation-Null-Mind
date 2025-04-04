@@ -34,7 +34,6 @@ void Sentry_Start(EnemyData* data) {
     AnimationData animData = ((SentryConfig*) data->config)->gun.animData;
 
     ((SentryConfig*) data->config)->lastPosition = data->state.position;
-    ((SentryConfig*) data->config)->guardPosition = data->state.position;
     ((SentryConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
     ((SentryConfig*) data->config)->directionChangeTimer = 3.0f;
     ((SentryConfig*) data->config)->shootTime = RandFloat(
