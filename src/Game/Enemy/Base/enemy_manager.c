@@ -69,7 +69,9 @@ void EnemyManager_Update() {
         }
     }
 
-    if (chunk->inCombat && chunk->currentEnemyCount <= 0) {
+    int minCurrentEnemyCount = 0;
+    if (game.currentStage == 10) minCurrentEnemyCount = 10;
+    if (chunk->inCombat && chunk->currentEnemyCount <= minCurrentEnemyCount) {
         if (chunk->totalEnemyCount > 0) {
             /**
              * @todo [enemy_manager.c:87] Add enemy spawning sfx here (Aka the red [+] thing appearing)
@@ -77,6 +79,10 @@ void EnemyManager_Update() {
             // Spawns in another wave of enemy if there are still enemies left
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
             
+            if (spawnCount > 25)   spawnCount = 25;
+            if (spawnCount < 1)    spawnCount = 1;
+            
+
             for (int i = 0; i < spawnCount; i++) {
                 // Each enemy spawn decrements totalEnemyCount btw
                 if (chunk->totalEnemyCount <= 0) break;
@@ -84,7 +90,7 @@ void EnemyManager_Update() {
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
 
-                EnemyType spawnedEnemy = ENEMY_TYPE_SENTRY;
+                EnemyType spawnedEnemy = RandInt(0, game.currentStage);
 
                 if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
                     spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
