@@ -243,6 +243,7 @@ void Skill_Update();
 void scavenger();
 
 void Player_TakeDamage(int damage);
+void Player_RenderDamageEffect();
 
 bool kineticArmor();
 

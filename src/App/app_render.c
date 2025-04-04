@@ -65,6 +65,7 @@ int App_RenderMain() {
             HUD_Render();
             Log_Render();
             LevelTransition_Render();
+            Player_RenderDamageEffect();
             break;
     }
     Debug_RenderFPSCount();

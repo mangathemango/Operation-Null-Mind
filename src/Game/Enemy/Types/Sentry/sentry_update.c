@@ -131,7 +131,7 @@ void Sentry_Update(EnemyData* data) {
     SentryConfig* config = (SentryConfig*)data->config;
     GunData* gun = &config->gun;
 
-    float effectiveCooldown = data->stats.attackCooldown * data->state.tacticianBuff;
+    float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
 
     if (data->state.currentHealth <= 0) {
         Animation_Destroy(gun->resources.animation);
@@ -154,7 +154,10 @@ void Sentry_Update(EnemyData* data) {
         }
 
         if (config->timer >= config->idleTime) {
-            config->idleTime = RandFloat(2.5f, 5.0f);
+            config->idleTime = RandFloat(
+                effectiveCooldown * 0.5f,
+                effectiveCooldown * 1.5f
+            );
             config->timer = 0;
             config->state = SENTRY_STATE_AIMING;
         }
@@ -183,9 +186,9 @@ void Sentry_Update(EnemyData* data) {
     case SENTRY_STATE_SHOOTING:
         config->lazerWidth = 5; // Set laser width to 5 when shooting
 
-        gun->state.angle += config->shootAngleSpeed * Time->deltaTimeSeconds;
+        gun->state.angle += config->shootAngleSpeed  * data->state.tacticianBuff * Time->deltaTimeSeconds;
 
-        if (config->timer >= config->shootAngle / abs(config->shootAngleSpeed)) {
+        if (config->timer >= config->shootAngle / (abs(config->shootAngleSpeed) * data->state.tacticianBuff)) {
             config->timer = 0;
             config->state = SENTRY_STATE_IDLE;
         }

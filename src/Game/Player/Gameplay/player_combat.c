@@ -114,6 +114,9 @@ void Player_ReadLog(void* data, int interactableIndex) {
     game.viewingLog = *index;
 }
 
+
+float damageEffectOpacity = 0;
+
 void Player_TakeDamage(int damage) {
     if (!player.resources.INVINCIBLE_Timer) {
         player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
@@ -129,5 +132,24 @@ void Player_TakeDamage(int damage) {
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }
+    damageEffectOpacity = 50;
     Timer_Start(player.resources.INVINCIBLE_Timer);
+}
+
+void Player_RenderDamageEffect() {
+    SDL_Rect dest = {
+        0,
+        0,
+        app.config.window_width,
+        app.config.window_height
+    };
+    SDL_SetRenderDrawColor(
+        app.resources.renderer,
+        255,
+        0,
+        0,
+        damageEffectOpacity
+    );
+    SDL_RenderFillRect(app.resources.renderer, &dest);
+    damageEffectOpacity *= 0.9;
 }

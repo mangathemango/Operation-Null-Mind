@@ -91,6 +91,7 @@ bool LastStand()
         {
             player.state.currentHealth = player.stats.maxHealth;
             lastStandActive = true;
+            player.state.skillState.lastStand = false;
             Timer_Start(player.resources.INVINCIBLE_Timer);
             Sound_Play_Effect(1);
             return true;
@@ -177,6 +178,7 @@ bool kineticArmor()
 {
     if(player.state.skillState.kineticArmor == true)
     {
+        if (player.state.currentAmmo < 20) return 1;
         bool randomizer = RandInt(0,1);
         if(randomizer == 0)
         {
