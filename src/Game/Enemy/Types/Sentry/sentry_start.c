@@ -34,12 +34,11 @@ void Sentry_Start(EnemyData* data) {
     AnimationData animData = ((SentryConfig*) data->config)->gun.animData;
 
     ((SentryConfig*) data->config)->lastPosition = data->state.position;
-    ((SentryConfig*) data->config)->guardPosition = data->state.position;
-    ((SentryConfig*) data->config)->directionChangeTime = RandFloat(1.0f, 3.0f);
-    ((SentryConfig*) data->config)->directionChangeTimer = 3.0f;
-    ((SentryConfig*) data->config)->shootTime = RandFloat(
+    ((SentryConfig*) data->config)->idleTime = RandFloat(
         data->stats.attackCooldown / 2, data->stats.attackCooldown * 3 / 2
     );
+
+
     GunData* gun = &((SentryConfig*) data->config)->gun;
     gun->resources.animation = Animation_Create(&animData);
     gun->resources.bulletPreset = SentryBulletEmitter;

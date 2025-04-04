@@ -27,13 +27,13 @@ SentryConfig SentryConfigData = {
             .currentAmmo = 0,
         },
         .stats = {
-            .fireRate = 550,
-            .spread_angle = 1, // More accurate than proxy
-            .damage = 15,
-            .fireMode = FIREMODE_AUTO,
-            .bulletLifetime = 1.0f,
+            .fireRate = 200,         // Slower fire rate like Vantage
+            .spread_angle = 0.5f,    // Very accurate like Vantage
+            .damage = 35,            // Higher damage per shot like Vantage
+            .fireMode = FIREMODE_SEMI,
+            .bulletLifetime = 1.5f,  // Longer range like Vantage
             .bulletsPerShot = 1,
-            .ammoCapacity = 30,
+            .ammoCapacity = 8,       // Lower capacity like Vantage
             .ammoConsumption = 1
         },
         .animData = {
@@ -55,11 +55,19 @@ SentryConfig SentryConfigData = {
         }
     },
     .gunOffset = {0, 10},
-    .guardRadius = 250.0f,
-    .alertLevel = 0.0f,
-    .alertThreshold = 1.0f,
-    .isAlerted = false,
-    .guardPosition = {0, 0}
+    
+    // Laser aiming system (same as Vantage)
+    .state = SENTRY_STATE_IDLE,
+    
+    .idleTime = 0,
+    .shootAngleSpeed = 30,
+    .shootAngle = 45,
+    .aimTime = 0.8f,        // Time to aim before shooting (same as Vantage)
+    
+    .lazerWidth = 0,
+    .lazerStart = {0, 0},
+    .lazerDirection = {0, 0},
+    .lazerEnd = {0, 0}
 };
 
 /**
@@ -87,15 +95,15 @@ EnemyData SentryData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 15,
-        .maxHealth = 120,
-        .maxSpeed = 50.0f, // Slower than other enemies
-        .acceleration = 300.0f,
-        .drag = 5.0f,
+        .damage = 35,            // Match Vantage's damage
+        .maxHealth = 75,         // Match Vantage's health
+        .maxSpeed = 0.0f,        // Zero speed - completely stationary
+        .acceleration = 0.0f,    // No acceleration
+        .drag = 0.0f,            // No drag needed for stationary object
         .attackSpeed = 0,
         .attackRange = 0,
         .attackDamage = 0,
-        .attackCooldown = 3.0f,
+        .attackCooldown = 5.0f,  // Match Vantage's attack cooldown
     },
     .resources = {
         .animation = NULL,

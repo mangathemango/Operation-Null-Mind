@@ -383,7 +383,7 @@ ParticleEmitter ParticleEmitter_BulletFragments = {
 
     .particleLifetime = 0.05,
     .particleSpeed = 500,
-    .custom_Movement = NULL,
+    .custom_Movement = Particle_RandomMovement,
 
     .startColor = {255, 225, 0, 255},
     .endColor = {255, 225, 0, 0},
@@ -475,28 +475,28 @@ ParticleEmitter ParticleEmitter_Gernade = {
 };
 
 
-ParticleEmitter ParticleEmitter_CrashOut = {
+ParticleEmitter ParticleEmitter_Fire = {
     .position = {100, 100},
 
     .direction = {0, -1},
     .emissionRate = 0.1,
     .emissionNumber = 10,
     .maxParticles = 10000,
-    .angleRange = 360,
+    .angleRange = 150,
 
     .active = true,
     .emitterLifetime = 0,
     .emitterAge = 0,
     .loopCount = 0,
     .destroyWhenDone = false,
-    .particleLifetime = 0.1f,
-    .particleSpeed = 200,
-    .custom_Movement = Particle_SpiralMovement,
+    .particleLifetime = 0.25f,
+    .particleSpeed = 100,
+    .custom_Movement = Particle_RandomMovement,
 
     .startColor = {255, 255, 0, 255},
     .endColor = {255, 0, 0, 0},
-    .startSize = {3, 3},
-    .endSize = {3, 3},
+    .startSize = {5, 5},
+    .endSize = {1, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 0},

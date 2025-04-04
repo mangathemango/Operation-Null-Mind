@@ -77,14 +77,14 @@ void EnemyManager_Update() {
             // Spawns in another wave of enemy if there are still enemies left
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
             
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < spawnCount; i++) {
                 // Each enemy spawn decrements totalEnemyCount btw
                 if (chunk->totalEnemyCount <= 0) break;
                 chunk->totalEnemyCount--;
 
                 Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
 
-                EnemyType spawnedEnemy = 1000;
+                EnemyType spawnedEnemy = ENEMY_TYPE_SENTRY;
 
                 if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
                     spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
