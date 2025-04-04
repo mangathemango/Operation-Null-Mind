@@ -12,6 +12,11 @@ extern ParticleEmitter* SentryBulletFragmentsEmitter;
 extern ParticleEmitter* SentryMuzzleFlashEmitter;
 extern ParticleEmitter* SentryCasingEmitter;
 
+typedef enum {
+    SENTRY_STATE_IDLE,
+    SENTRY_STATE_AIMING,
+    SENTRY_STATE_SHOOTING,
+} SentryState;
 typedef struct {
     float directionChangeTimer;
     float directionChangeTime;
@@ -22,11 +27,17 @@ typedef struct {
     Vec2 lastPosition;
     
     // Laser aiming system (copied from Vantage)
-    bool aiming;
+    SentryState state;
+
+    float timer;
+
+
+    float idleTime;
     float aimTime;
-    float aimTimer;
-    int lazerWidth;
-    bool shooting;
+    float shootAngleSpeed;
+    float shootAngle;
+
+    float lazerWidth;
     Vec2 lazerStart;
     Vec2 lazerDirection;
     Vec2 lazerEnd;

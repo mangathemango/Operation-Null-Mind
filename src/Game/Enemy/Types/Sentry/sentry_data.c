@@ -57,11 +57,14 @@ SentryConfig SentryConfigData = {
     .gunOffset = {0, 10},
     
     // Laser aiming system (same as Vantage)
-    .aiming = false,
+    .state = SENTRY_STATE_IDLE,
+    
+    .idleTime = 0,
+    .shootAngleSpeed = 30,
+    .shootAngle = 45,
     .aimTime = 0.8f,        // Time to aim before shooting (same as Vantage)
-    .aimTimer = 0,
+    
     .lazerWidth = 0,
-    .shooting = false,
     .lazerStart = {0, 0},
     .lazerDirection = {0, 0},
     .lazerEnd = {0, 0}

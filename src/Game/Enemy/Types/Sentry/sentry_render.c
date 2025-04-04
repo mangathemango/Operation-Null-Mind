@@ -12,6 +12,7 @@
 #include <camera.h>
 #include <app.h>
 #include <circle.h>
+#include <math.h>
 
 /**
  * @brief [Render] Renders the Sentry enemy
@@ -34,7 +35,20 @@ void Sentry_Render(EnemyData* data) {
         gun->state.flip
     );
     
-    if (config->aiming || config->shooting) {
+    if (config->state == SENTRY_STATE_IDLE) {
+        config->lazerWidth -= 10 * Time->deltaTimeSeconds; // Decrease laser width over time
+        if (config->lazerWidth < 0) {
+            config->lazerWidth = -1;
+        }
+        Sentry_RenderLaser(data);
+    }
+
+    if (config->state == SENTRY_STATE_AIMING) {
+        config->lazerWidth = 0;
+        Sentry_RenderLaser(data);
+    }
+    if (config->state == SENTRY_STATE_SHOOTING) {
+        config->lazerWidth = 4 +  sinf(config->timer * 50); // Set laser width to 5 when shooting
         Sentry_RenderLaser(data);
     }
 }
@@ -46,6 +60,7 @@ void Sentry_RenderLaser(EnemyData* data) {
 
     // Laser width configuration
     int lazerWidth = config->lazerWidth;
+    if (lazerWidth < 0) return; // Don't draw if laser width is negative
     // Draw the red outer glow
     SDL_SetRenderDrawColor(app.resources.renderer, 255, 0, 0, 255);
     Vec2 lazerStart = Camera_WorldVecToScreen(config->lazerStart);

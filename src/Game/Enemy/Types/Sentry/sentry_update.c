@@ -21,14 +21,6 @@ void Sentry_UpdateGun(EnemyData* data) {
     Vec2 muzzlePosition = gun->config.muzzlePosition;
     Vec2 casingPosition = gun->config.ejectionPosition;
 
-    if (!config->aiming) {
-        // Calculate angle between gun -> mouse position
-        gun->state.angle = atan2(
-            player.state.position.y - gun->state.position.y,
-            player.state.position.x - gun->state.position.x
-        ) * 180 / M_PI;
-    }
-
     // Flip the gun's sprite if mouse is on the left side of the player
     if (player.state.position.x < gun->state.position.x) {
         gun->state.flip = SDL_FLIP_VERTICAL;
@@ -97,7 +89,7 @@ void Sentry_UpdateLazer(EnemyData* data) {
     GunData* gun = &config->gun;
 
     Vec2 currentLazerPosition = gun->resources.muzzleFlashEmitter->position;
-    Vec2 targetDirection = config->lazerDirection;
+    Vec2 targetDirection = gun->resources.muzzleFlashEmitter->direction;
     Collider lazer = (Collider) {
         .active = true,
         .hitbox = Vec2_ToSquareRect(currentLazerPosition, 1),
@@ -115,7 +107,7 @@ void Sentry_UpdateLazer(EnemyData* data) {
         Collider_Check(&lazer, &result);
         for (int j = 0; j < result.count; j++) {
             if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                if (config->shooting) {
+                if (config->state == SENTRY_STATE_SHOOTING) {
                     Player_TakeDamage(SentryData.stats.damage);
                 }
             }
@@ -149,45 +141,54 @@ void Sentry_Update(EnemyData* data) {
         Enemy_HandleDeath(data);
         return;
     }
-        
+    
+    config->timer += Time->deltaTimeSeconds;
+    switch (config->state) {
+
+    case SENTRY_STATE_IDLE:
+        if (config->lazerWidth < 0) {
+            gun->state.angle = atan2(
+                player.state.position.y - gun->state.position.y,
+                player.state.position.x - gun->state.position.x
+            ) * 180 / M_PI;
+        }
+
+        if (config->timer >= config->idleTime) {
+            config->idleTime = RandFloat(2.5f, 5.0f);
+            config->timer = 0;
+            config->state = SENTRY_STATE_AIMING;
+        }
+        break;
+
+    case SENTRY_STATE_AIMING:
+        config->lazerWidth = 0; 
+
+        if (config->timer >= config->aimTime) {
+            config->timer = 0;
+            config->state = SENTRY_STATE_SHOOTING;
+            if (RandBool()) {
+                config->shootAngleSpeed = -config->shootAngleSpeed;
+            }
+        }
+        break;
+
+    case SENTRY_STATE_SHOOTING:
+        config->lazerWidth = 5; // Set laser width to 5 when shooting
+
+        gun->state.angle += config->shootAngleSpeed * Time->deltaTimeSeconds;
+
+        if (config->timer >= config->shootAngle / abs(config->shootAngleSpeed)) {
+            config->timer = 0;
+            config->state = SENTRY_STATE_IDLE;
+        }
+        break;
+    }
+    
     config->gun.state.position = data->state.position;
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     Sentry_UpdateGun(data);
     Sentry_UpdateLazer(data);
 
-    // Sentry is stationary - no movement code
-    data->state.direction = Vec2_Zero; // Always keep direction at zero
-    
-    config->shooting = false;
-    if (!config->aiming) {
-        config->shootTimer += Time->deltaTimeSeconds;
-        if (config->shootTimer >= config->shootTime) {
-            config->shootTimer = 0;
-            config->shootTime = RandFloat(
-                effectiveCooldown / 2, effectiveCooldown * 3 / 2
-            );
-            config->aiming = true;
-            config->lazerDirection = Vec2_Normalize(
-                Vec2_Subtract(
-                    player.state.position, 
-                    gun->resources.muzzleFlashEmitter->position
-                )
-            );
-        }
-    } else {
-        config->lazerWidth = 0; 
-        config->aimTimer += Time->deltaTimeSeconds;
-        if (config->aimTimer >= config->aimTime - 0.3f) {
-            config->lazerWidth = 5;
-            config->lazerWidth = (5.0f * (1.0f - (config->aimTimer - 0.5f) / 0.3f));
-            config->shooting = true;
-        }
-        if (config->aimTimer >= config->aimTime) {
-            config->aiming = false;
-            config->aimTimer = 0;
-            Sound_Play_Effect(SOUND_VANTAGE_LASER);
-        }
-    }
     Animation_Play(config->gun.resources.animation, "normal");
     config->lastPosition = data->state.position;
 }
