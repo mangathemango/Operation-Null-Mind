@@ -166,8 +166,16 @@ void Sentry_Update(EnemyData* data) {
         if (config->timer >= config->aimTime) {
             config->timer = 0;
             config->state = SENTRY_STATE_SHOOTING;
-            if (RandBool()) {
-                config->shootAngleSpeed = -config->shootAngleSpeed;
+
+            float angle = Vec2_AngleBetween(
+                Vec2_Subtract(player.state.position, gun->state.position),
+                gun->resources.muzzleFlashEmitter->direction
+            );
+
+            if (angle < 0) {
+                config->shootAngleSpeed = abs(config->shootAngleSpeed);
+            } else {
+                config->shootAngleSpeed = -abs(config->shootAngleSpeed);
             }
         }
         break;
