@@ -15,81 +15,31 @@
 #include <circle.h>
 #include <math.h>
 
+/**
+ * @brief Updates the gun position and orientation for the Sabot enemy
+ * 
+ * Calculates the gun position, rotation, and orientation based on the enemy's
+ * position and the player's location. Also updates associated particle emitters
+ * for muzzle flash and bullet casings.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
 void Sabot_UpdateGun(EnemyData* data) {
     SabotConfig* config = (SabotConfig*)data->config;
     GunData* gun = &config->gun;
-    Vec2 muzzlePosition = gun->config.muzzlePosition;
-    Vec2 casingPosition = gun->config.ejectionPosition;
-
-    // Calculate angle between gun -> player position
-    gun->state.angle = atan2(
-        player.state.position.y - gun->state.position.y,
-        player.state.position.x - gun->state.position.x
-    ) * 180 / M_PI;
-
-    // Flip the gun's sprite if player is on the left side
-    if (player.state.position.x < gun->state.position.x) {
-        gun->state.flip = SDL_FLIP_VERTICAL;
-        gun->state.rotationCenter = (SDL_Point) {
-            gun->config.gripPosition.x, 
-            gun->animData.spriteSize.y - gun->config.gripPosition.y,
-        };
-        muzzlePosition.y = gun->animData.spriteSize.y - muzzlePosition.y; 
-        casingPosition.y = gun->animData.spriteSize.y - casingPosition.y;
-        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
-    } else {
-        gun->state.flip = SDL_FLIP_NONE;
-        gun->state.rotationCenter = (SDL_Point) {
-            gun->config.gripPosition.x,
-            gun->config.gripPosition.y
-        }; 
-        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
-    }
-
-    // Update gun's position
-    gun->state.position = Vec2_Subtract(
-        data->state.position,
-        (Vec2) {
-            gun->state.rotationCenter.x + config->gunOffset.x,
-            gun->state.rotationCenter.y + config->gunOffset.y
-        }
-    );
-
-    if (gun->resources.casingParticleEmitter) {
-        gun->resources.casingParticleEmitter->position = Vec2_Add(
-            gun->state.position, 
-            Vec2_RotateAroundDegrees(
-                casingPosition,
-                (Vec2) {
-                    gun->state.rotationCenter.x,
-                    gun->state.rotationCenter.y 
-                },
-                gun->state.angle
-            )
-        );
-    }
     
-    if (gun->resources.muzzleFlashEmitter) {
-        gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-        gun->resources.muzzleFlashEmitter->position = Vec2_Add(
-            gun->state.position, 
-            Vec2_RotateAroundDegrees(
-                muzzlePosition,
-                (Vec2) {
-                    gun->state.rotationCenter.x,
-                    gun->state.rotationCenter.y 
-                },
-                gun->state.angle
-            )
-        );
-    }
-
-    if (gun->resources.bulletPreset) {
-        gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-        gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;
-    }
+    // Sabot always aims directly at the player
+    Gun_UpdatePosition(gun, data->state.position, player.state.position, config->gunOffset);
 }
 
+/**
+ * @brief [PostUpdate] Updates the Sabot enemy's state and behavior
+ * 
+ * The Sabot enemy fires tracking projectiles that explode on impact.
+ * This function handles movement, targeting, and shooting mechanics.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
 void Sabot_Update(EnemyData* data) {
     SabotConfig* config = (SabotConfig*)data->config;
     
@@ -144,6 +94,14 @@ void Sabot_Update(EnemyData* data) {
     config->lastPosition = data->state.position;
 }
 
+/**
+ * @brief Updates all particle emitters related to the Sabot enemy
+ * 
+ * Handles the physics and tracking behavior of Sabot projectiles, including
+ * homing behavior, explosion effects, and damage calculation. The Sabot's
+ * projectiles are unique in that they track the player for a short time
+ * after being fired.
+ */
 void Sabot_UpdateParticles() {
     if (!SabotBulletEmitter) return;
     

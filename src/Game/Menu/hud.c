@@ -61,10 +61,23 @@ void HUD_RenderBar(Vec2 position, float value, float maxValue, SDL_Texture* icon
     };
     SDL_RenderCopy(app.resources.renderer, icon, NULL, &iconDest);
 
-    // Text
-    static UIElement* textElement = NULL;
-    if (!textElement) {
-        textElement = UI_CreateText(
+    // Text - Create a unique text element for each bar based on position
+    // Health bar is at app.config.screen_height - 42
+    // Ammo bar is at app.config.screen_height - 25
+    static UIElement* healthTextElement = NULL;
+    static UIElement* ammoTextElement = NULL;
+    
+    UIElement** textElement = NULL;
+    
+    // Determine which text element to use based on the Y position
+    if(position.y >= app.config.screen_height - 42 && position.y < app.config.screen_height - 30) {
+        textElement = &healthTextElement;
+    } else {
+        textElement = &ammoTextElement;
+    }
+    
+    if(!*textElement) {
+        *textElement = UI_CreateText(
             text, 
             (SDL_Rect) {
                 position.x + 5, 
@@ -78,10 +91,10 @@ void HUD_RenderBar(Vec2 position, float value, float maxValue, SDL_Texture* icon
             app.resources.textFont
         );
     } else {
-        UI_ChangeText(textElement, text);
+        UI_ChangeText(*textElement, text);
     }
-    UI_UpdateText(textElement);
-    UI_RenderText(textElement);
+    UI_UpdateText(*textElement);
+    UI_RenderText(*textElement);
 }
 
 void HUD_RenderHealthBar() {
