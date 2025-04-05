@@ -89,7 +89,14 @@ void Kamikaze_Update(EnemyData* data) {
             }
             Sound_Play_Effect(SOUND_EXPLOSION);
             free(data->config);
-            Enemy_HandleDeath(data);
+            data->state.currentHealth = 0;
+            data->state.isDead = true;
+            Collider_Reset(&data->state.collider);
+            data->config = NULL;
+            player.state.currentAmmo += 10 + player.resources.skillResources.scavengerAmmoBonus;
+            if (player.state.currentAmmo > player.stats.maxAmmo) {
+                player.state.currentAmmo = player.stats.maxAmmo;
+            }
         }
         break;
     }

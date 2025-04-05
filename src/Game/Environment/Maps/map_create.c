@@ -54,42 +54,51 @@ void Map_Generate() {
     int startY = 3; 
     Map_SetStartChunk(startX, startY);
 
-    Map_CreateMainPath();
-    Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
-    SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
-    for(int k = 0; k < testMap.mainPathLength;k++)
-    {
-        SDL_Log("Main Path: (%d, %d)", (int) testMap.mainPath[k].x, (int) testMap.mainPath[k].y);
-    }
-    SDL_Log("Main path generation complete");
+    if (game.currentStage != 10) {
+        Map_CreateMainPath();
+        Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
+        SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
+        for(int k = 0; k < testMap.mainPathLength;k++)
+        {
+            SDL_Log("Main Path: (%d, %d)", (int) testMap.mainPath[k].x, (int) testMap.mainPath[k].y);
+        }
+        SDL_Log("Main path generation complete");
 
-    for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
-        for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
-            if (testMap.chunks[x][y].empty) {
-                continue;
-            }
-            
-            if (Vec2_AreEqual((Vec2) {x, y}, testMap.startChunk->position) || Vec2_AreEqual((Vec2) {x, y}, testMap.endChunk->position)) {
-                continue;
-            }
-            if (!Chunk_IsOnMainPath(&testMap.chunks[x][y])) {
-                SDL_Log("Alternate path at (%d, %d)", x, y);
-                testMap.alternatePath[testMap.alternatePathLength++] = (Vec2){x, y};
-            } else {
-                SDL_Log("Chunk at (%d, %d) is on main path", x, y);
+        for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
+            for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
+                if (testMap.chunks[x][y].empty) {
+                    continue;
+                }
+
+                if (Vec2_AreEqual((Vec2) {x, y}, testMap.startChunk->position) || Vec2_AreEqual((Vec2) {x, y}, testMap.endChunk->position)) {
+                    continue;
+                }
+                if (!Chunk_IsOnMainPath(&testMap.chunks[x][y])) {
+                    SDL_Log("Alternate path at (%d, %d)", x, y);
+                    testMap.alternatePath[testMap.alternatePathLength++] = (Vec2){x, y};
+                } else {
+                    SDL_Log("Chunk at (%d, %d) is on main path", x, y);
+                }
             }
         }
-    }
-    int maxChestRoom = 2;
-    for (int i = 0; i < maxChestRoom; i++) {
-        if (testMap.alternatePathLength == 0) {
-            break;
+        int maxChestRoom = 2;
+        for (int i = 0; i < maxChestRoom; i++) {
+            if (testMap.alternatePathLength == 0) {
+                break;
+            }
+            int randomIndex = RandInt(0, testMap.alternatePathLength - 1);
+            Vec2 chunkPosition = testMap.alternatePath[randomIndex];
+            testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y].roomType = ROOM_TYPE_CRATE;
+            SDL_Log("Crate room at (%d, %d)", (int) chunkPosition.x, (int) chunkPosition.y);
         }
-        int randomIndex = RandInt(0, testMap.alternatePathLength - 1);
-        Vec2 chunkPosition = testMap.alternatePath[randomIndex];
-        testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y].roomType = ROOM_TYPE_CRATE;
-        SDL_Log("Crate room at (%d, %d)", (int) chunkPosition.x, (int) chunkPosition.y);
+    } else {
+        testMap.chunks[3][2].empty = false;
+        testMap.chunks[3][2].roomType = ROOM_TYPE_BOSS;
+        testMap.chunks[3][2].roomSize = (Vec2) {50, 50};
+        testMap.chunks[3][2].totalEnemyCount = 100000;
     }
+    
+    
     
 
 
