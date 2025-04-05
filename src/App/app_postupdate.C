@@ -16,6 +16,7 @@
 #include <sound.h>
 #include <bullet.h>
 #include <enemy_types.h>
+#include <controls.h>
 
 /**
  * @brief [PostUpdate] Main game update routine
@@ -39,6 +40,9 @@ int App_PostUpdate() {
             break;
         case SCENE_MISSION_BRIEFING:
             Mission_Update();
+            break;
+        case SCENE_CONTROLS:
+            Controls_Update();
             break;
         case SCENE_GAME:
             Player_PostUpdate();

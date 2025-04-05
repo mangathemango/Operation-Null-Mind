@@ -17,6 +17,7 @@
 #include <debug.h>
 #include <bullet.h>
 #include <input.h>
+#include <controls.h>
 
 /**
  * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
@@ -34,6 +35,10 @@ int App_RenderMain() {
         
         case SCENE_MISSION_BRIEFING:
             Mission_Render();
+            break;
+
+        case SCENE_CONTROLS:
+            Controls_Render();
             break;
 
         case SCENE_DEATH:
