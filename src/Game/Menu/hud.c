@@ -15,123 +15,97 @@ float iconX = 22;
 
 
 void HUD_Start() {
+    // Load textures once and check for errors
     healthTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/Icons/health.png");
+    if (!healthTexture) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load health texture: %s", SDL_GetError());
+    }
+
     ammoTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/Icons/ammo.png");
+    if (!ammoTexture) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load ammo texture: %s", SDL_GetError());
+    }
+}
+
+void HUD_RenderBar(Vec2 position, float value, float maxValue, SDL_Texture* icon, const char* text) {
+    // Border
+    SDL_Rect borderDest = Vec2_ToRect(position, barSize);
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(app.resources.renderer, &borderDest);
+
+    // Background
+    SDL_Rect fillingDest = Vec2_ToRect(
+        Vec2_Add(position, (Vec2) {1.0f, 1.0f}),
+        Vec2_Subtract(barSize, (Vec2) {2.0f, 2.0f})
+    );
+    SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
+    SDL_RenderFillRect(app.resources.renderer, &fillingDest);
+
+    // Filled portion
+    SDL_Rect barDest = Vec2_ToRect(
+        position, 
+        (Vec2) {
+            barSize.x * (value / maxValue), 
+            barSize.y
+        }
+    );
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(app.resources.renderer, &barDest);
+
+    // Icon
+    SDL_Rect iconDest = (SDL_Rect) {
+        position.x + (barSize.x - iconSize.x) - 5, 
+        position.y + (barSize.y - iconSize.y) / 2, 
+        iconSize.x,
+        iconSize.y
+    };
+    SDL_RenderCopy(app.resources.renderer, icon, NULL, &iconDest);
+
+    // Text
+    static UIElement* textElement = NULL;
+    if (!textElement) {
+        textElement = UI_CreateText(
+            text, 
+            (SDL_Rect) {
+                position.x + 5, 
+                position.y, 
+                0, 
+                0
+            }, 
+            (SDL_Color) {139, 139, 139, 255}, 
+            1.0f, 
+            UI_TEXT_ALIGN_LEFT, 
+            app.resources.textFont
+        );
+    } else {
+        UI_ChangeText(textElement, text);
+    }
+    UI_UpdateText(textElement);
+    UI_RenderText(textElement);
 }
 
 void HUD_RenderHealthBar() {
-    Vec2 healthBarPosition = (Vec2) {barX, app.config.screen_height - 42};
-    SDL_Rect borderDest = Vec2_ToRect(healthBarPosition, barSize);
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(app.resources.renderer, &borderDest);
-
-    SDL_Rect fillingDest = Vec2_ToRect(
-        Vec2_Add(healthBarPosition, (Vec2) {1.0f, 1.0f}),
-        Vec2_Subtract(barSize, (Vec2) {2.0f, 2.0f}) 
-    );
-    SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
-    SDL_RenderFillRect(app.resources.renderer, &fillingDest);
-
-    static float currentBarWidth = 0;
-    currentBarWidth += (player.state.currentHealth - currentBarWidth) * 0.1f;
-    SDL_Rect barDest = Vec2_ToRect(
-        healthBarPosition, 
-        (Vec2) {
-            barSize.x * (currentBarWidth / (float) player.stats.maxHealth), 
-            barSize.y
-        }
-    );
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(app.resources.renderer, &barDest);
-
-    
-
-    SDL_Rect iconDest = (SDL_Rect) {
-        healthBarPosition.x + (barSize.x - iconSize.x) - 5, 
-        healthBarPosition.y + (barSize.y - iconSize.y) / 2, 
-        10,
-        10
-    };
-    SDL_RenderCopy(app.resources.renderer, healthTexture, NULL, &iconDest);
-
-    static UIElement* healthTextElement = NULL;
     char healthText[10];
     sprintf(healthText, "%d", player.state.currentHealth);
-    if (!healthTextElement) {
-        healthTextElement = UI_CreateText(
-            healthText, 
-            (SDL_Rect) {
-                healthBarPosition.x + 5, 
-                healthBarPosition.y, 
-                0, 
-                0
-            }, 
-            (SDL_Color) {139, 139, 139, 255}, 
-            1.0f, 
-            UI_TEXT_ALIGN_LEFT, 
-            app.resources.textFont
-        );
-    } else {
-        UI_ChangeText(healthTextElement, healthText);
-    }
-    UI_UpdateText(healthTextElement);
-    UI_RenderText(healthTextElement);
+    HUD_RenderBar(
+        (Vec2) {barX, app.config.screen_height - 42}, 
+        player.state.currentHealth, 
+        player.stats.maxHealth, 
+        healthTexture, 
+        healthText
+    );
 }
 
 void HUD_RenderAmmoBar() {
-    Vec2 ammoBarPosition = (Vec2) {barX, app.config.screen_height - 25};    
-    SDL_Rect borderDest = Vec2_ToRect(ammoBarPosition, barSize);
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(app.resources.renderer, &borderDest);
-
-    SDL_Rect fillingDest = Vec2_ToRect(
-        Vec2_Add(ammoBarPosition, (Vec2) {1.0f, 1.0f}),
-        Vec2_Subtract(barSize, (Vec2) {2.0f, 2.0f}) 
-    );
-    SDL_SetRenderDrawColor(app.resources.renderer, 54, 54, 54, 255);
-    SDL_RenderFillRect(app.resources.renderer, &fillingDest);
-    
-    static float currentBarWidth = 0;
-    currentBarWidth += (player.state.currentAmmo - currentBarWidth) * 0.1f;
-    SDL_Rect barDest = Vec2_ToRect(
-        ammoBarPosition, 
-        (Vec2) {
-            barSize.x * currentBarWidth / (float) player.stats.maxAmmo, 
-            barSize.y
-        }
-    );
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(app.resources.renderer, &barDest);
-    SDL_Rect iconDest = (SDL_Rect) {
-        ammoBarPosition.x + (barSize.x - iconSize.x) - 5, 
-        ammoBarPosition.y + (barSize.y - iconSize.y) / 2, 
-        10,
-        10
-    };
-    SDL_RenderCopy(app.resources.renderer, ammoTexture, NULL, &iconDest);
-
-    static UIElement* ammoTextElement = NULL;
     char ammoText[10];
     sprintf(ammoText, "%d", player.state.currentAmmo);
-    if (!ammoTextElement) {
-        ammoTextElement = UI_CreateText(
-            ammoText, 
-            (SDL_Rect) {
-                ammoBarPosition.x + 5, 
-                ammoBarPosition.y, 
-                0, 
-                0
-            }, 
-            (SDL_Color) {139, 139, 139, 255}, 
-            1.0f, 
-            UI_TEXT_ALIGN_LEFT, 
-            app.resources.textFont
-        );
-    } else {
-        UI_ChangeText(ammoTextElement, ammoText);
-    }
-    UI_UpdateText(ammoTextElement);
-    UI_RenderText(ammoTextElement);
+    HUD_RenderBar(
+        (Vec2) {barX, app.config.screen_height - 25}, 
+        player.state.currentAmmo, 
+        player.stats.maxAmmo, 
+        ammoTexture, 
+        ammoText
+    );
 }
 
 void HUD_RenderCurrentGun() {
