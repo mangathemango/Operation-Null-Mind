@@ -12,6 +12,7 @@
 #include <maps.h>
 #include <app.h>
 
+SDL_Texture* bossTexture = NULL;
 
 
 void Map_Render() {
@@ -38,4 +39,26 @@ void Map_Render() {
     SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) { 
         0, 0, app.config.screen_width, app.config.screen_height
     });
+
+    for (int x = startX; x <= endX; x++) {
+        for (int y = startY; y <= endY; y++) {
+            // Skip empty chunks
+            if (testMap.chunks[x][y].empty) continue;
+
+            if (testMap.chunks[x][y].roomType == ROOM_TYPE_BOSS) {
+                if (!bossTexture) {
+                    bossTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/Enemies/libet.png");
+                    if (!bossTexture) {
+                        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load boss texture: %s", IMG_GetError());
+                        continue;
+                    }
+                }
+                SDL_Rect bossRect = Vec2_ToCenteredRect(
+                    Camera_WorldVecToScreen(Chunk_GetChunkCenter(&testMap.chunks[x][y])),
+                    (Vec2) {80, 120}
+                );
+                SDL_RenderCopy(app.resources.renderer, bossTexture, NULL, &bossRect);
+            }
+        }
+    }
 }

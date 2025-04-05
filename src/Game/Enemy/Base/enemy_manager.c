@@ -101,10 +101,6 @@ void EnemyManager_Update() {
             }
         }
     }
-
-    if (chunk->roomType == ROOM_TYPE_BOSS) {
-        Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], Chunk_GetRandomTileCenterInRoom(chunk));
-    }
     
 
     static float funnyTimer = 0;
