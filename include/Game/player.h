@@ -238,6 +238,8 @@ int Player_AnimationInit();
  */
 int Player_AnimationUpdate();
 
+
+//Player skills
 void Skill_Update();
 
 void scavenger();
@@ -248,6 +250,8 @@ void Player_RenderDamageEffect();
 bool kineticArmor();
 
 bool ghostLoad();
+
+int Parry();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);

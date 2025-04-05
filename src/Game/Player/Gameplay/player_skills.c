@@ -18,6 +18,8 @@
 #include <camera.h>
 #include <random.h>
 #include <gun.h>
+#include <bullet.h>
+#include <enemy_types.h>
 
 /**
  * @brief [Utility] Initiates player dash movement if conditions are met
@@ -324,5 +326,92 @@ int Player_HandleCrashOut() {
     // player.resources.crashoutParticleEmitter->startColor.r = 255;
     // player.resources.crashoutParticleEmitter->startColor.a = 100 + 155 * pulseIntensity;
     
+    return 0;
+}
+
+int Parry()
+{
+    // if(player.state.skillState.parryActive == true)return 1;
+    // if(!Timer_IsFinished(player.resources.skillResources.parryTimer)) return 1;
+
+    //Starting timers
+    // player.state.skillState.parryActive = true;
+    // Timer_Start(player.resources.skillResources.parryDurationTimer);
+    // SDL_Log("Parry Activated");
+
+    //Finding all the bullets
+
+    SDL_Log("Parry is active");
+
+    for(int i = 0; i < ENEMY_MAX;i++)
+    {
+        EnemyData* enemy = &enemies[i];
+        if(enemy->state.isDead == true) continue;
+        GunData* gun = NULL;
+        if (enemy->type == ENEMY_TYPE_ECHO) {
+            EchoConfig* config = enemy->config;
+            gun = &config->gun;
+        } 
+        else if(enemy->type == ENEMY_TYPE_JUGGERNAUT)
+        {
+            JuggernautConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_TACTICIAN)
+        {
+            TacticianConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_RADIUS)
+        {
+            RadiusConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_PROXY)
+        {
+            ProxyConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_SABOT)
+        {
+            SabotConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else continue;
+
+        if (!gun) continue;
+        
+        for(int i = 0;i < gun->resources.bulletPreset->maxParticles; i++)
+        {
+            Particle* bullet = &gun->resources.bulletPreset->particles[i];
+            if(bullet->alive)
+            {
+                //Check if the bullet is in the parry range
+                if(Vec2_Distance(player.state.position, bullet->position) < 10000)
+                {
+                    //Parry the bullet
+                    bullet->direction = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
+                    SDL_Log("Bullet Parried");
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+int Handle_Parry()
+{
+    //Check if parry is active
+    if(!player.state.skillState.parryActive) return 1;
+    //Deactivate parry after the timer is finished
+    if(Timer_IsFinished(player.resources.skillResources.parryDurationTimer))
+    {
+        player.state.skillState.parryActive = false;
+        Timer_Start(player.resources.skillResources.parryTimer);
+        return 1;
+    }
+    SDL_Log("Parry Active");
+
+
     return 0;
 }
