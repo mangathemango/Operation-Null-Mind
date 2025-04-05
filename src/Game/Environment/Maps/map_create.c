@@ -94,8 +94,8 @@ void Map_Generate() {
     } else {
         testMap.chunks[3][2].empty = false;
         testMap.chunks[3][2].roomType = ROOM_TYPE_BOSS;
-        testMap.chunks[3][2].roomSize = (Vec2) {50, 50};
-        testMap.chunks[3][2].totalEnemyCount = 100000;
+        testMap.chunks[3][2].roomSize = (Vec2) {30, 16};
+        testMap.chunks[3][2].totalEnemyCount = 0;
     }
     
     
@@ -118,9 +118,6 @@ void Map_Generate() {
             // Generate room details
             if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
                 int totalEnemyCount = 10 + game.currentStage * 2;
-                if (game.currentStage == 10) {
-                    totalEnemyCount = 10000;
-                }
                 testMap.chunks[x][y].totalEnemyCount = RandInt(totalEnemyCount / 2, totalEnemyCount * 3 / 2);
                 testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
             }

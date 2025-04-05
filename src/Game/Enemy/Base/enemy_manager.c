@@ -62,51 +62,50 @@ void EnemyManager_Update() {
 
     if (!chunk->inCombat) {
         // Start combat only if there are enemies left in the totalEnemyCount
-        if (chunk->totalEnemyCount > 0) {
+        if (chunk->totalEnemyCount > 0 || chunk->roomType == ROOM_TYPE_BOSS) {
             chunk->inCombat = true;
             chunk->hallways = HALLWAY_NONE;
             Chunk_GenerateTilesButVoid(chunk);
         }
     }
-
-    int minCurrentEnemyCount = 0;
-    if (game.currentStage == 10) minCurrentEnemyCount = 10;
-    if (chunk->inCombat && chunk->currentEnemyCount <= minCurrentEnemyCount) {
-        if (chunk->totalEnemyCount > 0) {
-            /**
-             * @todo [enemy_manager.c:87] Add enemy spawning sfx here (Aka the red [+] thing appearing)
-             */
-            // Spawns in another wave of enemy if there are still enemies left
-            int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
-            
-            if (spawnCount > 25)   spawnCount = 25;
-            if (spawnCount < 1)    spawnCount = 1;
-            
-
-            for (int i = 0; i < spawnCount; i++) {
-                // Each enemy spawn decrements totalEnemyCount btw
-                if (chunk->totalEnemyCount <= 0) break;
-                chunk->totalEnemyCount--;
-
-                Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-
-                EnemyType bottomLimit = RandInt(0, game.currentStage);
-                EnemyType topLimit = RandInt(bottomLimit, game.currentStage);
-                EnemyType spawnedEnemy = RandInt(bottomLimit, topLimit);
-
-                if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
-                    spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
+    if (chunk->roomType == ROOM_TYPE_NORMAL) {
+        int minCurrentEnemyCount = 0;
+        if (game.currentStage == 10) minCurrentEnemyCount = 10;
+        if (chunk->inCombat && chunk->currentEnemyCount <= minCurrentEnemyCount) {
+            if (chunk->totalEnemyCount > 0) {
+                /**
+                 * @todo [enemy_manager.c:87] Add enemy spawning sfx here (Aka the red [+] thing appearing)
+                 */
+                // Spawns in another wave of enemy if there are still enemies left
+                int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
+                if (spawnCount > 25)   spawnCount = 25;
+                if (spawnCount < 1)    spawnCount = 1;
+                for (int i = 0; i < spawnCount; i++) {
+                    // Each enemy spawn decrements totalEnemyCount btw
+                    if (chunk->totalEnemyCount <= 0) break;
+                    chunk->totalEnemyCount--;
+                    Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
+                    EnemyType bottomLimit = RandInt(0, game.currentStage);
+                    EnemyType topLimit = RandInt(bottomLimit, game.currentStage);
+                    EnemyType spawnedEnemy = RandInt(bottomLimit, topLimit);
+                    if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
+                        spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
+                    }
+                    Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
                 }
-
-                Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
+            } else {
+                // Ends the combat if player has killed enough enemies
+                chunk->inCombat = false;
+                chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
+                Chunk_GenerateTilesButVoid(chunk);
             }
-        } else {
-            // Ends the combat if player has killed enough enemies
-            chunk->inCombat = false;
-            chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
-            Chunk_GenerateTilesButVoid(chunk);
         }
     }
+
+    if (chunk->roomType == ROOM_TYPE_BOSS) {
+        Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], Chunk_GetRandomTileCenterInRoom(chunk));
+    }
+    
 
     static float funnyTimer = 0;
     if (chunk->inCombat && player.state.currentAmmo <= player.state.currentGun.stats.ammoConsumption) {
