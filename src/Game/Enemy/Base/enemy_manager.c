@@ -78,7 +78,7 @@ void EnemyManager_Update() {
              */
             // Spawns in another wave of enemy if there are still enemies left
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
-            
+            spawnCount = 1;
             if (spawnCount > 25)   spawnCount = 25;
             if (spawnCount < 1)    spawnCount = 1;
             

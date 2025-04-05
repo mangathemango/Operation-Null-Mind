@@ -38,6 +38,7 @@ PlayerData player = {
             .overPressured = true,
             .scavenger = true,
             .crashOut = false,
+            .parryActive = false,
             .crashOutMultiplier = 2,
         },
         .collider = {
@@ -95,6 +96,9 @@ PlayerData player = {
             .crashOutCooldown = 15,
             .crashOutDuration = 15,
             .crashOutCurrentMultipler = 1,
+            .maxParryAngle = 90.0f,
+            .parryDuration = 0.3f,
+            .parryCooldown = 3.0f,
         },
         .INVINCIBLE_Time = 0.25,
     },

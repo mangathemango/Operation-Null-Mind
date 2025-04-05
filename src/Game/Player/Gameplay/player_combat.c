@@ -42,7 +42,7 @@ void Player_Shoot() {
         player.state.currentAmmo++;
         SDL_Log("Ghost Load");
     }
-    player.resources.shootCooldownTimer = Timer_Create((60.0f + player.resources.skillResources.ghostLoadRandomizer)/(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate));
+    player.resources.shootCooldownTimer = Timer_Create((60.0f /(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);
     Timer_Start(player.resources.shootCooldownTimer);
     
 }

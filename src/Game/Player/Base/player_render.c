@@ -24,6 +24,7 @@
 int Player_Render() {
     ParticleEmitter_Render(player.resources.dashParticleEmitter);
     ParticleEmitter_Render(player.resources.crashOut);
+    ParticleEmitter_Render(player.resources.skillResources.parryParticleEmitter);
     
     SDL_RendererFlip flip = player.state.flip;
 

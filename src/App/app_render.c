@@ -66,6 +66,7 @@ int App_RenderMain() {
             Log_Render();
             LevelTransition_Render();
             Player_RenderDamageEffect();
+            if(player.state.skillState.parryActive) Handle_ParryRender();
             break;
     }
     Debug_RenderFPSCount();

@@ -20,6 +20,10 @@
 #include <gun.h>
 #include <bullet.h>
 #include <enemy_types.h>
+#include <input.h>
+#include <stdlib.h>
+#include <circle.h>
+#include <math.h>
 
 /**
  * @brief [Utility] Initiates player dash movement if conditions are met
@@ -331,17 +335,20 @@ int Player_HandleCrashOut() {
 
 int Parry()
 {
-    // if(player.state.skillState.parryActive == true)return 1;
-    // if(!Timer_IsFinished(player.resources.skillResources.parryTimer)) return 1;
-
+    if(player.state.skillState.parryActive == true)return 1;
+    if(!Timer_IsFinished(player.resources.skillResources.parryTimer)) return 1;
+    
     //Starting timers
-    // player.state.skillState.parryActive = true;
-    // Timer_Start(player.resources.skillResources.parryDurationTimer);
-    // SDL_Log("Parry Activated");
-
+    player.state.skillState.parryActive = true;
+    Timer_Start(player.resources.skillResources.parryDurationTimer);
+    SDL_Log("Parry Activated");
+    
     //Finding all the bullets
 
-    SDL_Log("Parry is active");
+
+    //Finding mouseDirection
+    Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
+    Vec2 mouseDirection = Vec2_Normalize(Vec2_Subtract(mouseWorldPosition, player.state.position));
 
     for(int i = 0; i < ENEMY_MAX;i++)
     {
@@ -384,19 +391,58 @@ int Parry()
         for(int i = 0;i < gun->resources.bulletPreset->maxParticles; i++)
         {
             Particle* bullet = &gun->resources.bulletPreset->particles[i];
-            if(bullet->alive)
-            {
-                //Check if the bullet is in the parry range
-                if(Vec2_Distance(player.state.position, bullet->position) < 10000)
-                {
-                    //Parry the bullet
-                    bullet->direction = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
-                    SDL_Log("Bullet Parried");
-                }
-            }
+            if(!bullet->alive) continue;
+            //Check if the bullet is in the parry range
+            if(Vec2_Distance(player.state.position, bullet->position) >= 50) continue;
+            
+            //Finding bulletDirection
+            Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
+            SDL_Log("Bullet Parried");
+        
+            //Finding angle
+            int angle = Vec2_AngleBetween(mouseDirection, bulletDirection);
+            SDL_Log("Angle: %d", angle);
+
+            //Check if the angle is within the parry range
+            if(player.stats.skillStat.maxParryAngle < abs(angle)) continue;
+
+            //Parry the bullet
+            bullet->direction = bulletDirection;
+
         }
     }
+
+    SDL_Log("Parry is active");
+    // player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 2);
+
+    // ParticleEmitter_ActivateOnce(player.resources.skillResources.parryParticleEmitter);
+    // player.resources.skillResources.parryParticleEmitter->position = player.state.position;
+    // player.resources.skillResources.parryParticleEmitter->direction = mouseDirection;
     return 0;
+}
+
+int Handle_ParryRender()
+{
+    Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
+    Vec2 mouseDirection = Vec2_Normalize(Vec2_Subtract(mouseWorldPosition, player.state.position));
+
+    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
+    static float timePassedRatio = 0;
+    timePassedRatio += 50 * Time->deltaTimeSeconds;
+    float radius = 25 * sqrt(timePassedRatio);
+
+        
+    SDL_Rect dest = Vec2_ToCenteredSquareRect(
+        Camera_WorldVecToScreen(player.state.position), // Position of the circle
+        radius * 2
+     ); 
+
+
+    if(timePassedRatio > 5) timePassedRatio = 0; 
+    SDL_Log("timePassedRatio: %d", timePassedRatio);
+    SDL_Log("Render Position: %f %f", dest.x, dest.y);
+    SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
+    
 }
 
 int Handle_Parry()
@@ -412,6 +458,8 @@ int Handle_Parry()
     }
     SDL_Log("Parry Active");
 
+
+    ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
 
     return 0;
 }

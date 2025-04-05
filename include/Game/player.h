@@ -30,8 +30,6 @@ typedef struct
     int crashOutMultiplier;
     bool crashOut;
     bool parryActive;         ///< Whether Parry ability is active
-    float parryCooldown;      ///< Cooldown time for parry ability
-    float parryDuration;      ///< How long parry lasts when activated
 } SkillState;
 
 typedef struct
@@ -51,6 +49,7 @@ typedef struct
     Timer* parryTimer;             ///< Timer for Parry ability cooldown
     Timer* parryDurationTimer;     ///< Timer for Parry ability duration
     ParticleEmitter* parryParticleEmitter;  ///< Visual effect for Parry
+    SDL_Texture* parryTexture; ///< Texture for Parry effect
 } SkillResources;
 
 typedef struct
@@ -68,6 +67,9 @@ typedef struct
     int crashOutCurrentMultipler;
     int crashOutCooldown;
     int crashOutDuration;
+    float parryCooldown;      ///< Cooldown time for parry ability
+    float parryDuration;      ///< How long parry lasts when activated
+    float maxParryAngle; ///< Maximum angle for parry
 } SkillStat;
 
 /**
@@ -252,6 +254,10 @@ bool kineticArmor();
 bool ghostLoad();
 
 int Parry();
+
+int Handle_ParryRender();
+
+int Handle_Parry();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);
