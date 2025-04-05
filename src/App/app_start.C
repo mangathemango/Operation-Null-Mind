@@ -54,6 +54,7 @@ int App_Start() {
     HUD_Start();
     Game_Start();
     LevelTransition_Start();
+    Mission_Start();
     app.resources.cursorTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/crosshair.png");
     return 0;
 }

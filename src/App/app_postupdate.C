@@ -37,6 +37,9 @@ int App_PostUpdate() {
             // Updates the menu logic
             Menu_Update();
             break;
+        case SCENE_MISSION_BRIEFING:
+            Mission_Update();
+            break;
         case SCENE_GAME:
             Player_PostUpdate();
             Skill_Update();
@@ -70,6 +73,8 @@ int App_PostUpdate() {
 
         case SCENE_DEATH:
             Death_Update();
+            break;
+        default:
             break;
     }
     return 0;

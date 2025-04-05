@@ -31,6 +31,10 @@ int App_RenderMain() {
         case SCENE_MENU:
             Menu_Render();
             break;
+        
+        case SCENE_MISSION_BRIEFING:
+            Mission_Render();
+            break;
 
         case SCENE_DEATH:
             Death_Render();
@@ -66,6 +70,8 @@ int App_RenderMain() {
             Log_Render();
             LevelTransition_Render();
             Player_RenderDamageEffect();
+            break;
+        default:
             break;
     }
     Debug_RenderFPSCount();

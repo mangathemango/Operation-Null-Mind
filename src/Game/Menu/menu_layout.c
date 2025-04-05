@@ -58,11 +58,7 @@ void Menu_Update() {
     }
 
     if (Input_MouseIsOnRect(startButtonRect) && Input->mouse.leftButton.pressed) {
-        app.state.currentScene = SCENE_GAME;
-        if (game.currentStage < 3) Sound_Play_Music("Assets/Audio/Music/return0 early level music.wav", -1);
-        else if (game.currentStage >= 3 && game.currentStage < 7) Sound_Play_Music("Assets/Audio/Music/return0 mid level music.wav", -1);
-        else if (game.currentStage >= 7) Sound_Play_Music("Assets/Audio/Music/return0 late level music.wav", -1);
-        else if (game.currentStage >= 10) Sound_Play_Music("Assets/Audio/Music/return0 boss music.wav", -1);
+        app.state.currentScene = SCENE_MISSION_BRIEFING;
     }
 
     if (Input_MouseIsOnRect(exitButtonRect)) {
