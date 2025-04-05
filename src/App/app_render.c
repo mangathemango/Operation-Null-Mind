@@ -17,6 +17,7 @@
 #include <debug.h>
 #include <bullet.h>
 #include <input.h>
+#include <controls.h>
 
 /**
  * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
@@ -30,6 +31,14 @@ int App_RenderMain() {
     {
         case SCENE_MENU:
             Menu_Render();
+            break;
+        
+        case SCENE_MISSION_BRIEFING:
+            Mission_Render();
+            break;
+
+        case SCENE_CONTROLS:
+            Controls_Render();
             break;
 
         case SCENE_DEATH:
@@ -66,6 +75,8 @@ int App_RenderMain() {
             Log_Render();
             LevelTransition_Render();
             Player_RenderDamageEffect();
+            break;
+        default:
             break;
     }
     Debug_RenderFPSCount();

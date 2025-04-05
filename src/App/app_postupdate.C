@@ -16,6 +16,7 @@
 #include <sound.h>
 #include <bullet.h>
 #include <enemy_types.h>
+#include <controls.h>
 
 /**
  * @brief [PostUpdate] Main game update routine
@@ -36,6 +37,12 @@ int App_PostUpdate() {
         case SCENE_MENU:
             // Updates the menu logic
             Menu_Update();
+            break;
+        case SCENE_MISSION_BRIEFING:
+            Mission_Update();
+            break;
+        case SCENE_CONTROLS:
+            Controls_Update();
             break;
         case SCENE_GAME:
             Player_PostUpdate();
@@ -70,6 +77,8 @@ int App_PostUpdate() {
 
         case SCENE_DEATH:
             Death_Update();
+            break;
+        default:
             break;
     }
     return 0;
