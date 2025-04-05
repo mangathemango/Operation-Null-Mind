@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['acceleration_0',['acceleration',['../structParticle.html#a88892ae2669e6c7f939fb53caf93185c',1,'Particle::acceleration'],['../structEnemyStats.html#a9a9637c87c6b562d2df66dbe8cbf26d3',1,'EnemyStats::acceleration']]],
+  ['active_1',['active',['../structCollider.html#a481adf4e845adbecf51efae4f9938392',1,'Collider::active'],['../structInteractable.html#aef64c5a44f76b52a13f5aac82b84e179',1,'Interactable::active'],['../structParticleEmitter.html#a2081d76d8c01c9fbbce278b1c19e49b1',1,'ParticleEmitter::active']]],
+  ['aiming_2',['aiming',['../structVantageConfig.html#a23dc936346d9272f6105ebdbf1c36dc8',1,'VantageConfig']]],
+  ['aimtime_3',['aimtime',['../structSentryConfig.html#a5f0710bc5c9f531fc03855bd328511e7',1,'SentryConfig::aimTime'],['../structVantageConfig.html#a305261f690d260db7db36abca7b0c9be',1,'VantageConfig::aimTime']]],
+  ['aimtimer_4',['aimTimer',['../structVantageConfig.html#a860606810e08023511617e80eb92512b',1,'VantageConfig']]],
+  ['alignment_5',['alignment',['../structUI__TextData.html#aaa551fbdc60dcb997a2e67cc7f0b670a',1,'UI_TextData']]],
+  ['alive_6',['alive',['../structParticle.html#affebffa1e11f05041c9c46e8b684275b',1,'Particle']]],
+  ['alternatepath_7',['alternatePath',['../structEnvironmentMap.html#a39d4bd4c8aa5e106dd8a8f1139378eba',1,'EnvironmentMap']]],
+  ['alternatepathlength_8',['alternatePathLength',['../structEnvironmentMap.html#a2f4ed72a9836d9345318c03a5df55a44',1,'EnvironmentMap']]],
+  ['ammocapacity_9',['ammoCapacity',['../structGunStats.html#a9157d4c075f635e58331436a2cdb7c62',1,'GunStats']]],
+  ['ammoconsumption_10',['ammoConsumption',['../structGunStats.html#a7cacd1d5b25064a6f5be00447363b71c',1,'GunStats']]],
+  ['ammoshoot_11',['ammoShoot',['../structSkillResources.html#a69ed75f43f6cf7a819fe013f3cbf59e8',1,'SkillResources']]],
+  ['angle_12',['angle',['../structGunState.html#ac3a596689c83f19cf72d199208d79d80',1,'GunState']]],
+  ['anglerange_13',['angleRange',['../structParticleEmitter.html#a5fef2816d8adfe7535909ca5073cd3e2',1,'ParticleEmitter']]],
+  ['animation_14',['animation',['../structGunResources.html#a422e7f42648c4cd7d05e4998f46bfc48',1,'GunResources::animation'],['../structPlayerResources.html#ae7967f2ea9ef47305c604d3aac65bc87',1,'PlayerResources::animation'],['../structEnemyResources.html#ab228aba496a6e9e487fc45c87c5d9692',1,'EnemyResources::animation']]],
+  ['animdata_15',['animdata',['../structEnemyData.html#af002a4a42776fbdf74a5fe49fd88c42f',1,'EnemyData::animData'],['../structGunData.html#aa9176db0924bbbe783c4752a541f1a79',1,'GunData::animData'],['../structPlayerData.html#ad109d7ae4e21dc79facf462311bc20b1',1,'PlayerData::animData']]],
+  ['app_16',['app',['../app_8h.html#acba9e07ef435011f26b8acb7bb0e4627',1,'app.h']]],
+  ['armoredup_17',['armoredUp',['../structSkillState.html#a01b6ac0efc788b706db9a38f9fccded3',1,'SkillState']]],
+  ['armoredupdamageoutputdamagereduction_18',['armoredupdamageoutputdamagereduction',['../structSkillResources.html#a054885fcfa2b984c2eebc14bd81fdb70',1,'SkillResources::armoredUpDamageOutputDamageReduction'],['../structSkillStat.html#a778758304b55262372c8e324b1c71a9d',1,'SkillStat::armoredUpDamageOutputDamageReduction']]],
+  ['armoredupincomingdamagereduction_19',['armoredupincomingdamagereduction',['../structSkillResources.html#ae5f0ef8f0d49f60db437c126c6a64055',1,'SkillResources::armoredUpIncomingDamageReduction'],['../structSkillStat.html#a5f94c3936dfd394ffff22d4f197a6cde',1,'SkillStat::armoredUpIncomingDamageReduction']]],
+  ['attackcooldown_20',['attackCooldown',['../structEnemyStats.html#a71f41f4de98dc5c1617bcd0125d1e729',1,'EnemyStats']]],
+  ['attackdamage_21',['attackDamage',['../structEnemyStats.html#afa43e68a65da6bb6f3ca363a0ed88578',1,'EnemyStats']]],
+  ['attackrange_22',['attackRange',['../structEnemyStats.html#a893f16e6b5b6c04365fcbd134ed817d2',1,'EnemyStats']]],
+  ['attackspeed_23',['attackSpeed',['../structEnemyStats.html#ac41461fa8ce13626eabab1580130c267',1,'EnemyStats']]],
+  ['averagefps_24',['averageFps',['../structAppState.html#a1c7c2cc963a448a642aabd8f7cbbcf1a',1,'AppState']]]
+];
