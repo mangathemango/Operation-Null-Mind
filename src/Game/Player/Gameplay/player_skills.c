@@ -343,10 +343,6 @@ int Parry()
     return 0;
 }
 
-void Handle_ParryBullets()
-{
-    
-}
 
 int Handle_ParryRender()
 {

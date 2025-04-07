@@ -261,7 +261,6 @@ int Handle_ParryRender();
 
 int Handle_Parry();
 
-void Handle_ParryBullets();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);

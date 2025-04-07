@@ -97,7 +97,7 @@ void EnemyManager_Update() {
                     spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
                 }
 
-                Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
+                Enemy_Spawn(*enemyList[ENEMY_TYPE_ECHO],spawnPosition);
             }
         } else {
             // Ends the combat if player has killed enough enemies
