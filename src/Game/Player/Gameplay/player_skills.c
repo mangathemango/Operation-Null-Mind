@@ -353,7 +353,14 @@ int Handle_ParryRender()
     player.resources.skillResources.parryRadius += Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer);
     float radius =  15 * player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
 
-        
+    // Set opacity based on time left
+    SDL_SetTextureAlphaMod(
+        player.resources.skillResources.parryTexture, 
+        255 * 
+        Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer) 
+        / player.stats.skillStat.parryDuration
+    );
+
     SDL_Rect dest = Vec2_ToCenteredSquareRect(
         Camera_WorldVecToScreen(player.state.position), // Position of the circle
         radius
@@ -424,7 +431,7 @@ int Handle_Parry()
             Particle* bullet = &gun->resources.bulletPreset->particles[i];
             if(!bullet->alive) continue;
             //Check if the bullet is in the parry range
-            if(Vec2_Distance(player.state.position, bullet->position) >= 1000) continue; //THIS SHOULD BE 50
+            if(Vec2_Distance(player.state.position, bullet->position) >= 50) continue; //THIS SHOULD BE 50
             
             //Finding bulletDirection
             Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));

@@ -99,7 +99,7 @@ PlayerData player = {
             .crashOutCurrentMultipler = 1,
             .maxParryAngle = 90.0f,
             .parryDuration = 0.3f,
-            .parryCooldown = 3.0f,
+            .parryCooldown = 0,
         },
         .INVINCIBLE_Time = 0.25,
     },
