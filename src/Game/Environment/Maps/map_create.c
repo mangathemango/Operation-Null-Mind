@@ -237,7 +237,7 @@ void Map_CreateMainPath() {
                 placementList[j] = Vec2_Zero;
                 continue;
             }
-            if (testMap.mainPathLength > 4) {
+            if (testMap.mainPathLength > 1) {
                 Vec2 nextPosition = (Vec2) {
                     currentX + placementList[j].x,
                     currentY + placementList[j].y
@@ -245,7 +245,11 @@ void Map_CreateMainPath() {
                 if (Vec2_AreEqual(nextPosition, (Vec2) {2, 3}) || 
                     Vec2_AreEqual(nextPosition, (Vec2) {4, 3}) || 
                     Vec2_AreEqual(nextPosition, (Vec2) {3, 2}) || 
-                    Vec2_AreEqual(nextPosition, (Vec2) {3, 4})) {
+                    Vec2_AreEqual(nextPosition, (Vec2) {3, 4}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {2, 2}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {2, 4}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {4, 4}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {4, 2})) {
                         SDL_Log("Tile is near spawn, skipping");
                         placementList[j] = Vec2_Zero;
                         continue;
