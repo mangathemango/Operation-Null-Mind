@@ -71,6 +71,7 @@ PlayerData player = {
             .ghostLoadRandomizer = 0,
             .crashOutCooldown = NULL,
             .crashOutDuration = NULL,
+            .parryRadius = 0,
         },
     },
     .stats = {
@@ -92,7 +93,7 @@ PlayerData player = {
             .hemocycleHealthGained = 100,
             .armoredUpIncomingDamageReduction = 25,
             .armoredUpDamageOutputDamageReduction = 15,
-            .ghostLoadRandomizer = 1000.0f,
+            .ghostLoadRandomizer = 1.0f,
             .crashOutCooldown = 15,
             .crashOutDuration = 15,
             .crashOutCurrentMultipler = 1,

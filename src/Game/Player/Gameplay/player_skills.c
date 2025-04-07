@@ -302,7 +302,6 @@ int Player_HandleCrashOut() {
     if (Timer_IsFinished(player.resources.skillResources.crashOutDuration)) {
         // Reset state
         player.state.skillState.crashOut = false;
-        // player.state.crashoutMultiplier = 1.0f;
         
         // Start cooldown
         Timer_Start(player.resources.skillResources.crashOutCooldown);
@@ -319,37 +318,72 @@ int Player_HandleCrashOut() {
     ParticleEmitter_ActivateOnce(player.resources.crashOut);
     SDL_Log("Player_Crashout Active");
     
-    // Update visual effects while active
-    // float timeLeft = Timer_GetTimeLeft(player.resources.crashoutDurationTimer) / 15.0f;
-    
-    // Pulsing red effect increases as time runs out
-    // float pulseIntensity = 0.5f + 0.5f * (1.0f - timeLeft);
-    
-    // Update particle effect
-    // player.resources.crashoutParticleEmitter->position = player.state.position;
-    // player.resources.crashoutParticleEmitter->startColor.r = 255;
-    // player.resources.crashoutParticleEmitter->startColor.a = 100 + 155 * pulseIntensity;
-    
     return 0;
 }
 
 int Parry()
 {
+    //Check if parry is active
     if(player.state.skillState.parryActive == true)return 1;
     if(!Timer_IsFinished(player.resources.skillResources.parryTimer)) return 1;
     
-    //Starting timers
+    //Starting timers and changing state
     player.state.skillState.parryActive = true;
     Timer_Start(player.resources.skillResources.parryDurationTimer);
     SDL_Log("Parry Activated");
-    
-    //Finding all the bullets
-
 
     //Finding mouseDirection
     Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
     Vec2 mouseDirection = Vec2_Normalize(Vec2_Subtract(mouseWorldPosition, player.state.position));
+    
 
+    player.resources.skillResources.parryDirection = mouseDirection;
+    player.resources.skillResources.parryRadius = 0;
+    SDL_Log("Parry is active");
+    return 0;
+}
+
+void Handle_ParryBullets()
+{
+    
+}
+
+int Handle_ParryRender()
+{
+    //Handles the rendered half circle
+    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
+
+    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
+    player.resources.skillResources.parryRadius += Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer);
+    float radius =  15 * player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
+
+        
+    SDL_Rect dest = Vec2_ToCenteredSquareRect(
+        Camera_WorldVecToScreen(player.state.position), // Position of the circle
+        radius
+     ); 
+
+    SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
+    
+}
+
+int Handle_Parry()
+{
+    
+    //Check if parry is active
+    if(!player.state.skillState.parryActive) return 1;
+    //Deactivate parry after the timer is finished
+    if(Timer_IsFinished(player.resources.skillResources.parryDurationTimer))
+    {
+        player.state.skillState.parryActive = false;
+        Timer_Start(player.resources.skillResources.parryTimer);
+        return 1;
+    }
+
+    //Finding mouseDirection
+    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
+
+    //Iterate through all the enemies
     for(int i = 0; i < ENEMY_MAX;i++)
     {
         EnemyData* enemy = &enemies[i];
@@ -387,13 +421,14 @@ int Parry()
         else continue;
 
         if (!gun) continue;
-        
+
+        //Iterate through all the bullets
         for(int i = 0;i < gun->resources.bulletPreset->maxParticles; i++)
         {
             Particle* bullet = &gun->resources.bulletPreset->particles[i];
             if(!bullet->alive) continue;
             //Check if the bullet is in the parry range
-            if(Vec2_Distance(player.state.position, bullet->position) >= 50) continue;
+            if(Vec2_Distance(player.state.position, bullet->position) >= 1000) continue; //THIS SHOULD BE 50
             
             //Finding bulletDirection
             Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
@@ -409,55 +444,10 @@ int Parry()
             //Parry the bullet
             bullet->direction = bulletDirection;
 
+            //Changing the colliders
+            bullet->collider->collidesWith |= COLLISION_LAYER_ENEMY;
         }
     }
-
-    SDL_Log("Parry is active");
-    // player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 2);
-
-    // ParticleEmitter_ActivateOnce(player.resources.skillResources.parryParticleEmitter);
-    // player.resources.skillResources.parryParticleEmitter->position = player.state.position;
-    // player.resources.skillResources.parryParticleEmitter->direction = mouseDirection;
-    return 0;
-}
-
-int Handle_ParryRender()
-{
-    Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
-    Vec2 mouseDirection = Vec2_Normalize(Vec2_Subtract(mouseWorldPosition, player.state.position));
-
-    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
-    static float timePassedRatio = 0;
-    timePassedRatio += 50 * Time->deltaTimeSeconds;
-    float radius = 25 * sqrt(timePassedRatio);
-
-        
-    SDL_Rect dest = Vec2_ToCenteredSquareRect(
-        Camera_WorldVecToScreen(player.state.position), // Position of the circle
-        radius * 2
-     ); 
-
-
-    if(timePassedRatio > 5) timePassedRatio = 0; 
-    SDL_Log("timePassedRatio: %d", timePassedRatio);
-    SDL_Log("Render Position: %f %f", dest.x, dest.y);
-    SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
-    
-}
-
-int Handle_Parry()
-{
-    //Check if parry is active
-    if(!player.state.skillState.parryActive) return 1;
-    //Deactivate parry after the timer is finished
-    if(Timer_IsFinished(player.resources.skillResources.parryDurationTimer))
-    {
-        player.state.skillState.parryActive = false;
-        Timer_Start(player.resources.skillResources.parryTimer);
-        return 1;
-    }
-    SDL_Log("Parry Active");
-
 
     ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
 

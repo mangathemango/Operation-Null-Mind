@@ -50,6 +50,8 @@ typedef struct
     Timer* parryDurationTimer;     ///< Timer for Parry ability duration
     ParticleEmitter* parryParticleEmitter;  ///< Visual effect for Parry
     SDL_Texture* parryTexture; ///< Texture for Parry effect
+    float parryRadius; ///< Radius of the parry effect
+    Vec2 parryDirection;
 } SkillResources;
 
 typedef struct
@@ -258,6 +260,8 @@ int Parry();
 int Handle_ParryRender();
 
 int Handle_Parry();
+
+void Handle_ParryBullets();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);

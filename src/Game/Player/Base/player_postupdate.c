@@ -52,6 +52,7 @@ int Player_PostUpdate() {
     // Update player collider
     ParticleEmitter_Update(player.resources.dashParticleEmitter);
     ParticleEmitter_Update(player.resources.crashOut);
+    Handle_ParryBullets();
 
     // Update player animation
     Player_AnimationUpdate();
