@@ -55,4 +55,24 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .callback = Game_TransitionNextLevel,
         .renderSize = {120, 80}
     },
+    [INTERACTABLE_HEALTH] = 
+    {
+        .type = INTERACTABLE_HEALTH,
+        .enabled = true,
+        .hitboxSize = {20, 20},
+        .spritePath = "Assets/Images/Interactables/health.png",
+        .srcRect = ENTIRE_SRC_RECT,
+        .callback = NULL,
+        .renderSize = {100 , 100}
+    },
+    [INTERACTABLE_ABILITIES] = 
+    {
+        .type = INTERACTABLE_ABILITIES,
+        .enabled = true,
+        .hitboxSize = {20, 20},
+        .spritePath = "Assets/Images/Interactables/abilities.png",
+        .srcRect = ENTIRE_SRC_RECT,
+        .callback = NULL,
+        .renderSize = {100 , 100}
+    }
 };

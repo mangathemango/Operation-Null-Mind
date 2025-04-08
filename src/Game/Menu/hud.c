@@ -5,6 +5,7 @@
 #include <minimap.h>
 #include <stdio.h>
 #include <interactable.h>
+#include <player.h>
 
 static SDL_Texture* healthTexture;
 static SDL_Texture* ammoTexture;
@@ -262,14 +263,91 @@ void HUD_RenderCurrentLevel() {
     UI_RenderText(levelTextElement);
 }
 
+void HUD_RenderPixilFrame() {
+    //Okay just in case you wanna change anything in this code, ill explain
+    //however in theory it should be simple
+
+    // This is the AssetPath, self-explantory, the enum for skills is in player.h
+    char* AssetPath[TOTAL_SKILLS] = {
+        [ARMORED_UP] = "Assets/Images/Icons/abilities/shieldUp.png",
+        [GHOST_LOAD] = "Assets/Images/Icons/abilities/ghostLoad.png",
+        [HEMO_CYCLE] = "Assets/Images/Icons/abilities/hemocycle.png",
+        [KINETIC_ARMOR] = "Assets/Images/Icons/abilities/kineticArmor.png",
+        [LAST_STAND] = "Assets/Images/Icons/abilities/lastStand.png",
+        [ONE_MORE] = "Assets/Images/Icons/abilities/oneMore.png",
+        [OVER_PRESSURED] = "Assets/Images/Icons/abilities/overPressured.png",
+        [SCAVENGER] = "Assets/Images/Icons/abilities/scavenger.png"
+    };
+
+    //This was copilot help, basically i just store the entire struct into an array of bool
+    bool skillValues[TOTAL_SKILLS] = {
+        player.state.skillState.armoredUp,
+        player.state.skillState.ghostLoad,
+        player.state.skillState.hemoCycle,
+        player.state.skillState.kineticArmor,
+        player.state.skillState.lastStand,
+        player.state.skillState.oneMore,
+        player.state.skillState.overPressured,
+        player.state.skillState.scavenger
+
+    };
+
+    //The offset starts at -1 because when it offset++, it can start at 0, yes its 4:03 am and my brain is shit
+    //Offset basically is just the integer that tells how many skills is actually active
+    int Offset = -1;
+    for(int i = 0; i < TOTAL_SKILLS; i++) {
+        if(skillValues[i] == false)
+        {
+            //When the skill is false, we just skip it
+            continue;
+        }
+        Offset++;
+        //This goofy y and x position is to make it so it is centered but also after 4 in a row, it will make a new row
+        int yPosition = 1;
+        int xPosition = 0;
+        if(Offset > 3) 
+        {
+            yPosition = 2; 
+            xPosition = 160;
+        }
+
+        //This is the final position, the yposition is used to make a new row, the xposition is used so that the new row starts -160
+        Vec2 position = {
+            app.config.screen_width/2 - 100 + (Offset * 40) - xPosition,
+            app.config.screen_height - 240 + (yPosition * 40)
+        };
+    
+        //The rest is you alr know it. 
+        int width = 40, height = 40;
+        SDL_Texture* pixilFrame2Texture = IMG_LoadTexture(app.resources.renderer, AssetPath[i]);
+        
+        
+        // Create destination rectangle
+        SDL_Rect destRect = {
+            (int)position.x,
+            (int)position.y,
+            (int)(width),
+            (int)(height)
+        };
+        
+        // Render the texture
+        SDL_RenderCopy(app.resources.renderer, pixilFrame2Texture, NULL, &destRect);
+    }       
+}
+
 void HUD_Render() {
-    if (game.hudToggled) return;
-    Minimap_Render();
-    HUD_RenderHealthBar();
-    HUD_RenderAmmoBar();
-    HUD_RenderCurrentGun();
-    HUD_RenderCurrentLevel();
-    HUD_RenderAmmoDisplay();
+    if (game.hudToggled){
+        Minimap_Render();
+        HUD_RenderHealthBar();
+        HUD_RenderAmmoBar();
+        HUD_RenderCurrentGun();
+        HUD_RenderCurrentLevel();
+        HUD_RenderAmmoDisplay();
+    }
+    if(!game.hudToggled)
+    {
+        HUD_RenderPixilFrame();
+    }
     if (hasInteraction) {
         UI_RenderText(interactionText);
     }
