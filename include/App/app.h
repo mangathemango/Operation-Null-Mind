@@ -56,7 +56,8 @@ typedef enum {
     SCENE_PAUSE,    /**< Pause menu scene */
     SCENE_DEATH,      /**Death scene */
     SCENE_MISSION_BRIEFING, /**< Mission briefing scene */
-    SCENE_CONTROLS
+    SCENE_CONTROLS,
+    SCENE_WIN      /**< Win scene when mission is accomplished */
 } AppScene;
 
 /**

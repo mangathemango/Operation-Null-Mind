@@ -17,6 +17,7 @@
 #include <bullet.h>
 #include <enemy_types.h>
 #include <controls.h>
+#include <win.h> // Added for Win_Update function
 
 /**
  * @brief [PostUpdate] Main game update routine
@@ -65,7 +66,8 @@ int App_PostUpdate() {
             if(player.state.currentHealth <= 0) {
                 if(player.state.skillState.lastStand == false)
                 {
-                    app.state.currentScene = SCENE_DEATH;
+                    // For debugging win screen, going to SCENE_WIN instead of SCENE_DEATH
+                    app.state.currentScene = SCENE_WIN; // Temporarily show win screen for debugging
                     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
                     Game_Restart();
                 }
@@ -77,6 +79,10 @@ int App_PostUpdate() {
 
         case SCENE_DEATH:
             Death_Update();
+            break;
+            
+        case SCENE_WIN:
+            Win_Update();
             break;
         default:
             break;

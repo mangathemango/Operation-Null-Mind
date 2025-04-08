@@ -14,6 +14,7 @@
 #include <input.h>
 #include <app.h>
 #include <sound.h>
+#include <stdio.h> // Added for sprintf function
  
 // UI elements for the death screen
 static SDL_Texture* diamondPartialIcon = NULL;
@@ -97,12 +98,12 @@ int EndScreen_CreateStatsPanel(const char* titleText, int startY, int bodyX, int
         titleText, 
         (SDL_Rect) {
             bodyX,
-            startY, 
+            startY + 1, 
             0, 
             0
         }, 
         blackColor, 
-        1.5f, 
+        1.0f, 
         UI_TEXT_ALIGN_LEFT, 
         app.resources.textFont
     );
