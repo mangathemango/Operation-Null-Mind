@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <input.h>
 #include <sound.h>
+#include <controls.h>
 
 static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
@@ -67,6 +68,7 @@ void Menu_Update() {
         UI_ChangeTextColor(controlsButtonElement, hoverButtonColor);
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_CONTROLS;
+            controlLastScene = SCENE_MENU;
         }
     } else {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);
