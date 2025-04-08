@@ -67,7 +67,7 @@ int App_PostUpdate() {
                 if(player.state.skillState.lastStand == false)
                 {
                     // For debugging win screen, going to SCENE_WIN instead of SCENE_DEATH
-                    app.state.currentScene = SCENE_WIN; // Temporarily show win screen for debugging
+                    app.state.currentScene = SCENE_DEATH; // Temporarily show win screen for debugging
                     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
                     Game_Restart();
                 }

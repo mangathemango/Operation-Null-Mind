@@ -49,6 +49,10 @@ void Game_Restart()
 }
 
 void Game_TransitionNextLevel(void* data, int interactableIndex) {
+    if (game.currentStage == 10) {
+        app.state.currentScene = SCENE_WIN;
+        return;
+    }
     game.isTransitioning = true;
     Timer_Start(game.transitionTimer);
     currentStageIncreased = false;

@@ -54,7 +54,7 @@ void Map_Generate() {
     int startY = 3; 
     Map_SetStartChunk(startX, startY);
 
-    if (game.currentStage != 10) {
+    if (game.currentStage != 11) {
         Map_CreateMainPath();
         Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
         SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
@@ -95,7 +95,7 @@ void Map_Generate() {
         testMap.chunks[3][2].empty = false;
         testMap.chunks[3][2].roomType = ROOM_TYPE_BOSS;
         testMap.chunks[3][2].roomSize = (Vec2) {50, 50};
-        testMap.chunks[3][2].totalEnemyCount = 100000;
+        testMap.chunks[3][2].totalEnemyCount = 100;
     }
     
     

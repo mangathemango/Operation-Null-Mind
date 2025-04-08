@@ -70,7 +70,7 @@ void EnemyManager_Update() {
     }
 
     int minCurrentEnemyCount = 0;
-    if (game.currentStage == 10) minCurrentEnemyCount = 10;
+    if (game.currentStage == 10) minCurrentEnemyCount = 0;
     if (chunk->inCombat && chunk->currentEnemyCount <= minCurrentEnemyCount) {
         if (chunk->totalEnemyCount > 0) {
             /**
