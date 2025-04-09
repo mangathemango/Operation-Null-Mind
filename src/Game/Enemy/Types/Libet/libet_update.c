@@ -1,5 +1,8 @@
 #include <enemy_libet.h>
 #include <time_system.h>
+#include <particle_emitterpresets.h>
+#include <player.h>
+#include <random.h>
 
 /**
  * @brief [Update] Updates the Libet boss enemy's state
@@ -11,27 +14,31 @@
 void Libet_Update(EnemyData* data) {
     LibetConfig* config = (LibetConfig*)data->config;
     config->timer += Time->deltaTimeSeconds;
-
     switch (config->state) {
 
     case LIBET_FLOATING:
         // Handle floating behavior
         if (config->timer >= config->floatTime) {
-            config->state = LIBET_DIAGONAL_LAZER_CHARGING;
-            for (int x = -1; x <= 1; x++) {
-                for (int y = -1; y <= 1; y++) {
-                    if (x == 0 && y == 0) continue;
-                    Vec2 direction = Vec2_Normalize((Vec2){x, y});
-                    Lazer lazer = {
-                        .active = true,
-                        .startPosition = data->state.position,
-                        .direction = direction,
-                        .width = 5,
-                        .damage = 0,
-                        .lifeTime = 0.0f
-                    };
-                    Libet_AddLazer(lazer);
+            int randomState = RandInt(0, 1); 
+            if (randomState == 0) {
+                config->state = LIBET_DIAGONAL_LAZER_CHARGING;
+                for (int x = -1; x <= 1; x++) {
+                    for (int y = -1; y <= 1; y++) {
+                        if (x == 0 && y == 0) continue;
+                        Vec2 direction = Vec2_Normalize((Vec2){x, y});
+                        Lazer lazer = {
+                            .active = true,
+                            .startPosition = data->state.position,
+                            .direction = direction,
+                            .width = 5,
+                            .damage = 0,
+                            .lifeTime = 0.0f
+                        };
+                        Libet_AddLazer(lazer);
+                    }
                 }
+            } else {
+                config->state = LIBET_BULLET_HELL_FIRING;
             }
             config->timer = 0;
         }
@@ -68,6 +75,28 @@ void Libet_Update(EnemyData* data) {
             config->timer = 0;
         }
         break;
+    
+    case LIBET_BULLET_HELL_FIRING:
+        // Handle bullet hell firing behavior
+        LibetBulletEmitter->position = data->state.position;
+        LibetBulletEmitter->angleRange = 360;
+        LibetBulletEmitter->emissionNumber = 10;
+        
+        static int bulletHellCounter = 0;
+        static float fireRate = 0.1f;
+        static float fireRateTimer = 0.0f;
+        fireRateTimer += Time->deltaTimeSeconds;
+        if (fireRateTimer >= fireRate) {
+            fireRateTimer = 0.0f;
+            bulletHellCounter++;
+            ParticleEmitter_ActivateOnce(LibetBulletEmitter);
+            if (bulletHellCounter >= 20) {
+                bulletHellCounter = 0;
+                config->state = LIBET_FLOATING;
+                config->timer = 0;
+            }
+        }
+        break;
 
     default:
         config->state = LIBET_FLOATING;
@@ -76,6 +105,27 @@ void Libet_Update(EnemyData* data) {
     for (int i = 0; i < 40; i++) {
         if (libetLazers[i].active) {
             Lazer_Update(&libetLazers[i]);
+        }
+    }
+
+    // Update bullet emitter
+    if (LibetBulletEmitter) {
+        LibetBulletEmitter->position = data->state.position;
+        ParticleEmitter_Update(LibetBulletEmitter);
+        for (int i = 0; i < LibetBulletEmitter->maxParticles; i++) {
+            Particle* bullet = &LibetBulletEmitter->particles[i];
+            if (!bullet->alive) continue;
+            ColliderCheckResult result;
+            Collider_Check(bullet->collider, &result);
+            for (int j = 0; j < result.count; j++) {
+                if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
+                    Player_TakeDamage(data->stats.damage);
+                }
+                if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
+                    bullet->alive = false;
+                    break;
+                }
+            }
         }
     }
 }

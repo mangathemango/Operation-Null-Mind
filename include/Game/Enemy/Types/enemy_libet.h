@@ -33,6 +33,7 @@ typedef struct {
 extern Lazer libetLazers[40];
 extern LibetConfig LibetConfigData;
 extern EnemyData LibetData;
+extern ParticleEmitter* LibetBulletEmitter;
 
 /**
  * @brief Initializes the Libet boss enemy

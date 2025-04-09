@@ -1,7 +1,7 @@
 #include <enemy_libet.h>
 #include <animation.h>
 #include <random.h>
-
+#include <particle_emitterpresets.h>
 
 Lazer libetLazers[40] = {
     {
@@ -15,6 +15,8 @@ Lazer libetLazers[40] = {
     }
 };
 
+ParticleEmitter* LibetBulletEmitter;
+
 /**
  * @brief [Start] Initializes the Libet boss enemy instance
  *
@@ -26,4 +28,8 @@ void Libet_Start(EnemyData* data) {
     data->config = malloc(sizeof(LibetConfig));
     LibetConfig* config = (LibetConfig*)data->config;
     memcpy(config, &LibetConfigData, sizeof(LibetConfig));
+
+    // Initialize bullet emitter
+    LibetBulletEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletEnemy);
+    ParticleEmitter_SetMaxParticles(LibetBulletEmitter, 1000);
 }
