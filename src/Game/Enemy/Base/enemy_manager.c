@@ -78,7 +78,6 @@ void EnemyManager_Update() {
              */
             // Spawns in another wave of enemy if there are still enemies left
             int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
-            
             if (spawnCount > 25)   spawnCount = 25;
             if (spawnCount < 1)    spawnCount = 1;
             
@@ -98,7 +97,7 @@ void EnemyManager_Update() {
                     spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
                 }
 
-                Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
+                Enemy_Spawn(*enemyList[ENEMY_TYPE_ECHO],spawnPosition);
             }
         } else {
             // Ends the combat if player has killed enough enemies
