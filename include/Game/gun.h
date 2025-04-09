@@ -141,6 +141,16 @@ extern GunData Gun_BattleRifle;
 extern GunData GunList[GUN_COUNT];
 
 /**
+ * @brief Updates gun position, orientation and associated particle emitters
+ * 
+ * @param gun Pointer to the gun data structure
+ * @param ownerPosition Position of the entity that owns the gun
+ * @param targetPosition Position to aim at (usually player position)
+ * @param gunOffset Additional offset from owner position
+ */
+void Gun_UpdatePosition(GunData* gun, Vec2 ownerPosition, Vec2 targetPosition, Vec2 gunOffset);
+
+/**
  * @brief Updates gun animations
  */
 void Gun_AnimationUpdate();

@@ -54,7 +54,7 @@ void Map_Generate() {
     int startY = 3; 
     Map_SetStartChunk(startX, startY);
 
-    if (game.currentStage != 10) {
+    if (game.currentStage != 11) {
         Map_CreateMainPath();
         Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
         SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
@@ -95,7 +95,7 @@ void Map_Generate() {
         testMap.chunks[3][2].empty = false;
         testMap.chunks[3][2].roomType = ROOM_TYPE_BOSS;
         testMap.chunks[3][2].roomSize = (Vec2) {50, 50};
-        testMap.chunks[3][2].totalEnemyCount = 100000;
+        testMap.chunks[3][2].totalEnemyCount = 100;
     }
     
     
@@ -237,7 +237,7 @@ void Map_CreateMainPath() {
                 placementList[j] = Vec2_Zero;
                 continue;
             }
-            if (testMap.mainPathLength > 4) {
+            if (testMap.mainPathLength > 1) {
                 Vec2 nextPosition = (Vec2) {
                     currentX + placementList[j].x,
                     currentY + placementList[j].y
@@ -245,7 +245,11 @@ void Map_CreateMainPath() {
                 if (Vec2_AreEqual(nextPosition, (Vec2) {2, 3}) || 
                     Vec2_AreEqual(nextPosition, (Vec2) {4, 3}) || 
                     Vec2_AreEqual(nextPosition, (Vec2) {3, 2}) || 
-                    Vec2_AreEqual(nextPosition, (Vec2) {3, 4})) {
+                    Vec2_AreEqual(nextPosition, (Vec2) {3, 4}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {2, 2}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {2, 4}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {4, 4}) ||
+                    Vec2_AreEqual(nextPosition, (Vec2) {4, 2})) {
                         SDL_Log("Tile is near spawn, skipping");
                         placementList[j] = Vec2_Zero;
                         continue;

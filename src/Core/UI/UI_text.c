@@ -121,6 +121,7 @@ void UI_ChangeText(UIElement* element, const char* text) {
     data->text = strdup(text);
     SDL_DestroyTexture(data->textTexture);
     data->textTexture = UI_CreateTextTexture(text, element->color, data->font);
+    UI_UpdateText(element);
 }
 
 void UI_ChangeTextColor(UIElement* element, SDL_Color color) {
@@ -132,4 +133,5 @@ void UI_ChangeTextColor(UIElement* element, SDL_Color color) {
     element->color = color;
     SDL_DestroyTexture(data->textTexture);
     data->textTexture = UI_CreateTextTexture(data->text, color, data->font);
+    UI_UpdateText(element);
 }
