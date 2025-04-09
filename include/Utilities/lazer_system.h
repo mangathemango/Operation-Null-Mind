@@ -8,6 +8,7 @@ typedef struct {
     Vec2 endPosition;
     int width;         // Width of the lazer
     int damage;
+    float lifeTime;
 } Lazer;
 
 /**

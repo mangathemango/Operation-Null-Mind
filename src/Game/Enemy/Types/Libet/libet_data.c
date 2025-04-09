@@ -2,6 +2,13 @@
 #include <stdlib.h>
 
 
+LibetConfig LibetConfigData = {
+    .state = LIBET_FLOATING,
+    .timer = 0.0f,
+    .floatTime = 1.0f,
+    .lazerChargeTime = 1.0f,
+    .lazerFireTime = 0.3f,
+};
 
 /**
  * @brief [Data] Libet boss enemy default data
@@ -17,7 +24,7 @@ EnemyData LibetData = {
         .direction = {0, 0},
         .collider = {
             .hitbox = {0, 0, 40, 40},
-            .layer = COLLISION_LAYER_ENEMY,
+            .layer = COLLISION_LAYER_NONE,
         },
         .currentHealth = 0,
         .isDead = true,

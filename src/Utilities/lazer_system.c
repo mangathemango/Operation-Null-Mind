@@ -12,11 +12,15 @@
  * @param lazer Pointer to the Lazer struct containing its properties
  */
 void Lazer_Update(Lazer* lazer) {
+    if (!lazer->active) return;
+    lazer->lifeTime += Time->deltaTimeSeconds;
+
     Vec2 currentPosition = lazer->startPosition;
     Collider lazerCollider = {
         .active = true,
         .hitbox = Vec2_ToSquareRect(currentPosition, 1),
-        .collidesWith = COLLISION_LAYER_ENVIRONMENT
+        .collidesWith = COLLISION_LAYER_ENVIRONMENT | 
+                        COLLISION_LAYER_PLAYER,
     };
 
     Collider_Register(&lazerCollider, NULL);
@@ -34,8 +38,10 @@ void Lazer_Update(Lazer* lazer) {
             if (result.objects[j]->layer == COLLISION_LAYER_PLAYER && lazer->damage > 0) {
                 Player_TakeDamage(lazer->damage);
             }
-            hitSomething = true;
-            break;
+            if (result.objects[j]->layer & COLLISION_LAYER_ENVIRONMENT) {
+                hitSomething = true;
+                break;
+            }
         }
 
         if (hitSomething) {

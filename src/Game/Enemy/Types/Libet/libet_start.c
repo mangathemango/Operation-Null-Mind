@@ -2,6 +2,19 @@
 #include <animation.h>
 #include <random.h>
 
+
+Lazer libetLazers[40] = {
+    {
+        .active = false,
+        .startPosition = {0, 0},
+        .direction = {0, 0},
+        .endPosition = {0, 0},
+        .width = 5,
+        .damage = 0,
+        .lifeTime = 0.0f
+    }
+};
+
 /**
  * @brief [Start] Initializes the Libet boss enemy instance
  *
@@ -12,4 +25,5 @@
 void Libet_Start(EnemyData* data) {
     data->config = malloc(sizeof(LibetConfig));
     LibetConfig* config = (LibetConfig*)data->config;
+    memcpy(config, &LibetConfigData, sizeof(LibetConfig));
 }

@@ -1,7 +1,7 @@
-#ifndef ENEMY_LIBET_H
-#define ENEMY_LIBET_H
+#pragma once
 
 #include <enemy.h>
+#include <lazer_system.h>
 
 typedef enum {
     LIBET_FLOATING,
@@ -22,10 +22,15 @@ typedef enum {
  */
 typedef struct {
     LibetState state;           /**< Current state of the Libet enemy */
-
+    float timer;
+    float floatTime;
+    float lazerChargeTime;
+    float lazerFireTime;
 } LibetConfig;
 
 
+
+extern Lazer libetLazers[40];
 extern LibetConfig LibetConfigData;
 extern EnemyData LibetData;
 
@@ -50,4 +55,4 @@ void Libet_Update(EnemyData* data);
  */
 void Libet_Render(EnemyData* data);
 
-#endif // ENEMY_LIBET_H
+void Libet_AddLazer(Lazer lazer);
