@@ -197,9 +197,11 @@ void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
  * @param enemy Pointer to the enemy that died
  */
 void Enemy_HandleDeath(EnemyData* enemy) {
+    if (enemy->state.isDead) return;
     enemy->state.currentHealth = 0;
     enemy->state.isDead = true;
     Collider_Reset(&enemy->state.collider);
+    if (enemy->config) free(enemy->config);
     enemy->config = NULL;
     player.state.currentAmmo += 10 + player.resources.skillResources.scavengerAmmoBonus;
     player.stats.enemiesKilled++;

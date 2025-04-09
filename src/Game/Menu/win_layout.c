@@ -14,6 +14,7 @@
 #include <input.h>
 #include <app.h>
 #include <sound.h>
+#include <game.h>  // Added for game stats
 #include <stdio.h> // Added for sprintf function
  
 // UI elements for the win screen
@@ -136,6 +137,7 @@ void Win_Update() {
         UI_ChangeTextColor(returnButtonElement, hoverButtonColor);
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MENU;
+            Game_Restart();
             Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
             isPlayed = 0;
             timer = 0;
@@ -152,24 +154,25 @@ void Win_Update() {
         timer = 0;
     }
     
-    // For demonstration, update stats with some dynamic values
-    // In a real implementation, these would come from game state
-    static int demoFloor = 0;
-    static int demoTime = 0;
-    static int demoRobots = 0;
-    
-    demoTime += Time->deltaTimeSeconds;
-    if ((int)timer % 3 == 0 && (int)timer != 0) {
-        demoFloor = player.stats.enemiesKilled / 10 + 1; // +1 because we completed this floor
-        demoRobots = player.stats.enemiesKilled;
+    // Update the statistics with real game stats
+    // This only needs to be done once when the win screen is first displayed
+    static bool statsUpdated = false;
+    if (!statsUpdated) {
         EndScreen_UpdateStats(
-            demoFloor,            // floor reached
-            (int)demoTime,        // run time in seconds
-            demoRobots,           // robots deactivated
-            2,                    // healing items used (fewer than death screen)
-            3,                    // hits taken (fewer than death screen)
-            200                   // ammo spent
+            game.currentStage,                 // floor/stage reached
+            (int)game.runTime,                 // run time in seconds
+            player.stats.enemiesKilled,        // robots deactivated
+            game.healingItemsUsed,             // healing items used
+            game.hitsTaken,                    // hits taken
+            game.ammoSpent                     // ammo spent
         );
+        statsUpdated = true;
+    }
+    
+    // Reset the statsUpdated flag when returning to the main menu
+    if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed || 
+        (Input_MouseIsOnRect(returnButtonRect) && Input->mouse.leftButton.pressed)) {
+        statsUpdated = false;
     }
 }
  

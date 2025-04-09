@@ -69,7 +69,6 @@ int App_PostUpdate() {
                     // For debugging win screen, going to SCENE_WIN instead of SCENE_DEATH
                     app.state.currentScene = SCENE_DEATH; // Temporarily show win screen for debugging
                     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
-                    Game_Restart();
                 }
             }
             break;

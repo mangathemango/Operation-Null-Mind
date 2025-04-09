@@ -14,6 +14,7 @@
 #include <input.h>
 #include <app.h>
 #include <sound.h>
+#include <game.h>  // Added for game stats
 #include <stdio.h> // Added for sprintf function
  
 // UI elements for the death screen
@@ -53,6 +54,9 @@ static SDL_Rect returnButtonRect = {0, 0, 130, 40};
  * @param ammoValue The amount of ammunition spent during the run
  */
 void EndScreen_UpdateStats(int floorValue, int timeValue, int robotsValue, int healingValue, int hitsValue, int ammoValue) {
+    SDL_Log("Updating statistics: Floor %d, Time %d, Robots %d, Healing %d, Hits %d, Ammo %d",
+            floorValue, timeValue, robotsValue, healingValue, hitsValue, ammoValue);
+    
     // Update statistic values
     char valueText[20];
     
@@ -381,6 +385,7 @@ void Death_Start() {
  * @brief [PostUpdate] Processes user input for the death screen
  * 
  * Checks for the ESC key press or button clicks to return to the main menu
+ * and updates the statistics display
  */
 void Death_Update() {
     static float timer = 0;
@@ -402,6 +407,7 @@ void Death_Update() {
         UI_ChangeTextColor(returnButtonElement, hoverButtonColor);
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MENU;
+            Game_Restart();
             Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
             isPlayed = 0;
             timer = 0;
@@ -418,24 +424,25 @@ void Death_Update() {
         timer = 0;
     }
     
-    // For demonstration, update stats with some dynamic values
-    // In a real implementation, these would come from game state
-    static int demoFloor = 0;
-    static int demoTime = 0;
-    static int demoRobots = 0;
-    
-    demoTime += Time->deltaTimeSeconds;
-    if ((int)timer % 5 == 0 && (int)timer != 0) {
-        demoFloor = player.stats.enemiesKilled / 10;
-        demoRobots = player.stats.enemiesKilled;
+    // Update the statistics with real game stats
+    // This only needs to be done once when the death screen is first displayed
+    static bool statsUpdated = false;
+    if (!statsUpdated) {
         EndScreen_UpdateStats(
-            demoFloor,            // floor reached
-            (int)demoTime,        // run time in seconds
-            demoRobots,           // robots deactivated
-            3,                    // healing items used
-            5,                    // hits taken
-            250                   // ammo spent
+            game.currentStage,                 // floor/stage reached
+            (int)game.runTime,                 // run time in seconds
+            player.stats.enemiesKilled,        // robots deactivated
+            game.healingItemsUsed,             // healing items used
+            game.hitsTaken,                    // hits taken
+            game.ammoSpent                     // ammo spent
         );
+        statsUpdated = true;
+    }
+    
+    // Reset the statsUpdated flag when returning to the main menu
+    if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed || 
+        (Input_MouseIsOnRect(returnButtonRect) && Input->mouse.leftButton.pressed)) {
+        statsUpdated = false;
     }
 }
  
@@ -453,7 +460,7 @@ void Death_Render() {
     // Check if diamond icon exists and render it
     if (diamondPartialIcon) {
         SDL_Rect iconRect = {
-            45, 20, 40, 40  // Positioned near the MISSION text
+            50, 45, 40, 40  // Positioned near the MISSION text
         };
         SDL_RenderCopy(app.resources.renderer, diamondPartialIcon, NULL, &iconRect);
     } else {
