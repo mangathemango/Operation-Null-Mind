@@ -18,9 +18,6 @@ EnemyData LibetData = {
         .collider = {
             .hitbox = {0, 0, 40, 40},
             .layer = COLLISION_LAYER_ENEMY,
-            .collidesWith = COLLISION_LAYER_PLAYER_PROJECTILE
-                            | COLLISION_LAYER_PLAYER
-                            | COLLISION_LAYER_ENVIRONMENT,
         },
         .currentHealth = 0,
         .isDead = true,
@@ -45,7 +42,14 @@ EnemyData LibetData = {
         .frameCount = 32,
         .clips = {
             {
-                .name = "floating",
+                .name = "[VINCIBLE]",
+                .startFrameIndex = 0,
+                .endFrameIndex = 15,
+                .frameDuration = 0.05f,
+                .looping = true,
+            },
+            {
+                .name = "[INVINCIBLE]",
                 .startFrameIndex = 16,
                 .endFrameIndex = 31,
                 .frameDuration = 0.05f,
@@ -53,7 +57,7 @@ EnemyData LibetData = {
             }
         },
         .playOnStart = true,
-        .defaultClip = "floating",
+        .defaultClip = "[INVINCIBLE]",
         .spriteSize = {120, 120},
     },
     .config = NULL,

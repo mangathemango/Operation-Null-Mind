@@ -3,6 +3,13 @@
 
 #include <enemy.h>
 
+typedef enum {
+    LIBET_VINCIBLE,
+    LIBET_DIAGONAL_LAZER_CHARGING,
+    LIBET_DIAGONAL_LAZER_FIRING,
+    
+} LibetState;
+
 /**
  * @brief Configuration structure for Libet boss enemy
  */
