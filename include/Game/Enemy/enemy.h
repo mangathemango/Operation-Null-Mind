@@ -14,6 +14,7 @@
 #include <animation.h>
 #include <timer.h>
 #include <particle_emitterpresets.h>
+#include <chunks.h>
 
 #define ENEMY_MAX 100
 
@@ -141,3 +142,4 @@ void Enemy_TakeDamage(EnemyData* enemy, int damage);
 void Enemy_CreateHealthText(EnemyData* enemy, int damage);
 void Enemy_UpdateHealthTexts();
 void Enemy_RenderHealthTexts();
+int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk);

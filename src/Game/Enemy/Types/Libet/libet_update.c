@@ -19,7 +19,7 @@ void Libet_Update(EnemyData* data) {
     case LIBET_FLOATING:
         // Handle floating behavior
         if (config->timer >= config->floatTime) {
-            int randomState = RandInt(0, 1); 
+            int randomState = RandInt(0, 2); 
             if (randomState == 0) {
                 config->state = LIBET_DIAGONAL_LAZER_CHARGING;
                 for (int x = -1; x <= 1; x++) {
@@ -37,8 +37,14 @@ void Libet_Update(EnemyData* data) {
                         Libet_AddLazer(lazer);
                     }
                 }
-            } else {
+            } else if (randomState == 1) {
                 config->state = LIBET_BULLET_HELL_FIRING;
+            } else {
+                if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 5) {
+                    config->state = LIBET_JUGGERNAUT_SPAMMING;
+                } else {
+                    config->state = LIBET_FLOATING;
+                }
             }
             config->timer = 0;
         }
@@ -80,10 +86,10 @@ void Libet_Update(EnemyData* data) {
         // Handle bullet hell firing behavior
         LibetBulletEmitter->position = data->state.position;
         LibetBulletEmitter->angleRange = 360;
-        LibetBulletEmitter->emissionNumber = 10;
-        
+        LibetBulletEmitter->emissionNumber = 5;
+
         static int bulletHellCounter = 0;
-        static float fireRate = 0.1f;
+        static float fireRate = 0.2f;
         static float fireRateTimer = 0.0f;
         fireRateTimer += Time->deltaTimeSeconds;
         if (fireRateTimer >= fireRate) {
@@ -97,7 +103,30 @@ void Libet_Update(EnemyData* data) {
             }
         }
         break;
+    
+    case LIBET_JUGGERNAUT_SPAMMING:
+        SDL_Log("Libet is spamming Juggernauts!");
+        static int juggernautCounter = 0;
+        float juggernautFireRate = 0.3f;
+        static float juggernautFireRateTimer = 0.0f;
+        juggernautFireRateTimer += Time->deltaTimeSeconds;
+        if (juggernautFireRateTimer >= juggernautFireRate) {
+            juggernautFireRateTimer = 0.0f;
+            Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(
+                Chunk_GetCurrentChunk(player.state.position) // Assuming you have a function to get the current chunk
+            );
+            Enemy_Spawn(*enemyList[ENEMY_TYPE_JUGGERNAUT], spawnPosition);
+            juggernautCounter++;
+            SDL_Log("Juggernaut spawned at %f, %f", spawnPosition.x, spawnPosition.y);
+            if (juggernautCounter >= 5) {
+                juggernautCounter = 0;
+                config->state = LIBET_FLOATING;
+                config->timer = 0;
+            }
+        }
+        break;
 
+    
     default:
         config->state = LIBET_FLOATING;
         break;
