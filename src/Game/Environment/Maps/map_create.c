@@ -95,7 +95,8 @@ void Map_Generate() {
         testMap.chunks[3][2].empty = false;
         testMap.chunks[3][2].roomType = ROOM_TYPE_BOSS;
         testMap.chunks[3][2].roomSize = (Vec2) {30, 16};
-        testMap.chunks[3][2].totalEnemyCount = 0;
+        testMap.chunks[3][2].totalEnemyCount = 1;
+        Map_SetEndChunk(3, 1);
     }
     
     

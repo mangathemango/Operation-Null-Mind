@@ -68,9 +68,8 @@ void EnemyManager_Update() {
             Chunk_GenerateTilesButVoid(chunk);
         }
     }
-    if (chunk->roomType == ROOM_TYPE_NORMAL) {
+    if (chunk->roomType) {
         int minCurrentEnemyCount = 0;
-        if (game.currentStage == 10) minCurrentEnemyCount = 10;
         if (chunk->inCombat && chunk->currentEnemyCount <= minCurrentEnemyCount) {
             if (chunk->totalEnemyCount > 0) {
                 /**
@@ -80,6 +79,7 @@ void EnemyManager_Update() {
                 int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
                 if (spawnCount > 25)   spawnCount = 25;
                 if (spawnCount < 1)    spawnCount = 1;
+
                 for (int i = 0; i < spawnCount; i++) {
                     // Each enemy spawn decrements totalEnemyCount btw
                     if (chunk->totalEnemyCount <= 0) break;
@@ -88,6 +88,11 @@ void EnemyManager_Update() {
                     EnemyType bottomLimit = RandInt(0, game.currentStage);
                     EnemyType topLimit = RandInt(bottomLimit, game.currentStage);
                     EnemyType spawnedEnemy = RandInt(bottomLimit, topLimit);
+
+                    if (chunk->roomType == ROOM_TYPE_BOSS) {
+                        spawnedEnemy = ENEMY_TYPE_LIBET;
+                    }
+
                     if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
                         spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
                     }

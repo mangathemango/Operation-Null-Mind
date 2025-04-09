@@ -63,6 +63,7 @@ void Enemy_Render() {
 
         // don't render if the enemy is not in the view
         if (Camera_WorldRectIsOnScreen(enemies[i].state.collider.hitbox))
+        
         Animation_Render(
             enemies[i].resources.animation,
             Camera_WorldVecToScreen(

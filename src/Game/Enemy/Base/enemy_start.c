@@ -50,7 +50,7 @@ void Enemy_Init() {
     enemyList[ENEMY_TYPE_RADIUS] = &RadiusData;
     enemyList[ENEMY_TYPE_JUGGERNAUT] = &JuggernautData;
     enemyList[ENEMY_TYPE_SENTRY] = &SentryData;
-
+    enemyList[ENEMY_TYPE_LIBET] = &LibetData; // New boss enemy type
 
     KamikazeConfigData.explosionIndicator = CreateCircleTexture(
         KamikazeConfigData.explosionRadius,

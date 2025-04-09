@@ -53,11 +53,6 @@ void Map_Render() {
                         continue;
                     }
                 }
-                SDL_Rect bossRect = Vec2_ToCenteredRect(
-                    Camera_WorldVecToScreen(Chunk_GetChunkCenter(&testMap.chunks[x][y])),
-                    (Vec2) {80, 120}
-                );
-                SDL_RenderCopy(app.resources.renderer, bossTexture, NULL, &bossRect);
             }
         }
     }

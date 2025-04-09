@@ -35,6 +35,7 @@ typedef enum {
     ENEMY_TYPE_TACTICIAN,
     ENEMY_TYPE_JUGGERNAUT,
     ENEMY_TYPE_SENTRY,
+    ENEMY_TYPE_LIBET, // New boss enemy type
     ENEMY_TYPE_COUNT
 } EnemyType;    
 
