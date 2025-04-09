@@ -95,6 +95,36 @@ void Player_PickUpGun(void* data, int interactableIndex) {
     Timer_Start(player.resources.shootCooldownTimer);
 }
 
+void Player_PickUpHealth(void* data, int interactableIndex)
+{
+    int* healAmount = data;
+    player.state.currentHealth += *healAmount;
+    if (player.state.currentHealth > player.stats.maxHealth) {
+        player.state.currentHealth = player.stats.maxHealth;
+    }
+    Interactable_Deactivate(interactableIndex);
+}
+
+void Player_PickUpSkill(void* data, int interactableIndex)
+{
+    int* abilitesType = data;
+    bool* skillValues[TOTAL_SKILLS] = {
+        &player.state.skillState.armoredUp,
+        &player.state.skillState.ghostLoad,
+        &player.state.skillState.hemoCycle,
+        &player.state.skillState.kineticArmor,
+        &player.state.skillState.lastStand,
+        &player.state.skillState.oneMore,
+        &player.state.skillState.overPressured,
+        &player.state.skillState.scavenger
+
+    };
+
+    *skillValues[*abilitesType] = true;
+    Interactable_Deactivate(interactableIndex);
+    
+}
+
 /**
  * @brief Opens a crate
  * This function is a callback when the player interacts with a closed crate.
@@ -105,10 +135,11 @@ void Player_PickUpGun(void* data, int interactableIndex) {
 void Player_OpenCrate(void* data, int interactableIndex) {
     Gun* crateGun = data;
     Interactable_CreateWeaponCrate(true, *crateGun, interactables[interactableIndex].position);
-    Interactable_CreateWeapon(*crateGun, interactables[interactableIndex].position);
+    Interactable_CreateWeapon(*crateGun, Vec2_Add(interactables[interactableIndex].position, Vec2_Multiply(Vec2_Down, 20)));
+    Interactable_CreateHealth(Vec2_Add(interactables[interactableIndex].position, Vec2_Add(Vec2_Multiply(Vec2_Up, 25), Vec2_Multiply(Vec2_Right, 20))));
+    Interactable_CreateAbilties(Vec2_Add(interactables[interactableIndex].position, Vec2_Add(Vec2_Multiply(Vec2_Up, 25), Vec2_Multiply(Vec2_Left, 20))));
     Interactable_Deactivate(interactableIndex);
 }
-
 void Player_ReadLog(void* data, int interactableIndex) {
     int* index = data;
     game.viewingLog = *index;

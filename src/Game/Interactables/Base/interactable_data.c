@@ -60,10 +60,30 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .type = INTERACTABLE_HEALTH,
         .enabled = true,
         .hitboxSize = {20, 20},
-        .spritePath = "Assets/Images/Interactables/health.png",
+        .spritePath = "Assets/Images/Icons/health/small.png",
         .srcRect = ENTIRE_SRC_RECT,
-        .callback = NULL,
-        .renderSize = {100 , 100}
+        .callback = Player_PickUpHealth,
+        .renderSize = {30 , 30}
+    },
+    [INTERACTABLE_HEALTH_MEDIUM] = 
+    {
+        .type = INTERACTABLE_HEALTH,
+        .enabled = true,
+        .hitboxSize = {20, 20},
+        .spritePath = "Assets/Images/Icons/health/medium.png",
+        .srcRect = ENTIRE_SRC_RECT,
+        .callback = Player_PickUpHealth,
+        .renderSize = {30 , 30}
+    },
+    [INTERACTABLE_HEALTH_LARGE] = 
+    {
+        .type = INTERACTABLE_HEALTH,
+        .enabled = true,
+        .hitboxSize = {20, 20},
+        .spritePath = "Assets/Images/Icons/health/big.png",
+        .srcRect = ENTIRE_SRC_RECT,
+        .callback = Player_PickUpHealth,
+        .renderSize = {30 , 30}
     },
     [INTERACTABLE_ABILITIES] = 
     {
@@ -72,7 +92,7 @@ Interactable interactableData[INTERACTABLE_COUNT] = {
         .hitboxSize = {20, 20},
         .spritePath = "Assets/Images/Interactables/abilities.png",
         .srcRect = ENTIRE_SRC_RECT,
-        .callback = NULL,
-        .renderSize = {100 , 100}
+        .callback = Player_PickUpSkill,
+        .renderSize = {20 , 20}
     }
 };
