@@ -349,6 +349,6 @@ void HUD_Render() {
         HUD_RenderPixilFrame();
     }
     if (hasInteraction) {
-        UI_RenderText(interactionText);
+        Interactable_RenderInteractableHUD();
     }
 }
