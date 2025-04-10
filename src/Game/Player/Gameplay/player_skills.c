@@ -53,6 +53,7 @@ int Player_Dash() {
  * @return int Status code (0 for success)
  */
 int Player_HandleDash() {
+    player.state.collider.layer = COLLISION_LAYER_NONE;
     // Ends the dash state when the timer is finished
     ColliderCheckResult result;
     Collider_Check(&player.state.collider, &result);
@@ -67,6 +68,7 @@ int Player_HandleDash() {
     {
         player.state.dashing = false; //Just unchecks dashing
         player.state.directionLocked = false; //Just unchecks movementlock
+        player.state.collider.layer = COLLISION_LAYER_PLAYER;
         return 0;
     }
     if (Timer_IsFinished(player.resources.dashDurationTimer) && insideEnemy) player.state.directionLocked = false;
