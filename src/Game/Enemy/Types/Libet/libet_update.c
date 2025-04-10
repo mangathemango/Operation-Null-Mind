@@ -44,7 +44,9 @@ void Libet_Update(EnemyData* data) {
                     randomState = RandInt(0, 1);
                 }
             } else {
-                randomState = RandInt(2, 5);
+                randomState = RandInt(2, 3);
+                if (phase >= 1) randomState = RandInt(2, 4);
+                if (phase >= 3) randomState = RandInt(2, 5);
             }
             switch (randomState) {
                 case 0:
