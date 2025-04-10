@@ -76,6 +76,7 @@ void Interactable_Update();
 void Interactable_Render();
 void Interactable_RenderEndRoom();
 void Interactable_RenderInteractionText();
+void Interactable_RenderInteractableHUD();
 void Interactable_Reset();
 void Interactable_Deactivate(int index);
 void Interactable_CreateHealth(Vec2 position);

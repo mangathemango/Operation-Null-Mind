@@ -46,7 +46,7 @@ typedef struct
 
 typedef struct
 {
-    int overPressuredBulletConsumptionMultipler; ///< Amount of ammo consumed when overpressured
+    float overPressuredBulletConsumptionMultipler; ///< Amount of ammo consumed when overpressured
     float overPressuredFireRate; ///< Fire rate when overpressured
     float overPressuredProjectileSpeed; ///< Speed of overpressured bullets
     int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
@@ -68,7 +68,7 @@ typedef struct
 
 typedef struct
 {
-    int overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
+    float overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
     float overPressuredOriginalFireRate; ///< Fire rate when overpressured
     float overPressuredOriginalProjectileSpeed; ///< Speed of overpressured bullets
     int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill

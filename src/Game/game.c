@@ -5,7 +5,7 @@
 bool currentStageIncreased = false;
 
 GameData game = {
-    .currentStage = 1,
+    .currentStage = 5,
     .isTransitioning = false,
     .viewingLog = -1,
     .transitionTimer = NULL,
