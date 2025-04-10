@@ -19,7 +19,7 @@ void Libet_Update(EnemyData* data) {
     case LIBET_FLOATING:
         // Handle floating behavior
         if (config->timer >= config->floatTime) {
-            int randomState = RandInt(0, 2); 
+            int randomState = RandInt(0, 3); 
             if (randomState == 0) {
                 config->state = LIBET_DIAGONAL_LAZER_CHARGING;
                 for (int x = -1; x <= 1; x++) {
@@ -39,12 +39,14 @@ void Libet_Update(EnemyData* data) {
                 }
             } else if (randomState == 1) {
                 config->state = LIBET_BULLET_HELL_FIRING;
-            } else {
-                if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 5) {
+            } else if (randomState == 2 ) {
+                if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 2) {
                     config->state = LIBET_JUGGERNAUT_SPAMMING;
                 } else {
                     config->state = LIBET_FLOATING;
                 }
+            } else if (randomState == 3) {
+                config->state = LIBET_EXPLOSION_FIRING;
             }
             config->timer = 0;
         }
@@ -117,7 +119,6 @@ void Libet_Update(EnemyData* data) {
             );
             Enemy_Spawn(*enemyList[ENEMY_TYPE_JUGGERNAUT], spawnPosition);
             juggernautCounter++;
-            SDL_Log("Juggernaut spawned at %f, %f", spawnPosition.x, spawnPosition.y);
             if (juggernautCounter >= 5) {
                 juggernautCounter = 0;
                 config->state = LIBET_FLOATING;
@@ -125,7 +126,26 @@ void Libet_Update(EnemyData* data) {
             }
         }
         break;
-
+    
+    case LIBET_EXPLOSION_FIRING:
+        static int explosionCounter = 0;
+        float explosionFireRate = 0.1f;
+        static float explosionFireRateTimer = 0.0f;
+        explosionFireRateTimer += Time->deltaTimeSeconds;
+        if (explosionFireRateTimer >= explosionFireRate) {
+            explosionFireRateTimer = 0.0f;
+            Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(
+                Chunk_GetCurrentChunk(player.state.position) // Assuming you have a function to get the current chunk
+            );
+            Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], spawnPosition);
+            explosionCounter++;
+            if (explosionCounter >= 10) {
+                explosionCounter = 0;
+                config->state = LIBET_FLOATING;
+                config->timer = 0;
+            }
+        }
+        break;
     
     default:
         config->state = LIBET_FLOATING;
