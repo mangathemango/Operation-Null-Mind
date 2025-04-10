@@ -76,7 +76,7 @@ EnemyData RadiusData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 12,
+        .damage = 40,
         .maxHealth = 70,
         .maxSpeed = 160.0f, // Faster than average for orbiting
         .acceleration = 400.0f,

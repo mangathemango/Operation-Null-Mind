@@ -6,9 +6,9 @@ SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
 UIElement* interactionText;
 flag hasInteraction;
 HealthData healthData[3] = {
-    [0] = {20, "Medi-Stim"},
-    [1] = {30, "Biofoam Spray"},
-    [2] = {50, "Nano-Gel"}
+    [0] = {50, "Medi-Stim"},
+    [1] = {100, "Biofoam Spray"},
+    [2] = {150, "Nano-Gel"}
 };
 
 AbilityData abilityData[8] =

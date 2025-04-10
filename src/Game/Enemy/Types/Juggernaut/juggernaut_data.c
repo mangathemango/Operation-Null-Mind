@@ -87,7 +87,7 @@ EnemyData JuggernautData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 10,
+        .damage = 25,
         .maxHealth = 600,
         .maxSpeed = 200.0f,      // Slow but powerful
         .acceleration = 250.0f,

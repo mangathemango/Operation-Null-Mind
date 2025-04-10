@@ -89,7 +89,7 @@ EnemyData EchoData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 5,
+        .damage = 25,
         .maxHealth = 85,
         .maxSpeed = 110.0f,
         .acceleration = 450.0f,
