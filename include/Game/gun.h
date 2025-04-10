@@ -90,10 +90,10 @@ typedef enum {
 /**
  * @brief Bullet velocity constants
  */
-#define BULLET_VELOCITY_SLOW 200
-#define BULLET_VELOCITY_MID 400
-#define BULLET_VELOCITY_FAST 600
-#define BULLET_VELOCITY_REAL_FAST 800
+#define BULLET_VELOCITY_SLOW 500
+#define BULLET_VELOCITY_MID 600
+#define BULLET_VELOCITY_FAST 800
+#define BULLET_VELOCITY_REAL_FAST 1000
 
 /**
  * @brief Gun statistics structure
