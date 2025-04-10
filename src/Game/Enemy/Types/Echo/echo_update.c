@@ -190,6 +190,24 @@ void Echo_UpdateParticles() {
             if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
                 Player_TakeDamage(EchoData.stats.damage);
             }
+            if(result.objects[j]->layer & COLLISION_LAYER_ENEMY)
+            {
+                //This will be removed when the whole parry system is implemented
+                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                
+                EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
+                
+                int totalDamage = EchoData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
+                SDL_Log("Enemy took damage %d, remaining health %d",totalDamage, enemy->state.currentHealth);
+                Enemy_TakeDamage(enemy, totalDamage);
+                EchoBulletFragmentsEmitter->position = bullet->position;
+                EchoBulletFragmentsEmitter->direction = EchoBulletEmitter->direction;
+                ParticleEmitter_ActivateOnce(EchoBulletFragmentsEmitter);
+                Collider_Reset(bullet->collider);
+                bullet->alive = false;
+                Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 70)); 
+                break;
+            }
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                 EchoBulletFragmentsEmitter->position = bullet->position;
                 EchoBulletFragmentsEmitter->direction = EchoBulletEmitter->direction;

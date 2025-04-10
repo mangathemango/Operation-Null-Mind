@@ -15,81 +15,32 @@
 #include <circle.h>
 #include <math.h>
 
+/**
+ * @brief Updates the gun position and orientation for the Tactician enemy
+ * 
+ * Calculates the gun position, rotation, and orientation based on the enemy's
+ * position and the player's location. Also updates associated particle emitters
+ * for muzzle flash and bullet casings.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
 void Tactician_UpdateGun(EnemyData* data) {
     TacticianConfig* config = (TacticianConfig*)data->config;
     GunData* gun = &config->gun;
-    Vec2 muzzlePosition = gun->config.muzzlePosition;
-    Vec2 casingPosition = gun->config.ejectionPosition;
-
-    // Calculate angle between gun -> mouse position
-    gun->state.angle = atan2(
-        player.state.position.y - gun->state.position.y,
-        player.state.position.x - gun->state.position.x
-    ) * 180 / M_PI;
-
-    // Flip the gun's sprite if mouse is on the left side of the player
-    if (player.state.position.x < gun->state.position.x) {
-        gun->state.flip = SDL_FLIP_VERTICAL;
-        gun->state.rotationCenter = (SDL_Point) {
-            gun->config.gripPosition.x, 
-            gun->animData.spriteSize.y - gun->config.gripPosition.y,
-        };
-        muzzlePosition.y = gun->animData.spriteSize.y - muzzlePosition.y; 
-        casingPosition.y = gun->animData.spriteSize.y - casingPosition.y;
-        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
-    } else {
-        gun->state.flip = SDL_FLIP_NONE;
-        gun->state.rotationCenter = (SDL_Point) {
-            gun->config.gripPosition.x,
-            gun->config.gripPosition.y
-        }; 
-        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
-    }
-
-    // Update gun's position
-    gun->state.position = Vec2_Subtract(
-        data->state.position,
-        (Vec2) {
-            gun->state.rotationCenter.x + config->gunOffset.x,
-            gun->state.rotationCenter.y + config->gunOffset.y
-        }
-    );
-
-    if (gun->resources.casingParticleEmitter) {
-        gun->resources.casingParticleEmitter->position = Vec2_Add(
-            gun->state.position, 
-            Vec2_RotateAroundDegrees(
-                casingPosition,
-                (Vec2) {
-                    gun->state.rotationCenter.x,
-                    gun->state.rotationCenter.y 
-                },
-                gun->state.angle
-            )
-        );
-    }
     
-    if (gun->resources.muzzleFlashEmitter) {
-        gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-        gun->resources.muzzleFlashEmitter->position = Vec2_Add(
-            gun->state.position, 
-            Vec2_RotateAroundDegrees(
-                muzzlePosition,
-                (Vec2) {
-                    gun->state.rotationCenter.x,
-                    gun->state.rotationCenter.y 
-                },
-                gun->state.angle
-            )
-        );
-    }
-
-    if (gun->resources.bulletPreset) {
-        gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-        gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;
-    }
+    // Tactician always aims directly at the player
+    Gun_UpdatePosition(gun, data->state.position, player.state.position, config->gunOffset);
 }
 
+/**
+ * @brief [PostUpdate] Updates the Tactician enemy's state and behavior
+ * 
+ * Handles the state machine for the Tactician enemy, which can buff nearby enemies
+ * and fire bursts of shots at the player. The Tactician is designed to maintain
+ * distance from the player while supporting other enemies.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
 void Tactician_Update(EnemyData* data) {
     TacticianConfig* config = (TacticianConfig*)data->config;
     
@@ -180,7 +131,14 @@ void Tactician_Update(EnemyData* data) {
     config->lastPosition = data->state.position;
 }
 
-void    Tactician_UpdateParticles() {
+/**
+ * @brief Updates all particle emitters related to the Tactician enemy
+ * 
+ * Processes particle physics, collision detection, and damage calculation for 
+ * bullets fired by the Tactician enemy. Also handles special visual effects for
+ * the buff ability and bullet impacts.
+ */
+void Tactician_UpdateParticles() {
     if (!TacticianBulletEmitter) return;
     ParticleEmitter_Update(TacticianBulletEmitter);
     ParticleEmitter_Update(TacticianMuzzleFlashEmitter);
@@ -196,6 +154,22 @@ void    Tactician_UpdateParticles() {
         for (int j = 0; j < result.count; j++) {
             if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
                 Player_TakeDamage(TacticianData.stats.damage);
+            }
+            if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
+                EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
+                
+                int totalDamage = TacticianData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
+                SDL_Log("Enemy took damage %d, remaining health %d", totalDamage, enemy->state.currentHealth);
+                Enemy_TakeDamage(enemy, totalDamage);
+                
+                TacticianBulletFragmentsEmitter->position = bullet->position;
+                TacticianBulletFragmentsEmitter->direction = TacticianBulletEmitter->direction;
+                ParticleEmitter_ActivateOnce(TacticianBulletFragmentsEmitter);
+                
+                Collider_Reset(bullet->collider);
+                bullet->alive = false;
+                Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 70));
+                break;
             }
             if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                 TacticianBulletFragmentsEmitter->position = bullet->position;

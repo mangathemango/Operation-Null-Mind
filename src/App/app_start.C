@@ -17,6 +17,8 @@
 #include <sound.h>
 #include <enemy_types.h>
 #include <bullet.h>
+#include <controls.h>
+#include <win.h> // Added for Win_Start function
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -50,10 +52,13 @@ int App_Start() {
     Menu_PrepareTextures();
     Pause_Start();
     Death_Start();
+    Win_Start(); // Initialize the win screen
     Log_Start();
     HUD_Start();
     Game_Start();
     LevelTransition_Start();
+    Mission_Start();
+    Controls_Start();
     app.resources.cursorTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/crosshair.png");
     return 0;
 }

@@ -40,8 +40,8 @@ AppData app = {
         
         .debug = false,
         
-        .title1FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
-        .title2FontPath = "Assets/Fonts/Bore Blasters 16.ttf",
+        .title1FontPath = "Assets/Fonts/FFF Forward.ttf",
+        .title2FontPath = "Assets/Fonts/FFF Forward.ttf",
         .textFontPath = "Assets/Fonts/monogram.ttf",
     },
 };

@@ -15,75 +15,37 @@
 #include <circle.h>
 #include <math.h>
 
+/**
+ * @brief Updates the gun position and orientation for the Sentry enemy
+ * 
+ * Calculates the gun position, rotation, and orientation based on the enemy's
+ * position and the player's location. Also updates associated particle emitters
+ * for muzzle flash and bullet casings.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
 void Sentry_UpdateGun(EnemyData* data) {
     SentryConfig* config = (SentryConfig*)data->config;
     GunData* gun = &config->gun;
-    Vec2 muzzlePosition = gun->config.muzzlePosition;
-    Vec2 casingPosition = gun->config.ejectionPosition;
-
-    // Flip the gun's sprite if mouse is on the left side of the player
-    if (player.state.position.x < gun->state.position.x) {
-        gun->state.flip = SDL_FLIP_VERTICAL;
-        gun->state.rotationCenter = (SDL_Point) {
-            gun->config.gripPosition.x, 
-            gun->animData.spriteSize.y - gun->config.gripPosition.y,
-        };
-        muzzlePosition.y = gun->animData.spriteSize.y - muzzlePosition.y; 
-        casingPosition.y = gun->animData.spriteSize.y - casingPosition.y;
-        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle + 135);
-    } else {
-        gun->state.flip = SDL_FLIP_NONE;
-        gun->state.rotationCenter = (SDL_Point) {
-            gun->config.gripPosition.x,
-            gun->config.gripPosition.y
-        }; 
-        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle - 135);
-    }
-
-    // Update gun's position
-    gun->state.position = Vec2_Subtract(
-        data->state.position,
-        (Vec2) {
-            gun->state.rotationCenter.x + config->gunOffset.x,
-            gun->state.rotationCenter.y + config->gunOffset.y
-        }
-    );
-
-    if (gun->resources.casingParticleEmitter) {
-        gun->resources.casingParticleEmitter->position = Vec2_Add(
-            gun->state.position, 
-            Vec2_RotateAroundDegrees(
-                casingPosition,
-                (Vec2) {
-                    gun->state.rotationCenter.x,
-                    gun->state.rotationCenter.y 
-                },
-                gun->state.angle
-            )
-        );
-    }
     
-    if (gun->resources.muzzleFlashEmitter) {
-        gun->resources.muzzleFlashEmitter->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-        gun->resources.muzzleFlashEmitter->position = Vec2_Add(
-            gun->state.position, 
-            Vec2_RotateAroundDegrees(
-                muzzlePosition,
-                (Vec2) {
-                    gun->state.rotationCenter.x,
-                    gun->state.rotationCenter.y 
-                },
-                gun->state.angle
-            )
-        );
-    }
-
-    if (gun->resources.bulletPreset) {
-        gun->resources.bulletPreset->direction = Vec2_RotateDegrees(Vec2_Right, gun->state.angle);
-        gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;
-    }
+    // For the Sentry enemy, we use the current gun angle to calculate a target point
+    // instead of directly aiming at the player (since Sentry has sweeping laser behavior)
+    Vec2 targetPos;
+    targetPos.x = data->state.position.x + cosf(gun->state.angle * M_PI / 180.0f) * 100.0f;
+    targetPos.y = data->state.position.y + sinf(gun->state.angle * M_PI / 180.0f) * 100.0f;
+    
+    Gun_UpdatePosition(gun, data->state.position, targetPos, config->gunOffset);
 }
 
+/**
+ * @brief Updates the laser targeting system for the Sentry enemy
+ * 
+ * Calculates the laser beam's path from the gun to the first obstacle or player,
+ * performing collision detection and damage application when in shooting state.
+ * The laser acts as both a visual cue and combat mechanic.
+ *
+ * @param data Pointer to the enemy data structure
+ */
 void Sentry_UpdateLazer(EnemyData* data) {
     SentryConfig* config = (SentryConfig*)data->config;
     GunData* gun = &config->gun;
@@ -127,6 +89,14 @@ void Sentry_UpdateLazer(EnemyData* data) {
     Collider_Reset(&lazer);
 }
 
+/**
+ * @brief [PostUpdate] Updates the Sentry enemy's state and behavior
+ * 
+ * Handles the state machine for the Sentry enemy, including idle, aiming, and shooting states.
+ * The Sentry enemy uses a laser-based weapon that sweeps across an area after targeting.
+ * 
+ * @param data Pointer to the enemy data structure
+ */
 void Sentry_Update(EnemyData* data) {
     SentryConfig* config = (SentryConfig*)data->config;
     GunData* gun = &config->gun;
@@ -204,6 +174,13 @@ void Sentry_Update(EnemyData* data) {
     config->lastPosition = data->state.position;
 }
 
+/**
+ * @brief Updates all particle emitters related to the Sentry enemy
+ * 
+ * Processes particle physics, collision detection, and damage calculation for 
+ * bullets fired by the Sentry enemy. Also handles visual effects such as
+ * muzzle flash, bullet casings, and bullet impact fragments.
+ */
 void Sentry_UpdateParticles() {
     if (!SentryBulletEmitter) return;
     ParticleEmitter_Update(SentryBulletEmitter);

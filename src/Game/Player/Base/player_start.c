@@ -26,11 +26,19 @@ int Player_Start() {
     player.resources.dashParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Dash);
     player.resources.dashParticleEmitter->selfReference = &player.resources.dashParticleEmitter;
     player.resources.crashOut = ParticleEmitter_CreateFromPreset(ParticleEmitter_Fire);
+    player.resources.skillResources.parryParticleEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Parry);
 
     player.resources.dashCooldownTimer = Timer_Create(player.stats.dashCooldown);
     player.resources.dashDurationTimer = Timer_Create(player.stats.dashDuration);
     player.resources.skillResources.crashOutCooldown = Timer_Create(player.stats.skillStat.crashOutCooldown);
     player.resources.skillResources.crashOutDuration = Timer_Create(player.stats.skillStat.crashOutDuration);
+
+    player.resources.skillResources.parryTimer = Timer_Create(player.stats.skillStat.parryCooldown);
+    player.resources.skillResources.parryDurationTimer = Timer_Create(player.stats.skillStat.parryDuration);
+
+    Timer_Start(player.resources.skillResources.parryTimer);
+    Timer_Start(player.resources.skillResources.parryDurationTimer);
+    
     Timer_Start(player.resources.dashCooldownTimer);
     player.resources.skillResources.crashOutCooldown->finished = true; // Start with crashout off cooldown
     Collider_Register(&player.state.collider, &player);
@@ -49,8 +57,6 @@ int Player_Start() {
     }
     player.state.currentAmmo = player.stats.maxAmmo;
 
-    player.resources.skillResources.parryTimer = Timer_Create(1.5f);        // 1.5 second cooldown
-    player.resources.skillResources.parryDurationTimer = Timer_Create(0.3f); // 0.3 second duration
     player.state.skillState.parryActive = false;
     return 0;
 }
