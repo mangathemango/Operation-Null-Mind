@@ -14,7 +14,7 @@ RechargeConfig RechargeConfigData = {
     .rechargeRadius = 120.0f,
     .isRecharging = false,
 
-    .healAmount = 30,
+    .healAmount = 100,
     .rechargeCooldown = 2.0f,
     .rechargeDuration = 1.0f,
     .timer = 0.0f,
