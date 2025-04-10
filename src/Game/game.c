@@ -5,7 +5,7 @@
 bool currentStageIncreased = false;
 
 GameData game = {
-    .currentStage = 1,
+    .currentStage = 10,
     .isTransitioning = false,
     .viewingLog = -1,
     .transitionTimer = NULL,
@@ -96,6 +96,10 @@ void Game_AddHealingItemUsed() {
 }
 
 void Game_TransitionNextLevel(void* data, int interactableIndex) {
+    if (game.currentStage == 9) {
+        Sound_Clear_Queue();
+        Sound_Stop_Music();
+    }
     if (game.currentStage == 10) {
         app.state.currentScene = SCENE_WIN;
         return;

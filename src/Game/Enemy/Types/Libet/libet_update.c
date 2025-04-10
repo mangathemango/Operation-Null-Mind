@@ -32,7 +32,7 @@ void Libet_Update(EnemyData* data) {
     case LIBET_FLOATING:
         // Handle floating behavior
         if (config->timer >= config->floatTime) {
-            if (attackCounter >= 10) {
+            if (attackCounter >= 10 + phase * 2) {
                 // Transition to the LIBET_VINCIBLE state after 10 attacks
                 config->state = LIBET_VINCIBLE;
                 targetHP = data->state.currentHealth - data->stats.maxHealth / 5;

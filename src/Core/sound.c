@@ -164,6 +164,14 @@ SimpleQueue musicQueue = {
  * Plays the next queued song if available
  */
 void Music_Finished_Callback() {
+    SDL_Log("Music finished playing, checking for next song...");
+    if (!musicQueue.hasNextSong) {
+        SDL_Log("No next song queued.");
+        return;
+    } else {
+        SDL_Log("Next song queued: %s", musicQueue.nextSongPath);
+    }
+
     Sound_Play_Music(musicQueue.nextSongPath, 0); // Play once
         
     // Clear the queue

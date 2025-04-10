@@ -58,8 +58,8 @@ int App_PostUpdate() {
             LevelTransition_Update();
             if(game.currentStage < 3) Sound_Queue_Next_Song("Assets/Audio/Music/return0 early level music.wav");
             else if (game.currentStage >= 3 && game.currentStage < 7)Sound_Queue_Next_Song("Assets/Audio/Music/return0 mid level music.wav");
-            else if (game.currentStage >= 7) Sound_Queue_Next_Song("Assets/Audio/Music/return0 late level music.wav");
-            else if (game.currentStage >= 10) Sound_Stop_Music();
+            else if (game.currentStage >= 7 && game.currentStage < 10) Sound_Queue_Next_Song("Assets/Audio/Music/return0 late level music.wav");
+            else if (game.currentStage >= 10) Sound_Queue_Next_Song("Assets/Audio/Music/return0 boss music.wav");
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
                 app.state.currentScene = SCENE_PAUSE;
             }
