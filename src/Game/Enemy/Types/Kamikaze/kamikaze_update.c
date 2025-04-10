@@ -93,10 +93,6 @@ void Kamikaze_Update(EnemyData* data) {
             data->state.isDead = true;
             Collider_Reset(&data->state.collider);
             data->config = NULL;
-            player.state.currentAmmo += 10 + player.resources.skillResources.scavengerAmmoBonus;
-            if (player.state.currentAmmo > player.stats.maxAmmo) {
-                player.state.currentAmmo = player.stats.maxAmmo;
-            }
         }
         break;
     }

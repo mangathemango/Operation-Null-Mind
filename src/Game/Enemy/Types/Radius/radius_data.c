@@ -24,7 +24,6 @@ RadiusConfig RadiusConfigData = {
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 500,
@@ -33,8 +32,6 @@ RadiusConfig RadiusConfigData = {
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 30,
-            .ammoConsumption = 1
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Enemies/radius_gun.png",

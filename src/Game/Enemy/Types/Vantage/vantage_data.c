@@ -24,7 +24,6 @@ VantageConfig VantageConfigData = {
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 200,         // Slower fire rate than standard
@@ -33,7 +32,6 @@ VantageConfig VantageConfigData = {
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.5f,  // Longer range
             .bulletsPerShot = 1,
-            .ammoCapacity = 8,
             .ammoConsumption = 1
         },
         .animData = {

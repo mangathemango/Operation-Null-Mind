@@ -24,7 +24,6 @@ SentryConfig SentryConfigData = {
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 200,         // Slower fire rate like Vantage
@@ -33,7 +32,6 @@ SentryConfig SentryConfigData = {
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.5f,  // Longer range like Vantage
             .bulletsPerShot = 1,
-            .ammoCapacity = 8,       // Lower capacity like Vantage
             .ammoConsumption = 1
         },
         .animData = {

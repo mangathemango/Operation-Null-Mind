@@ -24,7 +24,6 @@ ProxyConfig ProxyConfigData = {
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 650,
@@ -33,8 +32,6 @@ ProxyConfig ProxyConfigData = {
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 20,
-            .ammoConsumption = 2
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
