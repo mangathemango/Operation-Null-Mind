@@ -47,6 +47,7 @@ int Player_Start() {
     Timer_Start(player.resources.shootCooldownTimer);
 
     player.state.currentHealth = player.stats.maxHealth;
+    player.state.currentAmmo = player.stats.maxAmmo;
 
     //skill related stuff
     player.stats.enemiesKilled = 0;
