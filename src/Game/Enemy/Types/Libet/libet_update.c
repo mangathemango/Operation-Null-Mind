@@ -17,6 +17,9 @@ void Libet_Update(EnemyData* data) {
     config->timer += Time->deltaTimeSeconds;
     static int targetHP = 0;
     static int attackCounter = 0;
+    static int phase = 0;
+    config->floatTime = 1.0f - phase * 0.3f;
+
     switch (config->state) {
 
     case LIBET_FLOATING:
@@ -31,6 +34,9 @@ void Libet_Update(EnemyData* data) {
             
             attackCounter++;
             int randomState = RandInt(0, 4); 
+            if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 2 + phase) {
+                randomState = RandInt(2, 3); // Force diagonal lazer charging if there are no enemies
+            }
             if (randomState == 0) {
                 config->state = LIBET_DIAGONAL_LAZER_CHARGING;
                 for (int x = -1; x <= 1; x++) {
@@ -51,11 +57,7 @@ void Libet_Update(EnemyData* data) {
             } else if (randomState == 1) {
                 config->state = LIBET_BULLET_HELL_FIRING;
             } else if (randomState == 2 ) {
-                if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 2) {
-                    config->state = LIBET_JUGGERNAUT_SPAMMING;
-                } else {
-                    config->state = LIBET_FLOATING;
-                }
+                config->state = LIBET_JUGGERNAUT_SPAMMING;
             } else if (randomState == 3) {
                 config->state = LIBET_EXPLOSION_FIRING;
             } else if (randomState == 4) {
@@ -142,7 +144,7 @@ void Libet_Update(EnemyData* data) {
             );
             Enemy_Spawn(*enemyList[ENEMY_TYPE_JUGGERNAUT], spawnPosition);
             juggernautCounter++;
-            if (juggernautCounter >= 5) {
+            if (juggernautCounter >= 5 || EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) >= 2 + phase) {
                 juggernautCounter = 0;
                 config->state = LIBET_FLOATING;
                 config->timer = 0;
@@ -162,7 +164,7 @@ void Libet_Update(EnemyData* data) {
             );
             Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], spawnPosition);
             explosionCounter++;
-            if (explosionCounter >= 10) {
+            if (explosionCounter >= 5 || EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) >= 2 + phase) {
                 explosionCounter = 0;
                 config->state = LIBET_FLOATING;
                 config->timer = 0;
@@ -176,6 +178,7 @@ void Libet_Update(EnemyData* data) {
         if (data->state.currentHealth <= targetHP) {
             config->state = LIBET_FLOATING;
             config->timer = 0;
+            phase++;
             Animation_Play(data->resources.animation, "[INVINCIBLE]");
             data->state.collider.layer = COLLISION_LAYER_NONE;
         }
