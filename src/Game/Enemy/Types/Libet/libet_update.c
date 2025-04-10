@@ -3,6 +3,7 @@
 #include <particle_emitterpresets.h>
 #include <player.h>
 #include <random.h>
+#include <math.h>
 
 /**
  * @brief [Update] Updates the Libet boss enemy's state
@@ -14,12 +15,22 @@
 void Libet_Update(EnemyData* data) {
     LibetConfig* config = (LibetConfig*)data->config;
     config->timer += Time->deltaTimeSeconds;
+    static int targetHP = 0;
+    static int attackCounter = 0;
     switch (config->state) {
 
     case LIBET_FLOATING:
         // Handle floating behavior
         if (config->timer >= config->floatTime) {
-            int randomState = RandInt(0, 3); 
+            if (attackCounter >= 10) {
+                config->state = LIBET_VINCIBLE;
+                targetHP = data->state.currentHealth - 1000;
+                attackCounter = 0;
+                break;
+            }
+            
+            attackCounter++;
+            int randomState = RandInt(0, 4); 
             if (randomState == 0) {
                 config->state = LIBET_DIAGONAL_LAZER_CHARGING;
                 for (int x = -1; x <= 1; x++) {
@@ -30,7 +41,7 @@ void Libet_Update(EnemyData* data) {
                             .active = true,
                             .startPosition = data->state.position,
                             .direction = direction,
-                            .width = 5,
+                            .width = 0,
                             .damage = 0,
                             .lifeTime = 0.0f
                         };
@@ -47,6 +58,18 @@ void Libet_Update(EnemyData* data) {
                 }
             } else if (randomState == 3) {
                 config->state = LIBET_EXPLOSION_FIRING;
+            } else if (randomState == 4) {
+                config->state = LIBET_BIG_LAZER_CHARGING;
+                Vec2 direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
+                Lazer lazer = {
+                    .active = true,
+                    .startPosition = data->state.position,
+                    .direction = direction,
+                    .width = 0,
+                    .damage = 0,
+                    .lifeTime = 0.0f
+                };
+                Libet_AddLazer(lazer);
             }
             config->timer = 0;
         }
@@ -146,7 +169,53 @@ void Libet_Update(EnemyData* data) {
             }
         }
         break;
+
+    case LIBET_VINCIBLE:
+        Animation_Play(data->resources.animation, "[VINCIBLE]");
+        data->state.collider.layer = COLLISION_LAYER_ENEMY;
+        if (data->state.currentHealth <= targetHP) {
+            config->state = LIBET_FLOATING;
+            config->timer = 0;
+            Animation_Play(data->resources.animation, "[INVINCIBLE]");
+            data->state.collider.layer = COLLISION_LAYER_NONE;
+        }
+        break;
     
+    case LIBET_BIG_LAZER_CHARGING:
+        for (int i = 0; i < 40; i++) {
+            if (libetLazers[i].active) {
+                libetLazers[i].startPosition = data->state.position;
+                libetLazers[i].width = 0;
+            }
+        }
+        // Handle big lazer charging behavior
+        if (config->timer >= config->lazerChargeTime) {
+            config->state = LIBET_BIG_LAZER_FIRING;
+            config->timer = 0;
+        }
+        break;
+    
+    case LIBET_BIG_LAZER_FIRING:
+        for (int i = 0; i < 40; i++) {
+            if (libetLazers[i].active) {
+                libetLazers[i].startPosition = data->state.position;
+                libetLazers[i].direction = Vec2_RotateDegrees(
+                    libetLazers[i].direction, 
+                    180.0f * (Time->deltaTimeSeconds / 2) // Rotate the lazer direction
+                );
+                libetLazers[i].width = 5 * sin(config->timer / 2 * M_PI); // Gradually increase width
+                libetLazers[i].damage = 20;
+            }
+        }
+        // Handle big lazer firing behavior
+        if (config->timer >= 2) {
+            for (int i = 0; i < 40; i++) {
+                libetLazers[i].active = false;
+            }
+            config->state = LIBET_FLOATING;
+            config->timer = 0;
+        }
+        break;
     default:
         config->state = LIBET_FLOATING;
         break;
