@@ -17,6 +17,7 @@
 #include <debug.h>
 #include <bullet.h>
 #include <input.h>
+#include <enemy_libet.h>
 
 /**
  * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.
@@ -43,6 +44,7 @@ int App_RenderMain() {
             Player_Render();
             Interactable_RenderEndRoom();
             Gun_Render();
+            Enemy_RenderBoss();
             Bullet_Render();
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
@@ -59,6 +61,7 @@ int App_RenderMain() {
             Player_Render();
             Interactable_RenderEndRoom();
             Gun_Render();
+            Enemy_RenderBoss();
             Bullet_Render();
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();

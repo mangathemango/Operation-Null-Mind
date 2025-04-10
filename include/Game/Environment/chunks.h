@@ -280,3 +280,19 @@ Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk);
  */
 bool Chunk_IsValid(Vec2 chunkIndex);
 bool Chunk_IsOnMainPath(EnvironmentChunk* chunk);
+
+/**
+ * @brief Gets the top-left corner of the current room in the current chunk
+ *
+ * @param chunk Pointer to the chunk containing the room
+ * @return Vec2 Top-left corner position in world coordinates
+ */
+Vec2 Chunk_GetRoomTopLeft(EnvironmentChunk* chunk);
+
+/**
+ * @brief Gets the bottom-right corner of the current room in the current chunk
+ *
+ * @param chunk Pointer to the chunk containing the room
+ * @return Vec2 Bottom-right corner position in world coordinates
+ */
+Vec2 Chunk_GetRoomBottomRight(EnvironmentChunk* chunk);

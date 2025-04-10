@@ -61,6 +61,9 @@ void Enemy_Render() {
             continue;
         }
 
+        if (enemies[i].type == ENEMY_TYPE_LIBET) {
+            continue;
+        }
         // don't render if the enemy is not in the view
         if (Camera_WorldRectIsOnScreen(enemies[i].state.collider.hitbox))
         

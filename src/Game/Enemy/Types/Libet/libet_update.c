@@ -4,6 +4,7 @@
 #include <player.h>
 #include <random.h>
 #include <math.h>
+#include <chunks.h>
 
 /**
  * @brief [Update] Updates the Libet boss enemy's state
@@ -18,6 +19,8 @@ void Libet_Update(EnemyData* data) {
     static int targetHP = 0;
     static int attackCounter = 0;
     static int phase = 0;
+    static Vec2 currentLazer = {0, 0};
+
     config->floatTime = 1.0f - phase * 0.3f;
 
     switch (config->state) {
@@ -33,45 +36,72 @@ void Libet_Update(EnemyData* data) {
             }
             
             attackCounter++;
-            int randomState = RandInt(0, 4); 
+            int randomState; 
             if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 2 + phase) {
-                randomState = RandInt(2, 3); // Force diagonal lazer charging if there are no enemies
-            }
-            if (randomState == 0) {
-                config->state = LIBET_DIAGONAL_LAZER_CHARGING;
-                for (int x = -1; x <= 1; x++) {
-                    for (int y = -1; y <= 1; y++) {
-                        if (x == 0 && y == 0) continue;
-                        Vec2 direction = Vec2_Normalize((Vec2){x, y});
-                        Lazer lazer = {
-                            .active = true,
-                            .startPosition = data->state.position,
-                            .direction = direction,
-                            .width = 0,
-                            .damage = 0,
-                            .lifeTime = 0.0f
-                        };
-                        Libet_AddLazer(lazer);
-                    }
+                if (phase < 2) {
+                    randomState = 0;
+                } else {
+                    randomState = RandInt(0, 1);
                 }
-            } else if (randomState == 1) {
-                config->state = LIBET_BULLET_HELL_FIRING;
-            } else if (randomState == 2 ) {
-                config->state = LIBET_JUGGERNAUT_SPAMMING;
-            } else if (randomState == 3) {
-                config->state = LIBET_EXPLOSION_FIRING;
-            } else if (randomState == 4) {
-                config->state = LIBET_BIG_LAZER_CHARGING;
-                Vec2 direction = Vec2_Normalize(Vec2_Subtract(player.state.position, data->state.position));
-                Lazer lazer = {
-                    .active = true,
-                    .startPosition = data->state.position,
-                    .direction = direction,
-                    .width = 0,
-                    .damage = 0,
-                    .lifeTime = 0.0f
-                };
-                Libet_AddLazer(lazer);
+            } else {
+                randomState = RandInt(2, 5);
+            }
+            switch (randomState) {
+                case 0:
+                    config->state = LIBET_EXPLOSION_FIRING;
+                    break;
+                case 1:
+                    config->state = LIBET_JUGGERNAUT_SPAMMING;
+                    break;
+                case 2:
+                    config->state = LIBET_DIAGONAL_LAZER_CHARGING;
+                    for (int x = -1; x <= 1; x++) {
+                        for (int y = -1; y <= 1; y++) {
+                            if (x == 0 && y == 0) continue;
+                            Vec2 direction = Vec2_Normalize((Vec2){x, y});
+                            Lazer lazer = {
+                                .active = true,
+                                .startPosition = data->state.position,
+                                .direction = direction,
+                                .width = 0,
+                                .damage = 0,
+                                .lifeTime = 0.0f
+                            };
+                            Libet_AddLazer(lazer);
+                        }
+                    }
+                    break;
+                case 3:
+                    config->state = LIBET_BULLET_HELL_FIRING;
+                    break;
+                case 4:
+                    config->state = LIBET_BIG_LAZER_CHARGING;
+                    Vec2 direction = 
+                    Vec2_RotateDegrees(
+                        Vec2_Normalize(
+                            Vec2_Subtract(player.state.position, data->state.position)
+                        ), 
+                        -90
+                    );
+                    Lazer lazer = {
+                        .active = true,
+                        .startPosition = data->state.position,
+                        .direction = direction,
+                        .width = 0,
+                        .damage = 0,
+                        .lifeTime = 0.0f
+                    };
+                    Libet_AddLazer(lazer);
+                    break;
+                case 5:
+                    config->state = LIBET_ROOM_LAZER_FIRING;
+                    currentLazer = Vec2_Add(
+                        Chunk_GetRoomTopLeft(Chunk_GetCurrentChunk(data->state.position)), 
+                        (Vec2) {
+                            RandInt(0, 60),
+                            RandInt(-10, 50)
+                        });
+                    break;
             }
             config->timer = 0;
         }
@@ -97,7 +127,7 @@ void Libet_Update(EnemyData* data) {
             if (libetLazers[i].active) {
                 libetLazers[i].startPosition = data->state.position;
                 libetLazers[i].width = 5 - config->timer / config->lazerFireTime * 5;
-                libetLazers[i].damage = 20;
+                libetLazers[i].damage = 10;
             }
         }
         if (config->timer >= config->lazerFireTime) {
@@ -132,7 +162,6 @@ void Libet_Update(EnemyData* data) {
         break;
     
     case LIBET_JUGGERNAUT_SPAMMING:
-        SDL_Log("Libet is spamming Juggernauts!");
         static int juggernautCounter = 0;
         float juggernautFireRate = 0.3f;
         static float juggernautFireRateTimer = 0.0f;
@@ -164,7 +193,7 @@ void Libet_Update(EnemyData* data) {
             );
             Enemy_Spawn(*enemyList[ENEMY_TYPE_KAMIKAZE], spawnPosition);
             explosionCounter++;
-            if (explosionCounter >= 5 || EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) >= 2 + phase) {
+            if (explosionCounter >= 5 || EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) >= 2 + phase * 2) {
                 explosionCounter = 0;
                 config->state = LIBET_FLOATING;
                 config->timer = 0;
@@ -207,7 +236,7 @@ void Libet_Update(EnemyData* data) {
                     180.0f * (Time->deltaTimeSeconds / 2) // Rotate the lazer direction
                 );
                 libetLazers[i].width = 5 * sin(config->timer / 2 * M_PI); // Gradually increase width
-                libetLazers[i].damage = 20;
+                libetLazers[i].damage = 10;
             }
         }
         // Handle big lazer firing behavior
@@ -219,6 +248,78 @@ void Libet_Update(EnemyData* data) {
             config->timer = 0;
         }
         break;
+
+    case LIBET_ROOM_LAZER_FIRING:
+        for (int i = 0; i < 40; i++) {
+            if (libetLazers[i].active) {
+                if (libetLazers[i].lifeTime >= 1.7f) {
+                    libetLazers[i].width = -1;
+                    libetLazers[i].damage = 0;
+                    libetLazers[i].active = false;
+                    libetLazers[i].lifeTime = 0;
+                } else if (libetLazers[i].lifeTime >= 1.5f) {
+                    libetLazers[i].width = 5 - (libetLazers[i].lifeTime - 1.5f) * 25;
+                    libetLazers[i].damage = 10;
+                } else {
+                    libetLazers[i].width = 0;
+                    libetLazers[i].damage = 0;
+                }
+            }
+        }
+
+        static int fireMode = 0;
+        if (config->timer >= 0.1f) {
+            if (currentLazer.y <= Chunk_GetRoomBottomRight(Chunk_GetCurrentChunk(data->state.position)).y && fireMode == 0) {
+                config->timer = 0;
+                Vec2 startPosition = (Vec2) {
+                    Chunk_GetRoomTopLeft(Chunk_GetCurrentChunk(data->state.position)).x,
+                    currentLazer.y
+                };
+                Lazer lazer = {
+                    .active = true,
+                    .startPosition = startPosition,
+                    .direction = Vec2_Right,
+                    .width = 0,
+                    .damage = 0,
+                    .lifeTime = 0.0f
+                };
+                Libet_AddLazer(lazer);
+                currentLazer.y += 60;
+                break;
+            } else if (currentLazer.y >= Chunk_GetRoomTopLeft(Chunk_GetCurrentChunk(data->state.position)).y && fireMode == 0) {
+                fireMode = 1;
+                break;
+            } else if (currentLazer.x <= Chunk_GetRoomBottomRight(Chunk_GetCurrentChunk(data->state.position)).x && fireMode == 1) {
+                config->timer = 0;
+                Vec2 startPosition = (Vec2) {
+                    currentLazer.x,
+                    Chunk_GetRoomTopLeft(Chunk_GetCurrentChunk(data->state.position)).y - 20
+                };
+                Lazer lazer = {
+                    .active = true,
+                    .startPosition = startPosition,
+                    .direction = Vec2_Down,
+                    .width = 0,
+                    .damage = 0,
+                    .lifeTime = 0.0f
+                };
+                Libet_AddLazer(lazer);
+                currentLazer.x += 60;
+                break;
+            } else {
+                fireMode = 0;
+                if (config->timer > 2) {
+                    config->timer = 0;
+                    for (int i = 0; i < 40; i++) {
+                        libetLazers[i].active = false;
+                    }
+                    config->state = LIBET_FLOATING;
+                }
+                break;
+            }
+        }
+        break;
+
     default:
         config->state = LIBET_FLOATING;
         break;
@@ -240,7 +341,7 @@ void Libet_Update(EnemyData* data) {
             Collider_Check(bullet->collider, &result);
             for (int j = 0; j < result.count; j++) {
                 if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                    Player_TakeDamage(data->stats.damage);
+                    Player_TakeDamage(10);
                 }
                 if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                     bullet->alive = false;

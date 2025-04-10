@@ -91,6 +91,7 @@ void EnemyManager_Update() {
 
                     if (chunk->roomType == ROOM_TYPE_BOSS) {
                         spawnedEnemy = ENEMY_TYPE_LIBET;
+                        spawnPosition = Chunk_GetChunkCenter(chunk);
                     }
 
                     if (spawnedEnemy >= ENEMY_TYPE_COUNT) {

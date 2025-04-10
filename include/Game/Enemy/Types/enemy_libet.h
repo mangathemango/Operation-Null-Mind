@@ -4,16 +4,16 @@
 #include <lazer_system.h>
 
 typedef enum {
-    LIBET_FLOATING,
-    LIBET_VINCIBLE,
-    LIBET_DIAGONAL_LAZER_CHARGING,
-    LIBET_DIAGONAL_LAZER_FIRING,
     LIBET_EXPLOSION_FIRING,
-    LIBET_ROOM_LAZER_FIRING,
+    LIBET_JUGGERNAUT_SPAMMING,
+    LIBET_DIAGONAL_LAZER_CHARGING,
     LIBET_BULLET_HELL_FIRING,
     LIBET_BIG_LAZER_CHARGING,
+    LIBET_ROOM_LAZER_FIRING,
+    LIBET_FLOATING,
+    LIBET_VINCIBLE,
+    LIBET_DIAGONAL_LAZER_FIRING,
     LIBET_BIG_LAZER_FIRING,
-    LIBET_JUGGERNAUT_SPAMMING,
     LIBET_SPINNING,
 } LibetState;
 
@@ -57,3 +57,5 @@ void Libet_Update(EnemyData* data);
 void Libet_Render(EnemyData* data);
 
 void Libet_AddLazer(Lazer lazer);
+
+void Enemy_RenderBoss();
