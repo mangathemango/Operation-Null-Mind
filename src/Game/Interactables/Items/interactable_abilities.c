@@ -5,7 +5,7 @@
 void Interactable_CreateAbilties(Vec2 position) {
     int index = Interactable_Create(INTERACTABLE_ABILITIES, position);
     
-    int random = RandInt(ARMORED_UP, SCAVENGER);
+    int random = RandInt(0, TOTAL_SKILLS - 1);
     interactables[index].textTexture = UI_CreateTextTexture(
         abilityData[random].name, 
         (SDL_Color){255, 255, 255, 255}, 

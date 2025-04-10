@@ -55,7 +55,7 @@ RadiusConfig RadiusConfigData = {
         }
     },
     .gunOffset = {0, -3},
-    .explosionRadius = 20.0f,
+    .explosionRadius = 50.0f,
 };
 
 EnemyData RadiusData = {

@@ -82,7 +82,7 @@ EnemyData ProxyData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 15,
+        .damage = 10,
         .maxHealth = 80,
         .maxSpeed = 120.0f,
         .acceleration = 450.0f,

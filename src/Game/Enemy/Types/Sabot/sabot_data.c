@@ -83,7 +83,7 @@ EnemyData SabotData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 25,
+        .damage = 15,
         .maxHealth = 60,
         .maxSpeed = 140.0f,
         .acceleration = 600.0f,

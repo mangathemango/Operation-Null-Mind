@@ -18,7 +18,15 @@
 #include <string.h>
 #include <SDL.h> 
 
-
+/**
+ * @brief Sets the maximum number of sound effect channels.
+ *
+ * @param numChannels The number of channels to allocate.
+ */
+void Sound_Set_Max_Channels(int numChannels) {
+    Mix_AllocateChannels(numChannels);
+    SDL_Log("Number of sound effect channels set to: %d", numChannels);
+}
 
 // Initialize the sound resources structure
 SoundResources soundResources = {
@@ -66,6 +74,7 @@ bool Sound_System_Initialize() {
         printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
         return false;
     }
+    Sound_Set_Max_Channels(32); // Set the maximum number of sound effect channels
     
     return true;
 }
