@@ -17,6 +17,7 @@
 #include <debug.h>
 #include <bullet.h>
 #include <input.h>
+#include <enemy_libet.h>
 #include <controls.h>
 #include <win.h> // Added for Win_Render function
 
@@ -57,6 +58,7 @@ int App_RenderMain() {
             Player_Render();
             Interactable_RenderEndRoom();
             Gun_Render();
+            Enemy_RenderBoss();
             Bullet_Render();
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
@@ -73,6 +75,7 @@ int App_RenderMain() {
             Player_Render();
             Interactable_RenderEndRoom();
             Gun_Render();
+            Enemy_RenderBoss();
             Bullet_Render();
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();

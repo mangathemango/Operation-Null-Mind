@@ -100,6 +100,7 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
         if (result.objects[i]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY | COLLISION_LAYER_PLAYER)) {
             if (result.objects[i]->owner == enemy) continue;
             // Kill enemy if spawning inside another object
+            Enemy_HandleDeath(enemy);
             break;
         }
     }
