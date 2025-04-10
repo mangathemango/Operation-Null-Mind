@@ -17,6 +17,10 @@ typedef enum {
     INTERACTABLE_LOG,
     INTERACTABLE_EXIT,
     INTERACTABLE_WEAPON,
+    INTERACTABLE_HEALTH,
+    INTERACTABLE_HEALTH_MEDIUM,
+    INTERACTABLE_HEALTH_LARGE,
+    INTERACTABLE_ABILITIES,
     INTERACTABLE_COUNT
 } InteractableType;
 
@@ -43,6 +47,22 @@ typedef struct {
     void* data;
 } Interactable;
 
+typedef struct {
+    int healthAmount;
+    char* name;
+} HealthData;
+
+typedef struct
+{
+    int type;
+    char* name;
+    char* descriptionPro;
+    char* descriptionCon;
+    char* path;
+} AbilityData;
+
+extern HealthData healthData[3];
+extern AbilityData abilityData[8];
 extern Interactable interactables[MAX_INTERACTABLES];
 extern Interactable interactableData[INTERACTABLE_COUNT];
 extern SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
@@ -58,3 +78,5 @@ void Interactable_RenderEndRoom();
 void Interactable_RenderInteractionText();
 void Interactable_Reset();
 void Interactable_Deactivate(int index);
+void Interactable_CreateHealth(Vec2 position);
+void Interactable_CreateAbilties(Vec2 position);

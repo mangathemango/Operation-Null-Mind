@@ -17,6 +17,18 @@
 #include <game.h>
 #include <sound.h>
 
+typedef enum{
+    ARMORED_UP = 0,
+    GHOST_LOAD = 1,
+    HEMO_CYCLE = 2,
+    KINETIC_ARMOR = 3,
+    LAST_STAND = 4,
+    ONE_MORE = 5,
+    OVER_PRESSURED = 6,
+    SCAVENGER = 7,
+    TOTAL_SKILLS,
+} SkillIndex;
+
 typedef struct
 {
     bool overPressured;

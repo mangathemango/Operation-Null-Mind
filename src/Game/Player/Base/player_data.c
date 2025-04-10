@@ -38,7 +38,7 @@ PlayerData player = {
             .overPressured =    false,
             .scavenger =        false,
             .crashOut =         false,
-            .parryActive = false,
+            .parryActive =      false,
             .crashOutMultiplier = 2,
         },
         .collider = {
