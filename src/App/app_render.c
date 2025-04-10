@@ -63,6 +63,7 @@ int App_RenderMain() {
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
             HUD_Render();
+            EnemyManager_RenderClearText();
             Log_Render();
             LevelTransition_Render();
             Pause_Render();
@@ -80,6 +81,7 @@ int App_RenderMain() {
             Debug_RenderHitboxes();
             Interactable_RenderInteractionText();
             HUD_Render();
+            EnemyManager_RenderClearText();
             Log_Render();
             LevelTransition_Render();
             Player_RenderDamageEffect();

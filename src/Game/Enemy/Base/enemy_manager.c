@@ -32,6 +32,8 @@ int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk) {
     return count;
 }
 
+float currentClearTextAlpha = 0;
+
 /**
  * @brief [PostUpdate] Updates the enemy management system
  * 
@@ -105,7 +107,8 @@ void EnemyManager_Update() {
             chunk->inCombat = false;
             chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
             Chunk_GenerateTilesButVoid(chunk);
-
+            currentClearTextAlpha = 255;
+            SDL_Log("Current Clear Text Alpha: %f", currentClearTextAlpha);
             if (chunk->roomType == ROOM_TYPE_BOSS) {
                 Sound_Clear_Queue();
                 Sound_Stop_Music();
@@ -129,4 +132,31 @@ void EnemyManager_Update() {
     if (chunk->currentEnemyCount <= 0 && chunk->totalEnemyCount <= 0 && !chunk->inCombat) {
         chunk->discovered = true;
     }
+}
+
+void EnemyManager_RenderClearText() {
+    static UIElement* clearText = NULL;
+    if (clearText == NULL) {
+        clearText = UI_CreateText(
+            "CLEAR",
+            (SDL_Rect) {
+                app.config.screen_width / 2,
+                50
+            },
+            (SDL_Color){255, 255, 255, 0},
+            1.0f,
+            UI_TEXT_ALIGN_CENTER,
+            app.resources.title1Font
+        );
+    }
+    
+    if (currentClearTextAlpha > 0) {
+        // Ensure alpha decreases consistently and reaches 0
+        currentClearTextAlpha -= 255 * Time->deltaTimeSeconds; // Adjusted to scale with time
+        if (currentClearTextAlpha < 0) currentClearTextAlpha = 0; // Clamp to 0
+    }
+
+    UI_UpdateText(clearText);
+    SDL_SetTextureAlphaMod(((UI_TextData*) (clearText->data))->textTexture, (int) currentClearTextAlpha);
+    UI_RenderText(clearText);
 }

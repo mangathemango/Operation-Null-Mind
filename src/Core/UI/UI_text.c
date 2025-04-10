@@ -101,6 +101,7 @@ void UI_UpdateText(UIElement* element) {
 
 void UI_RenderText(UIElement* element) {
     UI_TextData* data = element->data;
+    SDL_SetRenderDrawBlendMode(app.resources.renderer, SDL_BLENDMODE_BLEND);
     SDL_RenderCopy(app.resources.renderer, data->textTexture, NULL, &element->dstRect);
 }
 

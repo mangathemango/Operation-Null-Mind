@@ -135,6 +135,7 @@ void Enemy_HandleMovement(EnemyData* enemy);
 void Enemy_TryMove(EnemyData* enemy, Vec2 movement);
 void Enemy_HandleDeath(EnemyData* enemy);
 void EnemyManager_Update();
+void EnemyManager_RenderClearText();
 void Enemy_Render();
 void Enemy_Destroy();
 void Enemy_Spawn(EnemyData data, Vec2 position);
