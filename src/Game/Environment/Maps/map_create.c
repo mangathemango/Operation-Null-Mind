@@ -54,7 +54,7 @@ void Map_Generate() {
     int startY = 3; 
     Map_SetStartChunk(startX, startY);
 
-    if (game.currentStage != 11) {
+    if (game.currentStage != 10) {
         Map_CreateMainPath();
         Map_SetEndChunk(testMap.mainPath[testMap.mainPathLength].x, testMap.mainPath[testMap.mainPathLength].y);
         SDL_Log("Current position: (%d, %d) - Target position: (%d, %d)\n", startX, startY,(int) testMap.mainPath[testMap.mainPathLength].x, (int) testMap.mainPath[testMap.mainPathLength].y);
