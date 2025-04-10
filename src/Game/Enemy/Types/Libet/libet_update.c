@@ -30,7 +30,7 @@ void Libet_Update(EnemyData* data) {
         if (config->timer >= config->floatTime) {
             if (attackCounter >= 10) {
                 config->state = LIBET_VINCIBLE;
-                targetHP = data->state.currentHealth - 1000;
+                targetHP = data->state.currentHealth - data->stats.maxHealth / 5;
                 attackCounter = 0;
                 break;
             }
@@ -207,11 +207,30 @@ void Libet_Update(EnemyData* data) {
         Animation_Play(data->resources.animation, "[VINCIBLE]");
         data->state.collider.layer = COLLISION_LAYER_ENEMY;
         if (data->state.currentHealth <= targetHP) {
+            data->state.currentHealth = targetHP;
             config->state = LIBET_FLOATING;
             config->timer = 0;
             phase++;
+            player.state.currentHealth += 50;
+            if (player.state.currentHealth > player.stats.maxHealth) {
+                player.state.currentHealth = player.stats.maxHealth;
+            }
             Animation_Play(data->resources.animation, "[INVINCIBLE]");
             data->state.collider.layer = COLLISION_LAYER_NONE;
+
+            if (phase >= 5) {
+                config->state = LIBET_FLOATING;
+                data->state.isSpawning = false;
+                data->state.collider.layer = COLLISION_LAYER_ENEMY;
+                for (int i = 0; i < 40; i++) {
+                    libetLazers[i].active = false;
+                }
+                for (int i = 0; i < ENEMY_MAX; i++) {
+                    EnemyData* enemy = &enemies[i];
+                    if (enemy->state.isDead) continue;
+                    enemy->state.currentHealth = 0;
+                }
+            }
         }
         break;
     

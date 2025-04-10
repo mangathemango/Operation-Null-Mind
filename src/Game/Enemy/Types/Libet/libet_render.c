@@ -65,6 +65,31 @@ void Libet_Render(EnemyData* data) {
             app.resources.textFont
         );
     }
+    static UIElement* tipText = NULL;
+    if (!tipText) {
+        tipText = UI_CreateText(
+            "DANGER - LIBET IS INVULNERABLE",
+            (SDL_Rect) {
+                app.config.screen_width / 2,
+                35,
+                0,
+                0
+            },
+            (SDL_Color){255, 255, 255, 255},
+            0.8f,
+            UI_TEXT_ALIGN_CENTER,
+            app.resources.textFont
+        );
+    }
+    if (config->state == LIBET_VINCIBLE) {
+        UI_ChangeText(tipText, "OVERLOADED - SUBJECT'S DEFENSE IS DOWN");
+        UI_ChangeTextColor(tipText, (SDL_Color){0, 255, 0, 255});
+    } else {
+        UI_ChangeText(tipText, "DANGER - SUBJECT IS INVULNERABLE");
+        UI_ChangeTextColor(tipText, (SDL_Color){255, 0, 0, 255});
+    }
+    UI_UpdateText(tipText);
+    UI_RenderText(tipText);
     UI_UpdateText(bossText);
     UI_RenderText(bossText);
 

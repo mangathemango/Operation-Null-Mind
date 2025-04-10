@@ -31,7 +31,7 @@ EnemyData LibetData = {
     },
     .stats = {
         .damage = 20,
-        .maxHealth = 5000,
+        .maxHealth = 10000,
         .maxSpeed = 80.0f,
         .acceleration = 300.0f,
         .drag = 50.0f,
