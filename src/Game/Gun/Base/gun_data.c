@@ -318,7 +318,7 @@ GunData GunList[GUN_COUNT] = {
             .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Guns/ArmorPistol.png",
+            .spritesheetPath = "Assets/Images/Guns/Armor Pistol.png",
             .frameSize = {37, 12},
             .frameCount = 2,
             .clips = {
@@ -364,7 +364,7 @@ GunData GunList[GUN_COUNT] = {
             .bulletVelocity = BULLET_VELOCITY_MID
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Guns/RapidSMG.png",
+            .spritesheetPath = "Assets/Images/Guns/Rapid SMG.png",
             .frameSize = {37, 12},
             .frameCount = 2,
             .clips = {
@@ -456,7 +456,7 @@ GunData GunList[GUN_COUNT] = {
             .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Guns/BurstRifle.png",
+            .spritesheetPath = "Assets/Images/Guns/Burst Rifle.png",
             .frameSize = {37, 12},
             .frameCount = 2,
             .clips = {
@@ -502,7 +502,7 @@ GunData GunList[GUN_COUNT] = {
             .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Guns/BullpupRifle.png",
+            .spritesheetPath = "Assets/Images/Guns/Bullpup Rifle.png",
             .frameSize = {37, 12},
             .frameCount = 2,
             .clips = {
@@ -548,7 +548,7 @@ GunData GunList[GUN_COUNT] = {
             .bulletVelocity = BULLET_VELOCITY_SLOW
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Guns/AutoShotgun.png",
+            .spritesheetPath = "Assets/Images/Guns/Auto Shotgun.png",
             .frameSize = {37, 12},
             .frameCount = 2,
             .clips = {

@@ -343,6 +343,7 @@ void HUD_Render() {
         HUD_RenderAmmoBar();
         HUD_RenderCurrentGun();
         HUD_RenderCurrentLevel();
+        HUD_RenderAmmoDisplay();
     }
     if(!game.hudToggled)
     {
