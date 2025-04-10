@@ -336,8 +336,8 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
 
     .startColor = {255, 0, 0, 255},
     .endColor = {255, 0, 0, 255},
-    .startSize = {3, 3},
-    .endSize = {3, 3},
+    .startSize = {6, 6},
+    .endSize = {6, 6},
     .particleTexture = NULL,
 
     .gravity = {0, 0},
@@ -511,6 +511,41 @@ ParticleEmitter ParticleEmitter_Fire = {
         .collidesWith = COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER,
         .layer = COLLISION_LAYER_ENEMY_PROJECTILE,
     }
+};
+
+ParticleEmitter ParticleEmitter_Parry = {
+    .position = {100, 100},
+
+    .direction = {0, -1},
+    .emissionRate = 100,
+    .emissionNumber = 1000,
+    .maxParticles = 100000,
+    .angleRange = 180,
+
+    .active = true,
+    .emitterLifetime = 0,
+    .emitterAge = 0,
+    .loopCount = 0,
+    .destroyWhenDone = false,
+
+    .particleLifetime = 0.05,
+    .particleSpeed = 1000,
+    .custom_Movement = NULL,
+
+    .startColor = {3, 252, 232, 255},
+    .endColor = {3, 252, 232, 0},
+    .startSize = {4,4},
+    .endSize = {4, 4},
+    .particleTexture = NULL,
+
+    .gravity = {0, 0},
+    .drag = 0,
+
+    .particles = NULL,
+    .readyIndex = 0,
+    .selfReference = NULL,
+
+    .useCollider = false,
 };
 
 /** @brief Test emitter for development purposes */

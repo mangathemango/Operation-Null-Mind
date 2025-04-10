@@ -9,6 +9,10 @@ typedef struct {
 
     int viewingLog;
     bool hudToggled;
+    float runTime;
+    int ammoSpent;
+    int hitsTaken;
+    int healingItemsUsed;
 } GameData;
 
 extern GameData game;
@@ -19,3 +23,7 @@ void Game_Restart();
 void Game_TransitionNextLevel(void* data, int interactableIndex);
 void Player_PickUpHealth(void* data, int interactableIndex);
 void Player_PickUpSkill(void* data, int interactableIndex);
+void Game_AddAmmoSpent(int ammo);
+void Game_AddHitsTaken();
+void Game_AddHealingItemUsed();
+

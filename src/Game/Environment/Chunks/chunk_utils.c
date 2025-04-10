@@ -76,6 +76,42 @@ Vec2 Chunk_GetRandomTileCenterInRoom(EnvironmentChunk* chunk) {
     );
 }
 
+/**
+ * [Utility] Gets the top-left corner of the current room in the current chunk
+ *
+ * @param chunk Pointer to the chunk containing the room
+ * @return Vec2 Top-left corner position in world coordinates
+ */
+Vec2 Chunk_GetRoomTopLeft(EnvironmentChunk* chunk) {
+    float roomStartX = ROOM_STARTX(chunk->roomSize);
+    float roomStartY = ROOM_STARTY(chunk->roomSize);
+
+    Vec2 tileIndex = (Vec2) {
+        roomStartX,
+        roomStartY
+    };
+
+    return Tile_TileIndexToPixel(tileIndex, chunk->position);
+}
+
+/**
+ * [Utility] Gets the bottom-right corner of the current room in the current chunk
+ *
+ * @param chunk Pointer to the chunk containing the room
+ * @return Vec2 Bottom-right corner position in world coordinates
+ */
+Vec2 Chunk_GetRoomBottomRight(EnvironmentChunk* chunk) {
+    float roomEndX = ROOM_ENDX(chunk->roomSize) - 1;
+    float roomEndY = ROOM_ENDY(chunk->roomSize) - 1;
+
+    Vec2 tileIndex = (Vec2) {
+        roomEndX,
+        roomEndY
+    };
+
+    return Tile_TileIndexToPixel(tileIndex, chunk->position);
+}
+
 bool Chunk_IsOnMainPath(EnvironmentChunk* chunk) {
     if (!chunk) return false;
     for (int i = 0; i < testMap.mainPathLength; i++) {

@@ -30,7 +30,7 @@ JuggernautConfig JuggernautConfigData = {
         .stats = {
             .fireRate = 300,
             .spread_angle = 8,
-            .damage = 20,
+            .damage = 10,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
@@ -87,7 +87,7 @@ EnemyData JuggernautData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 1,
+        .damage = 20,
         .maxHealth = 600,
         .maxSpeed = 200.0f,      // Slow but powerful
         .acceleration = 250.0f,

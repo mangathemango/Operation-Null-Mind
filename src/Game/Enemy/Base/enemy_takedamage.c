@@ -28,6 +28,9 @@ UIElement* EnemyHealthTexts[ENEMY_MAX * 10] = {NULL};
 void Enemy_TakeDamage(EnemyData* enemy, int damage) {
     if (enemy->state.isDead) return;
     int effectiveDamage = damage * (100 - player.resources.skillResources.armoredUpDamageOutputDamageReduction) / 100;
+    if (damage < 0) {
+        effectiveDamage = damage;
+    }
     enemy->state.currentHealth -= effectiveDamage;
     Enemy_CreateHealthText(enemy, effectiveDamage);
 }
@@ -35,24 +38,47 @@ void Enemy_TakeDamage(EnemyData* enemy, int damage) {
 void Enemy_CreateHealthText(EnemyData* enemy, int damage) {
     if (enemy->state.isDead) return;
     
+    UIElement* text;
     char textBuffer[50];
-    snprintf(textBuffer, sizeof(textBuffer), "-%d", damage);
-    UIElement* text = UI_CreateText(
-        textBuffer, 
-        Vec2_ToSquareRect(
-            Camera_WorldVecToScreen(
-                (Vec2) {
-                    enemy->state.position.x, 
-                    enemy->state.position.y - enemy->animData.spriteSize.y / 2
-                }
-            ), 
-            0
-        ),
-        (SDL_Color) {255, 255, 255, 255},
-        1.0f,
-        UI_TEXT_ALIGN_CENTER,
-        app.resources.textFont
-    );
+    if (damage > 0) {
+        snprintf(textBuffer, sizeof(textBuffer), "-%d", damage);
+        text = UI_CreateText(
+            textBuffer, 
+            Vec2_ToSquareRect(
+                Camera_WorldVecToScreen(
+                    (Vec2) {
+                        enemy->state.position.x, 
+                        enemy->state.position.y - enemy->animData.spriteSize.y / 2
+                    }
+                ), 
+                0
+            ),
+            (SDL_Color) {255, 255, 255, 255},
+            1.0f,
+            UI_TEXT_ALIGN_CENTER,
+            app.resources.textFont
+        );
+    } else {
+        snprintf(textBuffer, sizeof(textBuffer), "+%d", -damage);
+        text = UI_CreateText(
+            textBuffer, 
+            Vec2_ToSquareRect(
+                Camera_WorldVecToScreen(
+                    (Vec2) {
+                        enemy->state.position.x, 
+                        enemy->state.position.y - enemy->animData.spriteSize.y / 2
+                    }
+                ), 
+                0
+            ),
+            (SDL_Color) {0, 255, 0, 255},
+            1.0f,
+            UI_TEXT_ALIGN_CENTER,
+            app.resources.textFont
+        );
+    }
+    
+    
     for (int i = 0; i < ENEMY_MAX * 10; i++) {
         if (EnemyHealthTexts[i] == NULL) {
             EnemyHealthTexts[i] = text;
@@ -75,9 +101,9 @@ void Enemy_UpdateHealthTexts() {
         UI_ChangeTextColor( 
             EnemyHealthTexts[i], 
             (SDL_Color) {
-                255, 
-                255, 
-                255, 
+                EnemyHealthTexts[i]->color.r,
+                EnemyHealthTexts[i]->color.g,
+                EnemyHealthTexts[i]->color.b,
                 nextAlpha
             }
         );

@@ -14,6 +14,8 @@
 #include <app.h>
 #include <ui_text.h>
 
+AppScene controlLastScene = SCENE_MENU; // Last scene before controls screen
+
 // Global variables for the controls screen
 SDL_Texture* Controls_Background = NULL;
 UIElement* ControlsText = NULL;
@@ -68,7 +70,7 @@ void Controls_Update()
         backHovered = true;
         UI_ChangeTextColor(ControlsText, (SDL_Color) {0, 0, 0, 255});
         if (Input->mouse.leftButton.pressed) {
-            app.state.currentScene = SCENE_MENU;
+            app.state.currentScene = controlLastScene; // Return to the last scene
         }
     } else {
         backHovered = false;

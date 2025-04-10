@@ -44,6 +44,8 @@ int Player_PostUpdate() {
     //Handle when the player is in crashout state
     if(player.state.skillState.crashOut) Player_HandleCrashOut();
 
+    if(player.state.skillState.parryActive) Handle_Parry();
+
     // Handles player movement (will be optimized later)
     Player_Move();
     Player_UpdateHitbox();

@@ -28,6 +28,7 @@
  * @return Animation* Pointer to the new animation, or NULL if failed
  */
 Animation* Animation_Create(AnimationData* animData) {
+    if (!animData) return NULL;
     Animation* animation = malloc(sizeof(Animation));
     if (!animation) return NULL;
 

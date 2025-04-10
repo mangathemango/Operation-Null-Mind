@@ -56,8 +56,8 @@ int Initialize_SDL() {
 
     // Load font
     app.resources.textFont = TTF_OpenFont(app.config.textFontPath, 15);
-    app.resources.title1Font = TTF_OpenFont(app.config.title1FontPath, 15);
-    app.resources.title2Font = TTF_OpenFont(app.config.title1FontPath, 15);
+    app.resources.title1Font = TTF_OpenFont(app.config.title1FontPath, 20);
+    app.resources.title2Font = TTF_OpenFont(app.config.title1FontPath, 20);
     if (app.resources.textFont == NULL) {
         SDL_Log("Failed to load font! TTF_Error: %s\n", TTF_GetError());
         return -1;

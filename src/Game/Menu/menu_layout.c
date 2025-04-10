@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <input.h>
 #include <sound.h>
+#include <controls.h>
 
 static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
@@ -63,10 +64,19 @@ void Menu_Update() {
         UI_ChangeTextColor(startButtonElement, defaultButtonColor);
     }
 
+
+    if (Input_MouseIsOnRect(startButtonRect) && Input->mouse.leftButton.pressed) {
+        app.state.currentScene = SCENE_GAME;
+        if (game.currentStage < 3) Sound_Play_Music("Assets/Audio/Music/return0 early level music.wav", -1);
+        else if (game.currentStage >= 3 && game.currentStage < 7) Sound_Play_Music("Assets/Audio/Music/return0 mid level music.wav", -1);
+        else if (game.currentStage >= 7 && game.currentStage < 10) Sound_Play_Music("Assets/Audio/Music/return0 late level music.wav", -1);
+        else if (game.currentStage >= 10) Sound_Stop_Music();
+      
     if (Input_MouseIsOnRect(controlsButtonRect)) {
         UI_ChangeTextColor(controlsButtonElement, hoverButtonColor);
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_CONTROLS;
+            controlLastScene = SCENE_MENU;
         }
     } else {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);

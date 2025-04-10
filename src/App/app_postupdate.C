@@ -17,6 +17,7 @@
 #include <bullet.h>
 #include <enemy_types.h>
 #include <controls.h>
+#include <win.h> // Added for Win_Update function
 
 /**
  * @brief [PostUpdate] Main game update routine
@@ -58,16 +59,16 @@ int App_PostUpdate() {
             if(game.currentStage < 3) Sound_Queue_Next_Song("Assets/Audio/Music/return0 early level music.wav");
             else if (game.currentStage >= 3 && game.currentStage < 7)Sound_Queue_Next_Song("Assets/Audio/Music/return0 mid level music.wav");
             else if (game.currentStage >= 7) Sound_Queue_Next_Song("Assets/Audio/Music/return0 late level music.wav");
-            else if (game.currentStage >= 10) Sound_Queue_Next_Song("Assets/Audio/Music/return0 boss music.wav");
+            else if (game.currentStage >= 10) Sound_Stop_Music();
             if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
                 app.state.currentScene = SCENE_PAUSE;
             }
             if(player.state.currentHealth <= 0) {
                 if(player.state.skillState.lastStand == false)
                 {
-                    app.state.currentScene = SCENE_DEATH;
+                    // For debugging win screen, going to SCENE_WIN instead of SCENE_DEATH
+                    app.state.currentScene = SCENE_DEATH; // Temporarily show win screen for debugging
                     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
-                    Game_Restart();
                 }
             }
             break;
@@ -77,6 +78,10 @@ int App_PostUpdate() {
 
         case SCENE_DEATH:
             Death_Update();
+            break;
+            
+        case SCENE_WIN:
+            Win_Update();
             break;
         default:
             break;

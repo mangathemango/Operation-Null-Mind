@@ -18,6 +18,12 @@
 #include <camera.h>
 #include <random.h>
 #include <gun.h>
+#include <bullet.h>
+#include <enemy_types.h>
+#include <input.h>
+#include <stdlib.h>
+#include <circle.h>
+#include <math.h>
 
 /**
  * @brief [Utility] Initiates player dash movement if conditions are met
@@ -53,6 +59,7 @@ int Player_Dash() {
  * @return int Status code (0 for success)
  */
 int Player_HandleDash() {
+    player.state.collider.layer = COLLISION_LAYER_NONE;
     // Ends the dash state when the timer is finished
     ColliderCheckResult result;
     Collider_Check(&player.state.collider, &result);
@@ -67,6 +74,7 @@ int Player_HandleDash() {
     {
         player.state.dashing = false; //Just unchecks dashing
         player.state.directionLocked = false; //Just unchecks movementlock
+        player.state.collider.layer = COLLISION_LAYER_PLAYER;
         return 0;
     }
     if (Timer_IsFinished(player.resources.dashDurationTimer) && insideEnemy) player.state.directionLocked = false;
@@ -296,7 +304,6 @@ int Player_HandleCrashOut() {
     if (Timer_IsFinished(player.resources.skillResources.crashOutDuration)) {
         // Reset state
         player.state.skillState.crashOut = false;
-        // player.state.crashoutMultiplier = 1.0f;
         
         // Start cooldown
         Timer_Start(player.resources.skillResources.crashOutCooldown);
@@ -313,16 +320,141 @@ int Player_HandleCrashOut() {
     ParticleEmitter_ActivateOnce(player.resources.crashOut);
     SDL_Log("Player_Crashout Active");
     
-    // Update visual effects while active
-    // float timeLeft = Timer_GetTimeLeft(player.resources.crashoutDurationTimer) / 15.0f;
+    return 0;
+}
+
+int Parry()
+{
+    //Check if parry is active
+    if(player.state.skillState.parryActive == true)return 1;
+    if(!Timer_IsFinished(player.resources.skillResources.parryTimer)) return 1;
     
-    // Pulsing red effect increases as time runs out
-    // float pulseIntensity = 0.5f + 0.5f * (1.0f - timeLeft);
+    //Starting timers and changing state
+    player.state.skillState.parryActive = true;
+    Timer_Start(player.resources.skillResources.parryDurationTimer);
+    SDL_Log("Parry Activated");
+
+    //Finding mouseDirection
+    Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
+    Vec2 mouseDirection = Vec2_Normalize(Vec2_Subtract(mouseWorldPosition, player.state.position));
     
-    // Update particle effect
-    // player.resources.crashoutParticleEmitter->position = player.state.position;
-    // player.resources.crashoutParticleEmitter->startColor.r = 255;
-    // player.resources.crashoutParticleEmitter->startColor.a = 100 + 155 * pulseIntensity;
+
+    player.resources.skillResources.parryDirection = mouseDirection;
+    player.resources.skillResources.parryRadius = 0;
+    SDL_Log("Parry is active");
+    return 0;
+}
+
+
+int Handle_ParryRender()
+{
+    //Handles the rendered half circle
+    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
+
+    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
+    player.resources.skillResources.parryRadius += Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer);
+    float radius =  15 * player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
+
+    // Set opacity based on time left
+    SDL_SetTextureAlphaMod(
+        player.resources.skillResources.parryTexture, 
+        255 * 
+        Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer) 
+        / player.stats.skillStat.parryDuration
+    );
+
+    SDL_Rect dest = Vec2_ToCenteredSquareRect(
+        Camera_WorldVecToScreen(player.state.position), // Position of the circle
+        radius
+     ); 
+
+    SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
     
+}
+
+int Handle_Parry()
+{
+    
+    //Check if parry is active
+    if(!player.state.skillState.parryActive) return 1;
+    //Deactivate parry after the timer is finished
+    if(Timer_IsFinished(player.resources.skillResources.parryDurationTimer))
+    {
+        player.state.skillState.parryActive = false;
+        Timer_Start(player.resources.skillResources.parryTimer);
+        return 1;
+    }
+
+    //Finding mouseDirection
+    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
+
+    //Iterate through all the enemies
+    for(int i = 0; i < ENEMY_MAX;i++)
+    {
+        EnemyData* enemy = &enemies[i];
+        if(enemy->state.isDead == true) continue;
+        GunData* gun = NULL;
+        if (enemy->type == ENEMY_TYPE_ECHO) {
+            EchoConfig* config = enemy->config;
+            gun = &config->gun;
+        } 
+        else if(enemy->type == ENEMY_TYPE_JUGGERNAUT)
+        {
+            JuggernautConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_TACTICIAN)
+        {
+            TacticianConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_RADIUS)
+        {
+            RadiusConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_PROXY)
+        {
+            ProxyConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else if(enemy->type == ENEMY_TYPE_SABOT)
+        {
+            SabotConfig* config = enemy->config;
+            gun = &config->gun;
+        }
+        else continue;
+
+        if (!gun) continue;
+
+        //Iterate through all the bullets
+        for(int i = 0;i < gun->resources.bulletPreset->maxParticles; i++)
+        {
+            Particle* bullet = &gun->resources.bulletPreset->particles[i];
+            if(!bullet->alive) continue;
+            //Check if the bullet is in the parry range
+            if(Vec2_Distance(player.state.position, bullet->position) >= 50) continue; //THIS SHOULD BE 50
+            
+            //Finding bulletDirection
+            Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
+            SDL_Log("Bullet Parried");
+        
+            //Finding angle
+            int angle = Vec2_AngleBetween(mouseDirection, bulletDirection);
+            SDL_Log("Angle: %d", angle);
+
+            //Check if the angle is within the parry range
+            if(player.stats.skillStat.maxParryAngle < abs(angle)) continue;
+
+            //Parry the bullet
+            bullet->direction = bulletDirection;
+
+            //Changing the colliders
+            bullet->collider->collidesWith |= COLLISION_LAYER_ENEMY;
+        }
+    }
+
+    ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
+
     return 0;
 }
