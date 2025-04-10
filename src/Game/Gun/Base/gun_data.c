@@ -44,7 +44,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Pistol.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -90,7 +90,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/SMG.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -136,7 +136,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Shotgun.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -182,7 +182,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Assault Rifle.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -228,7 +228,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Battle Rifle.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -274,7 +274,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Revolver.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -320,7 +320,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/ArmorPistol.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -366,7 +366,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/RapidSMG.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -412,7 +412,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/PDW.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -458,7 +458,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/BurstRifle.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -504,7 +504,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/BullpupRifle.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -550,7 +550,7 @@ GunData GunList[GUN_COUNT] = {
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/AutoShotgun.png",
             .frameSize = {37, 12},
-            .frameCount = 20,
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",

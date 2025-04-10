@@ -512,6 +512,11 @@ void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) 
     Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
     Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
     
+    Interactable_Create(
+        INTERACTABLE_EXIT, 
+        Vec2_Add(Chunk_GetChunkCenter(chunk), (Vec2) {0, -20})
+    );
+    
     Vec2 chunkPosition, tilePosition;
     Tile_FromPixelPoint(
         Chunk_GetChunkCenter(chunk), 
