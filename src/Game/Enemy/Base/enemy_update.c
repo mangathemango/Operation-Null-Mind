@@ -82,6 +82,7 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
      * @todo [enemy_update.c:62] Play spawn sfx here
      */
 
+    Sound_Play_Effect(SOUND_SPAWN_IN);
     // Clean up timer and complete spawning
     Timer_Destroy(enemy->resources.timer);
     enemy->resources.timer = NULL;

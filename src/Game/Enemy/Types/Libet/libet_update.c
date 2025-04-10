@@ -5,6 +5,7 @@
 #include <random.h>
 #include <math.h>
 #include <chunks.h>
+#include <sound.h>
 
 /**
  * @brief [Update] Updates the Libet boss enemy's state
@@ -16,11 +17,14 @@
 void Libet_Update(EnemyData* data) {
     LibetConfig* config = (LibetConfig*)data->config;
     config->timer += Time->deltaTimeSeconds;
-    static int targetHP = 0;
-    static int attackCounter = 0;
-    static int phase = 0;
-    static Vec2 currentLazer = {0, 0};
 
+    // Static variables to track state across frames
+    static int targetHP = 0; // Target health for the LIBET_VINCIBLE state
+    static int attackCounter = 0; // Counter for attacks before switching state
+    static int phase = 0; // Tracks the current phase of the boss
+    static Vec2 currentLazer = {0, 0}; // Tracks the position of the room lazer
+
+    // Adjust floating time based on the current phase
     config->floatTime = 1.0f - phase * 0.3f;
 
     switch (config->state) {
@@ -29,6 +33,7 @@ void Libet_Update(EnemyData* data) {
         // Handle floating behavior
         if (config->timer >= config->floatTime) {
             if (attackCounter >= 10) {
+                // Transition to the LIBET_VINCIBLE state after 10 attacks
                 config->state = LIBET_VINCIBLE;
                 targetHP = data->state.currentHealth - data->stats.maxHealth / 5;
                 attackCounter = 0;
@@ -37,16 +42,17 @@ void Libet_Update(EnemyData* data) {
             
             attackCounter++;
             int randomState; 
+            // Determine the next state based on the number of enemies in the current chunk
             if (EnemyManage_CountEnemyInChunk(Chunk_GetCurrentChunk(data->state.position)) < 2 + phase) {
                 if (phase < 2) {
-                    randomState = 0;
+                    randomState = 0; // Favor explosion firing in early phases
                 } else {
-                    randomState = RandInt(0, 1);
+                    randomState = RandInt(0, 1); // Randomly choose between explosion and juggernaut
                 }
             } else {
-                randomState = RandInt(2, 3);
-                if (phase >= 1) randomState = RandInt(2, 4);
-                if (phase >= 3) randomState = RandInt(2, 5);
+                randomState = RandInt(2, 3); // Favor lazer or bullet hell
+                if (phase >= 1) randomState = RandInt(2, 4); // Add big lazer in later phases
+                if (phase >= 3) randomState = RandInt(2, 5); // Add room lazer in final phases
             }
             switch (randomState) {
                 case 0:
@@ -57,6 +63,7 @@ void Libet_Update(EnemyData* data) {
                     break;
                 case 2:
                     config->state = LIBET_DIAGONAL_LAZER_CHARGING;
+                    // Spawn diagonal lazers in all directions
                     for (int x = -1; x <= 1; x++) {
                         for (int y = -1; y <= 1; y++) {
                             if (x == 0 && y == 0) continue;
@@ -78,6 +85,7 @@ void Libet_Update(EnemyData* data) {
                     break;
                 case 4:
                     config->state = LIBET_BIG_LAZER_CHARGING;
+                    // Prepare a big lazer aimed at the player
                     Vec2 direction = 
                     Vec2_RotateDegrees(
                         Vec2_Normalize(
@@ -97,6 +105,7 @@ void Libet_Update(EnemyData* data) {
                     break;
                 case 5:
                     config->state = LIBET_ROOM_LAZER_FIRING;
+                    // Initialize the starting position of the room lazer
                     currentLazer = Vec2_Add(
                         Chunk_GetRoomTopLeft(Chunk_GetCurrentChunk(data->state.position)), 
                         (Vec2) {
@@ -120,6 +129,7 @@ void Libet_Update(EnemyData* data) {
         if (config->timer >= config->lazerChargeTime) {
             config->state = LIBET_DIAGONAL_LAZER_FIRING;
             config->timer = 0;
+            Sound_Play_Effect(SOUND_VANTAGE_LASER);
         }
         break;
     
@@ -154,6 +164,7 @@ void Libet_Update(EnemyData* data) {
         if (fireRateTimer >= fireRate) {
             fireRateTimer = 0.0f;
             bulletHellCounter++;
+            Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
             ParticleEmitter_ActivateOnce(LibetBulletEmitter);
             if (bulletHellCounter >= 20) {
                 bulletHellCounter = 0;
@@ -245,6 +256,7 @@ void Libet_Update(EnemyData* data) {
         if (config->timer >= config->lazerChargeTime) {
             config->state = LIBET_BIG_LAZER_FIRING;
             config->timer = 0;
+            Sound_Play_Effect(SOUND_VANTAGE_LASER);
         }
         break;
     
@@ -279,6 +291,9 @@ void Libet_Update(EnemyData* data) {
                     libetLazers[i].active = false;
                     libetLazers[i].lifeTime = 0;
                 } else if (libetLazers[i].lifeTime >= 1.5f) {
+                    if (libetLazers[i].damage == 0) {
+                        Sound_Play_Effect(SOUND_VANTAGE_LASER);
+                    }
                     libetLazers[i].width = 5 - (libetLazers[i].lifeTime - 1.5f) * 25;
                     libetLazers[i].damage = 10;
                 } else {
@@ -342,9 +357,12 @@ void Libet_Update(EnemyData* data) {
         break;
 
     default:
+        // Default to floating state if an unknown state is encountered
         config->state = LIBET_FLOATING;
         break;
     }
+
+    // Update active lazers
     for (int i = 0; i < 40; i++) {
         if (libetLazers[i].active) {
             Lazer_Update(&libetLazers[i]);
@@ -373,6 +391,11 @@ void Libet_Update(EnemyData* data) {
     }
 }
 
+/**
+ * @brief Adds a lazer to the active lazer pool
+ *
+ * @param lazer The lazer to add
+ */
 void Libet_AddLazer(Lazer lazer) {
     for (int i = 0; i < 40; i++) {
         if (!libetLazers[i].active) {
