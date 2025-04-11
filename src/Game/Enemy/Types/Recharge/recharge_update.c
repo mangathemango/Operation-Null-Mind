@@ -62,6 +62,10 @@ void Recharge_Update(EnemyData* data) {
         data->state.direction = Recharge_GetDirection(data);
     }
 
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(data->resources.animation, "walking");
+    }
+
     config->timer += Time->deltaTimeSeconds * data->state.tacticianBuff;
 
     if (config->isRecharging) {
@@ -93,5 +97,11 @@ void Recharge_Update(EnemyData* data) {
                 }
             }
         }
+    }
+
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(data->resources.animation, "walking");
+    } else {
+        Animation_Play(data->resources.animation, "idle");
     }
 }

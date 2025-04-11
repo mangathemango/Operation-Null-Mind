@@ -93,8 +93,12 @@ void Echo_Update(EnemyData* data) {
     }
 
 
-
-    Animation_Play(config->gun.resources.animation, "idle");
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(data->resources.animation, "walking");
+    } else {
+        Animation_Play(data->resources.animation, "idle");
+    }
+    
     config->lastPosition = data->state.position;
 }
 

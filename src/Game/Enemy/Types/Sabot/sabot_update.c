@@ -90,7 +90,11 @@ void Sabot_Update(EnemyData* data) {
     }
 
     // Replace animation state handling with just "idle"
-    Animation_Play(config->gun.resources.animation, "idle");
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(config->gun.resources.animation, "walking");
+    } else {
+        Animation_Play(config->gun.resources.animation, "idle");
+    }
     config->lastPosition = data->state.position;
 }
 

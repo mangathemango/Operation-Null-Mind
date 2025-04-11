@@ -99,7 +99,7 @@ EnemyData SabotData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/sabot.png", // Updated to match enemy name
         .frameSize = {30, 40},  // Match Proxy's frame size
-        .frameCount = 1,  // Changed from 7 to 1
+        .frameCount = 6,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -107,11 +107,17 @@ EnemyData SabotData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
+            },
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 5,
+                .frameDuration = 0.1f,
+                .looping = true
             }
-            // Removed walkin clip
         },
         .playOnStart = true,
-        .defaultClip = "idle",
+        .defaultClip = "walking",
         .spriteSize = {30, 40},  // Match Proxy's sprite size
     },
     .config = &SabotConfigData,

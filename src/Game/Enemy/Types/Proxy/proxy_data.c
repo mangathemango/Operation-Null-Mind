@@ -108,15 +108,15 @@ EnemyData ProxyData = {
                 .looping = true,
             },
             {
-                .name = "walkin",
-                .startFrameIndex = 1,
+                .name = "walking",
+                .startFrameIndex = 0,
                 .endFrameIndex = 6,
                 .frameDuration = 0.1f,
-                .looping = true,
-            },
+                .looping = true
+            }
         },
         .playOnStart = true,
-        .defaultClip = "walkin",
+        .defaultClip = "walking",
         .spriteSize = {30, 40},
     },
     .config = &ProxyConfigData,

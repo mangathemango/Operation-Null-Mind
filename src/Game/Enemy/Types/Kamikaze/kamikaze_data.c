@@ -62,7 +62,7 @@ EnemyData KamikazeData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/kamikaze.png",
         .frameSize = {30, 30},
-        .frameCount = 1,
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -70,6 +70,13 @@ EnemyData KamikazeData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
+            },
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 6,
+                .frameDuration = 0.05f,
+                .looping = true
             }
         },
         .playOnStart = true,

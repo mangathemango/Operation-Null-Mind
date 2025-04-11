@@ -43,15 +43,22 @@ EchoConfig EchoConfigData = {
             .frameCount = 1,
             .clips = {
                 {
-                    .name = "normal",
+                    .name = "idle",
                     .startFrameIndex = 0,
                     .endFrameIndex = 0,
                     .frameDuration = 0.4f,
                     .looping = false
+                },
+                {
+                    .name = "walking",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 6,
+                    .frameDuration = 0.1f,
+                    .looping = true
                 }
             },
             .spriteSize = {21, 9},   
-            .defaultClip = "normal",
+            .defaultClip = "idle",
             .playOnStart = true
         }
     },
@@ -105,7 +112,7 @@ EnemyData EchoData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/echo.png",
         .frameSize = {30, 40},
-        .frameCount = 1,
+        .frameCount = 7,
         .clips = {
             {
                 .name = "idle",
@@ -114,9 +121,17 @@ EnemyData EchoData = {
                 .frameDuration = 0.0f,
                 .looping = true,
             }
+            ,
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
+                .looping = true
+            }
         },
         .playOnStart = true,
-        .defaultClip = "idle",
+        .defaultClip = "walking",
         .spriteSize = {30, 40},
     },
     .config = &EchoConfigData,
