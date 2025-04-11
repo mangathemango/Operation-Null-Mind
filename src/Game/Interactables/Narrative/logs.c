@@ -4,18 +4,21 @@
 #include <stdio.h>
 #include <game.h>
 
-#define LOG_COUNT 6
+#define LOG_COUNT 24
 static SDL_Texture* logTexture[LOG_COUNT];
 
 void Log_Start() {
-    for (int i = 0; i < LOG_COUNT; i ++) {
+    for (int i = 1; i < LOG_COUNT; i ++) {
         char path[50];
-        sprintf(path, "Assets/Images/Logs/log_%d.png", i + 1);
+        sprintf(path, "Assets/Images/Logs/log-%02d.png", i);
+        if (LOG_COUNT == 23) {
+            strcpy(path, "Assets/Images/Logs/log-final.png");
+        }
         logTexture[i] = IMG_LoadTexture(app.resources.renderer, path);
         if (!logTexture[i]) {
             SDL_Log("Failed to load log texture %d: %s", i, IMG_GetError());
         }
-    }
+    }   
     
 }
 
