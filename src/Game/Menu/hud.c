@@ -336,7 +336,7 @@ void HUD_RenderPixilFrame() {
 }
 
 void HUD_Render() {
-    if (game.hudToggled){
+    if (!game.hudToggled){
         Minimap_Render();
         HUD_RenderHealthBar();
         HUD_RenderAmmoBar();
@@ -344,7 +344,7 @@ void HUD_Render() {
         HUD_RenderCurrentLevel();
         HUD_RenderAmmoDisplay();
     }
-    if(!game.hudToggled)
+    if(game.hudToggled)
     {
         HUD_RenderPixilFrame();
     }

@@ -119,7 +119,7 @@ void Menu_Render() {
         NULL, 
         &backgroundDest,
         sin(Time->programElapsedTimeSeconds) * 5,
-        &(SDL_Point) {40, 0},
+        &(SDL_Point) {40, -40},
         SDL_FLIP_NONE
     );
     SDL_Rect dest = {
