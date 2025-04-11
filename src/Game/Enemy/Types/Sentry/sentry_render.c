@@ -56,7 +56,6 @@ void Sentry_Render(EnemyData* data) {
 void Sentry_RenderLaser(EnemyData* data) {
     SentryConfig* config = (SentryConfig*)data->config;
     if (!config) return;
-    GunData* gun = &config->gun;
 
     // Laser width configuration
     int lazerWidth = config->lazerWidth;

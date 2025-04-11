@@ -24,7 +24,11 @@ void Bullet_Update()
 {
     GunData* gun = &player.state.currentGun;
 
+    
     gun->resources.bulletPreset->emissionNumber = gun->stats.bulletsPerShot;
+    if (gun->stats.fireMode == FIREMODE_BURST) {
+        gun->resources.bulletPreset->emissionNumber = 1;
+    }
     gun->resources.bulletPreset->particleLifetime = gun->stats.bulletLifetime;
     gun->resources.bulletPreset->angleRange = gun->stats.spread_angle;
     gun->resources.bulletPreset->position = gun->resources.muzzleFlashEmitter->position;

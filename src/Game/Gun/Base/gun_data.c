@@ -30,7 +30,6 @@ GunData GunList[GUN_COUNT] = {
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 500,
@@ -39,13 +38,13 @@ GunData GunList[GUN_COUNT] = {
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 17,
-            .ammoConsumption = 1
+            .ammoConsumption = 1,
+            .bulletVelocity = BULLET_VELOCITY_MID
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Pistol.png",
-            .frameSize = {8, 10},
-            .frameCount = 20,
+            .frameSize = {37, 12},
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -56,27 +55,13 @@ GunData GunList[GUN_COUNT] = {
                 },
                 {
                     .name = "right side idle",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 10,
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
                     .frameDuration = 0.4f,
                     .looping = false
-                },
-                {
-                    .name = "left side reload",
-                    .startFrameIndex = 0,
-                    .endFrameIndex = 9,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
-                {
-                    .name = "right side reload",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 19,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
+                }
             },
-            .spriteSize = {9, 11},   
+            .spriteSize = {37, 12},
             .defaultClip = "left side idle",
             .playOnStart = true
         }
@@ -84,14 +69,13 @@ GunData GunList[GUN_COUNT] = {
     [GUN_SMG] = {
         .name = GUN_SMG_NAME,
         .config = {
-            .muzzlePosition = {23, 4},
-            .ejectionPosition = {17, 3},
+            .muzzlePosition = {23, 3},
+            .ejectionPosition = {15, 3},
             .gripPosition = {12, 5},
         },
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 1200,
@@ -100,13 +84,13 @@ GunData GunList[GUN_COUNT] = {
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 25,
-            .ammoConsumption = 1
+            .ammoConsumption = 1,
+            .bulletVelocity = BULLET_VELOCITY_MID
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/SMG.png",
-            .frameSize = {23, 15},
-            .frameCount = 20,
+            .frameSize = {37, 12},
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -117,27 +101,13 @@ GunData GunList[GUN_COUNT] = {
                 },
                 {
                     .name = "right side idle",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 10,
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
                     .frameDuration = 0.4f,
                     .looping = false
-                },
-                {
-                    .name = "left side reload",
-                    .startFrameIndex = 0,
-                    .endFrameIndex = 9,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
-                {
-                    .name = "right side reload",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 19,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
+                }
             },
-            .spriteSize = {23, 15},   
+            .spriteSize = {37, 12},
             .defaultClip = "left side idle",
             .playOnStart = true
         }
@@ -151,23 +121,22 @@ GunData GunList[GUN_COUNT] = {
         },
         .state = {
             .position = {0, 0},
-            .angle = 0,
-            .currentAmmo = 0
+            .angle = 0
         },
         .stats = {
             .fireRate = 120,
             .spread_angle = 25,
-            .damage = 40,
+            .damage = 25,
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 0.6f,
             .bulletsPerShot = 8,
-            .ammoConsumption = 3,
-            .ammoCapacity = 7
+            .ammoConsumption = 8,
+            .bulletVelocity = BULLET_VELOCITY_SLOW
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Shotgun.png",
-            .frameSize = {35, 9},
-            .frameCount = 20,
+            .frameSize = {37, 12},
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -178,27 +147,13 @@ GunData GunList[GUN_COUNT] = {
                 },
                 {
                     .name = "right side idle",
-                    .startFrameIndex = 5,
-                    .endFrameIndex = 5,
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
                     .frameDuration = 0.4f,
                     .looping = false
-                },
-                {
-                    .name = "left side reload",
-                    .startFrameIndex = 0,
-                    .endFrameIndex = 4,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
-                {
-                    .name = "right side reload",
-                    .startFrameIndex = 5,
-                    .endFrameIndex = 9,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
+                }
             },
-            .spriteSize = {35, 9},   
+            .spriteSize = {37, 12},
             .defaultClip = "left side idle",
             .playOnStart = true
         }
@@ -207,13 +162,12 @@ GunData GunList[GUN_COUNT] = {
         .name = GUN_ASSAULT_RIFLE_NAME,
         .config = {
             .muzzlePosition = {31, 4},
-            .ejectionPosition = {12, 3},
+            .ejectionPosition = {14, 4},
             .gripPosition = {11, 6},
         },
         .state = {
             .position = {0, 0},
-            .angle = 0,
-            .currentAmmo = 0
+            .angle = 0
         },
         .stats = {
             .fireRate = 800,
@@ -222,13 +176,13 @@ GunData GunList[GUN_COUNT] = {
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 30,
-            .ammoConsumption = 2
+            .ammoConsumption = 2,
+            .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Assault Rifle.png",
-            .frameSize = {31, 19},
-            .frameCount = 20,
+            .frameSize = {37, 12},
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -239,27 +193,13 @@ GunData GunList[GUN_COUNT] = {
                 },
                 {
                     .name = "right side idle",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 10,
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
                     .frameDuration = 0.4f,
                     .looping = false
-                },
-                {
-                    .name = "left side reload",
-                    .startFrameIndex = 0,
-                    .endFrameIndex = 9,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
-                {
-                    .name = "right side reload",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 19,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
+                }
             },
-            .spriteSize = {31, 19},   
+            .spriteSize = {37, 12},
             .defaultClip = "left side idle",
             .playOnStart = true
         }
@@ -267,29 +207,28 @@ GunData GunList[GUN_COUNT] = {
     [GUN_BATTLE_RIFLE] = {
         .name = GUN_BATTLE_RIFLE_NAME,
         .config = {
-            .muzzlePosition = {34, 4},
-            .ejectionPosition = {13, 3},
+            .muzzlePosition = {32, 4},
+            .ejectionPosition = {14, 4},
             .gripPosition = {11, 6},
         },
         .state = {
             .position = {0, 0},
             .angle = 0,
-            .currentAmmo = 0,
         },
         .stats = {
             .fireRate = 650,
             .spread_angle = 2,
-            .damage = 120,
+            .damage = 55,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoCapacity = 20,
-            .ammoConsumption = 2
+            .ammoConsumption = 2,
+            .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {
             .spritesheetPath = "Assets/Images/Guns/Battle Rifle.png",
-            .frameSize = {35, 19},
-            .frameCount = 20,
+            .frameSize = {37, 12},
+            .frameCount = 2,
             .clips = {
                 {
                     .name = "left side idle",
@@ -300,27 +239,335 @@ GunData GunList[GUN_COUNT] = {
                 },
                 {
                     .name = "right side idle",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 10,
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_REVOLVER] = {
+        .name = GUN_REVOLVER_NAME,
+        .config = {
+            .muzzlePosition = {8, 2},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {4, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 450,
+            .spread_angle = 9,
+            .damage = 55,
+            .fireMode = FIREMODE_SEMI,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoConsumption = 1,
+            .bulletVelocity = BULLET_VELOCITY_SLOW
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Revolver.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
                     .frameDuration = 0.4f,
                     .looping = false
                 },
                 {
-                    .name = "left side reload",
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_ARMOR_PISTOL] = {
+        .name = GUN_ARMOR_PISTOL_NAME,
+        .config = {
+            .muzzlePosition = {10, 2},
+            .ejectionPosition = {5, 2},
+            .gripPosition = {5, 4},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 600,
+            .spread_angle = 7,
+            .damage = 40,
+            .fireMode = FIREMODE_SEMI,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoConsumption = 1,
+            .bulletVelocity = BULLET_VELOCITY_FAST
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Armor Pistol.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
                     .startFrameIndex = 0,
-                    .endFrameIndex = 9,
-                    .frameDuration = 0.1f,
-                    .looping = true
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
                 },
                 {
-                    .name = "right side reload",
-                    .startFrameIndex = 10,
-                    .endFrameIndex = 19,
-                    .frameDuration = 0.1f,
-                    .looping = true
-                },
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
             },
-            .spriteSize = {35, 19},   
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_RAPID_SMG] = {
+        .name = GUN_RAPID_SMG_NAME,
+        .config = {
+            .muzzlePosition = {23, 4},
+            .ejectionPosition = {17, 3},
+            .gripPosition = {12, 5},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 1200,
+            .spread_angle = 11,
+            .damage = 30,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoConsumption = 1,
+            .bulletVelocity = BULLET_VELOCITY_MID
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Rapid SMG.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_PDW] = {
+        .name = GUN_PDW_NAME,
+        .config = {
+            .muzzlePosition = {20, 5},
+            .ejectionPosition = {6, 8},
+            .gripPosition = {13, 6},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 900,
+            .spread_angle = 4,
+            .damage = 40,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoConsumption = 2,
+            .bulletVelocity = BULLET_VELOCITY_FAST
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/PDW.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_BURST_RIFLE] = {
+        .name = GUN_BURST_RIFLE_NAME,
+        .config = {
+            .muzzlePosition = {37, 4},
+            .ejectionPosition = {16, 4},
+            .gripPosition = {13, 6},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 950,
+            .spread_angle = 4,
+            .damage = 45,
+            .fireMode = FIREMODE_BURST,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 3,
+            .ammoConsumption = 2,
+            .bulletVelocity = BULLET_VELOCITY_FAST
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Burst Rifle.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_BULLPUP_RIFLE] = {
+        .name = GUN_BULLPUP_RIFLE_NAME,
+        .config = {
+            .muzzlePosition = {25, 5},
+            .ejectionPosition = {23, 4},
+            .gripPosition = {14, 6},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 600,
+            .spread_angle = 1,
+            .damage = 60,
+            .fireMode = FIREMODE_SEMI,
+            .bulletLifetime = 1.0f,
+            .bulletsPerShot = 1,
+            .ammoConsumption = 2,
+            .bulletVelocity = BULLET_VELOCITY_FAST
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Bullpup Rifle.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
+            .defaultClip = "left side idle",
+            .playOnStart = true
+        }
+    },
+    [GUN_AUTO_SHOTGUN] = {
+        .name = GUN_AUTO_SHOTGUN_NAME,
+        .config = {
+            .muzzlePosition = {28, 5},
+            .ejectionPosition = {15, 5},
+            .gripPosition = {12, 7},
+        },
+        .state = {
+            .position = {0, 0},
+            .angle = 0,
+        },
+        .stats = {
+            .fireRate = 250,
+            .spread_angle = 40,
+            .damage = 20,
+            .fireMode = FIREMODE_AUTO,
+            .bulletLifetime = 0.6f,
+            .bulletsPerShot = 8,
+            .ammoConsumption = 8,
+            .bulletVelocity = BULLET_VELOCITY_SLOW
+        },
+        .animData = {
+            .spritesheetPath = "Assets/Images/Guns/Auto Shotgun.png",
+            .frameSize = {37, 12},
+            .frameCount = 2,
+            .clips = {
+                {
+                    .name = "left side idle",
+                    .startFrameIndex = 0,
+                    .endFrameIndex = 0,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                },
+                {
+                    .name = "right side idle",
+                    .startFrameIndex = 1,
+                    .endFrameIndex = 1,
+                    .frameDuration = 0.4f,
+                    .looping = false
+                }
+            },
+            .spriteSize = {37, 12},
             .defaultClip = "left side idle",
             .playOnStart = true
         }

@@ -20,6 +20,13 @@
 #define GUN_SMG_NAME "KRISS Vector"
 #define GUN_ASSAULT_RIFLE_NAME "M4A1 URG-I"
 #define GUN_PISTOL_NAME "Glock 17"
+#define GUN_REVOLVER_NAME "Chiappa Rhino 200DS"
+#define GUN_ARMOR_PISTOL_NAME "FN Five-seveN Mk3 MRD"
+#define GUN_RAPID_SMG_NAME "KRISS Vector"
+#define GUN_PDW_NAME "FN P90"
+#define GUN_BURST_RIFLE_NAME "M16A4"
+#define GUN_BULLPUP_RIFLE_NAME "Kel-Tec RFB"
+#define GUN_AUTO_SHOTGUN_NAME "Atchisson AA-12"
 
 typedef enum {
     GUN_PISTOL,
@@ -27,9 +34,15 @@ typedef enum {
     GUN_SHOTGUN,
     GUN_ASSAULT_RIFLE,
     GUN_BATTLE_RIFLE,
+    GUN_REVOLVER,
+    GUN_ARMOR_PISTOL,
+    GUN_RAPID_SMG,
+    GUN_PDW,
+    GUN_BURST_RIFLE,
+    GUN_BULLPUP_RIFLE,
+    GUN_AUTO_SHOTGUN,
     GUN_COUNT
 } Gun;
-
 
 /**
  * @brief Resources used by a gun
@@ -48,7 +61,6 @@ typedef struct {
  */
 typedef struct {
     Vec2 position;                  /**< Current position of the gun */
-    int currentAmmo;                /**< Current ammunition count */
     float angle;                    /**< Current rotation angle of the gun */
     SDL_RendererFlip flip;          /**< Flip state for rendering */
     SDL_Point rotationCenter;       /**< Point around which the gun rotates */
@@ -72,8 +84,17 @@ typedef struct {
  */
 typedef enum {
     FIREMODE_SEMI,                  /**< Semi-automatic (one shot per trigger pull) */
-    FIREMODE_AUTO                   /**< Fully automatic (continuous fire while trigger held) */
+    FIREMODE_AUTO,
+    FIREMODE_BURST                   /**< Fully automatic (continuous fire while trigger held) */
 } GunFireMode;
+
+/**
+ * @brief Bullet velocity constants
+ */
+#define BULLET_VELOCITY_SLOW 500
+#define BULLET_VELOCITY_MID 600
+#define BULLET_VELOCITY_FAST 800
+#define BULLET_VELOCITY_REAL_FAST 1000
 
 /**
  * @brief Gun statistics structure
@@ -81,13 +102,13 @@ typedef enum {
  */
 typedef struct {
     float fireRate;                 /**< Shots per minute */
-    int ammoCapacity;               /**< Maximum ammunition count */
     float spread_angle;             /**< Bullet spread in degrees */
     int damage;                     /**< Damage per bullet */     
-    int ammoConsumption;           /**< Maximum ammo capacity */
     float bulletLifetime;           /**< How long bullets exist before despawning */
     int bulletsPerShot;             /**< Number of bullets fired per shot (>1 only for shotguns) */
     GunFireMode fireMode;           /**< Firing mode (auto or semi) */
+    int bulletVelocity;             /**< Velocity of the bullet */
+    int ammoConsumption;            /**< Ammo consumed per shot */
 } GunStats;
 
 /**

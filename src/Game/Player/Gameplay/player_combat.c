@@ -32,11 +32,8 @@ void Player_Shoot() {
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
 
-    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed * player.resources.skillResources.overPressuredProjectileSpeed;
+    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.stats.bulletVelocity * player.resources.skillResources.overPressuredProjectileSpeed;
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
-    SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
-    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.resources.bulletPreset->particleSpeed / player.resources.skillResources.overPressuredProjectileSpeed;
-    SDL_Log("Bullet speed: %f", player.state.currentGun.resources.bulletPreset->particleSpeed);
 
     player.resources.skillResources.ammoShoot++;
     SDL_Log("ammo shot %d",player.resources.skillResources.ammoShoot);

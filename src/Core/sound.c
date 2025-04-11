@@ -235,7 +235,6 @@ void Sound_Play_Music(const char* path, int loops) {
     
     // Load and play new music
     soundResources.backgroundMusic = Mix_LoadMUS(path);
-    soundResources.musicQueue.currentSongPath = path;
     SDL_Log("Loading music: %s", path);
     if (soundResources.backgroundMusic == NULL) {
         printf("Failed to load music: %s\n", Mix_GetError());

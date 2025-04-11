@@ -35,7 +35,6 @@ void Gun_Start() {
     for (int i = 0; i < GUN_COUNT; i++) {
         GunData *gun = &GunList[i];
         gun->type = i;
-        gun->state.currentAmmo = gun->stats.ammoCapacity;
         gun->resources.bulletFragmentEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
         gun->resources.casingParticleEmitter = ParticleEmitter_CreateFromPreset(gun->config.casingPreset);
         gun->resources.muzzleFlashEmitter = muzzleFlashEmitter;

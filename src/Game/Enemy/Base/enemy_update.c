@@ -206,6 +206,7 @@ void Enemy_HandleDeath(EnemyData* enemy) {
     if (enemy->config) free(enemy->config);
     enemy->config = NULL;
     player.state.currentAmmo += 10 + player.resources.skillResources.scavengerAmmoBonus;
+    SDL_Log("Ammo added: %d", 10 + player.resources.skillResources.scavengerAmmoBonus);
     player.stats.enemiesKilled++;
     if (player.state.currentAmmo > player.stats.maxAmmo) {
         player.state.currentAmmo = player.stats.maxAmmo;
