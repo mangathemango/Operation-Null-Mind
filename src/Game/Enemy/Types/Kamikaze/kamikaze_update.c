@@ -82,6 +82,13 @@ void Kamikaze_Update(EnemyData* data) {
         // Stop moving
         data->stats.maxSpeed = 0;
         config->explosionTimer += Time->deltaTimeSeconds * data->state.tacticianBuff;
+        config->beepTimer += Time->deltaTimeSeconds * data->state.tacticianBuff;
+
+        if (config->beepTimer >= 0.2f) {
+            // Beep sound effect
+            Sound_Play_Effect(SOUND_KAMIKAZE_BEEP);
+            config->beepTimer = 0;
+        }
 
         if (config->explosionTimer >= config->explosionTime) {
             // Handles ACTUAL kamikaze explosion

@@ -23,7 +23,7 @@ typedef struct {
     float indicatorDelay;
     float directionChangeTime;
     float explosionTimer;
-
+    float beepTimer;
     SDL_Texture* explosionIndicator;
 } KamikazeConfig;
 extern ParticleEmitter* KamikazeExplosionEmitter;

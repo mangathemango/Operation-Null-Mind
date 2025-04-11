@@ -18,6 +18,7 @@ KamikazeConfig KamikazeConfigData = {
     .indicatorDelay = 0.5f,
     .directionChangeTime = 0,
     .explosionTimer = 0,
+    .beepTimer = 0,
     .explosionIndicator = NULL,
 };
 
