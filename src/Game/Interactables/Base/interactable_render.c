@@ -10,6 +10,16 @@ void Interactable_Render() {
                 Camera_WorldVecToScreen(interactables[i].position),
                 interactables[i].renderSize
             );
+            if (interactables[i].type == INTERACTABLE_WEAPON) {
+                GunData* gun = interactables[i].data;
+                dest = Vec2_ToRect(
+                    Vec2_ToCenteredPosition(
+                        Camera_WorldVecToScreen(interactables[i].position),
+                        Vec2_Multiply(gun->config.gripPosition, 2)
+                    ),
+                    interactables[i].renderSize
+                );
+            }
             SDL_Rect* srcRect = (interactables[i].srcRect.x >= 0) ? &interactables[i].srcRect : NULL;
             SDL_RenderCopy(app.resources.renderer, interactables[i].spriteTexture, srcRect, &dest);
         }
