@@ -87,6 +87,11 @@ void Kamikaze_Update(EnemyData* data) {
             if (Vec2_Distance(data->state.position, player.state.position) < config->explosionRadius) {
                 Player_TakeDamage(data->stats.damage);
             }
+            player.state.currentAmmo += 10;
+            if (player.state.currentAmmo > player.stats.maxAmmo) {
+                player.state.currentAmmo = player.stats.maxAmmo;
+            }
+            
             Sound_Play_Effect(SOUND_EXPLOSION);
             free(data->config);
             data->state.currentHealth = 0;
