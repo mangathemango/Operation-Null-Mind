@@ -2,6 +2,7 @@
 #include <app.h>
 
 void Interactable_CreateWeapon(Gun gun, Vec2 position) {
+    SDL_Log("Creating interactable %s", GunList[gun].name);
     int index = Interactable_Create(INTERACTABLE_WEAPON, position);
     interactables[index].data = &GunList[gun];
     interactables[index].interactionText = GunList[gun].name;

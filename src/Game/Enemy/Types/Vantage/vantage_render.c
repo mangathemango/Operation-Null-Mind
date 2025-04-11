@@ -40,7 +40,6 @@ void Vantage_RenderParticles() {
 void Vantage_RenderLaser(EnemyData* data) {
     VantageConfig* config = (VantageConfig*)data->config;
     if (!config) return;
-    GunData* gun = &config->gun;
 
     // Laser width configuration
     int lazerWidth = config->lazerWidth;
