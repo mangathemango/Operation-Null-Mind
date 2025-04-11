@@ -66,8 +66,8 @@ EnemyData RechargeData = {
     },
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/recharge.png",
-        .frameSize = {26, 32},
-        .frameCount = 1,
+        .frameSize = {30, 40},
+        .frameCount = 9,
         .clips = {
             {
                 .name = "idle",
@@ -76,10 +76,17 @@ EnemyData RechargeData = {
                 .frameDuration = 0.0f,
                 .looping = true,
             },
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 8,
+                .frameDuration = 0.05f,
+                .looping = true
+            }
         },
         .playOnStart = true,
-        .defaultClip = "idle",
-        .spriteSize = {26, 32},
+        .defaultClip = "walking",
+        .spriteSize = {30, 40},
     },
     .config = &RechargeConfigData,
     .start = &Recharge_Start,

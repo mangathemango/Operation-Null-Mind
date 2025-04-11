@@ -152,10 +152,10 @@ void Proxy_Update(EnemyData* data) {
         Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
     }
 
-    if (Vec2_AreEqual(data->state.position, config->lastPosition)) {
-        Animation_Play(config->gun.resources.animation, "idle");
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(data->resources.animation, "walking");
     } else {
-        Animation_Play(config->gun.resources.animation, "walkin");
+        Animation_Play(data->resources.animation, "idle");
     }
     config->lastPosition = data->state.position;
 }

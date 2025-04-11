@@ -45,6 +45,10 @@ void Kamikaze_Update(EnemyData* data) {
             data->state.direction = Vec2_RotateDegrees(data->state.direction, RandFloat(-90, 90));
         }
 
+        if (data->stats.maxSpeed > 0) {
+            Animation_Play(data->resources.animation, "walking");
+        }
+
         // Switch to charging state if the player is within 100 pixels
         if (Vec2_Distance(data->state.position, player.state.position) < 100) 
             config->state = KAMIKAZE_STATE_CHARGING;
@@ -101,5 +105,9 @@ void Kamikaze_Update(EnemyData* data) {
         break;
     }
     
-
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(data->resources.animation, "walking");
+    } else {
+        Animation_Play(data->resources.animation, "idle");
+    }
 }

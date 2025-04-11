@@ -110,7 +110,7 @@ EnemyData TacticianData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/tactician.png", // Updated to match enemy name
         .frameSize = {30, 40},
-        .frameCount = 1,  // Changed from 7 to 1
+        .frameCount = 7,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -118,8 +118,14 @@ EnemyData TacticianData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
+            },
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
+                .looping = true
             }
-            // Removed walkin clip
         },
         .playOnStart = true,
         .defaultClip = "idle",

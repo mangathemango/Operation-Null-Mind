@@ -119,8 +119,14 @@ EnemyData SentryData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
+            },
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 6,
+                .frameDuration = 0.1f,
+                .looping = true
             }
-            // Removed walkin clip
         },
         .playOnStart = true,
         .defaultClip = "idle", // Sentries are mostly stationary

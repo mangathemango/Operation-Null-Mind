@@ -119,8 +119,11 @@ void Vantage_Update(EnemyData* data) {
             Sound_Play_Effect(SOUND_VANTAGE_LASER);
         }
     }
-    // Replace animation state handling with just "idle"
-    Animation_Play(config->gun.resources.animation, "idle");
+    if (data->stats.maxSpeed > 0) {
+        Animation_Play(data->resources.animation, "walking");
+    } else {
+        Animation_Play(data->resources.animation, "idle");
+    }
     config->lastPosition = data->state.position;
 }
 

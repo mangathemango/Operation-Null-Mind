@@ -170,7 +170,6 @@ void Sentry_Update(EnemyData* data) {
     Sentry_UpdateGun(data);
     Sentry_UpdateLazer(data);
 
-    Animation_Play(config->gun.resources.animation, "normal");
     config->lastPosition = data->state.position;
 }
 

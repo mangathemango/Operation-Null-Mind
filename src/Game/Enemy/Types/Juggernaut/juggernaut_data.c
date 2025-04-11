@@ -103,7 +103,7 @@ EnemyData JuggernautData = {
     .animData = {
         .spritesheetPath = "Assets/Images/Enemies/juggernaut.png", 
         .frameSize = {40, 50},
-        .frameCount = 1,  // Changed from 7 to 1
+        .frameCount = 6,  // Changed from 7 to 1
         .clips = {
             {
                 .name = "idle",
@@ -111,11 +111,17 @@ EnemyData JuggernautData = {
                 .endFrameIndex = 0,
                 .frameDuration = 0.0f,
                 .looping = true,
+            },
+            {
+                .name = "walking",
+                .startFrameIndex = 0,
+                .endFrameIndex = 5,
+                .frameDuration = 0.1f,
+                .looping = true
             }
-            // Removed walkin and attack clips
         },
         .playOnStart = true,
-        .defaultClip = "idle",
+        .defaultClip = "walking",
         .spriteSize = {40, 50},
     },
     .config = &JuggernautConfigData,
