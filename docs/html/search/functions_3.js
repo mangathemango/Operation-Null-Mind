@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['death_5frender_0',['death_render',['../death_8h.html#a76f052e921165682cad767e0436a9f3d',1,'Death_Render():&#160;death_layout.c'],['../death__layout_8c.html#a76f052e921165682cad767e0436a9f3d',1,'Death_Render():&#160;death_layout.c']]],
+  ['death_5fstart_1',['death_start',['../death__layout_8c.html#a01a451c1314d43dbbd1481844384f5bc',1,'Death_Start():&#160;death_layout.c'],['../death_8h.html#a01a451c1314d43dbbd1481844384f5bc',1,'Death_Start():&#160;death_layout.c']]],
+  ['death_5fupdate_2',['death_update',['../death__layout_8c.html#a562e5e21d0ed02b2758fa5aa3235f098',1,'Death_Update():&#160;death_layout.c'],['../death_8h.html#a562e5e21d0ed02b2758fa5aa3235f098',1,'Death_Update():&#160;death_layout.c']]],
+  ['debug_5frendercurrentchunk_3',['debug_rendercurrentchunk',['../debug_8c.html#a7c9e4ed3c15b664344bbf795ef9097ef',1,'Debug_RenderCurrentChunk():&#160;debug.c'],['../debug_8h.html#a7c9e4ed3c15b664344bbf795ef9097ef',1,'Debug_RenderCurrentChunk():&#160;debug.c']]],
+  ['debug_5frenderfpscount_4',['debug_renderfpscount',['../debug_8c.html#a9f9cb525558a23bc6528c3b9e3a767b8',1,'Debug_RenderFPSCount():&#160;debug.c'],['../debug_8h.html#a9f9cb525558a23bc6528c3b9e3a767b8',1,'Debug_RenderFPSCount():&#160;debug.c']]],
+  ['debug_5frenderhitboxes_5',['debug_renderhitboxes',['../debug_8c.html#a578f4aebbbd23c6a60bd0ffa08af7caf',1,'Debug_RenderHitboxes():&#160;debug.c'],['../debug_8h.html#a578f4aebbbd23c6a60bd0ffa08af7caf',1,'Debug_RenderHitboxes():&#160;debug.c']]],
+  ['debug_5frenderspikecount_6',['debug_renderspikecount',['../debug_8c.html#a359f6488d39aef4096754ee52312ca90',1,'Debug_RenderSpikeCount():&#160;debug.c'],['../debug_8h.html#a359f6488d39aef4096754ee52312ca90',1,'Debug_RenderSpikeCount():&#160;debug.c']]],
+  ['drawcircleoutline_7',['drawcircleoutline',['../circle_8c.html#ab07e4cb800270f0f1f877181fd95aacf',1,'DrawCircleOutline(Vec2 center, int radius, SDL_Color color):&#160;circle.c'],['../circle_8h.html#ab07e4cb800270f0f1f877181fd95aacf',1,'DrawCircleOutline(Vec2 center, int radius, SDL_Color color):&#160;circle.c']]],
+  ['drawfilledcircle_8',['drawfilledcircle',['../circle_8c.html#aed05ec825f6f2b5314a8fb29f93122de',1,'DrawFilledCircle(Vec2 center, int radius, SDL_Color color):&#160;circle.c'],['../circle_8h.html#aed05ec825f6f2b5314a8fb29f93122de',1,'DrawFilledCircle(Vec2 center, int radius, SDL_Color color):&#160;circle.c']]],
+  ['drawfilledhalfcircle_9',['drawfilledhalfcircle',['../circle_8c.html#a7ff73a457719b23af406f0376e9b970b',1,'DrawFilledHalfCircle(Vec2 center, int radius, Vec2 direction, SDL_Color color):&#160;circle.c'],['../circle_8h.html#a7ff73a457719b23af406f0376e9b970b',1,'DrawFilledHalfCircle(Vec2 center, int radius, Vec2 direction, SDL_Color color):&#160;circle.c']]]
+];
