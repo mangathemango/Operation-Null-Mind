@@ -15,6 +15,7 @@
 #include <input.h>
 #include <sound.h>
 #include <controls.h>
+#include <math.h>
 
 static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
@@ -24,6 +25,7 @@ static UIElement* exitButtonElement = NULL;
 SDL_Rect exitButtonRect = {27, 180, 200, 15};
 static SDL_Texture* title = NULL;
 static SDL_Texture* background = NULL;
+Vec2 backgroundSize = {0, 0};
 
 /**
  * @brief [Start] Loads textures and creates UI elements for the menu
@@ -34,7 +36,14 @@ static SDL_Texture* background = NULL;
 void Menu_PrepareTextures() {
     SDL_Color textColor = {255, 255, 255, 255};
 
-    background = IMG_LoadTexture(app.resources.renderer, "Assets/Images/night_pixel (2).png");
+    background = IMG_LoadTexture(app.resources.renderer, "Assets/Images/phagen.png");
+    if (!background) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load background texture: %s", SDL_GetError());
+    }
+    int backgroundWidth, backgroundHeight;
+    SDL_QueryTexture(background, NULL, NULL, &backgroundWidth, &backgroundHeight);
+    backgroundSize.x = backgroundWidth;
+    backgroundSize.y = backgroundHeight;
     title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
     startButtonElement = UI_CreateText("start",(SDL_Rect) {30, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     controlsButtonElement = UI_CreateText("controls", (SDL_Rect) {30, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
@@ -101,7 +110,18 @@ void Menu_Update() {
  * with appropriate hover effects.
  */
 void Menu_Render() {
-    SDL_RenderCopy(app.resources.renderer, background, NULL, NULL);
+    SDL_Rect backgroundDest = {
+        300, 0, backgroundSize.x, backgroundSize.y
+    };
+    SDL_RenderCopyEx(
+        app.resources.renderer, 
+        background, 
+        NULL, 
+        &backgroundDest,
+        sin(Time->programElapsedTimeSeconds) * 5,
+        &(SDL_Point) {40, 0},
+        SDL_FLIP_NONE
+    );
     SDL_Rect dest = {
         30, 50, 175, 70
     };
