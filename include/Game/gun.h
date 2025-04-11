@@ -17,7 +17,7 @@
  */
 #define GUN_SHOTGUN_NAME "Beretta 1301 Tactical"
 #define GUN_BATTLE_RIFLE_NAME "FN SCAR-H"
-#define GUN_SMG_NAME "KRISS Vector"
+#define GUN_SMG_NAME "HK UMP45"
 #define GUN_ASSAULT_RIFLE_NAME "M4A1 URG-I"
 #define GUN_PISTOL_NAME "Glock 17"
 #define GUN_REVOLVER_NAME "Chiappa Rhino 200DS"
@@ -91,7 +91,7 @@ typedef enum {
 /**
  * @brief Bullet velocity constants
  */
-#define BULLET_VELOCITY_SLOW 500
+#define BULLET_VELOCITY_SLOW 400
 #define BULLET_VELOCITY_MID 600
 #define BULLET_VELOCITY_FAST 800
 #define BULLET_VELOCITY_REAL_FAST 1000
