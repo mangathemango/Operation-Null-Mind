@@ -25,7 +25,30 @@ void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
     int ammoComsumption = player.state.currentGun.stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
     if (player.state.currentAmmo < ammoComsumption) return;
-    Sound_Play_Effect(1);
+
+    // Map gun types to their corresponding sound effects
+    SoundEffect gunSoundEffects[] = {
+        SOUND_PISTOL,
+        SOUND_SMG,
+        SOUND_SHOTGUN,
+        SOUND_ASSAULT_RIFLE,
+        SOUND_BATTLE_RIFLE,
+        SOUND_REVOLVER,
+        SOUND_ARMOR_PISTOL,
+        SOUND_RAPID_SMG,
+        SOUND_PDW,
+        SOUND_BURST_RIFLE,
+        SOUND_BULLPUP_RIFLE,
+        SOUND_AUTO_SHOTGUN,
+    };
+
+    // Play the corresponding sound effect for the current gun
+    if (player.state.currentGun.type >= 0 && player.state.currentGun.type < sizeof(gunSoundEffects) / sizeof(gunSoundEffects[0])) {
+        Sound_Play_Effect(gunSoundEffects[player.state.currentGun.type]);
+    } else {
+        SDL_Log("Unknown gun type: %d", player.state.currentGun.type);
+    }
+
     player.state.currentAmmo -= ammoComsumption;
     Game_AddAmmoSpent(ammoComsumption);
     
@@ -90,6 +113,8 @@ void Player_PickUpGun(void* data, int interactableIndex) {
         player.state.gunSlots[freeGunSlot] = player.state.gunSlots[0];
         player.state.gunSlots[0] = gun->type;
     }
+
+    Sound_Play_Effect(SOUND_GUN_PICKUP);
     Interactable_Deactivate(interactableIndex);
     player.resources.shootCooldownTimer = Timer_Create(60.0f/GunList[gun->type].stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
@@ -139,7 +164,9 @@ void Player_OpenCrate(void* data, int interactableIndex) {
     Interactable_CreateHealth(Vec2_Add(interactables[interactableIndex].position, Vec2_Add(Vec2_Multiply(Vec2_Up, 25), Vec2_Multiply(Vec2_Right, 20))));
     Interactable_CreateAbilties(Vec2_Add(interactables[interactableIndex].position, Vec2_Add(Vec2_Multiply(Vec2_Up, 25), Vec2_Multiply(Vec2_Left, 20))));
     Interactable_Deactivate(interactableIndex);
+    Sound_Play_Effect(SOUND_CRATE_OPENING);
 }
+
 void Player_ReadLog(void* data, int interactableIndex) {
     int* index = data;
     game.viewingLog = *index;

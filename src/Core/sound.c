@@ -61,7 +61,20 @@ SoundResources soundResources = {
         [SOUND_SPAWN_IN] = "Assets/Audio/SoundEffect/spawn in.wav",              // SOUND_SPAWN_IN
         [SOUND_VANTAGE_LASER] = "Assets/Audio/SoundEffect/vantage laser gunshot.wav", // SOUND_VANTAGE_LASER
         [SOUND_BOOST_DOWN] = "Assets/Audio/SoundEffect/boost down.wav",     // SOUND_BOOST_DOWN   
-        [SOUND_HOVER] = "Assets/Audio/SoundEffect/hover.wav" // SOUND_HOVER       
+        [SOUND_HOVER] = "Assets/Audio/SoundEffect/hover.wav", // SOUND_HOVER       
+        [SOUND_ARMOR_PISTOL] = "Assets/Audio/SoundEffect/Armor Pistol.wav", // SOUND_ARMOR_PISTOL
+        [SOUND_ASSAULT_RIFLE] = "Assets/Audio/SoundEffect/Assault Rifle.wav", // SOUND_ASSAULT_RIFLE
+        [SOUND_AUTO_SHOTGUN] = "Assets/Audio/SoundEffect/Auto Shotgun.wav", // SOUND_AUTO_SHOTGUN
+        [SOUND_BATTLE_RIFLE] = "Assets/Audio/SoundEffect/Battle Rifle.wav", // SOUND_BATTLE_RIFLE
+        [SOUND_BULLPUP_RIFLE] = "Assets/Audio/SoundEffect/Bullpup Rifle.wav", // SOUND_BULLPUP_RIFLE
+        [SOUND_BURST_RIFLE] = "Assets/Audio/SoundEffect/Burst Rifle.wav", // SOUND_BURST_RIFLE
+        [SOUND_PDW] = "Assets/Audio/SoundEffect/PDW.wav", // SOUND_PDW
+        [SOUND_PISTOL] = "Assets/Audio/SoundEffect/Pistol.wav", // SOUND_PISTOL
+        [SOUND_RAPID_SMG] = "Assets/Audio/SoundEffect/Rapid SMG.wav", // SOUND_RAPID_SMG
+        [SOUND_REVOLVER] = "Assets/Audio/SoundEffect/Revolver.wav", // SOUND_REVOLVER
+        [SOUND_SELECT] = "Assets/Audio/SoundEffect/select.wav", // SOUND_SELECT
+        [SOUND_SHOTGUN] = "Assets/Audio/SoundEffect/Shotgun.wav", // SOUND_SHOTGUN
+        [SOUND_SMG] = "Assets/Audio/SoundEffect/SMG.wav" // SOUND_SMG
     }
 };
 
