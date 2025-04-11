@@ -127,6 +127,7 @@ void Player_PickUpHealth(void* data, int interactableIndex)
     if (player.state.currentHealth > player.stats.maxHealth) {
         player.state.currentHealth = player.stats.maxHealth;
     }
+    Sound_Play_Effect(SOUND_PLAYER_HEALING);
     Interactable_Deactivate(interactableIndex);
 }
 
@@ -146,6 +147,7 @@ void Player_PickUpSkill(void* data, int interactableIndex)
     };
 
     *skillValues[*abilitesType] = true;
+    Sound_Play_Effect(SOUND_PASSIVE_OBTAINED);
     Interactable_Deactivate(interactableIndex);
     
 }
@@ -180,6 +182,7 @@ void Player_TakeDamage(int damage) {
         player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
         Timer_Start(player.resources.INVINCIBLE_Timer);
         player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100);
+        Sound_Play_Effect(SOUND_PLAYER_HURT);
         return;
     }
     if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
@@ -189,6 +192,7 @@ void Player_TakeDamage(int damage) {
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
     }
+    Sound_Play_Effect(SOUND_PLAYER_HURT);
     damageEffectOpacity = 100;
     Timer_Start(player.resources.INVINCIBLE_Timer);
 }
