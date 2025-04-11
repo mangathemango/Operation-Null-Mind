@@ -81,6 +81,7 @@ void Tactician_Update(EnemyData* data) {
         if (config->burstTimer >= config->burstTime) {
             config->burstTimer = 0;
             config->currentBurstCount++;
+            Sound_Play_Effect(SOUND_ENERGY_GUNSHOT);
             ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
@@ -115,6 +116,7 @@ void Tactician_Update(EnemyData* data) {
             config->commandTimer = 0;
             config->commandTime = 0.5f;
             config->state |= TACTICIAN_STATE_COMMANDING;
+            Sound_Play_Effect(SOUND_BUFFING);
 
             for (int i = 0; i < ENEMY_MAX; i++) {
                 if (enemies[i].state.isDead) continue;

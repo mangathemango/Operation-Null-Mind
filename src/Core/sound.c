@@ -60,7 +60,8 @@ SoundResources soundResources = {
         [SOUND_SENTRY_LASER] = "Assets/Audio/SoundEffect/Sentry Laser Cannon.wav", // SOUND_SENTRY_LASER
         [SOUND_SPAWN_IN] = "Assets/Audio/SoundEffect/spawn in.wav",              // SOUND_SPAWN_IN
         [SOUND_VANTAGE_LASER] = "Assets/Audio/SoundEffect/vantage laser gunshot.wav", // SOUND_VANTAGE_LASER
-        [SOUND_BOOST_DOWN] = "Assets/Audio/SoundEffect/boost down.wav",             // SOUND_BOOST_DOWN
+        [SOUND_BOOST_DOWN] = "Assets/Audio/SoundEffect/boost down.wav",     // SOUND_BOOST_DOWN   
+        [SOUND_HOVER] = "Assets/Audio/SoundEffect/hover.wav" // SOUND_HOVER       
     }
 };
 
@@ -117,6 +118,7 @@ bool Sound_Load_Resources() {
 void Sound_Play_Effect(int index) {
     if (index >= 0 && index < SOUND_COUNT) {
         Mix_PlayChannel(-1, soundResources.soundEffects[index], 0);
+        SDL_Log("Playing sound effect: %s", soundResources.soundPaths[index]);
     }
 }
 

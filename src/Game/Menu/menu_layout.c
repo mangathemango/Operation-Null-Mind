@@ -63,38 +63,53 @@ void Menu_Update() {
 
     SDL_Color defaultButtonColor = {255, 255, 255, 255};
     SDL_Color hoverButtonColor = {0, 0, 0, 255};
-    
+
+    static bool startButtonHovered = false;
+    static bool controlsButtonHovered = false;
+    static bool exitButtonHovered = false;
+
     if (Input_MouseIsOnRect(startButtonRect)) {
         UI_ChangeTextColor(startButtonElement, hoverButtonColor);
+        if (!startButtonHovered) {
+            SDL_Log("Start button hovered");
+            Sound_Play_Effect(SOUND_HOVER);
+            startButtonHovered = true;
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MISSION_BRIEFING;
         }
     } else {
         UI_ChangeTextColor(startButtonElement, defaultButtonColor);
+        startButtonHovered = false;
     }
 
-
-    if (Input_MouseIsOnRect(startButtonRect) && Input->mouse.leftButton.pressed) {
-        app.state.currentScene = SCENE_MISSION_BRIEFING;
-    }
-    
     if (Input_MouseIsOnRect(controlsButtonRect)) {
         UI_ChangeTextColor(controlsButtonElement, hoverButtonColor);
+        if (!controlsButtonHovered) {
+            Sound_Play_Effect(SOUND_HOVER);
+            controlsButtonHovered = true;
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_CONTROLS;
             controlLastScene = SCENE_MENU;
         }
     } else {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);
+        controlsButtonHovered = false;
     }
 
     if (Input_MouseIsOnRect(exitButtonRect)) {
         UI_ChangeTextColor(exitButtonElement, hoverButtonColor);
+        if (!exitButtonHovered) {
+            Sound_Play_Effect(SOUND_HOVER);
+            exitButtonHovered = true;
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.running = false;
         }
     } else {
         UI_ChangeTextColor(exitButtonElement, defaultButtonColor);
+        exitButtonHovered = false;
     }
 
 }

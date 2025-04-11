@@ -78,9 +78,9 @@ GunData GunList[GUN_COUNT] = {
             .angle = 0,
         },
         .stats = {
-            .fireRate = 1200,
-            .spread_angle = 11,
-            .damage = 50,
+            .fireRate = 600,
+            .spread_angle = 5,
+            .damage = 40,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,

@@ -137,6 +137,8 @@ void Sentry_Update(EnemyData* data) {
         config->lazerWidth = 0; 
 
         if (config->timer >= config->aimTime) {
+            Sound_Play_Effect(SOUND_VANTAGE_LASER);
+            Sound_Play_Effect(SOUND_SENTRY_LASER);
             config->timer = 0;
             config->state = SENTRY_STATE_SHOOTING;
 
