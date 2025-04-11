@@ -278,10 +278,19 @@ void HUD_RenderAmmoDisplay() {
 
     static UIElement* fireModeTextElement = NULL;
     char fireModeText[10];
-    if (player.state.currentGun.stats.fireMode == FIREMODE_SEMI) {
-        strcpy(fireModeText, "SEMI");
-    } else {
-        strcpy(fireModeText, "AUTO");
+    switch (player.state.currentGun.stats.fireMode) {
+        case FIREMODE_SEMI:
+            strcpy(fireModeText, "SEMI");
+            break;
+        case FIREMODE_BURST:
+            strcpy(fireModeText, "BURST");
+            break;
+        case FIREMODE_AUTO:
+            strcpy(fireModeText, "AUTO");
+            break;
+        default:
+            strcpy(fireModeText, "UNKNOWN");
+            break;
     }
     if (!fireModeTextElement) {
         fireModeTextElement = UI_CreateText(

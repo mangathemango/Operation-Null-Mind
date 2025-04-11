@@ -48,6 +48,21 @@ void Player_Input_Handler() {
 
     if (player.state.currentGun.stats.fireMode == FIREMODE_AUTO) {
         if (Input->mouse.leftButton.held) Player_Shoot();
+    } else if (player.state.currentGun.stats.fireMode == FIREMODE_BURST) {
+        static int burstCount = 0;
+        static float burstTimer = 0.0f;
+        if (Input->mouse.leftButton.pressed) {
+            burstCount = player.state.currentGun.stats.bulletsPerShot;
+            burstTimer = 0.0f; // Reset the timer when a new burst starts
+        }
+        if (burstCount > 0) {
+            burstTimer -= Time->deltaTimeSeconds;
+            if (burstTimer <= 0.0f) {
+                Player_Shoot();
+                burstCount--;
+                burstTimer = 60.0f / player.state.currentGun.stats.fireRate; // Time between shots
+            }
+        }
     } else {
         if (Input->mouse.leftButton.pressed) Player_Shoot();
     }

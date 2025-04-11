@@ -449,10 +449,10 @@ GunData GunList[GUN_COUNT] = {
             .fireRate = 950,
             .spread_angle = 4,
             .damage = 45,
-            .fireMode = FIREMODE_SEMI,
+            .fireMode = FIREMODE_BURST,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 3,
-            .ammoConsumption = 3,
+            .ammoConsumption = 2,
             .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {

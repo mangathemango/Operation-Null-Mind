@@ -84,7 +84,8 @@ typedef struct {
  */
 typedef enum {
     FIREMODE_SEMI,                  /**< Semi-automatic (one shot per trigger pull) */
-    FIREMODE_AUTO                   /**< Fully automatic (continuous fire while trigger held) */
+    FIREMODE_AUTO,
+    FIREMODE_BURST                   /**< Fully automatic (continuous fire while trigger held) */
 } GunFireMode;
 
 /**
