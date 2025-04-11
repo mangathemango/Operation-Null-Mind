@@ -134,7 +134,7 @@ void Map_Generate() {
                 );
                 if (RandInt(0,10) <= 3) {
                     Interactable_CreateLog(
-                        RandInt(0, 5), 
+                        RandInt(1, 22), 
                         Vec2_Add(
                             Chunk_GetChunkCenter(&testMap.chunks[x][y]),
                             (Vec2){0, - 3 * TILE_SIZE_PIXELS / 2}
