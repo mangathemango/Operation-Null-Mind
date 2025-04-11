@@ -65,3 +65,6 @@ void UI_DestroyText(UIElement* element);
 
 void UI_ChangeText(UIElement* element, const char* text);
 void UI_ChangeTextColor(UIElement* element, SDL_Color color);
+
+void UI_SetHovered(UIElement* element, bool hovered);
+bool UI_IsHovered(UIElement* element);

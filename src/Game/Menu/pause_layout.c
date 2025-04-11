@@ -100,48 +100,57 @@ void Pause_Start() {
  * to the main menu.
  */
 void Pause_Update() {
-    // Default and hover colors for buttons
     SDL_Color defaultButtonColor = {255, 255, 255, 255};
     SDL_Color hoverButtonColor = {0, 0, 0, 255};
-    
-    // Update text elements
+
     UI_UpdateText(continueButtonElement);
     UI_UpdateText(controlsButtonElement);
     UI_UpdateText(exitButtonElement);
-    
-    // Continue button hover and click
+
     if (Input_MouseIsOnRect(continueButtonRect)) {
         UI_ChangeTextColor(continueButtonElement, hoverButtonColor);
+        if (!UI_IsHovered(continueButtonElement)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(continueButtonElement, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_GAME;
         }
     } else {
         UI_ChangeTextColor(continueButtonElement, defaultButtonColor);
+        UI_SetHovered(continueButtonElement, false);
     }
-    
-    // Controls button hover and click
+
     if (Input_MouseIsOnRect(controlsButtonRect)) {
         UI_ChangeTextColor(controlsButtonElement, hoverButtonColor);
+        if (!UI_IsHovered(controlsButtonElement)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(controlsButtonElement, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_CONTROLS;
             controlLastScene = SCENE_PAUSE;
         }
     } else {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);
+        UI_SetHovered(controlsButtonElement, false);
     }
-    
-    // Exit button hover and click
+
     if (Input_MouseIsOnRect(exitButtonRect)) {
         UI_ChangeTextColor(exitButtonElement, hoverButtonColor);
+        if (!UI_IsHovered(exitButtonElement)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(exitButtonElement, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MENU;
             Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
         }
     } else {
         UI_ChangeTextColor(exitButtonElement, defaultButtonColor);
+        UI_SetHovered(exitButtonElement, false);
     }
-    
-    // Keyboard shortcut for continue
+
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
         app.state.currentScene = SCENE_GAME;
     }

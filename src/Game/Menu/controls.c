@@ -65,16 +65,18 @@ void Controls_Start()
  */
 void Controls_Update()
 {
-    // Handle back button interaction
     if (Input_MouseIsOnRect(ControlsTextRectBox)) {
-        backHovered = true;
         UI_ChangeTextColor(ControlsText, (SDL_Color) {0, 0, 0, 255});
+        if (!UI_IsHovered(ControlsText)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(ControlsText, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = controlLastScene; // Return to the last scene
         }
     } else {
-        backHovered = false;
         UI_ChangeTextColor(ControlsText, (SDL_Color) {255, 255, 255, 255});
+        UI_SetHovered(ControlsText, false);
     }
     
     // Update UI elements
@@ -97,7 +99,7 @@ void Controls_Render()
     SDL_RenderCopy(app.resources.renderer, Controls_Background, NULL, &dest);
     
     // Draw back button with hover effect
-    if (backHovered) {
+    if (UI_IsHovered(ControlsText)) {
         SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(app.resources.renderer, &ControlsTextRectBox);
     } else {

@@ -395,16 +395,18 @@ void Death_Update() {
         Sound_Play_Music("Assets/Audio/Music/return0 lofi death music LOOP.wav", -1);
         isPlayed = 1;
     }
-    
-    // Update UI elements
+
     UI_UpdateText(returnButtonElement);
-    
-    // Handle return button interaction
+
     SDL_Color defaultButtonColor = {255, 255, 255, 255};
     SDL_Color hoverButtonColor = {0, 0, 0, 255};
-    
+
     if (Input_MouseIsOnRect(returnButtonRect)) {
         UI_ChangeTextColor(returnButtonElement, hoverButtonColor);
+        if (!UI_IsHovered(returnButtonElement)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(returnButtonElement, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MENU;
             Game_Restart();
@@ -414,32 +416,29 @@ void Death_Update() {
         }
     } else {
         UI_ChangeTextColor(returnButtonElement, defaultButtonColor);
+        UI_SetHovered(returnButtonElement, false);
     }
 
-    // Also allow ESC key to return to menu
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
         app.state.currentScene = SCENE_MENU;
         Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
         isPlayed = 0;
         timer = 0;
     }
-    
-    // Update the statistics with real game stats
-    // This only needs to be done once when the death screen is first displayed
+
     static bool statsUpdated = false;
     if (!statsUpdated) {
         EndScreen_UpdateStats(
-            game.currentStage,                 // floor/stage reached
-            (int)game.runTime,                 // run time in seconds
-            player.stats.enemiesKilled,        // robots deactivated
-            game.healingItemsUsed,             // healing items used
-            game.hitsTaken,                    // hits taken
-            game.ammoSpent                     // ammo spent
+            game.currentStage,
+            (int)game.runTime,
+            player.stats.enemiesKilled,
+            game.healingItemsUsed,
+            game.hitsTaken,
+            game.ammoSpent
         );
         statsUpdated = true;
     }
-    
-    // Reset the statsUpdated flag when returning to the main menu
+
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed || 
         (Input_MouseIsOnRect(returnButtonRect) && Input->mouse.leftButton.pressed)) {
         statsUpdated = false;

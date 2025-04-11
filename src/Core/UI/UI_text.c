@@ -13,6 +13,20 @@
 #include <string.h>
 #include <input.h>
 #include <app.h>
+#include <stdbool.h>
+
+// A map to store the hovered state of UI elements
+static bool hoveredStates[1024] = {false}; // Assuming a maximum of 1024 UI elements
+
+void UI_SetHovered(UIElement* element, bool hovered) {
+    if (element == NULL) return;
+    element->hovered = hovered;
+}
+
+bool UI_IsHovered(UIElement* element) {
+    if (element == NULL) return false;
+    return element->hovered;
+}
 
 /*
 *   [Start] Creates a text UIElement based on some parameters.
@@ -89,13 +103,6 @@ void UI_UpdateText(UIElement* element) {
         break;
     case UI_TEXT_ALIGN_LEFT:
         break;
-    }
-    if (Input_MouseIsOnRect(element->dstRect)) {
-        element->hovered = true;
-        element->pressed = Input->mouse.leftButton.pressed;
-    } else {
-        element->hovered = false;
-        element->pressed = false;
     }
 }
 

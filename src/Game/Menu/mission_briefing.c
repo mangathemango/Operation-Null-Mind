@@ -41,8 +41,11 @@ void Mission_Start()
 void Mission_Update()
 {
     if (Input_MouseIsOnRect(MissionTextRectBox)) {
-        continueHovered = true;
         UI_ChangeTextColor(MissionText, (SDL_Color) {0, 0, 0, 255});
+        if (!UI_IsHovered(MissionText)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(MissionText, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_GAME;
             if (game.currentStage < 3) Sound_Play_Music("Assets/Audio/Music/return0 early level music.wav", -1);
@@ -51,8 +54,8 @@ void Mission_Update()
             else if (game.currentStage >= 10) Sound_Play_Music("Assets/Audio/Music/return0 boss music.wav", -1);
         }
     } else {
-        continueHovered = false;
         UI_ChangeTextColor(MissionText, (SDL_Color) {255, 255, 255, 255});
+        UI_SetHovered(MissionText, false);
     }
     UI_UpdateText(MissionText);
 }
@@ -67,7 +70,7 @@ void Mission_Render()
     };
     SDL_RenderCopy(app.resources.renderer, Mission_Background, NULL, &dest);
 
-    if (continueHovered) {
+    if (UI_IsHovered(MissionText)) {
         SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(app.resources.renderer, &MissionTextRectBox);
     } else {

@@ -77,6 +77,7 @@ void Menu_Update() {
         }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MISSION_BRIEFING;
+            Sound_Play_Effect(SOUND_SELECT);
         }
     } else {
         UI_ChangeTextColor(startButtonElement, defaultButtonColor);
@@ -92,6 +93,7 @@ void Menu_Update() {
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_CONTROLS;
             controlLastScene = SCENE_MENU;
+            Sound_Play_Effect(SOUND_SELECT);
         }
     } else {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);
@@ -106,6 +108,7 @@ void Menu_Update() {
         }
         if (Input->mouse.leftButton.pressed) {
             app.state.running = false;
+            Sound_Play_Effect(SOUND_SELECT);
         }
     } else {
         UI_ChangeTextColor(exitButtonElement, defaultButtonColor);

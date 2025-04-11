@@ -121,20 +121,21 @@ void Win_Update() {
     static bool isPlayed = 0;
     timer += Time->deltaTimeSeconds;
     if(timer > 2 && !isPlayed) {
-        // Play victory music instead of death music
-        Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1); // Replace with victory music when available
+        Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
         isPlayed = 1;
     }
-    
-    // Update UI elements
+
     UI_UpdateText(returnButtonElement);
-    
-    // Handle return button interaction
+
     SDL_Color defaultButtonColor = {255, 255, 255, 255};
-    SDL_Color hoverButtonColor = {0, 0, 0, 255}; // Green for win
-    
+    SDL_Color hoverButtonColor = {0, 0, 0, 255};
+
     if (Input_MouseIsOnRect(returnButtonRect)) {
         UI_ChangeTextColor(returnButtonElement, hoverButtonColor);
+        if (!UI_IsHovered(returnButtonElement)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(returnButtonElement, true);
+        }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_MENU;
             Game_Restart();
@@ -144,9 +145,9 @@ void Win_Update() {
         }
     } else {
         UI_ChangeTextColor(returnButtonElement, defaultButtonColor);
+        UI_SetHovered(returnButtonElement, false);
     }
 
-    // Also allow ESC key to return to menu
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
         app.state.currentScene = SCENE_MENU;
         Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
@@ -186,7 +187,7 @@ void Win_Render() {
     SDL_SetRenderDrawColor(app.resources.renderer, 0, 20, 0, 255);
     SDL_Rect fullScreenRect = {0, 0, app.config.screen_width, app.config.screen_height};
     SDL_RenderFillRect(app.resources.renderer, &fullScreenRect);
-    
+
     // Check if diamond icon exists and render it
     if (diamondFullIcon) {
         SDL_Rect iconRect = {
@@ -196,15 +197,15 @@ void Win_Render() {
     } else {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Diamond full icon not available when trying to render");
     }
-    
+
     // Render header text
     UI_RenderText(missionTextElement);
     UI_RenderText(accomplishedTextElement);
-    
+
     // Render statistics panel
     SDL_Rect statsHeaderRect = {45, 108, app.config.screen_width - 90, 20};
     EndScreen_RenderStatsPanel(statsHeaderRect);
-    
+
     // Render return button with hover effect
     if (Input_MouseIsOnRect(returnButtonRect)) {
         SDL_SetRenderDrawColor(app.resources.renderer, 100, 255, 100, 255);
