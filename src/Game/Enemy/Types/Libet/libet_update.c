@@ -23,7 +23,8 @@ void Libet_Update(EnemyData* data) {
     static int attackCounter = 0; // Counter for attacks before switching state
     static int phase = 0; // Tracks the current phase of the boss
     static Vec2 currentLazer = {0, 0}; // Tracks the position of the room lazer
-
+    static Vec2 bigLazerDirection = {0, 0}; // Direction of the big lazer
+    static float currentBigLazerAngle = 0;
     // Adjust floating time based on the current phase
     config->floatTime = 1.0f - phase * 0.3f;
 
@@ -79,6 +80,7 @@ void Libet_Update(EnemyData* data) {
                             Libet_AddLazer(lazer);
                         }
                     }
+                    currentBigLazerAngle = 0;
                     break;
                 case 3:
                     config->state = LIBET_BULLET_HELL_FIRING;
@@ -86,22 +88,13 @@ void Libet_Update(EnemyData* data) {
                 case 4:
                     config->state = LIBET_BIG_LAZER_CHARGING;
                     // Prepare a big lazer aimed at the player
-                    Vec2 direction = 
+                    bigLazerDirection = 
                     Vec2_RotateDegrees(
                         Vec2_Normalize(
                             Vec2_Subtract(player.state.position, data->state.position)
                         ), 
                         -90
                     );
-                    Lazer lazer = {
-                        .active = true,
-                        .startPosition = data->state.position,
-                        .direction = direction,
-                        .width = 0,
-                        .damage = 0,
-                        .lifeTime = 0.0f
-                    };
-                    Libet_AddLazer(lazer);
                     break;
                 case 5:
                     config->state = LIBET_ROOM_LAZER_FIRING;
@@ -243,41 +236,58 @@ void Libet_Update(EnemyData* data) {
         break;
     
     case LIBET_BIG_LAZER_CHARGING:
-        for (int i = 0; i < 40; i++) {
-            if (libetLazers[i].active) {
-                libetLazers[i].startPosition = data->state.position;
-                libetLazers[i].width = 0;
-            }
-        }
-        // Handle big lazer charging behavior
-        if (config->timer >= config->lazerChargeTime) {
-            config->state = LIBET_BIG_LAZER_FIRING;
-            config->timer = 0;
-            Sound_Play_Effect(SOUND_VANTAGE_LASER);
-        }
-        break;
-    
-    case LIBET_BIG_LAZER_FIRING:
-        for (int i = 0; i < 40; i++) {
-            if (libetLazers[i].active) {
-                libetLazers[i].startPosition = data->state.position;
-                libetLazers[i].direction = Vec2_RotateDegrees(
-                    libetLazers[i].direction, 
-                    180.0f * (Time->deltaTimeSeconds / 2) // Rotate the lazer direction
-                );
-                libetLazers[i].width = 5 * sin(config->timer / 2 * M_PI); // Gradually increase width
-                libetLazers[i].damage = 10;
-            }
-        }
-        // Handle big lazer firing behavior
-        if (config->timer >= 2) {
-            for (int i = 0; i < 40; i++) {
+    for (int i = 0; i < 40; i++) {
+        if (libetLazers[i].active) {
+            if (libetLazers[i].lifeTime >= 1.7f) {
+                libetLazers[i].width = -1;
+                libetLazers[i].damage = 0;
                 libetLazers[i].active = false;
+                libetLazers[i].lifeTime = 0;
+            } else if (libetLazers[i].lifeTime >= 1.5f) {
+                if (libetLazers[i].damage == 0) {
+                    Sound_Play_Effect(SOUND_VANTAGE_LASER);
+                }
+                libetLazers[i].width = 5 - (libetLazers[i].lifeTime - 1.5f) * 25;
+                libetLazers[i].damage = 10;
+            } else {
+                libetLazers[i].width = 0;
+                libetLazers[i].damage = 0;
             }
+        }
+    }
+
+    if (config->timer >= 0.05f) {
+        if (currentBigLazerAngle > 180) {
+            bool found = false;
+            for (int i = 0; i < 40; i++) {
+                if (libetLazers[i].active) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) break;
+            currentBigLazerAngle = 0;
             config->state = LIBET_FLOATING;
             config->timer = 0;
+            break;
         }
+
+        config->timer = 0;
+        Lazer lazer = {
+            .active = true,
+            .startPosition = data->state.position,
+            .direction = bigLazerDirection,
+            .width = 0,
+            .damage = 0,
+            .lifeTime = 0.0f
+        };
+        Libet_AddLazer(lazer);
+        bigLazerDirection = Vec2_RotateDegrees(bigLazerDirection, 10);
+        currentBigLazerAngle += 10;
+
         break;
+    }
+    break;
 
     case LIBET_ROOM_LAZER_FIRING:
         for (int i = 0; i < 40; i++) {
