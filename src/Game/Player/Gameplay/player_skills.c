@@ -101,7 +101,7 @@ bool LastStand()
             lastStandActive = true;
             player.state.skillState.lastStand = false;
             Timer_Start(player.resources.INVINCIBLE_Timer);
-            Sound_Play_Effect(1);
+            Sound_Play_Effect(SOUND_LAST_STAND);
             return true;
         }
     }

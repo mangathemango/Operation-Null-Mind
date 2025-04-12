@@ -190,7 +190,6 @@ void HUD_RenderPixilFrame() {
         [HEMO_CYCLE] = "Assets/Images/Icons/abilities/hemocycle.png",
         [KINETIC_ARMOR] = "Assets/Images/Icons/abilities/kineticArmor.png",
         [LAST_STAND] = "Assets/Images/Icons/abilities/lastStand.png",
-        [ONE_MORE] = "Assets/Images/Icons/abilities/oneMore.png",
         [OVER_PRESSURED] = "Assets/Images/Icons/abilities/overPressured.png",
         [SCAVENGER] = "Assets/Images/Icons/abilities/scavenger.png"
     };
@@ -202,10 +201,8 @@ void HUD_RenderPixilFrame() {
         player.state.skillState.hemoCycle,
         player.state.skillState.kineticArmor,
         player.state.skillState.lastStand,
-        player.state.skillState.oneMore,
         player.state.skillState.overPressured,
         player.state.skillState.scavenger
-
     };
 
     //The offset starts at -1 because when it offset++, it can start at 0, yes its 4:03 am and my brain is shit

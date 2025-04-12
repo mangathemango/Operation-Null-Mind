@@ -129,6 +129,7 @@ void Player_PickUpHealth(void* data, int interactableIndex)
     }
     Sound_Play_Effect(SOUND_PLAYER_HEALING);
     Interactable_Deactivate(interactableIndex);
+    Game_AddHealingItemUsed();
 }
 
 void Player_PickUpSkill(void* data, int interactableIndex)

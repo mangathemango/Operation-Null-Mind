@@ -83,6 +83,7 @@ void Sabot_Update(EnemyData* data) {
 
         // Visual effects
         config->gun.resources.bulletPreset->particleSpeed = effectiveProjectileSpeed;
+        Sound_Play_Effect(SOUND_ROCKET_LAUNCH);
         ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
         ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
