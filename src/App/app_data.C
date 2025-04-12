@@ -34,7 +34,7 @@ AppData app = {
         .window_title = "Operation Null Mind" ,
         .window_width = 1024 ,
         .window_height = 768 ,
-        .window_fullscreen = false ,
+        .window_fullscreen = true ,
         .screen_width = 480 ,
         .screen_height = 288 ,
         

@@ -164,6 +164,10 @@ void Player_OpenCrate(void* data, int interactableIndex) {
 
 void Player_ReadLog(void* data, int interactableIndex) {
     int* index = data;
+    if (game.viewingLog > 0) {
+        game.viewingLog = -1;
+        return;
+    }
     game.viewingLog = *index;
 }
 

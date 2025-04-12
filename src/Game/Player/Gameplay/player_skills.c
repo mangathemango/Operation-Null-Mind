@@ -420,6 +420,7 @@ int Handle_Parry()
         if (gun != NULL && enemy->type != ENEMY_TYPE_LIBET) {
             bulletEmitter = gun->resources.bulletPreset;
         } else {
+            if (enemy->type != ENEMY_TYPE_LIBET) continue;
             bulletEmitter = LibetBulletEmitter;
         }
         //Iterate through all the bullets
