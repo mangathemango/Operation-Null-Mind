@@ -69,7 +69,7 @@ ParticleEmitter ParticleEmitter_MuzzleFlash = {
     .direction = {0, -1},
     .emissionRate = 0.1,
     .emissionNumber = 10,
-    .maxParticles = 1000,
+    .maxParticles = 100,
     .angleRange = 30,
 
     .active = true,
@@ -321,7 +321,7 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
     .direction = {0, -1},
     .emissionRate = 0,
     .emissionNumber = 1,
-    .maxParticles = 1000,
+    .maxParticles = 100,
     .angleRange = 10,
 
     .active = true,
@@ -407,7 +407,7 @@ ParticleEmitter ParticleEmitter_Explosion = {
     .direction = {1, 0},
     .emissionRate = 0,
     .emissionNumber = 50,
-    .maxParticles = 1000,
+    .maxParticles = 200,
     .angleRange = 360,
 
     .active = true,
@@ -481,7 +481,7 @@ ParticleEmitter ParticleEmitter_Fire = {
     .direction = {0, -1},
     .emissionRate = 0.1,
     .emissionNumber = 10,
-    .maxParticles = 10000,
+    .maxParticles = 100,
     .angleRange = 150,
 
     .active = true,
@@ -519,7 +519,7 @@ ParticleEmitter ParticleEmitter_Parry = {
     .direction = {0, -1},
     .emissionRate = 100,
     .emissionNumber = 1000,
-    .maxParticles = 100000,
+    .maxParticles = 0,
     .angleRange = 180,
 
     .active = true,
