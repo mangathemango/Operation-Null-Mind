@@ -3,6 +3,9 @@
 #include <input.h>
 
 void Interactable_Update() {
+    if (Input->keyboard.keys[SDL_SCANCODE_E].pressed) {
+        game.viewingLog = -1;
+    }
     hasInteraction = false;
     for (int i = 0; i < MAX_INTERACTABLES; i++) {
         if (!interactables[i].active || !interactables[i].enabled) continue;

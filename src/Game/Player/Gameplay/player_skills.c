@@ -344,8 +344,8 @@ int Handle_ParryRender()
     Vec2 mouseDirection = player.resources.skillResources.parryDirection;
 
     player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
-    player.resources.skillResources.parryRadius += Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer) * 10;
-    float radius =  15 * player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
+    player.resources.skillResources.parryRadius += 1000.0f * Time->deltaTimeSeconds; //This is the speed of the parry radius growing, it should be 700.0f
+    float radius =  player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
 
     // Set opacity based on time left
     SDL_SetTextureAlphaMod(
@@ -428,7 +428,7 @@ int Handle_Parry()
             Particle* bullet = &bulletEmitter->particles[i];
             if(!bullet->alive) continue;
             //Check if the bullet is in the parry range
-            if(Vec2_Distance(player.state.position, bullet->position) >= 70) continue; //THIS SHOULD BE 50
+            if(Vec2_Distance(player.state.position, bullet->position) >= player.resources.skillResources.parryRadius) continue; //THIS SHOULD BE 50
             
             //Finding bulletDirection
             Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
@@ -441,10 +441,11 @@ int Handle_Parry()
 
             //Parry the bullet
             bullet->direction = bulletDirection;
-
+            bullet->speed = 600.0f; //This is the speed of the bullet, it should be 700.0f
             //Changing the colliders
             bullet->collider->collidesWith = COLLISION_LAYER_ENEMY | COLLISION_LAYER_ENVIRONMENT;
             bullet->color = (SDL_Color){255, 255, 0, 255};
+            Sound_Play_Effect(SOUND_HITMARKER);
         }
     }
 
