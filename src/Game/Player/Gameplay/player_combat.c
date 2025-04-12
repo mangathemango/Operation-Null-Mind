@@ -45,8 +45,6 @@ void Player_Shoot() {
     // Play the corresponding sound effect for the current gun
     if (player.state.currentGun.type >= 0 && player.state.currentGun.type < sizeof(gunSoundEffects) / sizeof(gunSoundEffects[0])) {
         Sound_Play_Effect(gunSoundEffects[player.state.currentGun.type]);
-    } else {
-        SDL_Log("Unknown gun type: %d", player.state.currentGun.type);
     }
 
     player.state.currentAmmo -= ammoComsumption;
@@ -59,11 +57,9 @@ void Player_Shoot() {
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
 
     player.resources.skillResources.ammoShoot++;
-    SDL_Log("ammo shot %d",player.resources.skillResources.ammoShoot);
     if(ghostLoad() == true)
     {
         player.state.currentAmmo++;
-        SDL_Log("Ghost Load");
     }
     player.resources.shootCooldownTimer = Timer_Create((60.0f /(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);
     Timer_Start(player.resources.shootCooldownTimer);
@@ -123,11 +119,7 @@ void Player_PickUpGun(void* data, int interactableIndex) {
 void Player_PickUpHealth(void* data, int interactableIndex)
 {
     int* healAmount = data;
-    player.state.currentHealth += *healAmount;
-    if (player.state.currentHealth > player.stats.maxHealth) {
-        player.state.currentHealth = player.stats.maxHealth;
-    }
-    Sound_Play_Effect(SOUND_PLAYER_HEALING);
+    Player_TakeDamage(-*healAmount);
     Interactable_Deactivate(interactableIndex);
     Game_AddHealingItemUsed();
 }
@@ -141,7 +133,6 @@ void Player_PickUpSkill(void* data, int interactableIndex)
         &player.state.skillState.hemoCycle,
         &player.state.skillState.kineticArmor,
         &player.state.skillState.lastStand,
-        &player.state.skillState.oneMore,
         &player.state.skillState.overPressured,
         &player.state.skillState.scavenger
 
@@ -179,22 +170,39 @@ void Player_ReadLog(void* data, int interactableIndex) {
 float damageEffectOpacity = 0;
 
 void Player_TakeDamage(int damage) {
-    if (!player.resources.INVINCIBLE_Timer) {
-        player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
-        Timer_Start(player.resources.INVINCIBLE_Timer);
-        player.state.currentHealth -= (int) (damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100);
-        Sound_Play_Effect(SOUND_PLAYER_HURT);
+    if (damage < 0) {
+        player.state.currentHealth -= damage;
+        if (player.state.currentHealth > player.stats.maxHealth) {
+            player.state.currentHealth = player.stats.maxHealth;
+        }
+        Sound_Play_Effect(SOUND_PLAYER_HEALING);
+        Enemy_CreateHealthText(
+            (Vec2) {
+                player.state.position.x, 
+                player.state.position.y - player.animData.spriteSize.y / 2
+            }, 
+            damage
+        );
         return;
     }
     if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
     
     Game_AddHitsTaken();
-    player.state.currentHealth -= (int) ((damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100)) * kineticArmor();
+    int effectiveDamage = damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100 * kineticArmor();
+    player.state.currentHealth -= effectiveDamage;
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;
+    } else {
+        damageEffectOpacity = 100;
     }
+    Enemy_CreateHealthText(
+        (Vec2) {
+            player.state.position.x, 
+            player.state.position.y - player.animData.spriteSize.y / 2
+        }, 
+        effectiveDamage
+    );
     Sound_Play_Effect(SOUND_PLAYER_HURT);
-    damageEffectOpacity = 100;
     Timer_Start(player.resources.INVINCIBLE_Timer);
 }
 

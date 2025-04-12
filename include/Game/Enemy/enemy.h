@@ -140,7 +140,7 @@ void Enemy_Render();
 void Enemy_Destroy();
 void Enemy_Spawn(EnemyData data, Vec2 position);
 void Enemy_TakeDamage(EnemyData* enemy, int damage);
-void Enemy_CreateHealthText(EnemyData* enemy, int damage);
+void Enemy_CreateHealthText(Vec2 position, int damage);
 void Enemy_UpdateHealthTexts();
 void Enemy_RenderHealthTexts();
 int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk);

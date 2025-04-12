@@ -32,12 +32,16 @@ void Enemy_TakeDamage(EnemyData* enemy, int damage) {
         effectiveDamage = damage;
     }
     enemy->state.currentHealth -= effectiveDamage;
-    Enemy_CreateHealthText(enemy, effectiveDamage);
+    Enemy_CreateHealthText(
+        (Vec2) {
+            enemy->state.position.x, 
+            enemy->state.position.y - enemy->animData.spriteSize.y / 2
+        }, 
+        effectiveDamage
+    );
 }
 
-void Enemy_CreateHealthText(EnemyData* enemy, int damage) {
-    if (enemy->state.isDead) return;
-    
+void Enemy_CreateHealthText(Vec2 position, int damage) {
     UIElement* text;
     char textBuffer[50];
     if (damage > 0) {
@@ -45,12 +49,7 @@ void Enemy_CreateHealthText(EnemyData* enemy, int damage) {
         text = UI_CreateText(
             textBuffer, 
             Vec2_ToSquareRect(
-                Camera_WorldVecToScreen(
-                    (Vec2) {
-                        enemy->state.position.x, 
-                        enemy->state.position.y - enemy->animData.spriteSize.y / 2
-                    }
-                ), 
+                Camera_WorldVecToScreen(position), 
                 0
             ),
             (SDL_Color) {255, 255, 255, 255},
@@ -65,8 +64,8 @@ void Enemy_CreateHealthText(EnemyData* enemy, int damage) {
             Vec2_ToSquareRect(
                 Camera_WorldVecToScreen(
                     (Vec2) {
-                        enemy->state.position.x, 
-                        enemy->state.position.y - enemy->animData.spriteSize.y / 2
+                        position.x, 
+                        position.y
                     }
                 ), 
                 0
@@ -77,7 +76,6 @@ void Enemy_CreateHealthText(EnemyData* enemy, int damage) {
             app.resources.textFont
         );
     }
-    
     
     for (int i = 0; i < ENEMY_MAX * 10; i++) {
         if (EnemyHealthTexts[i] == NULL) {

@@ -146,14 +146,13 @@ void hemocycle()
     static bool JustHealed = false;
     if(player.state.skillState.hemoCycle == true)
     {
-        if(player.stats.enemiesKilled % 4 == 0 && JustHealed == false)
+        if(player.stats.enemiesKilled % 10 == 0 && JustHealed == false)
         {
             JustHealed = true;
             player.state.currentHealth += player.stats.skillStat.hemocycleHealthGained;
             if(player.state.currentHealth > player.stats.maxHealth) player.state.currentHealth = player.stats.maxHealth;
-            SDL_Log("Hemocycle: %d", player.stats.skillStat.hemocycleHealthGained);
         }
-        else if(player.stats.enemiesKilled % 4 != 0)
+        else if(player.stats.enemiesKilled % 10 != 0)
         {
             JustHealed = false;
         }
@@ -192,7 +191,6 @@ bool kineticArmor()
         {
             player.state.currentAmmo -= 20;
         }
-        SDL_Log("Kinetic Armor: %d", randomizer);
         return randomizer;
     }
 
@@ -209,11 +207,9 @@ bool ghostLoad()
     {
         if(player.resources.skillResources.ammoShoot % 8 == 0 && player.resources.skillResources.ammoShoot != 0)
         {
-            SDL_Log("Ghost Load mweh");
             if(randomizer == 1)
             {
                 player.resources.skillResources.ghostLoadRandomizer = player.stats.skillStat.ghostLoadRandomizer;
-                SDL_Log("Gun jammed");
             }
             else
             {
@@ -257,7 +253,6 @@ int Player_CrashOut() {
     // Don't activate if already active or on cooldown
     if (player.state.skillState.crashOut) return 1;
     if (!Timer_IsFinished(player.resources.skillResources.crashOutCooldown)) return 1;
-    SDL_Log("Player_Crashout Activated");
     
     // Calculate health cost (25% of current health)
     int healthCost = player.state.currentHealth * 0.25f;
@@ -318,7 +313,6 @@ int Player_HandleCrashOut() {
     player.stats.skillStat.crashOutCurrentMultipler = player.state.skillState.crashOutMultiplier; // Maintain damage multiplier while active
     player.resources.crashOut->position = player.state.position;
     ParticleEmitter_ActivateOnce(player.resources.crashOut);
-    SDL_Log("Player_Crashout Active");
     
     return 0;
 }
@@ -332,7 +326,6 @@ int Parry()
     //Starting timers and changing state
     player.state.skillState.parryActive = true;
     Timer_Start(player.resources.skillResources.parryDurationTimer);
-    SDL_Log("Parry Activated");
 
     //Finding mouseDirection
     Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
@@ -341,7 +334,6 @@ int Parry()
 
     player.resources.skillResources.parryDirection = mouseDirection;
     player.resources.skillResources.parryRadius = 0;
-    SDL_Log("Parry is active");
     return 0;
 }
 
@@ -437,11 +429,9 @@ int Handle_Parry()
             
             //Finding bulletDirection
             Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
-            SDL_Log("Bullet Parried");
         
             //Finding angle
             int angle = Vec2_AngleBetween(mouseDirection, bulletDirection);
-            SDL_Log("Angle: %d", angle);
 
             //Check if the angle is within the parry range
             if(player.stats.skillStat.maxParryAngle < abs(angle)) continue;

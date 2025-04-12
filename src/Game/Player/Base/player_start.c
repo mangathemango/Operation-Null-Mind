@@ -56,6 +56,9 @@ int Player_Start() {
         scavenger();
     }
 
+    player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
+    Timer_Start(player.resources.INVINCIBLE_Timer);
+
     player.state.skillState.parryActive = false;
     return 0;
 }

@@ -71,7 +71,6 @@ void Menu_Update() {
     if (Input_MouseIsOnRect(startButtonRect)) {
         UI_ChangeTextColor(startButtonElement, hoverButtonColor);
         if (!startButtonHovered) {
-            SDL_Log("Start button hovered");
             Sound_Play_Effect(SOUND_HOVER);
             startButtonHovered = true;
         }

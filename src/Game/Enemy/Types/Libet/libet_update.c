@@ -222,10 +222,7 @@ void Libet_Update(EnemyData* data) {
             config->state = LIBET_FLOATING;
             config->timer = 0;
             phase++;
-            player.state.currentHealth += 50;
-            if (player.state.currentHealth > player.stats.maxHealth) {
-                player.state.currentHealth = player.stats.maxHealth;
-            }
+            Player_TakeDamage(-50);
             Animation_Play(data->resources.animation, "[INVINCIBLE]");
             data->state.collider.layer = COLLISION_LAYER_NONE;
 

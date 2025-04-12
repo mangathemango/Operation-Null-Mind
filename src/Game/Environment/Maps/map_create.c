@@ -64,6 +64,7 @@ void Map_Generate() {
         }
         SDL_Log("Main path generation complete");
 
+        SDL_Log("Checking for alternate paths/branches...\n");
         for (int x = 0; x < MAP_SIZE_CHUNK; x++) {
             for (int y = 0; y < MAP_SIZE_CHUNK; y++) {
                 if (testMap.chunks[x][y].empty) {
@@ -76,8 +77,6 @@ void Map_Generate() {
                 if (!Chunk_IsOnMainPath(&testMap.chunks[x][y])) {
                     SDL_Log("Alternate path at (%d, %d)", x, y);
                     testMap.alternatePath[testMap.alternatePathLength++] = (Vec2){x, y};
-                } else {
-                    SDL_Log("Chunk at (%d, %d) is on main path", x, y);
                 }
             }
         }
@@ -89,7 +88,7 @@ void Map_Generate() {
             int randomIndex = RandInt(0, testMap.alternatePathLength - 1);
             Vec2 chunkPosition = testMap.alternatePath[randomIndex];
             testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y].roomType = ROOM_TYPE_CRATE;
-            SDL_Log("Crate room at (%d, %d)", (int) chunkPosition.x, (int) chunkPosition.y);
+            SDL_Log("Crate room generated at alternate path (%d, %d)", (int) chunkPosition.x, (int) chunkPosition.y);
         }
     } else {
         testMap.chunks[3][2].empty = false;
@@ -192,7 +191,7 @@ void Map_CreateMainPath() {
     // Reset path tracking
     testMap.mainPathLength = 0;
     testMap.mainPath[testMap.mainPathLength] = (Vec2){3, 3}; //So basically, this just allows the main path to start somewhere
-    SDL_Log("Generating main path via random walk");
+    SDL_Log("Generating main path");
     
 
 

@@ -25,7 +25,6 @@
  */
 void Sound_Set_Max_Channels(int numChannels) {
     Mix_AllocateChannels(numChannels);
-    SDL_Log("Number of sound effect channels set to: %d", numChannels);
 }
 
 // Initialize the sound resources structure
@@ -131,7 +130,6 @@ bool Sound_Load_Resources() {
 void Sound_Play_Effect(int index) {
     if (index >= 0 && index < SOUND_COUNT) {
         Mix_PlayChannel(-1, soundResources.soundEffects[index], 0);
-        SDL_Log("Playing sound effect: %s", soundResources.soundPaths[index]);
     }
 }
 
@@ -188,12 +186,9 @@ SimpleQueue musicQueue = {
  * Plays the next queued song if available
  */
 void Music_Finished_Callback() {
-    SDL_Log("Music finished playing, checking for next song...");
     if (!musicQueue.hasNextSong) {
         SDL_Log("No next song queued.");
         return;
-    } else {
-        SDL_Log("Next song queued: %s", musicQueue.nextSongPath);
     }
 
     Sound_Play_Music(musicQueue.nextSongPath, 0); // Play once
@@ -250,7 +245,6 @@ void Sound_Play_Music(const char* path, int loops) {
     
     // Load and play new music
     soundResources.backgroundMusic = Mix_LoadMUS(path);
-    SDL_Log("Loading music: %s", path);
     if (soundResources.backgroundMusic == NULL) {
         printf("Failed to load music: %s\n", Mix_GetError());
         return;

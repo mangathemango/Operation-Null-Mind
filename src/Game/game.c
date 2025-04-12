@@ -31,7 +31,6 @@ void Game_Update() {
     
     if (game.isTransitioning) {
         if (Timer_GetTimeLeft(game.transitionTimer) < 1.0f && !currentStageIncreased) {
-            SDL_Log("Time Left: %f", Timer_GetTimeLeft(game.transitionTimer));
             game.currentStage++;
             currentStageIncreased = true;
         }
