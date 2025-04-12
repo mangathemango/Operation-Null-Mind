@@ -1,1 +1,0 @@
-  -L"D:/Programming stuffs/Locked in/C/Operation Null Mind/lib"  -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

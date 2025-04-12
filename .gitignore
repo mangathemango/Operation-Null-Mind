@@ -6,6 +6,7 @@ node_modules/
 
 # Ignore build directories
 dist/
+build/
 
 # Ignore temporary files
 *.tmp

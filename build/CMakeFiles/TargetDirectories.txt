@@ -1,3 +1,0 @@
-D:/Programming stuffs/Locked in/C/Operation Null Mind/build/CMakeFiles/Operation-Null-Mind.dir
-D:/Programming stuffs/Locked in/C/Operation Null Mind/build/CMakeFiles/edit_cache.dir
-D:/Programming stuffs/Locked in/C/Operation Null Mind/build/CMakeFiles/rebuild_cache.dir
