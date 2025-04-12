@@ -64,8 +64,8 @@ void Player_Input_Handler() {
     if(Input->mouse.rightButton.pressed) Parry();
 
     if (Input->keyboard.keys[SDL_SCANCODE_TAB].pressed) game.hudToggled = !game.hudToggled;
-    
-    if (Input->mouse.leftButton.pressed) {
+
+    if (Input->keyboard.keys[SDL_SCANCODE_E].pressed) {
         game.viewingLog = -1;
     }
 }
