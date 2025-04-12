@@ -234,8 +234,32 @@ void ParticleEmitter_UpdateParticles(ParticleEmitter* emitter) {
  * @param maxParticles The target max particle number
  */
 void ParticleEmitter_SetMaxParticles(ParticleEmitter* emitter, int maxParticles) {
+    if (maxParticles <= 0) return; // Ensure valid size
+
+    // Attempt to reallocate memory
+    Particle* newParticles = realloc(emitter->particles, sizeof(Particle) * maxParticles);
+    if (!newParticles) {
+        // Handle realloc failure
+        SDL_Log("Failed to reallocate memory for particles.");
+        return;
+    }
+
+    // Update the particle array and maxParticles
+    emitter->particles = newParticles;
+
+    // Initialize new particles if the size increased
+    for (int i = emitter->maxParticles; i < maxParticles; i++) {
+        emitter->particles[i].alive = false;
+        if (emitter->useCollider) {
+            emitter->particles[i].collider = malloc(sizeof(Collider));
+            if (!emitter->particles[i].collider) {
+                SDL_Log("Failed to allocate memory for particle collider.");
+                continue;
+            }
+        }
+    }
+
     emitter->maxParticles = maxParticles;
-    emitter->particles = realloc(emitter->particles, sizeof(Particle) * emitter->maxParticles);
 }
 
 /**
