@@ -206,13 +206,11 @@ void Juggernaut_UpdateParticles() {
             }
             if(result.objects[j]->layer & COLLISION_LAYER_ENEMY)
             {
-                //This will be removed when the whole parry system is implemented
-                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 
                 int totalDamage = JuggernautData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
-                SDL_Log("Enemy took damage %d, remaining health %d",totalDamage, enemy->state.currentHealth);
+                // SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 Enemy_TakeDamage(enemy, totalDamage);
                 JuggernautBulletEmitter->position = bullet->position;
                 JuggernautBulletFragmentsEmitter->direction = JuggernautBulletEmitter->direction;

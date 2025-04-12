@@ -196,9 +196,6 @@ void Echo_UpdateParticles() {
             }
             if(result.objects[j]->layer & COLLISION_LAYER_ENEMY)
             {
-                //This will be removed when the whole parry system is implemented
-                SDL_Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 
                 int totalDamage = EchoData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;

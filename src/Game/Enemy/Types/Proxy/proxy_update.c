@@ -180,7 +180,6 @@ void Proxy_UpdateParticles() {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 
                 int totalDamage = ProxyData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
-                SDL_Log("Enemy took damage %d, remaining health %d", totalDamage, enemy->state.currentHealth);
                 Enemy_TakeDamage(enemy, totalDamage);
                 
                 ProxyBulletFragmentsEmitter->position = bullet->position;

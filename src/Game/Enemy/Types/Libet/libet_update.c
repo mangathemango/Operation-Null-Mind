@@ -379,6 +379,17 @@ void Libet_Update(EnemyData* data) {
                 if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
                     Player_TakeDamage(10);
                 }
+                if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
+                    EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
+                    
+                    int totalDamage = LibetData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
+                    Enemy_TakeDamage(enemy, totalDamage);
+                    
+                    Collider_Reset(bullet->collider);
+                    bullet->alive = false;
+                    Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 70));
+                    break;
+                }
                 if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                     bullet->alive = false;
                     break;
