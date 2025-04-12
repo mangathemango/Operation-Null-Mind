@@ -44,6 +44,7 @@ void Vantage_UpdateParticles();
 void Vantage_RenderParticles();
 void Vantage_UpdateLazer(EnemyData* data);
 void Vantage_RenderLaser(EnemyData* data);
+void Vantage_OnDeath(EnemyData* data);
 
 extern VantageConfig VantageConfigData;
 extern EnemyData VantageData;

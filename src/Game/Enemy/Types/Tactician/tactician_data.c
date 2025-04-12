@@ -132,5 +132,6 @@ EnemyData TacticianData = {
     .start = &Tactician_Start,
     .update = &Tactician_Update,
     .render = &Tactician_Render,
+    .onDeath = &Tactician_OnDeath,
     .name = "Tactician",
 };

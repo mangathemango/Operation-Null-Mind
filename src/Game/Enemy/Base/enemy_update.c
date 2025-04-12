@@ -34,7 +34,6 @@ void Enemy_Update() {
         enemy->state.flip = enemy->state.direction.x > 0 ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
         // Call enemy-specific update function if available
         if (enemy->update) enemy->update(enemy);
-        if (enemy->state.isDead) continue;
         if (enemy->state.tacticianBuffTimeLeft > 0) {
             TacticianBuffEffectEmitter->position = enemy->state.position;
             ParticleEmitter_ActivateOnce(TacticianBuffEffectEmitter);
@@ -47,7 +46,7 @@ void Enemy_Update() {
         Animation_Update(enemy->resources.animation);
 
         // Check if enemy should die
-        if (enemy->state.currentHealth <= 0) Enemy_HandleDeath(enemy);
+        if (enemy->state.currentHealth <= 0) Enemy_OnDeath(enemy);
     }
     Enemy_UpdateHealthTexts();
     if (KamikazeExplosionEmitter) ParticleEmitter_Update(KamikazeExplosionEmitter);
@@ -101,7 +100,7 @@ void Enemy_HandleSpawning(EnemyData* enemy) {
         if (result.objects[i]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_ENEMY | COLLISION_LAYER_PLAYER)) {
             if (result.objects[i]->owner == enemy) continue;
             // Kill enemy if spawning inside another object
-            Enemy_HandleDeath(enemy);
+            Enemy_OnDeath(enemy);
             break;
         }
     }
@@ -187,29 +186,4 @@ void Enemy_TryMove(EnemyData* enemy, Vec2 movement) {
     }
     // Apply movement if no collisions
     enemy->state.position = newPosition;
-}
-
-/**
- * @brief [Utility] Handles the death of an enemy.
- * 
- * Sets health to 0, marks as dead, and removes collision.
- * Called when an enemy's health reaches zero or when they spawn inside
- * another object.
- * 
- * @param enemy Pointer to the enemy that died
- */
-void Enemy_HandleDeath(EnemyData* enemy) {
-    if (enemy->state.isDead) return;
-    enemy->state.currentHealth = 0;
-    enemy->state.isDead = true;
-    Collider_Reset(&enemy->state.collider);
-    if (enemy->config) free(enemy->config);
-    enemy->config = NULL;
-    player.state.currentAmmo += 20 + player.resources.skillResources.scavengerAmmoBonus;
-
-    player.stats.enemiesKilled++;
-    if (player.state.currentAmmo > player.stats.maxAmmo) {
-        player.state.currentAmmo = player.stats.maxAmmo;
-    }
-    
 }

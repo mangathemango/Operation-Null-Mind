@@ -121,4 +121,5 @@ EnemyData SabotData = {
     .start = &Sabot_Start,
     .update = &Sabot_Update,
     .render = &Sabot_Render,
+    .onDeath = &Sabot_OnDeath,
 };

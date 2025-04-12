@@ -92,4 +92,5 @@ EnemyData RechargeData = {
     .start = &Recharge_Start,
     .update = &Recharge_Update,
     .render = &Recharge_Render,
+    .onDeath = &Recharge_OnDeath,
 };

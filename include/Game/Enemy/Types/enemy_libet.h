@@ -58,4 +58,6 @@ void Libet_Render(EnemyData* data);
 
 void Libet_AddLazer(Lazer lazer);
 
+void Libet_OnDeath(EnemyData* data);
+
 void Enemy_RenderBoss();

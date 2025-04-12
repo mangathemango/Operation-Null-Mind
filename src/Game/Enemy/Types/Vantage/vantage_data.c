@@ -128,4 +128,5 @@ EnemyData VantageData = {
     .start = &Vantage_Start,
     .update = &Vantage_Update,
     .render = &Vantage_Render,
+    .onDeath = &Vantage_OnDeath,
 };

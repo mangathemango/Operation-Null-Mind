@@ -44,6 +44,7 @@ void Tactician_Update(EnemyData* data);
 void Tactician_Render(EnemyData* data);
 void Tactician_UpdateParticles();
 void Tactician_RenderParticles();
+void Tactician_OnDeath(EnemyData* data);
 
 extern TacticianConfig TacticianConfigData;
 extern EnemyData TacticianData;

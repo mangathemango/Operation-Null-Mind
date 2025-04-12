@@ -102,15 +102,6 @@ void Sentry_Update(EnemyData* data) {
     GunData* gun = &config->gun;
 
     float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
-
-    if (data->state.currentHealth <= 0) {
-        Animation_Destroy(gun->resources.animation);
-        void* configToFree = config;
-        data->config = NULL;
-        free(configToFree);
-        Enemy_HandleDeath(data);
-        return;
-    }
     
     config->timer += Time->deltaTimeSeconds;
     switch (config->state) {

@@ -28,17 +28,6 @@ void Echo_Update(EnemyData* data) {
     
     float effectiveCooldown = data->stats.attackCooldown / data->state.tacticianBuff;
     float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
-
-
-    if (data->state.currentHealth <= 0) {
-        GunData* gun = &config->gun;
-        Animation_Destroy(gun->resources.animation);
-        void* configToFree = config;
-        data->config = NULL;
-        free(configToFree);
-        Enemy_HandleDeath(data);
-        return;
-    }
         
     config->gun.state.position = data->state.position;
     data->state.flip = data->state.position.x > player.state.position.x ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;

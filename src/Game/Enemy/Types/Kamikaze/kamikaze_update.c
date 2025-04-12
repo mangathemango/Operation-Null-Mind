@@ -104,11 +104,8 @@ void Kamikaze_Update(EnemyData* data) {
             }
             
             Sound_Play_Effect(SOUND_EXPLOSION);
-            free(data->config);
             data->state.currentHealth = 0;
             data->state.isDead = true;
-            Collider_Reset(&data->state.collider);
-            data->config = NULL;
         }
         break;
     }

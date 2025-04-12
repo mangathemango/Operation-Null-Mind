@@ -120,4 +120,5 @@ EnemyData ProxyData = {
     .start = &Proxy_Start,
     .update = &Proxy_Update,
     .render = &Proxy_Render,
+    .onDeath = &Proxy_OnDeath,
 };

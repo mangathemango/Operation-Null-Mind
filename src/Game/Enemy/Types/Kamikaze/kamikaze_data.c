@@ -88,4 +88,5 @@ EnemyData KamikazeData = {
     .start = &Kamikaze_Start,
     .update = &Kamikaze_Update,
     .render = &Kamikaze_Render,
+    .onDeath = &Kamikaze_OnDeath,
 };

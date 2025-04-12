@@ -71,4 +71,5 @@ EnemyData LibetData = {
     .start = &Libet_Start,
     .update = &Libet_Update,
     .render = &Libet_Render,
+    .onDeath = &Libet_OnDeath,
 };

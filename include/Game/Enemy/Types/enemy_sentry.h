@@ -51,6 +51,7 @@ void Sentry_RenderParticles();
 void Sentry_UpdateGun(EnemyData* data);
 void Sentry_UpdateLazer(EnemyData* data);
 void Sentry_RenderLaser(EnemyData* data);
+void Sentry_OnDeath(EnemyData* data);
 
 extern SentryConfig SentryConfigData;
 extern EnemyData SentryData;

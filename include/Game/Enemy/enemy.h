@@ -111,6 +111,7 @@ typedef struct EnemyData {
     void (*start)(EnemyData* data);    /**< Initialization function */
     void (*update)(EnemyData* data);   /**< Update logic function */
     void (*render)(EnemyData* data);   /**< Render function */
+    void (*onDeath)(EnemyData* data);  /**< OnDeath function pointer */
     
     const char* name;                  /**< Name of the enemy */
 } EnemyData;
@@ -133,7 +134,7 @@ void Enemy_Update();
 void Enemy_HandleSpawning(EnemyData* enemy);
 void Enemy_HandleMovement(EnemyData* enemy);
 void Enemy_TryMove(EnemyData* enemy, Vec2 movement);
-void Enemy_HandleDeath(EnemyData* enemy);
+void Enemy_OnDeath(EnemyData* enemy);
 void EnemyManager_Update();
 void EnemyManager_RenderClearText();
 void Enemy_Render();

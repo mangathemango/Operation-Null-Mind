@@ -36,6 +36,7 @@ void Sabot_Update(EnemyData* data);
 void Sabot_Render(EnemyData* data);
 void Sabot_UpdateParticles();
 void Sabot_RenderParticles();
+void Sabot_OnDeath(EnemyData* data);
 
 extern SabotConfig SabotConfigData;
 extern EnemyData SabotData;

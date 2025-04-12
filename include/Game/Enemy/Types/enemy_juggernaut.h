@@ -41,6 +41,7 @@ void Juggernaut_Update(EnemyData* data);
 void Juggernaut_Render(EnemyData* data);
 void Juggernaut_UpdateParticles();
 void Juggernaut_RenderParticles();
+void Juggernaut_OnDeath(EnemyData* data);
 
 extern JuggernautConfig JuggernautConfigData;
 extern EnemyData JuggernautData;

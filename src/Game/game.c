@@ -5,7 +5,7 @@
 bool currentStageIncreased = false;
 
 GameData game = {
-    .currentStage = 1,
+    .currentStage = 10,
     .isTransitioning = false,
     .viewingLog = -1,
     .transitionTimer = NULL,
@@ -63,7 +63,7 @@ void Game_Restart()
     for(int i = 0;i < ENEMY_MAX;i++)
     {
         EnemyData* enemy = &enemies[i];
-        Enemy_HandleDeath(enemy);
+        Enemy_OnDeath(enemy);
     }
     player.stats.enemiesKilled = 0;
 }

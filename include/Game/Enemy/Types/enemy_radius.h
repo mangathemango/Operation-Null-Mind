@@ -32,6 +32,7 @@ void Radius_Update(EnemyData* data);
 void Radius_Render(EnemyData* data);
 void Radius_UpdateParticles();
 void Radius_RenderParticles();
+void Radius_OnDeath(EnemyData* data);
 
 extern RadiusConfig RadiusConfigData;
 extern EnemyData RadiusData;

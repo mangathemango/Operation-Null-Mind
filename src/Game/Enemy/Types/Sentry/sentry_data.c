@@ -134,4 +134,5 @@ EnemyData SentryData = {
     .start = &Sentry_Start,
     .update = &Sentry_Update,
     .render = &Sentry_Render,
+    .onDeath = &Sentry_OnDeath,
 };

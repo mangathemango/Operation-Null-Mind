@@ -30,6 +30,7 @@ void Proxy_Update(EnemyData* data);
 void Proxy_Render(EnemyData* data);
 void Proxy_UpdateParticles();
 void Proxy_RenderParticles();
+void Proxy_OnDeath(EnemyData* data);
 
 extern ProxyConfig ProxyConfigData;
 extern EnemyData ProxyData;

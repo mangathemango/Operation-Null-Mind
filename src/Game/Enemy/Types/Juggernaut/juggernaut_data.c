@@ -125,5 +125,6 @@ EnemyData JuggernautData = {
     .start = &Juggernaut_Start,
     .update = &Juggernaut_Update,
     .render = &Juggernaut_Render,
+    .onDeath = &Juggernaut_OnDeath,
     .name = "Juggernaut",
 };

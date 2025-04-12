@@ -42,6 +42,7 @@ void Echo_UpdateGun(EnemyData* data);
 void Echo_Render(EnemyData* data);
 void Echo_UpdateParticles();
 void Echo_RenderParticles();
+void Echo_OnDeath(EnemyData* data);
 
 extern EchoConfig EchoConfigData;
 extern EnemyData EchoData;

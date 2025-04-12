@@ -28,6 +28,7 @@ typedef struct {
 void Recharge_Start (EnemyData* data);
 void Recharge_Update(EnemyData* data);
 void Recharge_Render(EnemyData* data);
+void Recharge_OnDeath(EnemyData* data);
 
 extern RechargeConfig RechargeConfigData;
 extern EnemyData RechargeData;

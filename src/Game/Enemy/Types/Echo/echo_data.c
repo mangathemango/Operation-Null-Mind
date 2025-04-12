@@ -135,4 +135,5 @@ EnemyData EchoData = {
     .start = &Echo_Start,
     .update = &Echo_Update,
     .render = &Echo_Render,
+    .onDeath = &Echo_OnDeath,
 };

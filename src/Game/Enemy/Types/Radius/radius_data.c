@@ -115,4 +115,5 @@ EnemyData RadiusData = {
     .start = &Radius_Start,
     .update = &Radius_Update,
     .render = &Radius_Render,
+    .onDeath = &Radius_OnDeath,
 };

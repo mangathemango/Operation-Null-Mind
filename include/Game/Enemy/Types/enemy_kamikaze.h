@@ -31,6 +31,7 @@ extern ParticleEmitter* KamikazeExplosionEmitter;
 void Kamikaze_Start (EnemyData* data);
 void Kamikaze_Update(EnemyData* data);
 void Kamikaze_Render(EnemyData* data);
+void Kamikaze_OnDeath(EnemyData* data);
 
 extern KamikazeConfig KamikazeConfigData;
 extern EnemyData KamikazeData;
