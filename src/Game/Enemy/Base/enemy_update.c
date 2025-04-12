@@ -33,7 +33,6 @@ void Enemy_Update() {
         }
         enemy->state.flip = enemy->state.direction.x > 0 ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
         // Call enemy-specific update function if available
-        if (enemy->update) enemy->update(enemy);
         if (enemy->state.tacticianBuffTimeLeft > 0) {
             TacticianBuffEffectEmitter->position = enemy->state.position;
             ParticleEmitter_ActivateOnce(TacticianBuffEffectEmitter);
@@ -46,6 +45,7 @@ void Enemy_Update() {
         Animation_Update(enemy->resources.animation);
 
         // Check if enemy should die
+        if (enemy->update) enemy->update(enemy);
         if (enemy->state.currentHealth <= 0) Enemy_OnDeath(enemy);
     }
     Enemy_UpdateHealthTexts();

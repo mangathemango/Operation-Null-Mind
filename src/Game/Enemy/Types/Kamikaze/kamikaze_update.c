@@ -104,8 +104,8 @@ void Kamikaze_Update(EnemyData* data) {
             }
             
             Sound_Play_Effect(SOUND_EXPLOSION);
-            data->state.currentHealth = 0;
-            data->state.isDead = true;
+            Enemy_OnDeath(data);
+            player.stats.enemiesKilled--;
         }
         break;
     }

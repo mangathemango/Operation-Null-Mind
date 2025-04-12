@@ -392,6 +392,7 @@ void Libet_Update(EnemyData* data) {
                 }
                 if (result.objects[j]->layer & (COLLISION_LAYER_ENVIRONMENT | COLLISION_LAYER_PLAYER)) {
                     bullet->alive = false;
+                    Collider_Reset(bullet->collider);
                     break;
                 }
             }
