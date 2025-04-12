@@ -11,14 +11,14 @@ void LevelTransition_Start() {
         "1",
         (SDL_Rect) {
             app.config.screen_width / 2, 
-            app.config.screen_height / 2, 
+            app.config.screen_height / 2 - 30, 
             app.config.screen_width, 
             app.config.screen_height
         },
         (SDL_Color) {255, 255, 255, 255}, 
-        5.0f,
+        2.0f,
         UI_TEXT_ALIGN_CENTER,
-        app.resources.textFont
+        app.resources.title1Font
     );
     currentOffset = -app.config.screen_height;
 }
