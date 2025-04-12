@@ -39,12 +39,6 @@ void Player_Input_Handler() {
     if (Input->keyboard.keys[SDL_SCANCODE_LCTRL].pressed) Player_CrashOut();
 
     if (Input->keyboard.keys[SDL_SCANCODE_Q].pressed) Player_SwitchGun(0);
-    
-    if (Input->keyboard.keys[SDL_SCANCODE_F].pressed) {
-        Vec2 chunkPosition = testMap.mainPath[testMap.mainPathLength];
-        player.state.position.x = Chunk_GetChunkCenter(&testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y]).x + 20;
-        player.state.position.y = Chunk_GetChunkCenter(&testMap.chunks[(int) chunkPosition.x][(int) chunkPosition.y]).y + 20;
-    }
 
     if (player.state.currentGun.stats.fireMode == FIREMODE_AUTO) {
         if (Input->mouse.leftButton.held) Player_Shoot();

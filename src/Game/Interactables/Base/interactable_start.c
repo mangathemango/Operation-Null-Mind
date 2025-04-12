@@ -6,9 +6,9 @@ SDL_Texture* interactabletextures[INTERACTABLE_COUNT];
 UIElement* interactionText;
 flag hasInteraction;
 HealthData healthData[3] = {
-    [0] = {20, "Medi-Stim"},
-    [1] = {30, "Biofoam Spray"},
-    [2] = {50, "Nano-Gel"}
+    [0] = {50, "Medi-Stim (+50 HP)"},
+    [1] = {100, "Biofoam Spray (+100 HP)"},
+    [2] = {200, "Nano-Gel (+200 HP)"}
 };
 
 AbilityData abilityData[8] =
@@ -52,14 +52,6 @@ AbilityData abilityData[8] =
         .descriptionPro = "Gives a second life",
         .descriptionCon = "All abilites have a longer cooldown",
         .path = "Assets/Images/Icons/abilities/lastStand.png",
-    },
-    [ONE_MORE] = 
-    {
-        .type = ONE_MORE,
-        .name = "One More",
-        .descriptionPro = "Add a 3rd gun slot",
-        .descriptionCon = "Reduce melee damage",
-        .path = "Assets/Images/Icons/abilities/oneMore.png",
     },
     [OVER_PRESSURED] =
     {

@@ -328,7 +328,7 @@ int Parry()
     //Check if parry is active
     if(player.state.skillState.parryActive == true)return 1;
     if(!Timer_IsFinished(player.resources.skillResources.parryTimer)) return 1;
-    
+    Sound_Play_Effect(SOUND_PARRY); // Play parry sound effect
     //Starting timers and changing state
     player.state.skillState.parryActive = true;
     Timer_Start(player.resources.skillResources.parryDurationTimer);
