@@ -1,0 +1,776 @@
+[
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_event_handler.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_event_handler.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_event_handler.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_event_handler.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_postupdate.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_postupdate.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_postupdate.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_postupdate.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_preupdate.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_preupdate.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_preupdate.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_preupdate.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_quit.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_quit.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_quit.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_quit.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\App\\app_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\App\\app_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/App/app_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/App/app_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\UI\\UI_text.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\UI\\UI_text.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/UI/UI_text.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/UI/UI_text.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\camera.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\camera.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/camera.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/camera.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\colliders.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\colliders.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/colliders.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/colliders.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\input.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\input.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/input.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/input.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\sound.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\sound.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/sound.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/sound.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\time_system.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\time_system.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/time_system.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/time_system.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Core\\vec2.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Core\\vec2.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Core/vec2.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Core/vec2.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_bossmanager.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_bossmanager.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_bossmanager.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_bossmanager.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_manager.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_manager.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_manager.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_manager.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_spawn.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_spawn.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_spawn.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_spawn.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_takedamage.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_takedamage.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_takedamage.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_takedamage.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Base\\enemy_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Base\\enemy_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Base/enemy_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Base/enemy_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Echo\\echo_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Echo\\echo_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Echo/echo_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Echo/echo_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Echo\\echo_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Echo\\echo_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Echo/echo_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Echo/echo_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Echo\\echo_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Echo\\echo_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Echo/echo_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Echo/echo_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Echo\\echo_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Echo\\echo_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Echo/echo_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Echo/echo_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Juggernaut/juggernaut_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Juggernaut/juggernaut_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Juggernaut/juggernaut_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Juggernaut/juggernaut_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Juggernaut/juggernaut_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Juggernaut/juggernaut_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Juggernaut\\juggernaut_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Juggernaut/juggernaut_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Juggernaut/juggernaut_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Kamikaze/kamikaze_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Kamikaze/kamikaze_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Kamikaze/kamikaze_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Kamikaze/kamikaze_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Kamikaze/kamikaze_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Kamikaze/kamikaze_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Kamikaze\\kamikaze_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Kamikaze/kamikaze_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Kamikaze/kamikaze_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Libet\\libet_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Libet\\libet_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Libet/libet_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Libet/libet_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Libet\\libet_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Libet\\libet_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Libet/libet_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Libet/libet_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Libet\\libet_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Libet\\libet_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Libet/libet_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Libet/libet_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Libet\\libet_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Libet\\libet_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Libet/libet_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Libet/libet_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Proxy\\proxy_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Proxy\\proxy_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Proxy/proxy_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Proxy/proxy_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Proxy\\proxy_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Proxy\\proxy_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Proxy/proxy_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Proxy/proxy_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Proxy\\proxy_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Proxy\\proxy_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Proxy/proxy_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Proxy/proxy_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Proxy\\proxy_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Proxy\\proxy_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Proxy/proxy_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Proxy/proxy_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Radius\\radius_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Radius\\radius_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Radius/radius_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Radius/radius_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Radius\\radius_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Radius\\radius_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Radius/radius_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Radius/radius_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Radius\\radius_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Radius\\radius_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Radius/radius_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Radius/radius_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Radius\\radius_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Radius\\radius_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Radius/radius_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Radius/radius_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Recharge\\recharge_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Recharge\\recharge_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Recharge/recharge_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Recharge/recharge_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Recharge\\recharge_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Recharge\\recharge_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Recharge/recharge_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Recharge/recharge_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Recharge\\recharge_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Recharge\\recharge_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Recharge/recharge_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Recharge/recharge_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Recharge\\recharge_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Recharge\\recharge_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Recharge/recharge_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Recharge/recharge_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sabot\\sabot_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sabot\\sabot_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sabot/sabot_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sabot/sabot_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sabot\\sabot_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sabot\\sabot_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sabot/sabot_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sabot/sabot_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sabot\\sabot_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sabot\\sabot_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sabot/sabot_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sabot/sabot_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sabot\\sabot_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sabot\\sabot_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sabot/sabot_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sabot/sabot_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sentry\\sentry_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sentry\\sentry_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sentry/sentry_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sentry/sentry_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sentry\\sentry_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sentry\\sentry_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sentry/sentry_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sentry/sentry_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sentry\\sentry_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sentry\\sentry_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sentry/sentry_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sentry/sentry_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Sentry\\sentry_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Sentry\\sentry_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Sentry/sentry_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Sentry/sentry_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Tactician\\tactician_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Tactician\\tactician_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Tactician/tactician_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Tactician/tactician_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Tactician\\tactician_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Tactician\\tactician_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Tactician/tactician_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Tactician/tactician_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Tactician\\tactician_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Tactician\\tactician_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Tactician/tactician_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Tactician/tactician_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Tactician\\tactician_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Tactician\\tactician_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Tactician/tactician_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Tactician/tactician_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Vantage\\vantage_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Vantage\\vantage_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Vantage/vantage_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Vantage/vantage_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Vantage\\vantage_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Vantage\\vantage_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Vantage/vantage_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Vantage/vantage_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Vantage\\vantage_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Vantage\\vantage_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Vantage/vantage_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Vantage/vantage_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Enemy\\Types\\Vantage\\vantage_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Enemy\\Types\\Vantage\\vantage_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Enemy/Types/Vantage/vantage_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Enemy/Types/Vantage/vantage_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Chunks\\chunk_create.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Chunks\\chunk_create.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Chunks/chunk_create.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Chunks/chunk_create.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Chunks\\chunk_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Chunks\\chunk_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Chunks/chunk_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Chunks/chunk_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Chunks\\chunk_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Chunks\\chunk_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Chunks/chunk_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Chunks/chunk_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Chunks\\chunk_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Chunks\\chunk_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Chunks/chunk_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Chunks/chunk_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Chunks\\chunk_utils.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Chunks\\chunk_utils.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Chunks/chunk_utils.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Chunks/chunk_utils.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Maps\\map_create.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Maps\\map_create.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Maps/map_create.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Maps/map_create.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Maps\\map_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Maps\\map_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Maps/map_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Maps/map_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Maps\\map_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Maps\\map_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Maps/map_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Maps/map_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Maps\\map_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Maps\\map_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Maps/map_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Maps/map_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Tiles\\tile_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Tiles\\tile_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Tiles/tile_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Tiles/tile_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Tiles\\tile_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Tiles\\tile_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Tiles/tile_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Tiles/tile_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Tiles\\tile_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Tiles\\tile_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Tiles/tile_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Tiles/tile_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Environment\\Tiles\\tile_utils.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Environment\\Tiles\\tile_utils.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Environment/Tiles/tile_utils.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Environment/Tiles/tile_utils.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Base\\gun_animations.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Base\\gun_animations.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Base/gun_animations.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Base/gun_animations.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Base\\gun_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Base\\gun_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Base/gun_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Base/gun_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Base\\gun_position.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Base\\gun_position.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Base/gun_position.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Base/gun_position.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Base\\gun_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Base\\gun_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Base/gun_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Base/gun_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Base\\gun_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Base\\gun_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Base/gun_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Base/gun_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Base\\gun_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Base\\gun_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Base/gun_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Base/gun_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Bullet\\bullet_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Bullet\\bullet_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Bullet/bullet_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Bullet/bullet_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Bullet\\bullet_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Bullet\\bullet_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Bullet/bullet_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Bullet/bullet_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Gun\\Bullet\\bullet_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Gun\\Bullet\\bullet_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Gun/Bullet/bullet_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Gun/Bullet/bullet_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Base\\interactable_create.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Base\\interactable_create.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Base/interactable_create.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Base/interactable_create.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Base\\interactable_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Base\\interactable_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Base/interactable_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Base/interactable_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Base\\interactable_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Base\\interactable_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Base/interactable_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Base/interactable_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Base\\interactable_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Base\\interactable_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Base/interactable_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Base/interactable_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Base\\interactable_update.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Base\\interactable_update.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Base/interactable_update.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Base/interactable_update.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Environment\\interactable_crate.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Environment\\interactable_crate.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Environment/interactable_crate.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Environment/interactable_crate.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Items\\interactable_abilities.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Items\\interactable_abilities.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Items/interactable_abilities.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Items/interactable_abilities.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Items\\interactable_gun.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Items\\interactable_gun.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Items/interactable_gun.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Items/interactable_gun.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Items\\interactable_health.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Items\\interactable_health.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Items/interactable_health.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Items/interactable_health.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Interactables\\Narrative\\logs.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Interactables\\Narrative\\logs.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Interactables/Narrative/logs.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Interactables/Narrative/logs.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\controls.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\controls.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/controls.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/controls.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\death_layout.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\death_layout.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/death_layout.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/death_layout.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\hud.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\hud.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/hud.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/hud.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\level_transitioning.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\level_transitioning.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/level_transitioning.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/level_transitioning.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\menu_layout.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\menu_layout.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/menu_layout.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/menu_layout.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\minimap.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\minimap.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/minimap.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/minimap.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\mission_briefing.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\mission_briefing.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/mission_briefing.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/mission_briefing.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\pause_layout.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\pause_layout.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/pause_layout.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/pause_layout.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Menu\\win_layout.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Menu\\win_layout.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Menu/win_layout.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Menu/win_layout.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_animations.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_animations.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_animations.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_animations.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_data.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_data.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_data.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_data.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_input_handler.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_input_handler.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_input_handler.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_input_handler.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_postupdate.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_postupdate.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_postupdate.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_postupdate.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_preupdate.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_preupdate.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_preupdate.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_preupdate.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_render.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_render.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_render.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_render.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Base\\player_start.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Base\\player_start.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Base/player_start.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Base/player_start.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Gameplay\\player_combat.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Gameplay\\player_combat.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Gameplay/player_combat.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Gameplay/player_combat.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Gameplay\\player_handlecollision.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Gameplay\\player_handlecollision.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Gameplay/player_handlecollision.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Gameplay/player_handlecollision.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Gameplay\\player_movement.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Gameplay\\player_movement.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Gameplay/player_movement.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Gameplay/player_movement.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\Player\\Gameplay\\player_skills.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\Player\\Gameplay\\player_skills.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/Player/Gameplay/player_skills.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/Player/Gameplay/player_skills.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Game\\game.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Game\\game.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Game/game.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Game/game.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\Particles\\particle_emitterpresets.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\Particles\\particle_emitterpresets.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/Particles/particle_emitterpresets.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/Particles/particle_emitterpresets.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\Particles\\particle_movement.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\Particles\\particle_movement.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/Particles/particle_movement.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/Particles/particle_movement.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\Particles\\particles.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\Particles\\particles.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/Particles/particles.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/Particles/particles.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\animation.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\animation.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/animation.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/animation.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\circle.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\circle.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/circle.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/circle.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\debug.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\debug.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/debug.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/debug.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\initialize_SDL.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\initialize_SDL.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/initialize_SDL.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/initialize_SDL.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\lazer_system.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\lazer_system.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/lazer_system.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/lazer_system.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\random.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\random.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/random.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/random.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\Utilities\\timer.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\Utilities\\timer.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/Utilities/timer.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/Utilities/timer.c.obj"
+},
+{
+  "directory": "D:/Programming stuffs/Locked in/C/Operation Null Mind/build",
+  "command": "C:\\mingw32\\bin\\gcc.exe  @CMakeFiles/Operation-Null-Mind.dir/includes_C.rsp -g -Wall -o CMakeFiles\\Operation-Null-Mind.dir\\src\\main.c.obj -c \"D:\\Programming stuffs\\Locked in\\C\\Operation Null Mind\\src\\main.c\"",
+  "file": "D:/Programming stuffs/Locked in/C/Operation Null Mind/src/main.c",
+  "output": "CMakeFiles/Operation-Null-Mind.dir/src/main.c.obj"
+}
+]
