@@ -321,7 +321,7 @@ ParticleEmitter ParticleEmitter_BulletEnemy = {
     .direction = {0, -1},
     .emissionRate = 0,
     .emissionNumber = 1,
-    .maxParticles = 100,
+    .maxParticles = 1000,
     .angleRange = 10,
 
     .active = true,
