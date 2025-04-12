@@ -143,6 +143,7 @@ void Pause_Update() {
             UI_SetHovered(exitButtonElement, true);
         }
         if (Input->mouse.leftButton.pressed) {
+            Game_Restart();
             app.state.currentScene = SCENE_MENU;
             Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
         }

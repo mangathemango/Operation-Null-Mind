@@ -29,6 +29,7 @@
 #define GUN_AUTO_SHOTGUN_NAME "Atchisson AA-12"
 
 typedef enum {
+    GUN_NONE = -1,
     GUN_PISTOL,
     GUN_SMG,
     GUN_SHOTGUN,

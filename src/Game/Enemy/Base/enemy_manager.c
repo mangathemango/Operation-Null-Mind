@@ -108,7 +108,6 @@ void EnemyManager_Update() {
             chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
             Chunk_GenerateTilesButVoid(chunk);
             currentClearTextAlpha = 255;
-            SDL_Log("Current Clear Text Alpha: %f", currentClearTextAlpha);
             if (chunk->roomType == ROOM_TYPE_BOSS) {
                 Sound_Clear_Queue();
                 Sound_Stop_Music();

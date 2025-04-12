@@ -59,6 +59,7 @@ void Player_Shoot() {
     player.resources.skillResources.ammoShoot++;
     if(ghostLoad() == true)
     {
+        Sound_Play_Effect(SOUND_GUN_JAM);
         player.state.currentAmmo++;
     }
     player.resources.shootCooldownTimer = Timer_Create((60.0f /(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);

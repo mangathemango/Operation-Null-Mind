@@ -73,7 +73,8 @@ SoundResources soundResources = {
         [SOUND_REVOLVER] = "Assets/Audio/SoundEffect/Revolver.wav", // SOUND_REVOLVER
         [SOUND_SELECT] = "Assets/Audio/SoundEffect/select.wav", // SOUND_SELECT
         [SOUND_SHOTGUN] = "Assets/Audio/SoundEffect/Shotgun.wav", // SOUND_SHOTGUN
-        [SOUND_SMG] = "Assets/Audio/SoundEffect/SMG.wav" // SOUND_SMG
+        [SOUND_SMG] = "Assets/Audio/SoundEffect/SMG.wav", // SOUND_SMG
+        [SOUND_GUN_JAM] = "Assets/Audio/SoundEffect/gun jamming.wav" // SOUND_GUN_JAM
     }
 };
 

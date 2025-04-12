@@ -33,7 +33,7 @@ AbilityData abilityData[8] =
     {
         .type = HEMO_CYCLE,
         .name = "Hemocycle",
-        .descriptionPro = "Every 4th shot heals you",
+        .descriptionPro = "Every 10th kill heals you",
         .descriptionCon = "Takes more damage from enemies",
         .path = "Assets/Images/Icons/abilities/hemocycle.png",
     },

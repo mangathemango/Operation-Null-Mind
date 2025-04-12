@@ -59,6 +59,7 @@ typedef enum {
     SOUND_SELECT,            // Select sound (Assets/Audio/SoundEffect/select.wav)
     SOUND_SHOTGUN,           // Shotgun sound (Assets/Audio/SoundEffect/Shotgun.wav)
     SOUND_SMG,               // SMG sound (Assets/Audio/SoundEffect/SMG.wav)
+    SOUND_GUN_JAM,         // Gun jam sound (Assets/Audio/SoundEffect/gun jamming.wav)
 
     SOUND_COUNT                   // Total number of sound effects (automatically updated)
 } SoundEffect;

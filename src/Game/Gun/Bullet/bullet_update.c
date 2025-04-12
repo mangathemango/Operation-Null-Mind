@@ -49,6 +49,7 @@ void Bullet_Update()
             if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 
+                Sound_Play_Effect(SOUND_HITMARKER);
                 int totalDamage = gun->stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
                 Enemy_TakeDamage(enemy, totalDamage);
                 Vec2_Increment(&enemy->state.velocity, Vec2_Multiply(bullet->direction, 70));

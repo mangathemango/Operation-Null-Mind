@@ -98,7 +98,7 @@ void Kamikaze_Update(EnemyData* data) {
             if (Vec2_Distance(data->state.position, player.state.position) < config->explosionRadius) {
                 Player_TakeDamage(data->stats.damage);
             }
-            player.state.currentAmmo += 10;
+            player.state.currentAmmo += 20 + player.resources.skillResources.scavengerAmmoBonus;
             if (player.state.currentAmmo > player.stats.maxAmmo) {
                 player.state.currentAmmo = player.stats.maxAmmo;
             }
