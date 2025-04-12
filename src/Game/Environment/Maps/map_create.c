@@ -117,7 +117,7 @@ void Map_Generate() {
 
             // Generate room details
             if ((testMap.chunks[x][y].roomType == ROOM_TYPE_NORMAL)) {
-                int totalEnemyCount = 10 + game.currentStage * 2;
+                int totalEnemyCount = 10 + game.currentStage;
                 testMap.chunks[x][y].totalEnemyCount = RandInt(totalEnemyCount / 2, totalEnemyCount * 3 / 2);
                 testMap.chunks[x][y].roomSize = (Vec2){RandInt(10,15)*2, RandInt(10,15)*2};
             }
