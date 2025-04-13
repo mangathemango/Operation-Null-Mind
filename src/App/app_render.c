@@ -37,6 +37,7 @@ int App_RenderMain() {
         
         case SCENE_MISSION_BRIEFING:
             Mission_Render();
+            LevelTransition_Render();
             break;
 
         case SCENE_CONTROLS:

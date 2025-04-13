@@ -47,7 +47,8 @@ void Mission_Update()
             UI_SetHovered(MissionText, true);
         }
         if (Input->mouse.leftButton.pressed) {
-            app.state.currentScene = SCENE_GAME;
+            Game_TransitionNextLevel(NULL, 0); // The parameters do nothing dw
+            
             if (game.currentStage < 3) Sound_Play_Music("Assets/Audio/Music/return0 early level music.wav", 0);
             else if (game.currentStage >= 3 && game.currentStage < 7) Sound_Play_Music("Assets/Audio/Music/return0 mid level music.wav", 0);
             else if (game.currentStage >= 7 && game.currentStage < 10) Sound_Play_Music("Assets/Audio/Music/return0 late level music.wav", 0);

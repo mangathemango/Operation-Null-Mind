@@ -41,6 +41,8 @@ int App_PostUpdate() {
             break;
         case SCENE_MISSION_BRIEFING:
             Mission_Update();
+            LevelTransition_Update();
+            Game_Update();
             break;
         case SCENE_CONTROLS:
             Controls_Update();

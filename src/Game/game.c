@@ -27,11 +27,16 @@ void Game_Start() {
 
 void Game_Update() {
     // Update runtime counter
-    game.runTime += Time->deltaTimeSeconds;
+    if (app.state.currentScene == SCENE_GAME) game.runTime += Time->deltaTimeSeconds;
     
     if (game.isTransitioning) {
         if (Timer_GetTimeLeft(game.transitionTimer) < 1.0f && !currentStageIncreased) {
-            game.currentStage++;
+            if (app.state.currentScene == SCENE_MISSION_BRIEFING) {
+                game.currentStage = 1;
+                app.state.currentScene = SCENE_GAME;
+            } else if (game.currentStage < 10) {
+                game.currentStage++;
+            }
             currentStageIncreased = true;
         }
         if (!Timer_IsFinished(game.transitionTimer)) return;
@@ -96,6 +101,9 @@ void Game_AddHealingItemUsed() {
 
 void Game_TransitionNextLevel(void* data, int interactableIndex) {
     if (game.isTransitioning) return;
+    if (app.state.currentScene == SCENE_MISSION_BRIEFING) {
+        game.currentStage = 0;
+    }
     if (game.currentStage == 9) {
         Sound_Clear_Queue();
         Sound_Stop_Music();
