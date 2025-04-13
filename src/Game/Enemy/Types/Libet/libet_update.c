@@ -238,7 +238,7 @@ void Libet_Update(EnemyData* data) {
     case LIBET_BIG_LAZER_CHARGING:
     for (int i = 0; i < 40; i++) {
         if (libetLazers[i].active) {
-            if (libetLazers[i].lifeTime >= 1.7f) {
+            if (libetLazers[i].lifeTime >= 1.6f) {
                 libetLazers[i].width = -1;
                 libetLazers[i].damage = 0;
                 libetLazers[i].active = false;
@@ -247,7 +247,7 @@ void Libet_Update(EnemyData* data) {
                 if (libetLazers[i].damage == 0) {
                     Sound_Play_Effect(SOUND_VANTAGE_LASER);
                 }
-                libetLazers[i].width = 5 - (libetLazers[i].lifeTime - 1.5f) * 25;
+                libetLazers[i].width = 5.0f - (libetLazers[i].lifeTime - 1.5f) * 5.0f * (1.0f / (1.6f - 1.5f));
                 libetLazers[i].damage = 10;
             } else {
                 libetLazers[i].width = 0;
@@ -256,7 +256,7 @@ void Libet_Update(EnemyData* data) {
         }
     }
 
-    if (config->timer >= 0.05f) {
+    if (config->timer >= 0.025f) {
         if (currentBigLazerAngle > 180) {
             bool found = false;
             for (int i = 0; i < 40; i++) {
@@ -282,8 +282,8 @@ void Libet_Update(EnemyData* data) {
             .lifeTime = 0.0f
         };
         Libet_AddLazer(lazer);
-        bigLazerDirection = Vec2_RotateDegrees(bigLazerDirection, 10);
-        currentBigLazerAngle += 10;
+        bigLazerDirection = Vec2_RotateDegrees(bigLazerDirection, 5);
+        currentBigLazerAngle += 5;
 
         break;
     }
@@ -321,7 +321,7 @@ void Libet_Update(EnemyData* data) {
                 Lazer lazer = {
                     .active = true,
                     .startPosition = startPosition,
-                    .direction = Vec2_Right,
+                    .direction = {1, 1},
                     .width = 0,
                     .damage = 0,
                     .lifeTime = 0.0f
@@ -341,7 +341,7 @@ void Libet_Update(EnemyData* data) {
                 Lazer lazer = {
                     .active = true,
                     .startPosition = startPosition,
-                    .direction = Vec2_Down,
+                    .direction = {-1, 1},
                     .width = 0,
                     .damage = 0,
                     .lifeTime = 0.0f
