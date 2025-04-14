@@ -41,7 +41,7 @@ static UIElement* ammoSpentValueElement = NULL;
 
 // Return to main menu button
 static UIElement* returnButtonElement = NULL;
-static SDL_Rect returnButtonRect = {0, 0, 130, 40};
+static SDL_Rect returnButtonRect = {0, 0, 130, 30};
 
 /**
  * @brief Updates the statistics values on the end screen
@@ -364,7 +364,7 @@ void Death_Start() {
     
     // Return to main menu button at bottom right
     returnButtonRect.x = app.config.screen_width - 150;
-    returnButtonRect.y = app.config.screen_height - 30;
+    returnButtonRect.y = app.config.screen_height - 40;
     
     returnButtonElement = UI_CreateText(
         "Return to main menu", 

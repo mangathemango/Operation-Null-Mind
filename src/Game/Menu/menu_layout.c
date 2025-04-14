@@ -45,9 +45,9 @@ void Menu_PrepareTextures() {
     backgroundSize.x = backgroundWidth;
     backgroundSize.y = backgroundHeight;
     title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
-    startButtonElement = UI_CreateText("start",(SDL_Rect) {30, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    controlsButtonElement = UI_CreateText("controls", (SDL_Rect) {30, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    exitButtonElement = UI_CreateText("exit",  (SDL_Rect) {30, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    startButtonElement = UI_CreateText("Start",(SDL_Rect) {35, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    controlsButtonElement = UI_CreateText("Controls", (SDL_Rect) {35, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {35, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
 }
 

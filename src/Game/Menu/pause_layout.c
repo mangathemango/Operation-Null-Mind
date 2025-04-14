@@ -37,22 +37,22 @@ void Pause_Start() {
     pauseTextElement = UI_CreateText(
         "Paused", 
         (SDL_Rect) {
-            40, 
+            35, 
             app.config.screen_height / 2 - 80, 
             0, 
             0
         }, 
         textColor, 
-        4.0f, 
+        2.0f, 
         UI_TEXT_ALIGN_LEFT, 
-        app.resources.textFont
+        app.resources.title1Font
     );
 
     // Create button text elements aligned to the left
     continueButtonElement = UI_CreateText(
-        "continue", 
+        "Continue", 
         (SDL_Rect) {
-            40, 
+            35, 
             140, 
             0, 
             0
@@ -64,9 +64,9 @@ void Pause_Start() {
     );
     
     controlsButtonElement = UI_CreateText(
-        "controls", 
+        "Controls", 
         (SDL_Rect) {
-            40, 
+            35, 
             160, 
             0, 
             0
@@ -78,9 +78,9 @@ void Pause_Start() {
     );
     
     exitButtonElement = UI_CreateText(
-        "exit to main menu", 
+        "Exit to Main Menu", 
         (SDL_Rect) {
-            40, 
+            35, 
             180, 
             0, 
             0
