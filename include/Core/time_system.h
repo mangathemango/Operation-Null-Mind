@@ -36,8 +36,9 @@
 typedef struct {
     float deltaTimeSeconds;      /**< Time between current frame and previous frame in seconds */
     float timeScale;             /**< Scale factor for time */
-    float scaledDeltaTimeSeconds; /**< Delta time multiplied by time scale */
+    float rawDeltaTimeSeconds; /**< Delta time multiplied by time scale */
     double programElapsedTimeSeconds; /**< Total time elapsed since program start */
+    double rawProgramElapsedTimeSeconds; /**< Total time elapsed since program start without time scale */
     double previousTick;         /**< Previous frame tick value */
 } TimeSystem;
 

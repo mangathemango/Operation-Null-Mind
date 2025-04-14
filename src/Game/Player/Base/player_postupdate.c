@@ -44,7 +44,9 @@ int Player_PostUpdate() {
     //Handle when the player is in crashout state
     if(player.state.skillState.crashOut) Player_HandleCrashOut();
 
-    if(player.state.skillState.parryActive) Handle_Parry();
+    if(player.state.skillState.parryActive) {
+        Handle_Parry();
+    }
 
     // Handles player movement (will be optimized later)
     Player_Move();
@@ -56,5 +58,16 @@ int Player_PostUpdate() {
     // Update player animation
     Player_AnimationUpdate();
 
+    static float parryHitTimer = 0.0f;
+    if (player.state.skillState.parryHit) {
+        parryHitTimer += Time->rawDeltaTimeSeconds;
+        Time_SetTimeScale(0.2);
+        if (parryHitTimer >= 0.1f) {
+            player.state.skillState.parryHit = false;
+            parryHitTimer = 0.0f;
+            Time_SetTimeScale(1);
+        }
+    }
+    ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
     return 0;
 }

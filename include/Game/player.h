@@ -42,6 +42,7 @@ typedef struct
     int crashOutMultiplier;
     bool crashOut;
     bool parryActive;         ///< Whether Parry ability is active
+    bool parryHit;
 } SkillState;
 
 typedef struct

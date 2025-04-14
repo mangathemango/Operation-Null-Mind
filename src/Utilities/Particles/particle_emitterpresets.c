@@ -517,10 +517,10 @@ ParticleEmitter ParticleEmitter_Parry = {
     .position = {100, 100},
 
     .direction = {0, -1},
-    .emissionRate = 100,
-    .emissionNumber = 1000,
-    .maxParticles = 0,
-    .angleRange = 180,
+    .emissionRate = 0,
+    .emissionNumber = 10,
+    .maxParticles = 100,
+    .angleRange = 360,
 
     .active = true,
     .emitterLifetime = 0,
@@ -530,12 +530,12 @@ ParticleEmitter ParticleEmitter_Parry = {
 
     .particleLifetime = 0.05,
     .particleSpeed = 1000,
-    .custom_Movement = NULL,
+    .custom_Movement = Particle_RandomMovement,
 
-    .startColor = {3, 252, 232, 255},
-    .endColor = {3, 252, 232, 0},
-    .startSize = {4,4},
-    .endSize = {4, 4},
+    .startColor = {255, 255, 0, 255},
+    .endColor = {255, 0, 0, 0},
+    .startSize = {3, 3},
+    .endSize = {1, 1},
     .particleTexture = NULL,
 
     .gravity = {0, 0},

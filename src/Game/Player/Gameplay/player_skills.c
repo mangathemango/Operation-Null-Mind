@@ -334,51 +334,8 @@ int Parry()
 
     player.resources.skillResources.parryDirection = mouseDirection;
     player.resources.skillResources.parryRadius = 0;
-    return 0;
-}
 
-
-int Handle_ParryRender()
-{
-    //Handles the rendered half circle
-    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
-
-    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
-    player.resources.skillResources.parryRadius += 1000.0f * Time->deltaTimeSeconds; //This is the speed of the parry radius growing, it should be 700.0f
-    float radius =  player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
-
-    // Set opacity based on time left
-    SDL_SetTextureAlphaMod(
-        player.resources.skillResources.parryTexture, 
-        255 * 
-        Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer) 
-        / player.stats.skillStat.parryDuration
-    );
-
-    SDL_Rect dest = Vec2_ToCenteredSquareRect(
-        Camera_WorldVecToScreen(player.state.position), // Position of the circle
-        radius
-     ); 
-
-    SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
-    
-}
-
-int Handle_Parry()
-{
-    
-    //Check if parry is active
-    if(!player.state.skillState.parryActive) return 1;
-    //Deactivate parry after the timer is finished
-    if(Timer_IsFinished(player.resources.skillResources.parryDurationTimer))
-    {
-        player.state.skillState.parryActive = false;
-        Timer_Start(player.resources.skillResources.parryTimer);
-        return 1;
-    }
-
-    //Finding mouseDirection
-    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
+    mouseDirection = player.resources.skillResources.parryDirection;
 
     //Iterate through all the enemies
     for(int i = 0; i < ENEMY_MAX;i++)
@@ -423,17 +380,19 @@ int Handle_Parry()
             if (enemy->type != ENEMY_TYPE_LIBET) continue;
             bulletEmitter = LibetBulletEmitter;
         }
+
+        bool sfxPlayed = false;
         //Iterate through all the bullets
         for(int i = 0;i < bulletEmitter->maxParticles; i++)
         {
             Particle* bullet = &bulletEmitter->particles[i];
             if(!bullet->alive) continue;
             //Check if the bullet is in the parry range
-            if(Vec2_Distance(player.state.position, bullet->position) >= player.resources.skillResources.parryRadius) continue; //THIS SHOULD BE 50
+            if(Vec2_Distance(player.state.position, bullet->position) >= 70) continue; //THIS SHOULD BE 50
             
             //Finding bulletDirection
             Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
-        
+            
             //Finding angle
             int angle = Vec2_AngleBetween(mouseDirection, bulletDirection);
 
@@ -446,11 +405,61 @@ int Handle_Parry()
             //Changing the colliders
             bullet->collider->collidesWith = COLLISION_LAYER_ENEMY | COLLISION_LAYER_ENVIRONMENT;
             bullet->color = (SDL_Color){255, 255, 0, 255};
-            Sound_Play_Effect(SOUND_HITMARKER);
+            if (!sfxPlayed) {
+                sfxPlayed = true;
+                // Play parry sound effect
+                Sound_Play_Effect(SOUND_HITMARKER);
+            }
+            player.state.skillState.parryHit = true;
+            player.resources.skillResources.parryParticleEmitter->position = bullet->position;
+            ParticleEmitter_ActivateOnce(player.resources.skillResources.parryParticleEmitter);
         }
     }
 
     ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
+    return 0;
+}
+
+
+
+int Handle_ParryRender()
+{
+    //Handles the rendered half circle
+    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
+
+    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
+    player.resources.skillResources.parryRadius += 1000.0f * Time->deltaTimeSeconds; //This is the speed of the parry radius growing, it should be 700.0f
+    float radius =  player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
+
+    // Set opacity based on time left
+    SDL_SetTextureAlphaMod(
+        player.resources.skillResources.parryTexture, 
+        255 * 
+        Timer_GetTimeLeft(player.resources.skillResources.parryDurationTimer) 
+        / player.stats.skillStat.parryDuration
+    );
+
+    SDL_Rect dest = Vec2_ToCenteredSquareRect(
+        Camera_WorldVecToScreen(player.state.position), // Position of the circle
+        radius
+     ); 
+
+    SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
+    
+}
+
+int Handle_Parry()
+{
+    
+    //Check if parry is active
+    if(!player.state.skillState.parryActive) return 1;
+    //Deactivate parry after the timer is finished
+    if(Timer_IsFinished(player.resources.skillResources.parryDurationTimer))
+    {
+        player.state.skillState.parryActive = false;
+        Timer_Start(player.resources.skillResources.parryTimer);
+        return 1;
+    }
 
     return 0;
 }
