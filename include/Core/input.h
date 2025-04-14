@@ -41,10 +41,10 @@ typedef struct {
     ButtonState keys[SDL_NUM_SCANCODES];
 } KeyboardState;
 
-    
 typedef struct {
     MouseState mouse;       // State of the mouse
     KeyboardState keyboard; // State of the keyboard
+    ButtonState anyKey;     // State of any key - pressed, released, or held
 } InputEvent;
 
 extern const InputEvent * const Input;

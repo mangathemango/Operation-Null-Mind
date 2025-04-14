@@ -13,6 +13,7 @@ Vec2 barSize = {120, 14};
 Vec2 iconSize = {10, 10};
 float barX = 10;
 float iconX = 22;
+Animation* HUD_gun = NULL;
 
 
 void HUD_Start() {
@@ -26,6 +27,28 @@ void HUD_Start() {
     if (!ammoTexture) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load ammo texture: %s", SDL_GetError());
     }
+    AnimationData HUD_gunData = {
+        .spritesheetPath = "Assets/Images/Guns/HUD guns.png",
+        .frameSize = {74,24},
+        .frameCount = 12,
+        .clips = {
+            {GUN_PISTOL_NAME,           0, 0, 0.4f, false},
+            {GUN_REVOLVER_NAME,         1, 1, 0.4f, false},
+            {GUN_ARMOR_PISTOL_NAME,     2, 2, 0.4f, false},
+            {GUN_SMG_NAME,             3, 3, 0.4f, false},
+            {GUN_RAPID_SMG_NAME,      4, 4, 0.4f, false},
+            {GUN_PDW_NAME,             5, 5, 0.4f, false},
+            {GUN_ASSAULT_RIFLE_NAME,    6, 6, 0.4f, false},
+            {GUN_BURST_RIFLE_NAME,      7, 7, 0.4f, false},
+            {GUN_BATTLE_RIFLE_NAME,      8, 8, 0.4f, false},
+            {GUN_BULLPUP_RIFLE_NAME,      9, 9, 0.4f, false},
+            {GUN_SHOTGUN_NAME,         10, 10, 0.4f, false},
+            {GUN_AUTO_SHOTGUN_NAME,    11, 11, 0.4f, false},
+        },
+        .spriteSize = {74,24},
+        .playOnStart = false,
+    };
+    HUD_gun = Animation_Create(&HUD_gunData);
 }
 
 void HUD_RenderBar(Vec2 position, float value, float maxValue, SDL_Texture* icon, const char* text) {
@@ -124,15 +147,20 @@ void HUD_RenderAmmoBar() {
 
 void HUD_RenderCurrentGun() {
     GunData gun = player.state.currentGun;
-    SDL_Texture* gunTexture = gun.resources.animation->spritesheet;
-    SDL_Rect srcRect = {0, 0, gun.animData.frameSize.x, gun.animData.frameSize.y};
-    SDL_Rect destRect = {
-        app.config.screen_width - 20 - gun.animData.frameSize.x * 2, 
-        app.config.screen_height - 60 - gun.animData.frameSize.y, 
-        gun.animData.frameSize.x * 2, 
-        gun.animData.frameSize.y * 2
-    };
-    SDL_RenderCopyEx(app.resources.renderer, gunTexture, &srcRect, &destRect, 0 , NULL, SDL_FLIP_HORIZONTAL);
+    Animation_Play(HUD_gun, gun.name);
+    
+    Animation_Render(
+        HUD_gun, 
+        (Vec2) {
+            app.config.screen_width - 90,
+            app.config.screen_height - 80
+        }, 
+        (Vec2) {74,24}, 
+        0, 
+        NULL, 
+        SDL_FLIP_NONE
+    );
+    
     static UIElement* gunNameTextElement = NULL;
     char gunName[30];
     strcpy(gunName, gun.name);
@@ -179,7 +207,7 @@ void HUD_RenderCurrentLevel() {
     UI_RenderText(levelTextElement);
 }
 
-void HUD_RenderPixilFrame() {
+void HUD_RenderSkillIcons() {
     //Okay just in case you wanna change anything in this code, ill explain
     //however in theory it should be simple
 
@@ -353,7 +381,7 @@ void HUD_Render() {
     }
     if(game.hudToggled)
     {
-        HUD_RenderPixilFrame();
+        HUD_RenderSkillIcons();
     }
     if (hasInteraction) {
         Interactable_RenderInteractableHUD();

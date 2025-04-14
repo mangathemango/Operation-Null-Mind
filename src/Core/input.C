@@ -67,6 +67,22 @@ void Input_PreUpdate() {
         Reset_Button(&_input.keyboard.keys[i]);
     }
 
+    // Reset the anyKey state
+    Reset_Button(&_input.anyKey);
+
+    // Update the anyKey state based on keyboard input
+    for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
+        if (_input.keyboard.keys[i].pressed) {
+            _input.anyKey.pressed = true;
+        }
+        if (_input.keyboard.keys[i].released) {
+            _input.anyKey.released = true;
+        }
+        if (_input.keyboard.keys[i].held) {
+            _input.anyKey.held = true;
+        }
+    }
+
     // Reset the mouse scroll
     _input.mouse.scrollUp = false;
     _input.mouse.scrollDown = false;

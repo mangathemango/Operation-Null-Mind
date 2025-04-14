@@ -103,7 +103,7 @@ typedef struct {
     char* spritesheetPath;    /**< The path to the spriteSheet */
     Vec2 frameSize;           /**< The size of each frame in the sprite sheet */
     int frameCount;           /**< Number of frames inside the sprite sheet */
-    AnimationClipData clips[5]; /**< Array of different animation clips */
+    AnimationClipData clips[15]; /**< Array of different animation clips */
     Vec2 spriteSize;          /**< The size of the rendered sprite */
     char* defaultClip;        /**< The default clip to play */
     bool playOnStart;         /**< Whether to play the animation on creation */
