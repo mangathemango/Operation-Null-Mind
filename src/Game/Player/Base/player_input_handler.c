@@ -24,7 +24,12 @@
  * movement, dashing, weapon switching, and shooting.
  */
 void Player_Input_Handler() {
-
+    if (game.viewingLog >= 0) {
+        if (Input->anyKey.pressed || Input->mouse.leftButton.pressed) {
+            game.viewingLog = -1;
+        }
+        return;
+    }
     if (Input->keyboard.keys[SDL_SCANCODE_W].held || 
         Input->keyboard.keys[SDL_SCANCODE_UP].held)     Player_Look(Vec2_Up);
     if (Input->keyboard.keys[SDL_SCANCODE_A].held || 

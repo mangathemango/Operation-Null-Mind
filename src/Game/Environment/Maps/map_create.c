@@ -131,7 +131,7 @@ void Map_Generate() {
                         (Vec2){0, TILE_SIZE_PIXELS / 2}
                     )
                 );
-                if (RandInt(0,10) <= 3) {
+                if (RandInt(0,10) <= 6) {
                     Interactable_CreateLog(
                         RandInt(1, 22), 
                         Vec2_Add(
