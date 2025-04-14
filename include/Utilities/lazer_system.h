@@ -1,7 +1,7 @@
 #include <vec2.h>
 #include <SDL.h>
 
-typedef struct {
+typedef struct Lazer {
     bool active;
     Vec2 startPosition;
     Vec2 direction;      // Direction of the lazer

@@ -47,7 +47,7 @@ typedef enum {
  * This structure holds all necessary data for rendering and managing text UI elements,
  * including the text content, texture, font and alignment properties.
  */
-typedef struct {
+typedef struct UI_TextData {
     char* text;                 /**< Text content to display */
     SDL_Texture* textTexture;   /**< Pre-rendered text texture */
     TTF_Font* font;             /**< Font used for text rendering */

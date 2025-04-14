@@ -65,14 +65,14 @@ typedef enum {
 } SoundEffect;
 
 
-typedef struct {
+typedef struct SimpleQueue {
     char* currentSongPath; // Path to the currently playing song
     char* nextSongPath;    // Path to the next song (NULL if none queued)
     bool hasNextSong;      // Flag to indicate if there's a next song
 } SimpleQueue;
 
 // Sound resources structure
-typedef struct {
+typedef struct SoundResources {
     Mix_Music* backgroundMusic;
     Mix_Music* nextMusic; // Pointer to the next music to be played
     Mix_Chunk* soundEffects[SOUND_COUNT]; // Array to store sound effects, add more if needed.
@@ -80,6 +80,10 @@ typedef struct {
     SimpleQueue musicQueue; // Queue for music playback
 } SoundResources;
 
+typedef struct Sound {
+    Mix_Chunk* chunk; ///< Sound effect chunk
+    int channel; ///< Channel on which the sound is played
+} Sound;
 
 extern SoundResources soundResources;
 

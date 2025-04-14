@@ -33,7 +33,7 @@
 /**
  * @brief Structure to handle time-related functionality
  */
-typedef struct {
+typedef struct TimeSystem {
     float deltaTimeSeconds;      /**< Time between current frame and previous frame in seconds */
     float timeScale;             /**< Scale factor for time */
     float scaledDeltaTimeSeconds; /**< Delta time multiplied by time scale */

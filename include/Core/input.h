@@ -21,13 +21,13 @@
 #include <vec2.h>
 #include <stdbool.h>
 
-typedef struct {
+typedef struct ButtonState {
     bool pressed;   // Value is True on the FIRST frame the button is pressed
     bool released;  // Value is True on the FIRST frame the button is released
     bool held;      // Value is True on EVERY frame the button is pressed
 } ButtonState;
 
-typedef struct {
+typedef struct MouseState {
     Vec2 position;          // Position of the mouse
     Vec2 motion;            // Motion of the mouse
     ButtonState leftButton;     // State of the left mouse button - either pressed, released, or held
@@ -37,11 +37,11 @@ typedef struct {
     bool scrollDown;            // Value is True when the scroll wheel is scrolled down
 } MouseState;
 
-typedef struct {
+typedef struct KeyboardState {
     ButtonState keys[SDL_NUM_SCANCODES];
 } KeyboardState;
 
-typedef struct {
+typedef struct InputEvent {
     MouseState mouse;       // State of the mouse
     KeyboardState keyboard; // State of the keyboard
     ButtonState anyKey;     // State of any key - pressed, released, or held

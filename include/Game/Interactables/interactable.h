@@ -25,7 +25,7 @@ typedef enum {
 } InteractableType;
 
 
-typedef struct {
+typedef struct Interactable {
     InteractableType type;
 
     int index; 
@@ -47,13 +47,12 @@ typedef struct {
     void* data;
 } Interactable;
 
-typedef struct {
+typedef struct HealthData {
     int healthAmount;
     char* name;
 } HealthData;
 
-typedef struct
-{
+typedef struct AbilityData {
     int type;
     char* name;
     char* descriptionPro;

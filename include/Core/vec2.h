@@ -77,7 +77,7 @@
  * @struct Vec2
  * @brief A 2D vector structure
  */
-typedef struct 
+typedef struct Vec2
 {
     float x; /**< The x-coordinate of the vector */
     float y; /**< The y-coordinate of the vector */

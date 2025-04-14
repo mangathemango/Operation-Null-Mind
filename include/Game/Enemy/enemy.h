@@ -47,7 +47,7 @@ typedef enum {
  * Contains the current runtime state information for an enemy,
  * including position, movement, collision, and health status
  */
-typedef struct {
+typedef struct EnemyState {
     Vec2 position;       /**< Current position of the enemy */
     Vec2 velocity;       /**< Current velocity of the enemy */
     Vec2 direction;      /**< Direction the enemy is facing/moving */
@@ -67,7 +67,7 @@ typedef struct {
  *
  * Contains the configuration values that define an enemy's capabilities
  */
-typedef struct {
+typedef struct EnemyStats {
     int damage;          /**< Base damage enemy can inflict */
     int maxHealth;       /**< Maximum health points */
     float maxSpeed;      /**< Maximum movement speed */
@@ -84,7 +84,7 @@ typedef struct {
  *
  * Contains pointers to runtime resources needed by the enemy
  */
-typedef struct {
+typedef struct EnemyResources {
     Animation* animation; /**< Pointer to enemy's animation */
     Timer* timer;         /**< Pointer to enemy's timer for cooldowns/behaviors */
 } EnemyResources;

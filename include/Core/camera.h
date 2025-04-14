@@ -25,8 +25,9 @@
 #include <SDL.h>
 #include <stdbool.h>
 
-typedef struct {
-    Vec2 position;
+typedef struct CameraSystem {
+    Vec2 position; ///< Position of the camera in the world
+    float zoom; ///< Zoom level of the camera
 } CameraSystem;
 
 extern CameraSystem camera;

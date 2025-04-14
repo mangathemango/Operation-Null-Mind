@@ -93,14 +93,12 @@ typedef enum {
  *
  * @todo Add a system to follow/attach colliders to entities.
  */
-typedef struct {
-    SDL_Rect hitbox;            // The hitbox of the collider
-    CollisionLayer layer;      // What layer this object belongs to
-    CollisionLayer collidesWith; // Bitmask of layers this can collide with
-
-    // These two fields are automatically set when you register them.
-    void* owner;               // Pointer back to the entity
-    bool active;               // Is this collidable active?
+typedef struct Collider {
+    SDL_Rect hitbox; ///< The hitbox of the collider
+    CollisionLayer layer; ///< What layer this object belongs to
+    CollisionLayer collidesWith; ///< Bitmask of layers this can collide with
+    void* owner; ///< Pointer back to the entity
+    bool active; ///< Is this collidable active?
 } Collider;
 
 extern Collider* ColliderList[MAX_COLLIDABLES];
@@ -112,9 +110,9 @@ extern int ColliderCount;
  * @var objects An array of detected colliders.
  * @var count Number of collisions detected
  */
-typedef struct {
-    Collider* objects[MAX_COLLISIONS_PER_CHECK]; // An array of detected colliders
-    int count;                                  // Number of collisions detected
+typedef struct ColliderCheckResult {
+    Collider* objects[MAX_COLLISIONS_PER_CHECK]; ///< An array of detected colliders
+    int count; ///< Number of collisions detected
 } ColliderCheckResult;
 
 

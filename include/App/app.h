@@ -63,7 +63,7 @@ typedef enum {
 /**
  * @brief A struct containing the app's resources like the window, renderer, and fonts.
  */
-typedef struct {
+typedef struct AppResources {
     SDL_Window* window; /**< The SDL window */
     SDL_Renderer* renderer; /**< The SDL renderer */
     SDL_Texture* screenTexture; /**< The screen texture */
@@ -76,7 +76,7 @@ typedef struct {
 /**
  * @brief A struct containing the app's states like fps, current scene, and a flag for running.
  */
-typedef struct {
+typedef struct AppState {
     bool running; /**< Flag indicating if the app is running */
     int fps; /**< The current frames per second */
     int averageFps; /**< The average frames per second */
@@ -86,7 +86,7 @@ typedef struct {
 /**
  * @brief A struct containing the app's configurations like window size, title, and fullscreen mode.
  */
-typedef struct {
+typedef struct AppConfig {
     char* window_title; /**< The window title */
     int window_width; /**< The window width */
     int window_height; /**< The window height */
@@ -104,7 +104,7 @@ typedef struct {
 /**
  * @brief A struct containing the app's resources, state, and configurations. Used by the app variable.
  */
-typedef struct {
+typedef struct AppData {
     AppResources resources; /**< The app's resources */
     AppState state; /**< The app's state */
     AppConfig config; /**< The app's configurations */

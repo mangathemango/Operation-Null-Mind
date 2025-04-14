@@ -45,7 +45,7 @@
  * Used for cooldowns, delays, etc. It has a start time, an elapsed time, 
  * a duration, and flags to check if the timer is in progress or finished.
  */
-typedef struct {
+typedef struct Timer {
     float startTime;    /**< Time when the timer was started */
     float elapsedTime;  /**< Time elapsed since the timer was started */
     float duration;     /**< Duration of the timer in seconds */

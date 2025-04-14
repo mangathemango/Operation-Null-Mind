@@ -17,7 +17,7 @@
 #include <game.h>
 #include <sound.h>
 
-typedef enum{
+typedef enum PlayerPassive {
     ARMORED_UP,
     GHOST_LOAD,
     HEMO_CYCLE,
@@ -26,11 +26,9 @@ typedef enum{
     OVER_PRESSURED,
     SCAVENGER,
     TOTAL_SKILLS,
-    ONE_MORE,
-} SkillIndex;
+} PlayerPassive;
 
-typedef struct
-{
+typedef struct SkillState {
     bool overPressured;
     bool lastStand;
     bool kineticArmor;
@@ -44,8 +42,7 @@ typedef struct
     bool parryActive;         ///< Whether Parry ability is active
 } SkillState;
 
-typedef struct
-{
+typedef struct SkillResources {
     float overPressuredBulletConsumptionMultipler; ///< Amount of ammo consumed when overpressured
     float overPressuredFireRate; ///< Fire rate when overpressured
     float overPressuredProjectileSpeed; ///< Speed of overpressured bullets
@@ -66,8 +63,7 @@ typedef struct
     Vec2 parryDirection;
 } SkillResources;
 
-typedef struct
-{
+typedef struct SkillStat {
     float overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
     float overPressuredOriginalFireRate; ///< Fire rate when overpressured
     float overPressuredOriginalProjectileSpeed; ///< Speed of overpressured bullets
@@ -89,7 +85,7 @@ typedef struct
 /**
  * @brief Contains the player's current state information
  */
-typedef struct {
+typedef struct PlayerState {
     Vec2 position;      ///< Current player position
     Vec2 direction;     ///< Last direction the player was facing
     float currentSpeed; ///< Current movement speed
@@ -115,7 +111,7 @@ typedef struct {
 /**
  * @brief Contains the player's resources and timers
  */
-typedef struct {
+typedef struct PlayerResources {
     ParticleEmitter* dashParticleEmitter; ///< Particle effect for dashing
     ParticleEmitter* crashOut;  ///< Particle effect for crashout
     Animation* animation;                 ///< Player animation data
@@ -129,7 +125,7 @@ typedef struct {
 /**
  * @brief Contains the player's stats and attributes
  */
-typedef struct {
+typedef struct PlayerStat {
     int maxHealth;
     int maxAmmo;
     float INVINCIBLE_Time; ///< Time the player is [Title card] before taking damage again
@@ -144,7 +140,7 @@ typedef struct {
 /**
  * @brief Main player data structure
  */
-typedef struct {
+typedef struct PlayerData {
     PlayerState state;      ///< Current player state
     PlayerStat stats;       ///< Player statistics
     PlayerResources resources; ///< Player resources

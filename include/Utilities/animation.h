@@ -50,7 +50,7 @@
 /**
  * @brief Represents a single frame in an animation.
  */
-typedef struct {
+typedef struct AnimationFrame {
     Vec2 position;  /**< Position of the frame in the spritesheet */
     Vec2 size;      /**< Size of the frame */
 } AnimationFrame;
@@ -58,7 +58,7 @@ typedef struct {
 /**
  * @brief Represents an animation clip, which is a sequence of frames.
  */
-typedef struct {
+typedef struct AnimationClip {
     char* name;             /**< Animation name (e.g., "idle", "walk") */
     AnimationFrame* frames; /**< Array of frames */
     int frameCount;         /**< Number of frames */
@@ -69,7 +69,7 @@ typedef struct {
 /**
  * @brief Data structure for defining an animation clip.
  */
-typedef struct {
+typedef struct AnimationClipData {
     char* name;           /**< Name of the animation clip */
     int startFrameIndex;  /**< Starting frame index in the spritesheet */
     int endFrameIndex;    /**< Ending frame index in the spritesheet */
@@ -80,7 +80,7 @@ typedef struct {
 /**
  * @brief The main animation structure.
  */
-typedef struct {
+typedef struct Animation {
     SDL_Texture* spritesheet;  /**< Spritesheet texture */
     AnimationClip* clips;      /**< Array of different animations */
     int clipCount;             /**< Number of animation clips */
@@ -99,7 +99,7 @@ typedef struct {
 /**
  * @brief Configuration data for creating an animation.
  */
-typedef struct {
+typedef struct AnimationData {
     char* spritesheetPath;    /**< The path to the spriteSheet */
     Vec2 frameSize;           /**< The size of each frame in the sprite sheet */
     int frameCount;           /**< Number of frames inside the sprite sheet */

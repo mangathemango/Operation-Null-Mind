@@ -28,7 +28,7 @@
 #define GUN_BULLPUP_RIFLE_NAME "Kel-Tec RFB"
 #define GUN_AUTO_SHOTGUN_NAME "Atchisson AA-12"
 
-typedef enum {
+typedef enum Gun {
     GUN_NONE = -1,
     GUN_PISTOL,
     GUN_SMG,
@@ -45,10 +45,16 @@ typedef enum {
     GUN_COUNT
 } Gun;
 
+typedef enum GunFireMode {
+    FIREMODE_SEMI,                  /**< Semi-automatic (one shot per trigger pull) */
+    FIREMODE_AUTO,
+    FIREMODE_BURST                   /**< Fully automatic (continuous fire while trigger held) */
+} GunFireMode;
+
 /**
  * @brief Resources used by a gun
  */
-typedef struct {
+typedef struct GunResources {
     ParticleEmitter* casingParticleEmitter;    /**< Emitter for ejected shell casings */
     ParticleEmitter* muzzleFlashEmitter;       /**< Emitter for muzzle flash effects */
     ParticleEmitter* bulletPreset;             /**< Preset for bullet particles */
@@ -60,7 +66,7 @@ typedef struct {
  * @brief Gun state structure
  * @details Contains the runtime state information for a gun
  */
-typedef struct {
+typedef struct GunState {
     Vec2 position;                  /**< Current position of the gun */
     float angle;                    /**< Current rotation angle of the gun */
     SDL_RendererFlip flip;          /**< Flip state for rendering */
@@ -71,23 +77,13 @@ typedef struct {
  * @brief Gun configuration structure
  * @details Contains positioning data and particle effect configurations for a gun
  */
-typedef struct {
+typedef struct GunConfig {
     Vec2 muzzlePosition;            /**< Position where bullets/muzzle flash appears */
     Vec2 ejectionPosition;          /**< Position where casings are ejected */
     Vec2 gripPosition;              /**< Position where the player holds the gun */
     ParticleEmitter muzzleFlashPreset; /**< Particle effect for muzzle flash */
     ParticleEmitter casingPreset;      /**< Particle effect for ejected casings */
 } GunConfig;
-
-/**
- * @brief Gun fire mode enumeration
- * @details Defines the different firing modes available for guns
- */
-typedef enum {
-    FIREMODE_SEMI,                  /**< Semi-automatic (one shot per trigger pull) */
-    FIREMODE_AUTO,
-    FIREMODE_BURST                   /**< Fully automatic (continuous fire while trigger held) */
-} GunFireMode;
 
 /**
  * @brief Bullet velocity constants
@@ -101,7 +97,7 @@ typedef enum {
  * @brief Gun statistics structure
  * @details Contains the configuration values that define a gun's capabilities
  */
-typedef struct {
+typedef struct GunStats {
     float fireRate;                 /**< Shots per minute */
     float spread_angle;             /**< Bullet spread in degrees */
     int damage;                     /**< Damage per bullet */     
@@ -117,7 +113,7 @@ typedef struct {
  * @details Complete definition of a gun, including name, resources, state, config, stats,
  * and animation data
  */
-typedef struct {
+typedef struct GunData {
     Gun type;                    /**< Type of the gun */
     char* name;                     /**< Name of the gun */
     GunResources resources;         /**< Pointers to runtime resources */

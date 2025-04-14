@@ -361,7 +361,7 @@ int Handle_ParryRender()
      ); 
 
     SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
-    
+    return 0;
 }
 
 int Handle_Parry()

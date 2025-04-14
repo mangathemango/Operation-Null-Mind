@@ -59,8 +59,7 @@
  *
  * Particles are created and managed by a ParticleEmitter.
  */
-typedef struct {
-    // Current fields
+typedef struct Particle {
     Vec2 position;              /**< Current position */
     Vec2 direction;             /**< Direction of movement */
     float speed;                /**< Current speed */
