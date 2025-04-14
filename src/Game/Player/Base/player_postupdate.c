@@ -61,7 +61,7 @@ int Player_PostUpdate() {
     static float parryHitTimer = 0.0f;
     if (player.state.skillState.parryHit) {
         parryHitTimer += Time->rawDeltaTimeSeconds;
-        Time_SetTimeScale(0.2);
+        Time_SetTimeScale(0.2f);
         if (parryHitTimer >= 0.1f) {
             player.state.skillState.parryHit = false;
             parryHitTimer = 0.0f;

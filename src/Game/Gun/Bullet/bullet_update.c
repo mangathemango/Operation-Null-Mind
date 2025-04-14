@@ -64,7 +64,7 @@ void Bullet_Update()
                  */
                 // Create bullet fragments
                 gun->resources.bulletFragmentEmitter->position = bullet->position;
-                gun->resources.bulletFragmentEmitter->direction = gun->resources.bulletPreset->direction;
+                gun->resources.bulletFragmentEmitter->direction = bullet->direction;
                 ParticleEmitter_ActivateOnce(gun->resources.bulletFragmentEmitter);
 
                 // Deactivate bullet

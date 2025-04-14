@@ -381,13 +381,13 @@ ParticleEmitter ParticleEmitter_BulletFragments = {
     .loopCount = 0,
     .destroyWhenDone = false,
 
-    .particleLifetime = 0.05,
+    .particleLifetime = 0.1,
     .particleSpeed = 500,
     .custom_Movement = Particle_RandomMovement,
 
     .startColor = {255, 225, 0, 255},
-    .endColor = {255, 225, 0, 0},
-    .startSize = {2,2},
+    .endColor = {255, 0, 0, 0},
+    .startSize = {5, 5},
     .endSize = {2, 2},
     .particleTexture = NULL,
 
@@ -518,7 +518,7 @@ ParticleEmitter ParticleEmitter_Parry = {
 
     .direction = {0, -1},
     .emissionRate = 0,
-    .emissionNumber = 10,
+    .emissionNumber = 3,
     .maxParticles = 100,
     .angleRange = 360,
 
@@ -529,12 +529,12 @@ ParticleEmitter ParticleEmitter_Parry = {
     .destroyWhenDone = false,
 
     .particleLifetime = 0.05,
-    .particleSpeed = 1000,
+    .particleSpeed = 500,
     .custom_Movement = Particle_RandomMovement,
 
     .startColor = {255, 255, 0, 255},
     .endColor = {255, 0, 0, 0},
-    .startSize = {3, 3},
+    .startSize = {5, 5},
     .endSize = {1, 1},
     .particleTexture = NULL,
 

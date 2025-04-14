@@ -427,7 +427,9 @@ int Handle_ParryRender()
     //Handles the rendered half circle
     Vec2 mouseDirection = player.resources.skillResources.parryDirection;
 
-    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
+
+    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 10);
+    
     player.resources.skillResources.parryRadius += 1000.0f * Time->deltaTimeSeconds; //This is the speed of the parry radius growing, it should be 700.0f
     float radius =  player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
 
