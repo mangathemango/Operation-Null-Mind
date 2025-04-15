@@ -32,8 +32,8 @@ AppData app = {
     },
     .config = {
         .window_title = "Operation Null Mind" ,
-        .window_width = 1024 ,
-        .window_height = 768 ,
+        .window_width = 480 * 2 ,
+        .window_height = 288 * 2 ,
         .window_fullscreen = true ,
         .screen_width = 480 ,
         .screen_height = 288 ,
