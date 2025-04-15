@@ -337,53 +337,23 @@ int Parry()
 
     mouseDirection = player.resources.skillResources.parryDirection;
 
+    ParticleEmitter* bulletEmitters[7] = {
+        EchoBulletEmitter,
+        SabotBulletEmitter,
+        JuggernautBulletEmitter,
+        LibetBulletEmitter,
+        TacticianBulletEmitter,
+        ProxyBulletEmitter,
+        RadiusBulletEmitter
+    };
     //Iterate through all the enemies
-    for(int i = 0; i < ENEMY_MAX;i++)
+    for(int i = 0; i < 7;i++)
     {
-        EnemyData* enemy = &enemies[i];
-        if(enemy->state.isDead == true) continue;
-        GunData* gun = NULL;
-        if (enemy->type == ENEMY_TYPE_ECHO) {
-            EchoConfig* config = enemy->config;
-            gun = &config->gun;
-        } 
-        else if(enemy->type == ENEMY_TYPE_JUGGERNAUT)
-        {
-            JuggernautConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_TACTICIAN)
-        {
-            TacticianConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_RADIUS)
-        {
-            RadiusConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_PROXY)
-        {
-            ProxyConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_SABOT)
-        {
-            SabotConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-
-        ParticleEmitter* bulletEmitter;
-        if (gun != NULL && enemy->type != ENEMY_TYPE_LIBET) {
-            bulletEmitter = gun->resources.bulletPreset;
-        } else {
-            if (enemy->type != ENEMY_TYPE_LIBET) continue;
-            bulletEmitter = LibetBulletEmitter;
-        }
-
+        ParticleEmitter* bulletEmitter = bulletEmitters[i];
+        if (!bulletEmitter) continue; // Skip if bulletEmitter is NULL
         bool sfxPlayed = false;
         //Iterate through all the bullets
-        for(int i = 0;i < bulletEmitter->maxParticles; i++)
+        for(int i = 0; i < bulletEmitter->maxParticles; i++)
         {
             Particle* bullet = &bulletEmitter->particles[i];
             if(!bullet->alive) continue;
@@ -447,7 +417,7 @@ int Handle_ParryRender()
      ); 
 
     SDL_RenderCopy(app.resources.renderer, player.resources.skillResources.parryTexture, NULL, &dest);
-    
+    return 0;
 }
 
 int Handle_Parry()

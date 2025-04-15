@@ -518,7 +518,7 @@ ParticleEmitter ParticleEmitter_Parry = {
 
     .direction = {0, -1},
     .emissionRate = 0,
-    .emissionNumber = 3,
+    .emissionNumber = 10,
     .maxParticles = 100,
     .angleRange = 360,
 
