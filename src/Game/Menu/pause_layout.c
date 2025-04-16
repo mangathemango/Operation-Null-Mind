@@ -35,7 +35,7 @@ void Pause_Start() {
     SDL_Color textColor = {255, 255, 255, 255};
     
     pauseTextElement = UI_CreateText(
-        "Paused", 
+        "PAUSED", 
         (SDL_Rect) {
             35, 
             app.config.screen_height / 2 - 80, 
