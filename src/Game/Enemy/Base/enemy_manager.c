@@ -88,7 +88,7 @@ void EnemyManager_Update() {
             chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
             Chunk_GenerateTilesButVoid(chunk);
             currentClearTextAlpha = 255;
-            Enemy_ResetComp(&EnemyComps[game.currentStage]);
+            Enemy_ResetComp(&EnemyComps[game.currentStage - 1]);
             if (chunk->roomType == ROOM_TYPE_BOSS) {
                 Sound_Clear_Queue();
                 Sound_Stop_Music();
