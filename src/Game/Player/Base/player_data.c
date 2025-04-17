@@ -39,6 +39,7 @@ PlayerData player = {
             .scavenger =        false,
             .crashOut =         false,
             .parryActive =      false,
+            .parryHit =         false,
             .crashOutMultiplier = 2,
         },
         .collider = {
@@ -72,6 +73,7 @@ PlayerData player = {
             .crashOutCooldown = NULL,
             .crashOutDuration = NULL,
             .parryRadius = 0,
+            .parryParticleEmitter = NULL,
         },
     },
     .stats = {

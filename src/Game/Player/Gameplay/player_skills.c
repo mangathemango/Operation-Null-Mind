@@ -334,8 +334,62 @@ int Parry()
 
     player.resources.skillResources.parryDirection = mouseDirection;
     player.resources.skillResources.parryRadius = 0;
+
+    mouseDirection = player.resources.skillResources.parryDirection;
+
+    ParticleEmitter* bulletEmitters[7] = {
+        EchoBulletEmitter,
+        SabotBulletEmitter,
+        JuggernautBulletEmitter,
+        LibetBulletEmitter,
+        TacticianBulletEmitter,
+        ProxyBulletEmitter,
+        RadiusBulletEmitter
+    };
+    //Iterate through all the enemies
+    for(int i = 0; i < 7;i++)
+    {
+        ParticleEmitter* bulletEmitter = bulletEmitters[i];
+        if (!bulletEmitter) continue; // Skip if bulletEmitter is NULL
+        bool sfxPlayed = false;
+        //Iterate through all the bullets
+        for(int i = 0; i < bulletEmitter->maxParticles; i++)
+        {
+            Particle* bullet = &bulletEmitter->particles[i];
+            if(!bullet->alive) continue;
+            //Check if the bullet is in the parry range
+            if(Vec2_Distance(player.state.position, bullet->position) >= 70) continue; //THIS SHOULD BE 50
+            
+            //Finding bulletDirection
+            Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
+            
+            //Finding angle
+            int angle = Vec2_AngleBetween(mouseDirection, bulletDirection);
+
+            //Check if the angle is within the parry range
+            if(player.stats.skillStat.maxParryAngle < abs(angle)) continue;
+
+            //Parry the bullet
+            bullet->direction = bulletDirection;
+            bullet->speed = 600.0f; //This is the speed of the bullet, it should be 700.0f
+            //Changing the colliders
+            bullet->collider->collidesWith = COLLISION_LAYER_ENEMY | COLLISION_LAYER_ENVIRONMENT;
+            bullet->color = (SDL_Color){255, 255, 0, 255};
+            if (!sfxPlayed) {
+                sfxPlayed = true;
+                // Play parry sound effect
+                Sound_Play_Effect(SOUND_HITMARKER);
+            }
+            player.state.skillState.parryHit = true;
+            player.resources.skillResources.parryParticleEmitter->position = bullet->position;
+            ParticleEmitter_ActivateOnce(player.resources.skillResources.parryParticleEmitter);
+        }
+    }
+
+    ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
     return 0;
 }
+
 
 
 int Handle_ParryRender()
@@ -343,7 +397,9 @@ int Handle_ParryRender()
     //Handles the rendered half circle
     Vec2 mouseDirection = player.resources.skillResources.parryDirection;
 
-    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 4);
+
+    player.resources.skillResources.parryTexture = CreateHalfCircleOutlineTexture(100 , mouseDirection, (SDL_Color){3, 252, 232, 255}, 10);
+    
     player.resources.skillResources.parryRadius += 1000.0f * Time->deltaTimeSeconds; //This is the speed of the parry radius growing, it should be 700.0f
     float radius =  player.resources.skillResources.parryRadius; //Because the radius is in time, if the game lags the radius actually gets smaller xd
 
@@ -376,81 +432,6 @@ int Handle_Parry()
         Timer_Start(player.resources.skillResources.parryTimer);
         return 1;
     }
-
-    //Finding mouseDirection
-    Vec2 mouseDirection = player.resources.skillResources.parryDirection;
-
-    //Iterate through all the enemies
-    for(int i = 0; i < ENEMY_MAX;i++)
-    {
-        EnemyData* enemy = &enemies[i];
-        if(enemy->state.isDead == true) continue;
-        GunData* gun = NULL;
-        if (enemy->type == ENEMY_TYPE_ECHO) {
-            EchoConfig* config = enemy->config;
-            gun = &config->gun;
-        } 
-        else if(enemy->type == ENEMY_TYPE_JUGGERNAUT)
-        {
-            JuggernautConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_TACTICIAN)
-        {
-            TacticianConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_RADIUS)
-        {
-            RadiusConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_PROXY)
-        {
-            ProxyConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-        else if(enemy->type == ENEMY_TYPE_SABOT)
-        {
-            SabotConfig* config = enemy->config;
-            gun = &config->gun;
-        }
-
-        ParticleEmitter* bulletEmitter;
-        if (gun != NULL && enemy->type != ENEMY_TYPE_LIBET) {
-            bulletEmitter = gun->resources.bulletPreset;
-        } else {
-            if (enemy->type != ENEMY_TYPE_LIBET) continue;
-            bulletEmitter = LibetBulletEmitter;
-        }
-        //Iterate through all the bullets
-        for(int i = 0;i < bulletEmitter->maxParticles; i++)
-        {
-            Particle* bullet = &bulletEmitter->particles[i];
-            if(!bullet->alive) continue;
-            //Check if the bullet is in the parry range
-            if(Vec2_Distance(player.state.position, bullet->position) >= player.resources.skillResources.parryRadius) continue; //THIS SHOULD BE 50
-            
-            //Finding bulletDirection
-            Vec2 bulletDirection = Vec2_Normalize(Vec2_Subtract(bullet->position, player.state.position));
-        
-            //Finding angle
-            int angle = Vec2_AngleBetween(mouseDirection, bulletDirection);
-
-            //Check if the angle is within the parry range
-            if(player.stats.skillStat.maxParryAngle < abs(angle)) continue;
-
-            //Parry the bullet
-            bullet->direction = bulletDirection;
-            bullet->speed = 600.0f; //This is the speed of the bullet, it should be 700.0f
-            //Changing the colliders
-            bullet->collider->collidesWith = COLLISION_LAYER_ENEMY | COLLISION_LAYER_ENVIRONMENT;
-            bullet->color = (SDL_Color){255, 255, 0, 255};
-            Sound_Play_Effect(SOUND_HITMARKER);
-        }
-    }
-
-    ParticleEmitter_Update(player.resources.skillResources.parryParticleEmitter);
 
     return 0;
 }

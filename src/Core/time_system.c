@@ -20,8 +20,9 @@
 TimeSystem time = {
     .deltaTimeSeconds = 0,
     .timeScale = 1,
-    .scaledDeltaTimeSeconds = 0,
+    .rawDeltaTimeSeconds = 0,
     .programElapsedTimeSeconds = 0,
+    .rawProgramElapsedTimeSeconds = 0,
     .previousTick = 0
 };
 
@@ -37,11 +38,12 @@ const TimeSystem * const Time = &time; // This ensures that the Time variable is
  */
 void Time_PreUpdate() {
     float currentTick = SDL_GetTicks();
-    time.deltaTimeSeconds = (currentTick - time.previousTick) / 1000;
+    time.rawDeltaTimeSeconds = (currentTick - time.previousTick) / 1000;
+    time.rawProgramElapsedTimeSeconds += time.rawDeltaTimeSeconds;
+    time.deltaTimeSeconds = time.rawDeltaTimeSeconds * time.timeScale;
     if (time.deltaTimeSeconds > 0.1f) time.deltaTimeSeconds = 0.1f;
-    time.previousTick = currentTick;
-    time.scaledDeltaTimeSeconds = time.deltaTimeSeconds * time.timeScale;
     time.programElapsedTimeSeconds += time.deltaTimeSeconds;
+    time.previousTick = currentTick;
     Time_UpdateFPS();
 }
 
@@ -58,7 +60,7 @@ void Time_UpdateFPS() {
     
     frameCount++;
     totalFrame++;
-    fpsTimer += Time->deltaTimeSeconds;
+    fpsTimer += Time->rawDeltaTimeSeconds;
     
     // Update FPS once per second
     if (fpsTimer >= 0.5f) {
