@@ -11,8 +11,8 @@ EnemyComp EnemyComps[20] = {
             {.type = ENEMY_TYPE_ECHO, .maxSpawnCount = 6, .spawnCount = 0}
         },
         .enemyTypeCount = 2,
-        .enemyMinSpawnCount = 10,
-        .enemyMaxSpawnCount = 15
+        .enemyMinSpawnCount = 8,
+        .enemyMaxSpawnCount = 12
     },
     
     // Stage 2 (min 12 max 20)
@@ -23,8 +23,8 @@ EnemyComp EnemyComps[20] = {
             {.type = ENEMY_TYPE_KAMIKAZE, .maxSpawnCount = 8, .spawnCount = 0}
         },
         .enemyTypeCount = 3,
-        .enemyMinSpawnCount = 12,
-        .enemyMaxSpawnCount = 20
+        .enemyMinSpawnCount = 10,
+        .enemyMaxSpawnCount = 15
     },
     
     // Stage 3 (min 15 max 20)
@@ -35,8 +35,8 @@ EnemyComp EnemyComps[20] = {
             {.type = ENEMY_TYPE_KAMIKAZE, .maxSpawnCount = 15, .spawnCount = 0}
         },
         .enemyTypeCount = 3,
-        .enemyMinSpawnCount = 15,
-        .enemyMaxSpawnCount = 20
+        .enemyMinSpawnCount = 12,
+        .enemyMaxSpawnCount = 16
     },
     
     // Stage 4 (min 15 max 25)
@@ -48,7 +48,7 @@ EnemyComp EnemyComps[20] = {
         },
         .enemyTypeCount = 3,
         .enemyMinSpawnCount = 15,
-        .enemyMaxSpawnCount = 25
+        .enemyMaxSpawnCount = 20
     },
     
     // Stage 5 (min 18 max 30)
@@ -62,7 +62,7 @@ EnemyComp EnemyComps[20] = {
         },
         .enemyTypeCount = 5,
         .enemyMinSpawnCount = 20,
-        .enemyMaxSpawnCount = 30
+        .enemyMaxSpawnCount = 24
     },
     
     // Stage 6 (min 15 max 20)
@@ -74,8 +74,8 @@ EnemyComp EnemyComps[20] = {
             {.type = ENEMY_TYPE_RECHARGE, .maxSpawnCount = 5, .spawnCount = 0}
         },
         .enemyTypeCount = 4,
-        .enemyMinSpawnCount = 20,
-        .enemyMaxSpawnCount = 25
+        .enemyMinSpawnCount = 15,
+        .enemyMaxSpawnCount = 18
     },
     
     // Stage 7 (min 20 max 25)
