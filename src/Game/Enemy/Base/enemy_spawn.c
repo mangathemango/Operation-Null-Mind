@@ -54,7 +54,8 @@ void Enemy_SpawnWave(EnvironmentChunk* chunk) {
         chunk->totalEnemyCount--;
 
         Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-
-        Enemy_Spawn(*Enemy_SelectRandomEnemyInComp(&EnemyComps[game.currentStage - 1]),spawnPosition);
+        EnemyData* spawnedEnemy = Enemy_SelectRandomEnemyInComp(&EnemyComps[game.currentStage - 1]);
+        if (spawnedEnemy == NULL) continue;
+        Enemy_Spawn(*spawnedEnemy, spawnPosition);
     }
 }
