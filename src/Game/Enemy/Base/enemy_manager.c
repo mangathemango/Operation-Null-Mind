@@ -71,43 +71,24 @@ void EnemyManager_Update() {
             if (chunk->roomType == ROOM_TYPE_BOSS) {
                 Sound_Play_Music("Assets/Audio/Music/return0 boss music.wav", 0);
             }
+
+            chunk->totalEnemyCount = RandInt(
+                EnemyComps[game.currentStage].enemyMinSpawnCount,
+                EnemyComps[game.currentStage].enemyMaxSpawnCount
+            );
         }
     }
 
     if (chunk->inCombat && chunk->currentEnemyCount <= 0) {
         if (chunk->totalEnemyCount > 0) {
-            /**
-             * @todo [enemy_manager.c:87] Add enemy spawning sfx here (Aka the red [+] thing appearing)
-             */
-            // Spawns in another wave of enemy if there are still enemies left
-            int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
-            if (spawnCount > 25)   spawnCount = 25;
-            if (spawnCount < 1)    spawnCount = 1;
-
-            for (int i = 0; i < spawnCount; i++) {
-                // Each enemy spawn decrements totalEnemyCount btw
-                if (chunk->totalEnemyCount <= 0) break;
-                chunk->totalEnemyCount--;
-                Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
-                EnemyType bottomLimit = RandInt(0, game.currentStage);
-                EnemyType topLimit = RandInt(bottomLimit, game.currentStage);
-                EnemyType spawnedEnemy = RandInt(bottomLimit, topLimit);
-
-                if (chunk->roomType == ROOM_TYPE_BOSS) {
-                    spawnedEnemy = ENEMY_TYPE_LIBET;
-                    spawnPosition = Chunk_GetChunkCenter(chunk);
-                }
-                if (spawnedEnemy >= ENEMY_TYPE_COUNT) {
-                    spawnedEnemy = RandInt(0, ENEMY_TYPE_COUNT - 1);
-                }
-                Enemy_Spawn(*enemyList[spawnedEnemy],spawnPosition);
-            }
+            Enemy_SpawnWave(chunk);  
         } else {
             // Ends the combat if player has killed enough enemies
             chunk->inCombat = false;
             chunk->hallways = Map_GetChunkHallways(*chunk, testMap);
             Chunk_GenerateTilesButVoid(chunk);
             currentClearTextAlpha = 255;
+            Enemy_ResetComp(&EnemyComps[game.currentStage]);
             if (chunk->roomType == ROOM_TYPE_BOSS) {
                 Sound_Clear_Queue();
                 Sound_Stop_Music();
