@@ -35,7 +35,7 @@ JuggernautConfig JuggernautConfigData = {
             .bulletsPerShot = 1,
         },
         .animData = {
-            .spritesheetPath = "Assets/Images/Enemies/proxy_gun.png",
+            .spritesheetPath = "Assets/Images/Enemies/juggernaut_gun.png",
             .frameSize = {27, 11},
             .frameCount = 1,
             .clips = {
