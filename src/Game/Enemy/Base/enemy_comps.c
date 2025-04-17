@@ -57,11 +57,11 @@ EnemyComp EnemyComps[20] = {
             {.type = ENEMY_TYPE_ECHO, .maxSpawnCount = 15, .spawnCount = 0},
             {.type = ENEMY_TYPE_PROXY, .maxSpawnCount = 20, .spawnCount = 0},
             {.type = ENEMY_TYPE_TACTICIAN, .maxSpawnCount = 7, .spawnCount = 0},
-            {.type = ENEMY_TYPE_SABOT, .maxSpawnCount = 5, .spawnCount = 0},
+            {.type = ENEMY_TYPE_VANTAGE, .maxSpawnCount = 10, .spawnCount = 0},
             {.type = ENEMY_TYPE_KAMIKAZE, .maxSpawnCount = 15, .spawnCount = 0}
         },
         .enemyTypeCount = 5,
-        .enemyMinSpawnCount = 18,
+        .enemyMinSpawnCount = 20,
         .enemyMaxSpawnCount = 30
     },
     
@@ -69,13 +69,13 @@ EnemyComp EnemyComps[20] = {
     {
         .spawnData = {
             {.type = ENEMY_TYPE_RADIUS, .maxSpawnCount = 10, .spawnCount = 0},
-            {.type = ENEMY_TYPE_TACTICIAN, .maxSpawnCount = 5, .spawnCount = 0},
+            {.type = ENEMY_TYPE_VANTAGE, .maxSpawnCount = 10, .spawnCount = 0},
             {.type = ENEMY_TYPE_SABOT, .maxSpawnCount = 10, .spawnCount = 0},
             {.type = ENEMY_TYPE_RECHARGE, .maxSpawnCount = 5, .spawnCount = 0}
         },
         .enemyTypeCount = 4,
-        .enemyMinSpawnCount = 15,
-        .enemyMaxSpawnCount = 20
+        .enemyMinSpawnCount = 20,
+        .enemyMaxSpawnCount = 25
     },
     
     // Stage 7 (min 20 max 25)
