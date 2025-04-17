@@ -73,9 +73,10 @@ void EnemyManager_Update() {
             }
 
             chunk->totalEnemyCount = RandInt(
-                EnemyComps[game.currentStage].enemyMinSpawnCount,
-                EnemyComps[game.currentStage].enemyMaxSpawnCount
+                EnemyComps[game.currentStage - 1].enemyMinSpawnCount,
+                EnemyComps[game.currentStage - 1].enemyMaxSpawnCount
             );
+            Enemy_ResetComp(&EnemyComps[game.currentStage - 1]);
         }
     }
 
