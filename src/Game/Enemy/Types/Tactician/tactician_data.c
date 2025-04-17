@@ -91,7 +91,7 @@ EnemyData TacticianData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 8,
+        .damage = 20,
         .maxHealth = 90,
         .maxSpeed = 90.0f,
         .acceleration = 350.0f,

@@ -93,7 +93,7 @@ EnemyData SentryData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 10,            // Match Vantage's damage
+        .damage = 50,            // Match Vantage's damage
         .maxHealth = 75,         // Match Vantage's health
         .maxSpeed = 0.0f,        // Zero speed - completely stationary
         .acceleration = 0.0f,    // No acceleration
