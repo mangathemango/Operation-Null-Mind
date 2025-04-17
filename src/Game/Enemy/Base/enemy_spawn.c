@@ -32,6 +32,11 @@ void Enemy_Spawn(EnemyData data, Vec2 position) {
         memcpy(enemy, &data, sizeof(EnemyData));
 
         enemy->state.position = position;
+        if (enemy->type == ENEMY_TYPE_LIBET) {
+            enemy->state.position = Chunk_GetChunkCenter(
+                Chunk_GetCurrentChunk(player.state.position)
+            );
+        }
         enemy->state.isDead = false;
         enemy->state.currentHealth = enemy->stats.maxHealth;
         enemy->state.collider.hitbox.x = position.x - enemy->state.collider.hitbox.w / 2;
