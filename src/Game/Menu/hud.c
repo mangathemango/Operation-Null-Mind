@@ -154,7 +154,7 @@ void HUD_RenderCurrentGun() {
         (Vec2) {74, 40}
     );
 
-    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 200);
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 100);
     SDL_RenderFillRect(app.resources.renderer, &secondaryBackgroundDest);
 
     Animation_Play(HUD_gun, player.state.currentGun.name);
@@ -171,17 +171,6 @@ void HUD_RenderCurrentGun() {
         NULL, 
         SDL_FLIP_NONE
     );
-
-    secondaryBackgroundDest = Vec2_ToRect (
-        (Vec2) {
-            app.config.screen_width - 90 + 37,
-            app.config.screen_height - 95
-        }, 
-        (Vec2) {74 / 2,24 / 2}
-    );
-
-    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 200);
-    SDL_RenderFillRect(app.resources.renderer, &secondaryBackgroundDest);
 
     if (player.state.previousGun.type != GUN_NONE) {
         Animation_Play(HUD_gun, player.state.previousGun.name);
