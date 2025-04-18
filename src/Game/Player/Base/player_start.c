@@ -43,6 +43,7 @@ int Player_Start() {
     player.resources.skillResources.crashOutCooldown->finished = true; // Start with crashout off cooldown
     Collider_Register(&player.state.collider, &player);
     player.state.currentGun = GunList[player.state.gunSlots[0]];
+    player.state.previousGun = GunList[player.state.gunSlots[1]];
     player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
 

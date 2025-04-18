@@ -99,6 +99,7 @@ typedef struct PlayerState {
     bool movementLocked; ///< Whether movement is locked
     float crashOutMultiplier; ///< Multipler that will be used fro crashout
     GunData currentGun; ///< Currently equipped weapon
+    GunData previousGun; ///< Previously equipped weapon
     Gun gunSlots[2]; ///< Guns held by the player
     SkillState skillState; ///< Player skills and abilities
 

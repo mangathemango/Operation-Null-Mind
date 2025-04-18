@@ -79,14 +79,12 @@ void Player_Shoot() {
  * @brief [Utility] Changes the player's active weapon
  */
 void Player_SwitchGun() {
+    if (player.state.gunSlots[1] == GUN_NONE) return; 
     Gun temp = player.state.gunSlots[0];
-    int i = 0;
-    for (i = 0; i < 2 - 1; i++) {
-        if (player.state.gunSlots[i + 1] == -1) break;
-        player.state.gunSlots[i] = player.state.gunSlots[i + 1];
-    }
-    player.state.gunSlots[i] = temp;
+    player.state.gunSlots[0] = player.state.gunSlots[1];
+    player.state.gunSlots[1] = temp;
     player.state.currentGun = GunList[player.state.gunSlots[0]];
+    player.state.previousGun = GunList[player.state.gunSlots[1]];
     player.resources.shootCooldownTimer = Timer_Create(60.0f/player.state.currentGun.stats.fireRate);
     Timer_Start(player.resources.shootCooldownTimer);
 }

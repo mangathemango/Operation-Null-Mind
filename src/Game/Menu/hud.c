@@ -146,9 +146,20 @@ void HUD_RenderAmmoBar() {
 }
 
 void HUD_RenderCurrentGun() {
-    GunData gun = player.state.currentGun;
-    Animation_Play(HUD_gun, gun.name);
-    
+    SDL_Rect secondaryBackgroundDest = Vec2_ToRect (
+        (Vec2) {
+            app.config.screen_width - 90,
+            app.config.screen_height - 95
+        }, 
+        (Vec2) {74, 40}
+    );
+
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 200);
+    SDL_RenderFillRect(app.resources.renderer, &secondaryBackgroundDest);
+
+    Animation_Play(HUD_gun, player.state.currentGun.name);
+    Animation_Update(HUD_gun);
+    SDL_SetTextureAlphaMod(HUD_gun->spritesheet, 255);
     Animation_Render(
         HUD_gun, 
         (Vec2) {
@@ -160,10 +171,41 @@ void HUD_RenderCurrentGun() {
         NULL, 
         SDL_FLIP_NONE
     );
+
+    secondaryBackgroundDest = Vec2_ToRect (
+        (Vec2) {
+            app.config.screen_width - 90 + 37,
+            app.config.screen_height - 95
+        }, 
+        (Vec2) {74 / 2,24 / 2}
+    );
+
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 200);
+    SDL_RenderFillRect(app.resources.renderer, &secondaryBackgroundDest);
+
+    if (player.state.previousGun.type != GUN_NONE) {
+        Animation_Play(HUD_gun, player.state.previousGun.name);
+        Animation_Update(HUD_gun);
+        SDL_SetTextureAlphaMod(HUD_gun->spritesheet, 100);
+        Animation_Render(
+            HUD_gun, 
+            (Vec2) {
+                app.config.screen_width - 90 + 37,
+                app.config.screen_height - 95
+            }, 
+            (Vec2) {74 / 2,24 / 2}, 
+            0, 
+            NULL, 
+            SDL_FLIP_NONE
+        );
+    }
+    
+
+
     
     static UIElement* gunNameTextElement = NULL;
     char gunName[30];
-    strcpy(gunName, gun.name);
+    strcpy(gunName, player.state.currentGun.name);
     if (!gunNameTextElement) {
         gunNameTextElement = UI_CreateText(
             gunName, (SDL_Rect) {
