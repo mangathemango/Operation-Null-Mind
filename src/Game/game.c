@@ -116,3 +116,24 @@ void Game_TransitionNextLevel(void* data, int interactableIndex) {
     Timer_Start(game.transitionTimer);
     currentStageIncreased = false;
 }
+
+void Game_QueueNextMusic() {
+    char* path = Game_GetCurrentMusic();
+    Sound_Queue_Next_Song(path);
+    free(path);
+}
+
+void Game_PlayCurrentMusic() {
+    char* path = Game_GetCurrentMusic();
+    Sound_Play_Music(path, 0);
+    free(path);
+}
+
+char* Game_GetCurrentMusic() {
+    char* path = malloc(sizeof(char) * 100);
+    if(game.currentStage < 4) strcpy(path, "Assets/Audio/Music/return0 early level music.wav");
+    else if (game.currentStage < 7) strcpy(path, "Assets/Audio/Music/return0 mid level music.wav");
+    else if (game.currentStage < 10) strcpy(path, "Assets/Audio/Music/return0 late level music.wav");
+    else strcpy(path, "Assets/Audio/Music/return0 boss music.wav");
+    return path;
+}
