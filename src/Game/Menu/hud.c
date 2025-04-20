@@ -278,29 +278,6 @@ void HUD_RenderSkillIcons() {
 
 
 void HUD_RenderAmmoDisplay() {
-    static UIElement* ammoTextElement = NULL;
-    char ammoText[4] = "--";
-    if (!ammoTextElement) {
-        ammoTextElement = UI_CreateText(
-            ammoText, 
-            (SDL_Rect) {
-                app.config.screen_width - 20, 
-                app.config.screen_height - 38, 
-                0, 
-                0
-            }, 
-            (SDL_Color) {255, 255, 255, 255}, 
-            3.0f, 
-            UI_TEXT_ALIGN_RIGHT, 
-            app.resources.textFont
-        );
-    } else {
-        UI_ChangeText(ammoTextElement, ammoText);
-    }
-    UI_UpdateText(ammoTextElement);
-    UI_RenderText(ammoTextElement);
-
-
     static UIElement* fireModeTextElement = NULL;
     char fireModeText[10];
     switch (player.state.currentGun.stats.fireMode) {
@@ -321,8 +298,8 @@ void HUD_RenderAmmoDisplay() {
         fireModeTextElement = UI_CreateText(
             fireModeText, 
             (SDL_Rect) {
-                app.config.screen_width - 62, 
-                app.config.screen_height - 32, 
+                app.config.screen_width - 35, 
+                app.config.screen_height - 18, 
                 0, 
                 0
             }, 
@@ -345,13 +322,13 @@ void HUD_RenderAmmoDisplay() {
         ammoConsumptionTextElement = UI_CreateText(
             ammoConsumptionText, 
             (SDL_Rect) {
-                app.config.screen_width - 70, 
-                app.config.screen_height - 18, 
+                app.config.screen_width - 35, 
+                app.config.screen_height - 37, 
                 0, 
                 0
             }, 
             (SDL_Color) {200, 200, 200, 255}, 
-            1.0f, 
+            1.8f, 
             UI_TEXT_ALIGN_RIGHT, 
             app.resources.textFont
         );
@@ -362,10 +339,10 @@ void HUD_RenderAmmoDisplay() {
     UI_RenderText(ammoConsumptionTextElement);
 
     SDL_Rect dest = (SDL_Rect) {
-        app.config.screen_width - 70, 
-        app.config.screen_height - 17, 
-        10, 
-        10
+        app.config.screen_width - 40, 
+        app.config.screen_height - 35, 
+        30, 
+        30
     };
     SDL_RenderCopy(app.resources.renderer, ammoTexture, NULL, &dest);
 }
