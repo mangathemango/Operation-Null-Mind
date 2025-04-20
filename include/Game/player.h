@@ -208,13 +208,13 @@ void Player_UpdateHitbox();
  * @brief Initiates player dash
  * @return Status code
  */
-int Player_Dash();
+void Player_Dash();
 
 /**
  * @brief Handles ongoing dash state
  * @return Status code
  */
-int Player_HandleDash();
+void Player_HandleDash();
 
 /**
  * @brief Activates crashout ability
@@ -253,22 +253,26 @@ int Player_AnimationUpdate();
 
 
 //Player skills
-void Skill_Update();
+void Player_UpdateSkill();
 
-void scavenger();
+void Player_HandleScavengerActive();
 
 void Player_TakeDamage(int damage);
 void Player_RenderDamageEffect();
 
-bool kineticArmor();
+bool Player_KineticArmorIsEffective();
 
-bool ghostLoad();
+bool Player_GhostLoadGunJammed();
 
-int Parry();
+int Player_Parry();
 
-int Handle_ParryRender();
+int Player_ParryRenderCircleVFX();
 
-int Handle_Parry();
+int Player_HandleParry();
+void Player_HandleLastStandActive();
+void Player_HandleOverpressuredActive();
+void Player_HandleHemocycleActive();
+void Player_HandleArmoredUpActive();
 
 
 void Player_PickUpGun(void* data, int interactableIndex);

@@ -72,7 +72,7 @@ void Player_Input_Handler() {
         if (Input->mouse.leftButton.pressed) Player_Shoot();
     }
 
-    if(Input->mouse.rightButton.pressed) Parry();
+    if(Input->mouse.rightButton.pressed) Player_Parry();
 
     if (Input->keyboard.keys[SDL_SCANCODE_TAB].pressed) game.hudToggled = !game.hudToggled;
 }

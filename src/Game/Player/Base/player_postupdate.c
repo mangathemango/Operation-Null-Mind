@@ -45,7 +45,7 @@ int Player_PostUpdate() {
     if(player.state.skillState.crashOut) Player_HandleCrashOut();
 
     if(player.state.skillState.parryActive) {
-        Handle_Parry();
+        Player_HandleParry();
     }
 
     // Handles player movement (will be optimized later)

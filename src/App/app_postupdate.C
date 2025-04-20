@@ -49,7 +49,7 @@ int App_PostUpdate() {
             break;
         case SCENE_GAME:
             Player_PostUpdate();
-            Skill_Update();
+            Player_UpdateSkill();
             Gun_Update();
             Bullet_Update();
             EnemyManager_Update();

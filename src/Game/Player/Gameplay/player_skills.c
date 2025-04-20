@@ -25,21 +25,30 @@
 #include <circle.h>
 #include <math.h>
 
+void Player_UpdateSkill()
+{
+    Player_HandleLastStandActive();
+    Player_HandleOverpressuredActive();
+    Player_HandleScavengerActive();
+    Player_HandleHemocycleActive();
+    Player_HandleArmoredUpActive();
+   // i call kinetic armor where player gets damaged.
+   //i call ghostload when player shoots.
+}
+
 /**
  * @brief [Utility] Initiates player dash movement if conditions are met
  * 
  * Activates the dash ability if off cooldown and player has directional input.
  * Plays dash sound effect and locks direction during dash.
  * 
- * @return int Status code (0 for success)
- * 
  * @todo [player_skills.c:24] Change dash sfx
  */
-int Player_Dash() {
+void Player_Dash() {
     // Doesn't dash when idle
-    if (Vec2_Magnitude(player.state.direction) == 0) return 0;
-    if (player.state.movementLocked) return 0;
-    if (!Timer_IsFinished(player.resources.dashCooldownTimer)) return 0;
+    if (Vec2_Magnitude(player.state.direction) == 0) return;
+    if (player.state.movementLocked) return;
+    if (!Timer_IsFinished(player.resources.dashCooldownTimer)) return;
     
     Sound_Play_Effect(SOUND_DASH); // Play dash sound effect
     player.state.dashing = true; 
@@ -47,7 +56,6 @@ int Player_Dash() {
 
     Timer_Start(player.resources.dashCooldownTimer);
     Timer_Start(player.resources.dashDurationTimer);
-    return 0;
 }
 
 /**
@@ -55,10 +63,8 @@ int Player_Dash() {
  * 
  * This is called every frame player.state.dashing is true.
  * Updates dash particle effects and handles dash movement.
- * 
- * @return int Status code (0 for success)
  */
-int Player_HandleDash() {
+void Player_HandleDash() {
     player.state.collider.layer = COLLISION_LAYER_NONE;
     // Ends the dash state when the timer is finished
     ColliderCheckResult result;
@@ -75,7 +81,7 @@ int Player_HandleDash() {
         player.state.dashing = false; //Just unchecks dashing
         player.state.directionLocked = false; //Just unchecks movementlock
         player.state.collider.layer = COLLISION_LAYER_PLAYER;
-        return 0;
+        return;
     }
     if (Timer_IsFinished(player.resources.dashDurationTimer) && insideEnemy) player.state.directionLocked = false;
     // Update dash particles
@@ -86,11 +92,10 @@ int Player_HandleDash() {
     ParticleEmitter_ActivateOnce(player.resources.dashParticleEmitter);
 
     player.state.currentSpeed = player.stats.dashSpeed;
-    return 0;
 }
 
 
-bool LastStand()
+void Player_HandleLastStandActive()
 {
     if(player.state.skillState.lastStand == true)
     {
@@ -102,21 +107,17 @@ bool LastStand()
             player.state.skillState.lastStand = false;
             Timer_Start(player.resources.INVINCIBLE_Timer);
             Sound_Play_Effect(SOUND_LAST_STAND);
-            return true;
         }
     }
-
-    return false;
 }
 
-int overPressured()
+void Player_HandleOverpressuredActive()
 {
     if(player.state.skillState.overPressured == true)
     {
         player.resources.skillResources.overPressuredBulletConsumptionMultipler = player.stats.skillStat.overPressuredOriginalMultipler;
         player.resources.skillResources.overPressuredFireRate = player.stats.skillStat.overPressuredOriginalFireRate;
         player.resources.skillResources.overPressuredProjectileSpeed = player.stats.skillStat.overPressuredOriginalProjectileSpeed;
-        return 1;
     }
     else 
     {
@@ -124,10 +125,9 @@ int overPressured()
         player.resources.skillResources.overPressuredFireRate = 1;
         player.resources.skillResources.overPressuredProjectileSpeed = 1;
     }
-    return 0;
 }
 
-void scavenger()
+void Player_HandleScavengerActive()
 {
     if(player.state.skillState.scavenger == true)
     {
@@ -141,7 +141,7 @@ void scavenger()
     }
 }
 
-void hemocycle()
+void Player_HandleHemocycleActive()
 {
     static bool JustHealed = false;
     if(player.state.skillState.hemoCycle == true)
@@ -167,7 +167,7 @@ void hemocycle()
     }
 }
 
-void armoredUp()
+void Player_HandleArmoredUpActive()
 {
     if(player.state.skillState.armoredUp == true)
     {
@@ -181,7 +181,7 @@ void armoredUp()
     }
 }
 
-bool kineticArmor()
+bool Player_KineticArmorIsEffective()
 {
     if(player.state.skillState.kineticArmor == true)
     {
@@ -200,7 +200,7 @@ bool kineticArmor()
     }
 }
 
-bool ghostLoad()
+bool Player_GhostLoadGunJammed()
 {
     int randomizer = RandInt(1,10);
     if(player.state.skillState.ghostLoad == true)
@@ -228,17 +228,6 @@ bool ghostLoad()
         player.resources.skillResources.ghostLoadRandomizer = 0;
         return false;
     }
-}
-
-void Skill_Update()
-{
-    LastStand();
-    overPressured();
-    scavenger();
-    hemocycle();
-    armoredUp();
-   // i call kinetic armor where player gets damaged.
-   //i call ghostload when player shoots.
 }
 
 /**
@@ -317,7 +306,7 @@ int Player_HandleCrashOut() {
     return 0;
 }
 
-int Parry()
+int Player_Parry()
 {
     //Check if parry is active
     if(player.state.skillState.parryActive == true)return 1;
@@ -392,7 +381,7 @@ int Parry()
 
 
 
-int Handle_ParryRender()
+int Player_ParryRenderCircleVFX()
 {
     //Handles the rendered half circle
     Vec2 mouseDirection = player.resources.skillResources.parryDirection;
@@ -420,7 +409,7 @@ int Handle_ParryRender()
     return 0;
 }
 
-int Handle_Parry()
+int Player_HandleParry()
 {
     
     //Check if parry is active

@@ -86,7 +86,7 @@ int App_RenderMain() {
             Log_Render();
             LevelTransition_Render();
             Player_RenderDamageEffect();
-            if(player.state.skillState.parryActive) Handle_ParryRender();
+            if(player.state.skillState.parryActive) Player_ParryRenderCircleVFX();
             break;
         default:
             break;

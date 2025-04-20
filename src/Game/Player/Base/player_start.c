@@ -53,7 +53,7 @@ int Player_Start() {
     player.stats.enemiesKilled = 0;
     if(player.state.skillState.scavenger == true)
     {
-        scavenger();
+        Player_HandleScavengerActive();
     }
 
     player.resources.INVINCIBLE_Timer = Timer_Create(player.stats.INVINCIBLE_Time);
