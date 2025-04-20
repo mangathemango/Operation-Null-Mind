@@ -323,14 +323,14 @@ void HUD_RenderAmmoDisplay() {
             ammoConsumptionText, 
             (SDL_Rect) {
                 app.config.screen_width - 35, 
-                app.config.screen_height - 37, 
+                app.config.screen_height - 33, 
                 0, 
                 0
             }, 
             (SDL_Color) {200, 200, 200, 255}, 
-            1.8f, 
+            0.6f, 
             UI_TEXT_ALIGN_RIGHT, 
-            app.resources.textFont
+            app.resources.title1Font
         );
     } else {
         UI_ChangeText(ammoConsumptionTextElement, ammoConsumptionText);
