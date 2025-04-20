@@ -337,9 +337,10 @@ void HUD_RenderAmmoDisplay() {
     UI_UpdateText(fireModeTextElement);
     UI_RenderText(fireModeTextElement);
 
+    int ammoComsumption = player.state.currentGun.stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
     static UIElement* ammoConsumptionTextElement = NULL;
     char ammoConsumptionText[10];
-    sprintf(ammoConsumptionText, "%dX", player.state.currentGun.stats.ammoConsumption);
+    sprintf(ammoConsumptionText, "%dX",ammoComsumption);
     if (!ammoConsumptionTextElement) {
         ammoConsumptionTextElement = UI_CreateText(
             ammoConsumptionText, 
