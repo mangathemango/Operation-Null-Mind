@@ -86,6 +86,11 @@ int App_PostUpdate() {
         case SCENE_WIN:
             Win_Update();
             break;
+            
+        case SCENE_SETTINGS:
+            Settings_Update();
+            break;
+
         default:
             break;
     }

@@ -36,6 +36,7 @@ typedef bool flag;
 #include <death.h>
 #include <level_transition.h>
 #include <mission_briefing.h>
+#include <settings.h>
 
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.

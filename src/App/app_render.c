@@ -88,6 +88,9 @@ int App_RenderMain() {
             Player_RenderDamageEffect();
             if(player.state.skillState.parryActive) Player_ParryRenderCircleVFX();
             break;
+        case SCENE_SETTINGS:
+            Settings_Render();
+            break;
         default:
             break;
     }
