@@ -121,7 +121,7 @@ void Win_Update() {
     static bool isPlayed = 0;
     timer += Time->deltaTimeSeconds;
     if(timer > 2 && !isPlayed) {
-        Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
+        Sound_Queue_Next_Song("Assets/Audio/Music/return0 winner music LOOP.wav");
         isPlayed = 1;
     }
 

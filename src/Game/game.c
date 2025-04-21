@@ -5,7 +5,7 @@
 bool currentStageIncreased = false;
 
 GameData game = {
-    .currentStage = 1,
+    .currentStage = 10,
     .isTransitioning = false,
     .viewingLog = -1,
     .transitionTimer = NULL,
@@ -32,9 +32,9 @@ void Game_Update() {
     if (game.isTransitioning) {
         if (Timer_GetTimeLeft(game.transitionTimer) < 1.0f && !currentStageIncreased) {
             if (app.state.currentScene == SCENE_MISSION_BRIEFING) {
-                game.currentStage = 1;
                 app.state.currentScene = SCENE_GAME;
-            } else if (game.currentStage < 10) {
+            }
+            if (game.currentStage < 10) {
                 game.currentStage++;
             }
             currentStageIncreased = true;
@@ -112,6 +112,7 @@ void Game_TransitionNextLevel(void* data, int interactableIndex) {
     }
     if (game.currentStage == 10) {
         app.state.currentScene = SCENE_WIN;
+        Sound_Play_Music("Assets/Audio/Music/return0 winner music BEGINNING.wav", 0);
         return;
     }
     game.isTransitioning = true;
