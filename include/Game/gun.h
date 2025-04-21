@@ -81,6 +81,7 @@ typedef struct GunConfig {
     Vec2 muzzlePosition;            /**< Position where bullets/muzzle flash appears */
     Vec2 ejectionPosition;          /**< Position where casings are ejected */
     Vec2 gripPosition;              /**< Position where the player holds the gun */
+    float casingEjectionAngle; /**< Angle at which casings are ejected */
     ParticleEmitter muzzleFlashPreset; /**< Particle effect for muzzle flash */
     ParticleEmitter casingPreset;      /**< Particle effect for ejected casings */
 } GunConfig;

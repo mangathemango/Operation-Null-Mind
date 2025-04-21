@@ -14,6 +14,8 @@
 #include <random.h>
 #include <interactable.h>
 #include <interactable_crate.h>
+#include <input.h>
+#include <math.h>
 
 /**
  * @brief [Utility] Makes the player shoot their current weapon
@@ -23,7 +25,8 @@
  */
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
-    int ammoComsumption = player.state.currentGun.stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
+    GunData* gun = &player.state.currentGun;
+    int ammoComsumption = gun->stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
     if (player.state.currentAmmo < ammoComsumption) return;
 
     // Map gun types to their corresponding sound effects
@@ -43,25 +46,43 @@ void Player_Shoot() {
     };
 
     // Play the corresponding sound effect for the current gun
-    if (player.state.currentGun.type >= 0 && player.state.currentGun.type < sizeof(gunSoundEffects) / sizeof(gunSoundEffects[0])) {
-        Sound_Play_Effect(gunSoundEffects[player.state.currentGun.type]);
+    if (gun->type >= 0 && gun->type < sizeof(gunSoundEffects) / sizeof(gunSoundEffects[0])) {
+        Sound_Play_Effect(gunSoundEffects[gun->type]);
     }
 
     player.state.currentAmmo -= ammoComsumption;
     Game_AddAmmoSpent(ammoComsumption);
-    
-    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.casingParticleEmitter);
-    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.muzzleFlashEmitter);
 
-    player.state.currentGun.resources.bulletPreset->particleSpeed = player.state.currentGun.stats.bulletVelocity * player.resources.skillResources.overPressuredProjectileSpeed;
-    ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
+    Vec2 mouseWorldPosition = Camera_ScreenVecToWorld(Input->mouse.position);
+
+    gun->state.angle = atan2(
+        mouseWorldPosition.y - player.state.position.y,
+        mouseWorldPosition.x - player.state.position.x
+    ) * 180 / M_PI;
+    
+    if (player.state.position.x > mouseWorldPosition.x) {
+        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(
+            Vec2_Right, 
+            gun->state.angle + gun->config.casingEjectionAngle
+        );
+    } else {
+        gun->resources.casingParticleEmitter->direction = Vec2_RotateDegrees(
+            Vec2_Right, 
+            gun->state.angle - gun->config.casingEjectionAngle
+        );
+    }
+    ParticleEmitter_ActivateOnce(gun->resources.casingParticleEmitter);
+    ParticleEmitter_ActivateOnce(gun->resources.muzzleFlashEmitter);
+
+    gun->resources.bulletPreset->particleSpeed = gun->stats.bulletVelocity * player.resources.skillResources.overPressuredProjectileSpeed;
+    ParticleEmitter_ActivateOnce(gun->resources.bulletPreset);
 
     player.resources.skillResources.ammoShoot++;
 
     Vec2_Increment(
         &camera.position, 
         Vec2_Multiply(
-            player.state.currentGun.resources.muzzleFlashEmitter->direction,
+            gun->resources.muzzleFlashEmitter->direction,
             -2
         )
     );
@@ -71,7 +92,7 @@ void Player_Shoot() {
         player.state.currentAmmo += ammoComsumption;
     }
 
-    player.resources.shootCooldownTimer = Timer_Create((60.0f /(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);
+    player.resources.shootCooldownTimer = Timer_Create((60.0f /(gun->stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);
     Timer_Start(player.resources.shootCooldownTimer);
     
 }

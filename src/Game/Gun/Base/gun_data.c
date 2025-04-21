@@ -26,6 +26,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {9, 2},
             .ejectionPosition = {5, 2},
             .gripPosition = {4, 4},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -72,6 +73,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {23, 3},
             .ejectionPosition = {15, 3},
             .gripPosition = {12, 5},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -118,6 +120,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {34, 3},
             .ejectionPosition = {15, 3},
             .gripPosition = {11, 6},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -164,6 +167,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {31, 4},
             .ejectionPosition = {14, 4},
             .gripPosition = {11, 6},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -210,6 +214,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {32, 4},
             .ejectionPosition = {14, 4},
             .gripPosition = {11, 6},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -256,6 +261,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {8, 2},
             .ejectionPosition = {5, 2},
             .gripPosition = {4, 4},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -302,6 +308,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {10, 2},
             .ejectionPosition = {5, 2},
             .gripPosition = {5, 4},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -348,6 +355,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {23, 4},
             .ejectionPosition = {17, 3},
             .gripPosition = {12, 5},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -394,6 +402,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {20, 5},
             .ejectionPosition = {6, 8},
             .gripPosition = {13, 6},
+            .casingEjectionAngle = 225,
         },
         .state = {
             .position = {0, 0},
@@ -440,6 +449,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {37, 4},
             .ejectionPosition = {16, 4},
             .gripPosition = {13, 6},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},
@@ -486,6 +496,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {25, 5},
             .ejectionPosition = {23, 4},
             .gripPosition = {14, 6},
+            .casingEjectionAngle = 45,
         },
         .state = {
             .position = {0, 0},
@@ -532,6 +543,7 @@ GunData GunList[GUN_COUNT] = {
             .muzzlePosition = {28, 5},
             .ejectionPosition = {15, 5},
             .gripPosition = {12, 7},
+            .casingEjectionAngle = 135,
         },
         .state = {
             .position = {0, 0},

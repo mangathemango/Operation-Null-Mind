@@ -26,6 +26,13 @@ void Gun_Start() {
     
     GunList[GUN_PISTOL].config.casingPreset = ParticleEmitter_PistolSMGCasing;
     GunList[GUN_SMG].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_REVOLVER].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_ARMOR_PISTOL].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_RAPID_SMG].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_PDW].config.casingPreset = ParticleEmitter_PistolSMGCasing;
+    GunList[GUN_BURST_RIFLE].config.casingPreset = ParticleEmitter_ARBRCasing;
+    GunList[GUN_BULLPUP_RIFLE].config.casingPreset = ParticleEmitter_ARBRCasing;
+    GunList[GUN_AUTO_SHOTGUN].config.casingPreset = ParticleEmitter_ShotgunCasing;
     GunList[GUN_ASSAULT_RIFLE].config.casingPreset = ParticleEmitter_ARBRCasing;
     GunList[GUN_BATTLE_RIFLE].config.casingPreset = ParticleEmitter_ARBRCasing;
     GunList[GUN_SHOTGUN].config.casingPreset = ParticleEmitter_ShotgunCasing;
