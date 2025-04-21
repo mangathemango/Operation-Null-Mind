@@ -43,6 +43,7 @@ void Game_Update() {
         game.isTransitioning = false;
         Map_Generate(); 
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+        player.state.position.y += 20;
         camera.position = player.state.position;
     }
 }
@@ -62,6 +63,7 @@ void Game_Restart()
     player.state.gunSlots[1] = -1;
     Map_Generate(); 
     player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+    player.state.position.y += 20;
     camera.position = player.state.position;
     Sound_Play_Music("Assets/Audio/Music/return0 lofi death music BEGINNING.wav", 1);
 

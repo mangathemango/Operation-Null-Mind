@@ -237,7 +237,7 @@ void Chunk_GenerateColliders(EnvironmentChunk* chunk) {
         (Vec2) {roomEndX - 1, roomEndY - 1}, 
         chunk
     );
-    if(chunk->roomType == ROOM_TYPE_END)
+    if(chunk->roomType == ROOM_TYPE_END || chunk->roomType == ROOM_TYPE_START)
     {
         Chunk_AddEndTrigger(
             (Vec2) {roomStartX, roomStartY}, 
@@ -512,11 +512,17 @@ void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) 
     Vec2 colliderSizeTiles = Vec2_Subtract(endTile, startTile);
     Vec2_Increment(&colliderSizeTiles, (Vec2) {1, 1});
     
-    Interactable_Create(
+    int index = Interactable_Create(
         INTERACTABLE_EXIT, 
         Vec2_Add(Chunk_GetChunkCenter(chunk), (Vec2) {0, -20})
     );
     
+    if (chunk->roomType == ROOM_TYPE_END) {
+        interactables[index].enabled = true;
+    } else {
+        interactables[index].enabled = false;
+    }
+
     Vec2 chunkPosition, tilePosition;
     Tile_FromPixelPoint(
         Chunk_GetChunkCenter(chunk), 
