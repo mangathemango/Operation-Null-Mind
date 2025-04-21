@@ -106,10 +106,6 @@ void Game_TransitionNextLevel(void* data, int interactableIndex) {
     if (app.state.currentScene == SCENE_MISSION_BRIEFING) {
         game.currentStage--;
     }
-    if (game.currentStage == 9) {
-        Sound_Clear_Queue();
-        Sound_Stop_Music();
-    }
     if (game.currentStage == 10) {
         app.state.currentScene = SCENE_WIN;
         Sound_Play_Music("Assets/Audio/Music/return0 winner music BEGINNING.wav", 0);
