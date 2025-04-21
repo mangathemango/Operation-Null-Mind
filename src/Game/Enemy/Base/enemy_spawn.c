@@ -12,6 +12,8 @@
 #include <enemy.h>
 #include <stdlib.h>
 #include <maps.h>
+#include <game.h>
+#include <random.h>
 
 /**
  * @brief [Utility] Spawns an enemy of the given type at the specified position
@@ -30,6 +32,11 @@ void Enemy_Spawn(EnemyData data, Vec2 position) {
         memcpy(enemy, &data, sizeof(EnemyData));
 
         enemy->state.position = position;
+        if (enemy->type == ENEMY_TYPE_LIBET) {
+            enemy->state.position = Chunk_GetChunkCenter(
+                Chunk_GetCurrentChunk(player.state.position)
+            );
+        }
         enemy->state.isDead = false;
         enemy->state.currentHealth = enemy->stats.maxHealth;
         enemy->state.collider.hitbox.x = position.x - enemy->state.collider.hitbox.w / 2;
@@ -40,5 +47,20 @@ void Enemy_Spawn(EnemyData data, Vec2 position) {
         Timer_Start(enemy->resources.timer);
         if (enemy->start) enemy->start(enemy);
         break;
+    }
+}
+
+void Enemy_SpawnWave(EnvironmentChunk* chunk) {
+    int spawnCount = RandInt(chunk->totalEnemyCount / 2, chunk->totalEnemyCount);
+    if (spawnCount > 25)   spawnCount = 25;
+
+    for (int i = 0; i < spawnCount; i++) {
+        if (chunk->totalEnemyCount <= 0) break;
+        chunk->totalEnemyCount--;
+
+        Vec2 spawnPosition = Chunk_GetRandomTileCenterInRoom(chunk);
+        EnemyData* spawnedEnemy = Enemy_SelectRandomEnemyInComp(&EnemyComps[game.currentStage - 1]);
+        if (spawnedEnemy == NULL) continue;
+        Enemy_Spawn(*spawnedEnemy, spawnPosition);
     }
 }

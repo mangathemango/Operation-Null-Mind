@@ -94,6 +94,8 @@ typedef struct EnemyResources {
  */
 typedef struct EnemyData EnemyData;
 
+
+
 /**
  * @brief Enemy data structure
  *
@@ -106,7 +108,7 @@ typedef struct EnemyData {
     EnemyStats stats;                  /**< Stats and capabilities */
     EnemyResources resources;          /**< Pointers to resources */
     AnimationData animData;            /**< Animation configuration */
-
+    
     void* config;                      /**< Enemy type-specific configuration */
     void (*start)(EnemyData* data);    /**< Initialization function */
     void (*update)(EnemyData* data);   /**< Update logic function */
@@ -128,6 +130,31 @@ extern EnemyData enemies[ENEMY_MAX];
  */
 extern SDL_Texture* Enemy_spawnIndicator;
 
+typedef struct EnemySpawnData {
+    EnemyType type;
+    int spawnCount;
+    int maxSpawnCount;
+} EnemySpawnData;
+
+typedef struct EnemyComp {
+    EnemySpawnData spawnData[ENEMY_TYPE_COUNT]; /**< Array of enemy types */
+    int enemyTypeCount;               /**< Number of enemy types */
+    int enemyMinSpawnCount;          /**< Minimum number of enemies to spawn */
+    int enemyMaxSpawnCount;          /**< Maximum number of enemies to spawn */
+} EnemyComp;
+
+extern EnemyComp EnemyComps[20];
+
+/**
+ * @brief Resets the spawn counts in an enemy composition
+ * 
+ * This function resets all spawn counters in the provided enemy composition
+ * to zero, allowing the composition to be reused for a new wave or stage.
+ * 
+ * @param comp Pointer to the enemy composition to reset
+ */
+void Enemy_ResetComp(EnemyComp* comp);
+
 void Enemy_Init();
 void Enemy_Update();
 void Enemy_HandleSpawning(EnemyData* enemy);
@@ -139,8 +166,10 @@ void EnemyManager_RenderClearText();
 void Enemy_Render();
 void Enemy_Destroy();
 void Enemy_Spawn(EnemyData data, Vec2 position);
+void Enemy_SpawnWave(EnvironmentChunk* chunk);
 void Enemy_TakeDamage(EnemyData* enemy, int damage);
 void Enemy_CreateHealthText(Vec2 position, int damage);
 void Enemy_UpdateHealthTexts();
 void Enemy_RenderHealthTexts();
 int EnemyManage_CountEnemyInChunk(EnvironmentChunk* chunk);
+EnemyData* Enemy_SelectRandomEnemyInComp(EnemyComp* comp);

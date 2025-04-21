@@ -152,10 +152,10 @@ void HUD_RenderCurrentGun() {
     Animation_Render(
         HUD_gun, 
         (Vec2) {
-            app.config.screen_width - 90,
-            app.config.screen_height - 80
+            app.config.screen_width - 90 - 74,
+            app.config.screen_height - 80 - 24
         }, 
-        (Vec2) {74,24}, 
+        (Vec2) {74 * 2,24 * 2}, 
         0, 
         NULL, 
         SDL_FLIP_NONE

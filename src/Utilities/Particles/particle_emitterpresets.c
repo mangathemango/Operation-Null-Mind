@@ -481,7 +481,7 @@ ParticleEmitter ParticleEmitter_Fire = {
     .direction = {0, -1},
     .emissionRate = 0.1,
     .emissionNumber = 10,
-    .maxParticles = 500,
+    .maxParticles = 10000,
     .angleRange = 150,
 
     .active = true,

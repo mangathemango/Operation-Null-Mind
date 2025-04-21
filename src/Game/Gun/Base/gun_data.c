@@ -80,7 +80,7 @@ GunData GunList[GUN_COUNT] = {
         .stats = {
             .fireRate = 600,
             .spread_angle = 5,
-            .damage = 40,
+            .damage = 35,
             .fireMode = FIREMODE_AUTO,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
@@ -314,7 +314,7 @@ GunData GunList[GUN_COUNT] = {
             .fireMode = FIREMODE_SEMI,
             .bulletLifetime = 1.0f,
             .bulletsPerShot = 1,
-            .ammoConsumption = 1,
+            .ammoConsumption = 2,
             .bulletVelocity = BULLET_VELOCITY_FAST
         },
         .animData = {

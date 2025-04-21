@@ -62,6 +62,14 @@ void Player_Shoot() {
         Sound_Play_Effect(SOUND_GUN_JAM);
         player.state.currentAmmo++;
     }
+
+    Vec2_Increment(
+        &camera.position, 
+        Vec2_Multiply(
+            player.state.currentGun.resources.muzzleFlashEmitter->direction,
+            -2
+        )
+    );
     player.resources.shootCooldownTimer = Timer_Create((60.0f /(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);
     Timer_Start(player.resources.shootCooldownTimer);
     
