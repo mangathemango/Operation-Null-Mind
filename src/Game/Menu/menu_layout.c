@@ -21,8 +21,10 @@ static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
 static UIElement* controlsButtonElement = NULL;
 SDL_Rect controlsButtonRect = {27, 160, 200, 15};
+static UIElement* settingsButtonElement = NULL;
+SDL_Rect settingsButtonRect = {27, 180, 200, 15};
 static UIElement* exitButtonElement = NULL;
-SDL_Rect exitButtonRect = {27, 180, 200, 15};
+SDL_Rect exitButtonRect = {27, 200, 200, 15};
 static SDL_Texture* title = NULL;
 static SDL_Texture* background = NULL;
 Vec2 backgroundSize = {0, 0};
@@ -47,7 +49,8 @@ void Menu_PrepareTextures() {
     title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
     startButtonElement = UI_CreateText("Start",(SDL_Rect) {35, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     controlsButtonElement = UI_CreateText("Controls", (SDL_Rect) {35, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {35, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    settingsButtonElement = UI_CreateText("Settings", (SDL_Rect) {35, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {35, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
 }
 
@@ -67,6 +70,7 @@ void Menu_Update() {
     static bool startButtonHovered = false;
     static bool controlsButtonHovered = false;
     static bool exitButtonHovered = false;
+    static bool settingsButtonHovered = false;
 
     if (Input_MouseIsOnRect(startButtonRect)) {
         UI_ChangeTextColor(startButtonElement, hoverButtonColor);
@@ -98,6 +102,22 @@ void Menu_Update() {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);
         controlsButtonHovered = false;
     }
+
+    if (Input_MouseIsOnRect(settingsButtonRect)) {
+        UI_ChangeTextColor(settingsButtonElement, hoverButtonColor);
+        if (!settingsButtonHovered) {
+            Sound_Play_Effect(SOUND_HOVER);
+            settingsButtonHovered = true;
+        }
+        if (Input->mouse.leftButton.pressed) {
+            app.state.currentScene = SCENE_SETTINGS;
+            Sound_Play_Effect(SOUND_SELECT);
+        }
+    } else {
+        UI_ChangeTextColor(settingsButtonElement, defaultButtonColor);
+        settingsButtonHovered = false;
+    }
+
 
     if (Input_MouseIsOnRect(exitButtonRect)) {
         UI_ChangeTextColor(exitButtonElement, hoverButtonColor);
@@ -141,28 +161,26 @@ void Menu_Render() {
     SDL_RenderCopy(app.resources.renderer, title, NULL, &dest);
     if (Input_MouseIsOnRect(startButtonRect)) {
         SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-        SDL_Rect rect = {
-            27, 140, 200, 15
-        };
-        SDL_RenderFillRect(app.resources.renderer, &rect);
+        SDL_RenderFillRect(app.resources.renderer, &startButtonRect);
     }
     UI_RenderText(startButtonElement);
 
     if (Input_MouseIsOnRect(controlsButtonRect)) {
         SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-        SDL_Rect rect = {
-            27, 160, 200, 15
-        };
-        SDL_RenderFillRect(app.resources.renderer, &rect);
+        SDL_RenderFillRect(app.resources.renderer, &controlsButtonRect);
     }
     UI_RenderText(controlsButtonElement);
 
+
+    if (Input_MouseIsOnRect(settingsButtonRect)) {
+        SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(app.resources.renderer, &settingsButtonRect);
+    }
+    UI_RenderText(settingsButtonElement);
+
     if (Input_MouseIsOnRect(exitButtonRect)) {
         SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-        SDL_Rect rect = {
-            27, 180, 200, 15
-        };
-        SDL_RenderFillRect(app.resources.renderer, &rect);
+        SDL_RenderFillRect(app.resources.renderer, &exitButtonRect);
     }
     UI_RenderText(exitButtonElement);
 }

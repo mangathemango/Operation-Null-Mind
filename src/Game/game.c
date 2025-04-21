@@ -43,6 +43,7 @@ void Game_Update() {
         game.isTransitioning = false;
         Map_Generate(); 
         player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+        player.state.position.y += 20;
         camera.position = player.state.position;
     }
 }
@@ -62,6 +63,7 @@ void Game_Restart()
     player.state.gunSlots[1] = -1;
     Map_Generate(); 
     player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
+    player.state.position.y += 20;
     camera.position = player.state.position;
     Sound_Play_Music("Assets/Audio/Music/return0 lofi death music BEGINNING.wav", 1);
 
@@ -115,4 +117,25 @@ void Game_TransitionNextLevel(void* data, int interactableIndex) {
     game.isTransitioning = true;
     Timer_Start(game.transitionTimer);
     currentStageIncreased = false;
+}
+
+void Game_QueueNextMusic() {
+    char* path = Game_GetCurrentMusic();
+    Sound_Queue_Next_Song(path);
+    free(path);
+}
+
+void Game_PlayCurrentMusic() {
+    char* path = Game_GetCurrentMusic();
+    Sound_Play_Music(path, 0);
+    free(path);
+}
+
+char* Game_GetCurrentMusic() {
+    char* path = malloc(sizeof(char) * 100);
+    if(game.currentStage < 4) strcpy(path, "Assets/Audio/Music/return0 early level music.wav");
+    else if (game.currentStage < 7) strcpy(path, "Assets/Audio/Music/return0 mid level music.wav");
+    else if (game.currentStage < 10) strcpy(path, "Assets/Audio/Music/return0 late level music.wav");
+    else strcpy(path, "Assets/Audio/Music/return0 boss music.wav");
+    return path;
 }

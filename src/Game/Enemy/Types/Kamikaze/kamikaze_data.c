@@ -47,7 +47,7 @@ EnemyData KamikazeData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 10,
+        .damage = 40,
         .maxHealth = 100,
         .maxSpeed = 250.0f,
         .acceleration = 1000.0f,

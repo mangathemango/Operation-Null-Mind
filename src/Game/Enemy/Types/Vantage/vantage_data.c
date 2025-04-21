@@ -87,7 +87,7 @@ EnemyData VantageData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 10,
+        .damage = 50,
         .maxHealth = 75,          // Lower health than average
         .maxSpeed = 100.0f,       // Average speed
         .acceleration = 350.0f,

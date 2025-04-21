@@ -57,11 +57,6 @@ void Player_Shoot() {
     ParticleEmitter_ActivateOnce(player.state.currentGun.resources.bulletPreset);
 
     player.resources.skillResources.ammoShoot++;
-    if(ghostLoad() == true)
-    {
-        Sound_Play_Effect(SOUND_GUN_JAM);
-        player.state.currentAmmo++;
-    }
 
     Vec2_Increment(
         &camera.position, 
@@ -70,6 +65,12 @@ void Player_Shoot() {
             -2
         )
     );
+
+    if(Player_GhostLoadGunJammed()) {
+        Sound_Play_Effect(SOUND_GUN_JAM);
+        player.state.currentAmmo += ammoComsumption;
+    }
+
     player.resources.shootCooldownTimer = Timer_Create((60.0f /(player.state.currentGun.stats.fireRate * player.resources.skillResources.overPressuredFireRate)) + player.resources.skillResources.ghostLoadRandomizer);
     Timer_Start(player.resources.shootCooldownTimer);
     
@@ -201,7 +202,8 @@ void Player_TakeDamage(int damage) {
     if (!Timer_IsFinished(player.resources.INVINCIBLE_Timer)) return;
     
     Game_AddHitsTaken();
-    int effectiveDamage = damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100 * kineticArmor();
+    int effectiveDamage = damage * (100 + player.resources.skillResources.hemocycleMultipler - player.resources.skillResources.armoredUpIncomingDamageReduction) / 100;
+    if (!Player_KineticArmorIsEffective()) effectiveDamage = 0;
     player.state.currentHealth -= effectiveDamage;
     if (player.state.currentHealth <= 0) {
         player.state.currentHealth = 0;

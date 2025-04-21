@@ -36,6 +36,7 @@ typedef bool flag;
 #include <death.h>
 #include <level_transition.h>
 #include <mission_briefing.h>
+#include <settings.h>
 
 /**
  * @brief An enum containing the app's scenes, like the menu, game, and pause scene.
@@ -57,6 +58,7 @@ typedef enum {
     SCENE_DEATH,      /**Death scene */
     SCENE_MISSION_BRIEFING, /**< Mission briefing scene */
     SCENE_CONTROLS,
+    SCENE_SETTINGS,
     SCENE_WIN      /**< Win scene when mission is accomplished */
 } AppScene;
 
