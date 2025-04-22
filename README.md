@@ -31,7 +31,7 @@ Otherwise if you have Git, you can enter this command:
 
 For this project, these 2 were used:
 - Cmake: https://github.com/Kitware/CMake/releases/download/v4.0.1/cmake-4.0.1-windows-x86_64.msi
-- MingW: https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/mingw-w64-v11.0.0.zip/download
+- MingW: https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev1/i686-14.2.0-release-win32-dwarf-msvcrt-rt_v12-rev1.7z
 
 Afterwards, you can run `cmake --version` and `gcc --version` to verify.
 
