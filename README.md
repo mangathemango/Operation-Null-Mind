@@ -18,7 +18,9 @@ https://mangathemango.github.io/Operation-Null-Mind/html/index.html
 The game's releases can be found on this link:
   https://github.com/mangathemango/Operation-Null-Mind/releases
 
-## How to install & compile for Windows
+## How to compile for Windows
+
+This section is for people who wants to contribute to the game's code, or just mess around with it. If you just want to play the game, refer to the Releases tab.
 
 ### Step 1: Clone repository
 
@@ -27,52 +29,90 @@ On this repository, you can go File -> Download .zip to download the repository.
 Otherwise if you have Git, you can enter this command:
 ``git clone https://github.com/mangathemango/Operation-Null-Mind/``
 
-### Step 2: Install cmake and MingW.
+### Step 2: Install Cmake
 
-For this project, these 2 were used:
-- Cmake: https://github.com/Kitware/CMake/releases/download/v4.0.1/cmake-4.0.1-windows-x86_64.msi
-- MingW: https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev1/i686-14.2.0-release-win32-dwarf-msvcrt-rt_v12-rev1.7z
+For Operation Null Mind, we use Cmake 4.0.1, which can be downloaded [here](
+https://github.com/Kitware/CMake/releases/download/v4.0.1/cmake-4.0.1-windows-x86_64.msi). Click on the downloaded file and follow the prompts. Make sure "Add CMake to the PATH environment variable" is on.
 
-Afterwards, you can run `cmake --version` and `gcc --version` to verify.
+![Cmake install PATH](doc/Readme/cmake_path.png)
 
-Note that for the most part, ***any version of Cmake seems to work fine***. 
+Afterwards, to check if Cmake is installed correctly, open a terminal, and enter:
 
-However, ***the MingW is a bit more problematic***. For example, the .lib and .a files doesnt seem to work with the MingW created by MSYS2. If you want to be really sure that this specific project compiles, you should use the link provided above.
+```
+cmake --version
+```
+
+The terminal shold output the following. You may need to reboot the computer, or reopen the terminal to get this message.
+```
+cmake version 4.0.1
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+```
 
 
+### Step 3: Install MinGW compiler
 
-**Note**:
+For this project, we use MinGW 14.2.0 built by MinGW-Builds project, which can be downloaded [here](https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev1/i686-14.2.0-release-win32-dwarf-msvcrt-rt_v12-rev1.7z). 
 
-**For beginners**:
+After you extract the 7z file, you should see a folder called ***mingw32***. Rename this folder to "**MinGW**", and then move it to the root of your (C:) disk.
 
-- **CMake** is a build system generator that creates build files for your platform
-- **MinGW** provides a Windows version of the GCC compiler and necessary tools
+If you right click the MinGW folder, and select "Properties", it should show something like this:
 
-### Step 3: Build, Compile and Run
+![MinGW Folder properties](doc/Readme/mingw_properties.png)
+
+Afterwards, search your Windows for ***"Edit the system environment variables"***, then click on "Environment Variables..." 
+
+![System variables](doc/Readme//system_variables.png)
+
+Under **System variables**, find **Path** variable, then click **Edit**
+
+![System Variables Edit](doc/Readme//system_varaibles_edit.png)
+
+In this screen, click "Add", and type the path of the ***bin*** folder inside the MinGW folder. It should be something like ***C:/MinGW/bin***. 
+
+*(It should be noted that for whatever reason, our game wouldn't compile on other compilers (eg. MSYS2 or MSVC). So if any of your system variables seem to include that, remove it)*
+
+After that, click "Ok".
+
+![alt text](doc/Readme/mingw_variable_added.png)
+
+After that, wait a while (again, you might need to reboot your laptop or your terminal), and then open the terminal and type:
+
+```
+gcc --version
+```
+
+If the output is:
+
+```
+gcc.exe (i686-win32-dwarf-rev1, Built by MinGW-Builds project) 14.2.0
+Copyright (C) 2024 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
+
+Congratulations, you have installed MinGW successfully!
+
+Finally, go back to the Environment Variables tab from earlier, Under **System Variables**, (NOT INSIDE PATH BTW), add 2 variables as follows:
+
+`CC` - `C:\MinGW\bin\cc.exe`
+
+`CXX` - `C:\MinGW\bin\cpp.exe`
+
+![cc-cxx-variables](doc/Readme/cc_cxx_variables.png)
+
+
+### Step 4: Build, Compile and Run
 
 To build, there are 2 ways you can do this
 
-If you have vscode, just `Ctrl+Shift+B`. It should all run fine.
+If you have vscode, open the Operation Null Mind folder from step 1 with vscode, and `Ctrl+Shift+B`. It should all run fine.
 
-Otherwise, you can run these 3 commands:
-
-```
-cmake -S . -B build "MinGW Makefiles"
-cmake --build build
-```
-
-Right now, the .exe file should be inside the `build/` folder, which you can run straight away
-
-```
-./build/Operation-Null-Mind
-```
-
-#### Note:
-
-Sometimes github does a weird thingy where the .c files turn into .C, which, automatically detects it as a C++ file instead of C @v@ goofy ah.
-
-In that case, you can enter this command into terminal:
+Otherwise, you can right click the Operation Null Mind folder, open with terminal, and run these 4 commands:
 
 ```
 Get-ChildItem -Path .\src -Filter *.C -Recurse | Rename-Item -NewName {$_.name -replace '\.C$','.c'}
+cmake -S . -B build "MinGW Makefiles"
+cmake --build build
+./build/Operation-Null-Mind
 ```
