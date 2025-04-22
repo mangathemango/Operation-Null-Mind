@@ -63,9 +63,7 @@
     "**/cache/": true,
     ".git": true,
     ".vscode": true,
-    "bin": true,
     "Deliverables": true,
-    "lib": true
   },
   "files.associations": {
     "*.ejs": "html",

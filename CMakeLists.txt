@@ -37,9 +37,11 @@ file(COPY ${CMAKE_SOURCE_DIR}/Assets/ DESTINATION ${CMAKE_BINARY_DIR}/Assets)
 
 # Link libraries
 target_link_libraries(Operation-Null-Mind
+    mingw32
     SDL2main
     SDL2
     SDL2_image
     SDL2_mixer
     SDL2_ttf
+    -mwindows
 )
