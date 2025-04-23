@@ -87,7 +87,6 @@ void Sabot_Update(EnemyData* data) {
         ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
         ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
         ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
-        Sound_Play_Effect(SOUND_GRENADE_LAUNCHER);
     }
 
     // Replace animation state handling with just "idle"
