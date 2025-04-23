@@ -117,7 +117,7 @@ AbilityData abilityData[8] =
     {
         .type = GHOST_LOAD,
         .name = "Ghost Load",
-        .descriptionPro = "Every 6th shot is free and stronger",
+        .descriptionPro = "Every 4th shot doesn't consume ammo",
         .descriptionCon = "Chance to jam your gun",
         .path = "Assets/Images/Icons/abilities/ghostLoad.png",
     },
