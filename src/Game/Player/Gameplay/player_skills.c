@@ -205,7 +205,7 @@ bool Player_GhostLoadGunJammed()
     int randomizer = RandInt(1,10);
     if(player.state.skillState.ghostLoad == true)
     {
-        if(player.resources.skillResources.ammoShoot % 8 == 0 && player.resources.skillResources.ammoShoot != 0)
+        if(player.resources.skillResources.ammoShoot % 6 == 0 && player.resources.skillResources.ammoShoot != 0)
         {
             if(randomizer == 1)
             {

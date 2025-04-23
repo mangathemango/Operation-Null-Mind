@@ -117,7 +117,7 @@ AbilityData abilityData[8] =
     {
         .type = GHOST_LOAD,
         .name = "Ghost Load",
-        .descriptionPro = "Every 8th shot doesn't use ammo",
+        .descriptionPro = "Every 6th shot is free and stronger",
         .descriptionCon = "Chance to jam your gun",
         .path = "Assets/Images/Icons/abilities/ghostLoad.png",
     },
@@ -126,7 +126,7 @@ AbilityData abilityData[8] =
         .type = HEMO_CYCLE,
         .name = "Hemocycle",
         .descriptionPro = "Every 10th kill heals you",
-        .descriptionCon = "Takes more damage from enemies",
+        .descriptionCon = "Take more damage from enemies",
         .path = "Assets/Images/Icons/abilities/hemocycle.png",
     },
     [KINETIC_ARMOR] =
@@ -134,7 +134,7 @@ AbilityData abilityData[8] =
         .type = KINETIC_ARMOR,
         .name = "Kinetic Armor",
         .descriptionPro = "Chance to not take damage",
-        .descriptionCon = "Loses 20 ammo everytime it activates",
+        .descriptionCon = "Lose 20 ammo everytime it activates",
         .path = "Assets/Images/Icons/abilities/kineticArmor.png",
     },
     [LAST_STAND] =
@@ -149,7 +149,7 @@ AbilityData abilityData[8] =
     {
         .type = OVER_PRESSURED,
         .name = "Overpressured",
-        .descriptionPro = "Increase fire rate and projectile speed",
+        .descriptionPro = "Increases fire rate and projectile speed",
         .descriptionCon = "Every shot drains extra ammo",
         .path = "Assets/Images/Icons/abilities/overPressured.png",
     },
@@ -158,7 +158,7 @@ AbilityData abilityData[8] =
         .type = SCAVENGER,
         .name = "Scavenger",
         .descriptionPro = "Ammo drops increased",
-        .descriptionCon = "Reduce max ammo capacity",
+        .descriptionCon = "Reduces max ammo capacity",
         .path = "Assets/Images/Icons/abilities/scavenger.png",
     }
 };
