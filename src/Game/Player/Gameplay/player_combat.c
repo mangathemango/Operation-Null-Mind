@@ -26,7 +26,7 @@
 void Player_Shoot() {
     if (!Timer_IsFinished(player.resources.shootCooldownTimer)) return;
     GunData* gun = &player.state.currentGun;
-    int ammoComsumption = gun->stats.ammoConsumption * player.resources.skillResources.overPressuredBulletConsumptionMultipler;
+    int ammoComsumption = gun->stats.ammoConsumption + player.stats.skillStat.overPressuredBulletConsumption;
     if (player.state.currentAmmo < ammoComsumption) return;
 
     // Map gun types to their corresponding sound effects
