@@ -65,7 +65,7 @@ typedef struct SkillResources {
 } SkillResources;
 
 typedef struct SkillStat {
-    float overPressuredOriginalMultipler; ///< Amount of ammo consumed when overpressured
+    int overPressuredBulletConsumption; ///< Amount of ammo consumed when overpressured
     float overPressuredOriginalFireRate; ///< Fire rate when overpressured
     float overPressuredOriginalProjectileSpeed; ///< Speed of overpressured bullets
     int scavengerAmmoBonus; ///< Amount of ammo gained from scavenger skill
@@ -273,7 +273,7 @@ void Player_HandleLastStandActive();
 void Player_HandleOverpressuredActive();
 void Player_HandleHemocycleActive();
 void Player_HandleArmoredUpActive();
-
+void Player_RenderLastStandEffect();
 
 void Player_PickUpGun(void* data, int interactableIndex);
 void Player_OpenCrate(void* data, int interactableIndex);
