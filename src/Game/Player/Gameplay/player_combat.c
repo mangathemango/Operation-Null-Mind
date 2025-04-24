@@ -16,6 +16,7 @@
 #include <interactable_crate.h>
 #include <input.h>
 #include <math.h>
+#include <settings.h>
 
 /**
  * @brief [Utility] Makes the player shoot their current weapon
@@ -243,6 +244,7 @@ void Player_TakeDamage(int damage) {
 }
 
 void Player_RenderDamageEffect() {
+    if (Settings_GetFlashRed()) return;
     SDL_Rect dest = {
         0,
         0,

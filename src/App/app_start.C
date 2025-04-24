@@ -19,6 +19,7 @@
 #include <bullet.h>
 #include <controls.h>
 #include <win.h> // Added for Win_Start function
+#include <settings.h>
 
 /*
 *   [Start] This function is called at the start of the program.

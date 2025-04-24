@@ -13,6 +13,7 @@
 #include <particles.h>
 #include <particle_emitterpresets.h>
 #include <sound.h>
+#include <settings.h>
 
 /* 
 *   [Quit] This function is called when the program is about to quit.

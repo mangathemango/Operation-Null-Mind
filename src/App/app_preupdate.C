@@ -13,6 +13,7 @@
 #include <input.h>
 #include <time_system.h>
 #include <player.h>
+#include <settings.h>
 
 /**
  * @brief [PreUpdate] Early frame setup routine 

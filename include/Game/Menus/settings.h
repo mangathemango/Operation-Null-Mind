@@ -1,7 +1,8 @@
 #pragma once
 
-#include <stdbool.h>
-#include <SDL.h>
+#include <app.h>
+
+extern AppScene settingsLastScene;
 
 // Settings functions
 void Settings_Start();

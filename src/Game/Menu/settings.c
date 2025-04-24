@@ -2,10 +2,13 @@
 #include <settings.h>
 #include <input.h>
 #include <ui_text.h>
-#include <app.h>
 #include <sound.h>
 #include <math.h>
 #include <SDL_filesystem.h>
+#include <app.h>
+
+
+AppScene settingsLastScene = SCENE_MENU;
 
 // Enum for different settings tabs
 typedef enum {
@@ -93,6 +96,7 @@ static UIElement* audioButton = NULL;
 #define CREATE_SETTING_LABEL(x, text) UI_CreateText(text, (SDL_Rect) {SETTING_LABEL_RECT(x)}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont)
 
 #define SETTING_BUTTON_RECT(x) BUTTONS_ENDX, SETTING_TAB_STARTY + (x) * (SETTING_TAB_SPACING), 0, 0
+#define SETTING_BUTTON_HITBOX(x) BUTTONS_ENDX - 20, SETTING_TAB_STARTY + (x) * (SETTING_TAB_SPACING), 20, SETTING_TAB_SPACING
 #define CREATE_SETTING_BUTTON(x, text) UI_CreateText(text, (SDL_Rect) {SETTING_BUTTON_RECT(x)}, textColor, 1.0f, UI_TEXT_ALIGN_RIGHT, app.resources.textFont)
 
 #define SLIDER_WIDTH 200
@@ -222,7 +226,7 @@ void Settings_Update() {
     // Handle gameplay settings toggles
     if (currentTab == SETTINGS_TAB_GAMEPLAY) {
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
-            if (Input_MouseIsOnRect((SDL_Rect) {300, 120 + i * 40, 50, 20}) && Input->mouse.leftButton.pressed) {
+            if (Input_MouseIsOnRect((SDL_Rect) {SETTING_BUTTON_HITBOX(i)}) && Input->mouse.leftButton.pressed) {
                 gameplaySettings[i].toggleValue = !gameplaySettings[i].toggleValue;
                 UI_ChangeText(gameplaySettings[i].buttonElement, gameplaySettings[i].toggleValue ? "On" : "Off");
             }
@@ -257,7 +261,7 @@ void Settings_Update() {
     }
 
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
-        app.state.currentScene = SCENE_MENU; // Go back to main menu
+        app.state.currentScene = settingsLastScene;
     }
 }
 

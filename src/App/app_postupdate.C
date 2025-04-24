@@ -18,6 +18,7 @@
 #include <enemy_types.h>
 #include <controls.h>
 #include <win.h> // Added for Win_Update function
+#include <settings.h>
 
 /**
  * @brief [PostUpdate] Main game update routine

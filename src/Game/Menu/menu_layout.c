@@ -16,6 +16,7 @@
 #include <sound.h>
 #include <controls.h>
 #include <math.h>
+#include <settings.h>
 
 static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
@@ -111,6 +112,7 @@ void Menu_Update() {
         }
         if (Input->mouse.leftButton.pressed) {
             app.state.currentScene = SCENE_SETTINGS;
+            settingsLastScene = SCENE_MENU;
             Sound_Play_Effect(SOUND_SELECT);
         }
     } else {
