@@ -40,6 +40,14 @@ typedef enum {
     SETTING_TYPE_SLIDER
 } SettingType;
 
+// Video settings enum
+typedef enum {
+    SETTING_FULLSCREEN,
+    SETTING_FPS_COUNTER,
+    SETTING_DEBUG_MODE,
+    VIDEO_SETTINGS_COUNT
+} VideoSetting;
+
 // Structure to hold setting data
 typedef struct {
     const char* label;
@@ -64,6 +72,7 @@ static SettingsTab currentTab = SETTINGS_TAB_GAMEPLAY;
 // Settings arrays for each tab
 static SettingData gameplaySettings[GAMEPLAY_SETTINGS_COUNT];
 static SettingData audioSettings[AUDIO_SETTINGS_COUNT];
+static SettingData videoSettings[VIDEO_SETTINGS_COUNT];
 
 // UI elements for tabs
 static UIElement* settingsTitle = NULL;
@@ -108,7 +117,7 @@ static UIElement* audioButton = NULL;
 static int activeSliderIndex = -1;
 
 // Initialize the settings arrays
-static void InitializeSettings() {
+void InitializeSettings() {
     // Initialize gameplay settings
     gameplaySettings[SETTING_PREVENT_OVERHEALING] = (SettingData){
         .label = "Prevent Overhealing",
@@ -142,6 +151,23 @@ static void InitializeSettings() {
         .type = SETTING_TYPE_SLIDER,
         .sliderValue = 1.0f
     };
+
+    // Initialize video settings
+    videoSettings[SETTING_FULLSCREEN] = (SettingData){
+        .label = "Fullscreen",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = false
+    };
+    videoSettings[SETTING_FPS_COUNTER] = (SettingData){
+        .label = "FPS Counter",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = false
+    };
+    videoSettings[SETTING_DEBUG_MODE] = (SettingData){
+        .label = "Debug Mode",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = false
+    };
 }
 
 // Helper function to update slider value based on mouse position
@@ -172,9 +198,6 @@ void Settings_Start() {
     controlsButton = UI_CreateText("Controls", (SDL_Rect) {BUTTON_TEXT_STARTX + BUTTON_TEXT_SPACING * 1, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
     videoButton = UI_CreateText("Video", (SDL_Rect) {BUTTON_TEXT_STARTX + BUTTON_TEXT_SPACING * 2, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
     audioButton = UI_CreateText("Audio", (SDL_Rect) {BUTTON_TEXT_STARTX + BUTTON_TEXT_SPACING * 3, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
-
-    // Initialize settings
-    InitializeSettings();
 
     // Gameplay settings
     for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
@@ -208,7 +231,13 @@ void Settings_Start() {
             app.resources.textFont
         );
     }
-    Settings_Load();
+
+    // Video settings
+    for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
+        videoSettings[i].labelElement = CREATE_SETTING_LABEL(i, videoSettings[i].label);
+        videoSettings[i].buttonElement = CREATE_SETTING_BUTTON(i, videoSettings[i].toggleValue ? "On" : "Off");
+    }
+
 }
 
 void Settings_Update() {
@@ -258,6 +287,25 @@ void Settings_Update() {
     } else {
         // Reset active slider when leaving audio tab
         activeSliderIndex = -1;
+    }
+
+    // Handle video settings toggles
+    if (currentTab == SETTINGS_TAB_VIDEO) {
+        for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
+            if (Input_MouseIsOnRect((SDL_Rect) {SETTING_BUTTON_HITBOX(i)}) && Input->mouse.leftButton.pressed) {
+                videoSettings[i].toggleValue = !videoSettings[i].toggleValue;
+                UI_ChangeText(videoSettings[i].buttonElement, videoSettings[i].toggleValue ? "On" : "Off");
+                
+                // Handle fullscreen toggle immediately
+                if (i == SETTING_FULLSCREEN) {
+                    app.config.window_fullscreen = videoSettings[i].toggleValue;
+                    SDL_SetWindowFullscreen(app.resources.window, 
+                        app.config.window_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+                    SDL_SetWindowSize(app.resources.window, app.config.window_width, app.config.window_height);
+                    SDL_SetWindowPosition(app.resources.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+                }
+            }
+        }
     }
 
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
@@ -320,6 +368,14 @@ void Settings_Render() {
             SDL_RenderFillRect(app.resources.renderer, &fillRect);
         }
     }
+
+    // Render video settings if active
+    if (currentTab == SETTINGS_TAB_VIDEO) {
+        for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
+            UI_RenderText(videoSettings[i].labelElement);
+            UI_RenderText(videoSettings[i].buttonElement);
+        }
+    }
 }
 
 bool Settings_GetPreventOverhealing() {
@@ -344,6 +400,19 @@ float Settings_GetMusicVolume() {
 
 float Settings_GetSoundVolume() {
     return audioSettings[SETTING_SOUND_VOLUME].sliderValue;
+}
+
+// Add video settings getters
+bool Settings_GetFullscreen() {
+    return videoSettings[SETTING_FULLSCREEN].toggleValue;
+}
+
+bool Settings_GetFPSCounter() {
+    return videoSettings[SETTING_FPS_COUNTER].toggleValue;
+}
+
+bool Settings_GetDebugMode() {
+    return videoSettings[SETTING_DEBUG_MODE].toggleValue;
 }
 
 static char* GetSettingsPath() {
@@ -381,6 +450,9 @@ void Settings_Save() {
         for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
             fwrite(&audioSettings[i].sliderValue, sizeof(float), 1, file);
         }
+        for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
+            fwrite(&videoSettings[i].toggleValue, sizeof(bool), 1, file);
+        }
         fclose(file);
     }
     free(settingsPath);
@@ -409,6 +481,14 @@ void Settings_Load() {
                 snprintf(percentText, sizeof(percentText), "%d%%", (int)(audioSettings[i].sliderValue * 100));
                 if (audioSettings[i].percentageText) {
                     UI_ChangeText(audioSettings[i].percentageText, percentText);
+                }
+            }
+        }
+        for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
+            if (fread(&videoSettings[i].toggleValue, sizeof(bool), 1, file) == 1) {
+                if (videoSettings[i].buttonElement) {
+                    UI_ChangeText(videoSettings[i].buttonElement,
+                                videoSettings[i].toggleValue ? "On" : "Off");
                 }
             }
         }

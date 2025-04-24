@@ -28,6 +28,7 @@ int App_PreUpdate() {
     Input_PreUpdate();
     Time_PreUpdate();
     Sound_UpdateVolume();
+    app.config.debug = Settings_GetDebugMode();
     switch (app.state.currentScene){
         case SCENE_GAME:
             Player_Preupdate();

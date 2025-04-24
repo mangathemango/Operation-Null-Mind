@@ -19,8 +19,14 @@ float Settings_GetMasterVolume();
 float Settings_GetMusicVolume();
 float Settings_GetSoundVolume();
 
+// Video settings getters
+bool Settings_GetFullscreen();
+bool Settings_GetFPSCounter();
+bool Settings_GetDebugMode();
+
 // Function to save settings
 void Settings_Save();
 
 // Function to load settings
 void Settings_Load();
+void InitializeSettings();

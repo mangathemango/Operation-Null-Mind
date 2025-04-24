@@ -18,6 +18,7 @@
 #include <camera.h>
 #include <maps.h>
 #include <player.h>
+#include <settings.h>
 
 /** Color constants for hitbox visualization */
 #define PLAYER_HITBOX_COLOR 0, 255, 0, 255
@@ -90,7 +91,7 @@ void Debug_RenderHitboxes() {
  * Creates and updates a text element showing the current frames per second.
  */
 void Debug_RenderFPSCount() {
-    if (!app.config.debug) return;
+    if (!app.config.debug && !Settings_GetFPSCounter()) return;
     // The UIElement struct stored in a static variable for reuse
     static UIElement* fpsTextElement = NULL;
     static UIElement* averageFpsTextElement = NULL;

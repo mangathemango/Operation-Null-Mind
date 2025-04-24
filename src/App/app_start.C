@@ -30,6 +30,9 @@
 int App_Start() {
     RandomInit();
     Collider_Start();
+    // Initialize settings
+    InitializeSettings();
+    Settings_Load();
     if (Initialize_SDL()) return 1;
     Gun_Start();
     Bullet_Start();
@@ -49,7 +52,7 @@ int App_Start() {
         SDL_Log("Failed to load sound resources!\n");
         return 1;
     }
-    Sound_System_Initialize();
+    Sound_UpdateVolume();
     Menu_PrepareTextures();
     Pause_Start();
     Death_Start();
