@@ -5,6 +5,7 @@
 #include <app.h>
 #include <sound.h>
 #include <math.h>
+#include <SDL_filesystem.h>
 
 // Enum for different settings tabs
 typedef enum {
@@ -98,6 +99,9 @@ static UIElement* audioButton = NULL;
 #define SLIDER_HEIGHT 15
 #define SLIDER_BORDER 2
 #define PERCENTAGE_TEXT_OFFSET 0
+
+// Add tracking for active slider
+static int activeSliderIndex = -1;
 
 // Initialize the settings arrays
 static void InitializeSettings() {
@@ -200,6 +204,7 @@ void Settings_Start() {
             app.resources.textFont
         );
     }
+    Settings_Load();
 }
 
 void Settings_Update() {
@@ -226,14 +231,29 @@ void Settings_Update() {
 
     // Handle audio settings sliders
     if (currentTab == SETTINGS_TAB_AUDIO) {
-        for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
-            SDL_Rect sliderClickArea = audioSettings[i].sliderBar;
-            if (Input_MouseIsOnRect(sliderClickArea)) {
-                if (Input->mouse.leftButton.held) {
-                    UpdateSliderValue(&audioSettings[i], Input->mouse.position.x);
+        // If no slider is active, check for new slider activation
+        if (activeSliderIndex == -1) {
+            for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+                SDL_Rect sliderClickArea = audioSettings[i].sliderBar;
+                if (Input_MouseIsOnRect(sliderClickArea) && Input->mouse.leftButton.pressed) {
+                    activeSliderIndex = i;
+                    break;
                 }
             }
         }
+        
+        // If a slider is active, update it regardless of mouse position
+        if (activeSliderIndex != -1) {
+            if (Input->mouse.leftButton.held) {
+                UpdateSliderValue(&audioSettings[activeSliderIndex], Input->mouse.position.x);
+            } else {
+                // Release the active slider when mouse button is released
+                activeSliderIndex = -1;
+            }
+        }
+    } else {
+        // Reset active slider when leaving audio tab
+        activeSliderIndex = -1;
     }
 
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
@@ -322,8 +342,34 @@ float Settings_GetSoundVolume() {
     return audioSettings[SETTING_SOUND_VOLUME].sliderValue;
 }
 
+static char* GetSettingsPath() {
+    char* prefPath = SDL_GetPrefPath("Operation-Null-Mind", "Settings");
+    if (prefPath == NULL) {
+        SDL_Log("Error getting settings path: %s", SDL_GetError());
+        return NULL;
+    }
+    
+    // Allocate space for the path + filename
+    size_t pathLen = strlen(prefPath) + strlen("settings.dat") + 1;
+    char* fullPath = (char*)malloc(pathLen);
+    if (fullPath == NULL) {
+        SDL_free(prefPath);
+        return NULL;
+    }
+    
+    snprintf(fullPath, pathLen, "%ssettings.dat", prefPath);
+    SDL_free(prefPath);
+    return fullPath;
+}
+
 void Settings_Save() {
-    FILE* file = fopen("settings.dat", "wb");
+    char* settingsPath = GetSettingsPath();
+    if (settingsPath == NULL) {
+        SDL_Log("Failed to get settings path");
+        return;
+    }
+
+    FILE* file = fopen(settingsPath, "wb");
     if (file) {
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
             fwrite(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
@@ -333,10 +379,17 @@ void Settings_Save() {
         }
         fclose(file);
     }
+    free(settingsPath);
 }
 
 void Settings_Load() {
-    FILE* file = fopen("settings.dat", "rb");
+    char* settingsPath = GetSettingsPath();
+    if (settingsPath == NULL) {
+        SDL_Log("Failed to get settings path");
+        return;
+    }
+
+    FILE* file = fopen(settingsPath, "rb");
     if (file) {
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
             if (fread(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file) == 1) {
@@ -357,4 +410,5 @@ void Settings_Load() {
         }
         fclose(file);
     }
+    free(settingsPath);
 }

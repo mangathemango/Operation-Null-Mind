@@ -20,6 +20,7 @@
 ?   Updated by Darren on 07/03/2025
 */
 int App_Quit() {
+    Settings_Save();
     Sound_System_Cleanup();
     SDL_DestroyTexture(app.resources.screenTexture);
     SDL_DestroyRenderer(app.resources.renderer);
