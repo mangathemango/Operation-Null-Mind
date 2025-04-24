@@ -189,13 +189,11 @@ void Minimap_RenderChunkHallways(EnvironmentChunk* chunk) {
  */
 SDL_Color Minimap_GetRoomColor(EnvironmentChunk *chunk) {
     switch (chunk->roomType) {
-        case ROOM_TYPE_NORMAL:
+        case ROOM_TYPE_NORMAL: case ROOM_TYPE_BOSS:
             if (chunk->totalEnemyCount > 0 || chunk->currentEnemyCount > 0) 
                 return (SDL_Color) {MINIMAP_ENEMY_ROOM_COLOR};
             else 
                 return (SDL_Color) {MINIMAP_ROOM_COLOR};
-        case ROOM_TYPE_BOSS:
-            return (SDL_Color) {MINIMAP_SPECIAL_ROOM_COLOR};
         case ROOM_TYPE_START:
             return (SDL_Color) {MINIMAP_START_ROOM_COLOR};
         case ROOM_TYPE_END:
