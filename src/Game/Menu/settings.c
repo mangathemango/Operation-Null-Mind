@@ -1,46 +1,149 @@
+#include <stdio.h>
 #include <settings.h>
 #include <input.h>
-#include <app.h>
 #include <ui_text.h>
+#include <app.h>
 #include <sound.h>
+#include <math.h>
 
 // Enum for different settings tabs
 typedef enum {
     SETTINGS_TAB_GAMEPLAY,
     SETTINGS_TAB_CONTROLS,
     SETTINGS_TAB_VIDEO,
-    SETTINGS_TAB_AUDIO
+    SETTINGS_TAB_AUDIO,
+    SETTINGS_TAB_COUNT
 } SettingsTab;
+
+// Gameplay settings enum
+typedef enum {
+    SETTING_PREVENT_OVERHEALING,
+    SETTING_DAMAGE_NUMBERS,
+    SETTING_FLASH_RED,
+    GAMEPLAY_SETTINGS_COUNT
+} GameplaySetting;
+
+// Audio settings enum
+typedef enum {
+    SETTING_MASTER_VOLUME,
+    SETTING_MUSIC_VOLUME,
+    SETTING_SOUND_VOLUME,
+    AUDIO_SETTINGS_COUNT
+} AudioSetting;
+
+typedef enum {
+    SETTING_TYPE_TOGGLE,
+    SETTING_TYPE_SLIDER
+} SettingType;
+
+// Structure to hold setting data
+typedef struct {
+    const char* label;
+    SettingType type;
+    union {
+        bool toggleValue;
+        float sliderValue;
+    };
+    UIElement* labelElement;
+    union {
+        UIElement* buttonElement;
+        struct {
+            SDL_Rect sliderBar;
+            UIElement* percentageText;
+        };
+    };
+} SettingData;
 
 // Current active settings tab
 static SettingsTab currentTab = SETTINGS_TAB_GAMEPLAY;
 
-// UI elements
+// Settings arrays for each tab
+static SettingData gameplaySettings[GAMEPLAY_SETTINGS_COUNT];
+static SettingData audioSettings[AUDIO_SETTINGS_COUNT];
+
+// UI elements for tabs
 static UIElement* settingsTitle = NULL;
 static UIElement* gameplayButton = NULL;
 static UIElement* controlsButton = NULL;
 static UIElement* videoButton = NULL;
 static UIElement* audioButton = NULL;
 
-// Gameplay settings
-static UIElement* preventOverhealingLabel = NULL;
-static UIElement* preventOverhealingButton = NULL;
-static UIElement* damageNumbersLabel = NULL;
-static UIElement* damageNumbersButton = NULL;
-static UIElement* flashRedLabel = NULL;
-static UIElement* flashRedButton = NULL;
-
-// Gameplay settings state
-static bool preventOverhealing = false;
-static bool damageNumbers = true;
-static bool flashRed = true;
-
 // Define constants for button dimensions and spacing
-#define BUTTON_WIDTH 100
+#define BUTTON_WIDTH 70
 #define BUTTON_HEIGHT 20
 #define BUTTON_SPACING 20
 #define BUTTONS_TOTAL_WIDTH (BUTTON_WIDTH * 4 + BUTTON_SPACING * 3)
+#define BUTTONS_STARTX ((app.config.screen_width - BUTTONS_TOTAL_WIDTH) / 2)
+#define BUTTONS_ENDX (BUTTONS_STARTX + BUTTONS_TOTAL_WIDTH)
+#define BUTTONS_STARTY 80
+#define BUTTON_TEXT_STARTY (BUTTONS_STARTY + 3)
+#define BUTTON_TEXT_STARTX (BUTTONS_STARTX + BUTTON_WIDTH / 2)
+#define BUTTON_TEXT_SPACING (BUTTON_WIDTH + BUTTON_SPACING)
 
+#define BUTTON_RECT(x) BUTTONS_STARTX + (x) * (BUTTON_WIDTH + BUTTON_SPACING), BUTTONS_STARTY, BUTTON_WIDTH, BUTTON_HEIGHT
+#define GAMEPLAY_RECT BUTTON_RECT(0)
+#define CONTROLS_RECT BUTTON_RECT(1)
+#define VIDEO_RECT BUTTON_RECT(2)
+#define AUDIO_RECT BUTTON_RECT(3)
+
+#define SETTING_TAB_STARTY 120
+#define SETTING_TAB_SPACING 20
+#define SETTING_LABEL_RECT(x) BUTTONS_STARTX, SETTING_TAB_STARTY + (x) * (SETTING_TAB_SPACING), 0, 0
+#define CREATE_SETTING_LABEL(x, text) UI_CreateText(text, (SDL_Rect) {SETTING_LABEL_RECT(x)}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont)
+
+#define SETTING_BUTTON_RECT(x) BUTTONS_ENDX, SETTING_TAB_STARTY + (x) * (SETTING_TAB_SPACING), 0, 0
+#define CREATE_SETTING_BUTTON(x, text) UI_CreateText(text, (SDL_Rect) {SETTING_BUTTON_RECT(x)}, textColor, 1.0f, UI_TEXT_ALIGN_RIGHT, app.resources.textFont)
+
+#define SLIDER_WIDTH 200
+#define SLIDER_HEIGHT 15
+#define SLIDER_BORDER 2
+#define PERCENTAGE_TEXT_OFFSET 0
+
+// Initialize the settings arrays
+static void InitializeSettings() {
+    // Initialize gameplay settings
+    gameplaySettings[SETTING_PREVENT_OVERHEALING] = (SettingData){
+        .label = "Prevent Overhealing",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = false
+    };
+    gameplaySettings[SETTING_DAMAGE_NUMBERS] = (SettingData){
+        .label = "Damage Numbers",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = true
+    };
+    gameplaySettings[SETTING_FLASH_RED] = (SettingData){
+        .label = "Flash red when hurt",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = true
+    };
+
+    // Initialize audio settings
+    audioSettings[SETTING_MASTER_VOLUME] = (SettingData){
+        .label = "Master Volume",
+        .type = SETTING_TYPE_SLIDER,
+        .sliderValue = 1.0f
+    };
+    audioSettings[SETTING_MUSIC_VOLUME] = (SettingData){
+        .label = "Music Volume",
+        .type = SETTING_TYPE_SLIDER,
+        .sliderValue = 1.0f
+    };
+    audioSettings[SETTING_SOUND_VOLUME] = (SettingData){
+        .label = "Sound Volume",
+        .type = SETTING_TYPE_SLIDER,
+        .sliderValue = 1.0f
+    };
+}
+
+// Helper function to update slider value based on mouse position
+static void UpdateSliderValue(SettingData* setting, int mouseX) {
+    float percentage = (float)(mouseX - setting->sliderBar.x) / setting->sliderBar.w;
+    setting->sliderValue = fmaxf(0.0f, fminf(1.0f, percentage));
+    char percentText[8];
+    snprintf(percentText, sizeof(percentText), "%d%%", (int)(setting->sliderValue * 100));
+    UI_ChangeText(setting->percentageText, percentText);
+}
 
 void Settings_Start() {
     SDL_Color textColor = {255, 255, 255, 255};
@@ -57,47 +160,79 @@ void Settings_Start() {
 
     int textSpacing = 120;
     // Tab buttons
-    gameplayButton = UI_CreateText("Gameplay", (SDL_Rect) {55, 85, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
-    controlsButton = UI_CreateText("Controls", (SDL_Rect) {55 + textSpacing * 1, 85, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
-    videoButton = UI_CreateText("Video", (SDL_Rect) {55 + textSpacing * 2, 85, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
-    audioButton = UI_CreateText("Audio", (SDL_Rect) {55 + textSpacing * 3, 85, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
+    gameplayButton = UI_CreateText("Gameplay", (SDL_Rect) {BUTTON_TEXT_STARTX, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
+    controlsButton = UI_CreateText("Controls", (SDL_Rect) {BUTTON_TEXT_STARTX + BUTTON_TEXT_SPACING * 1, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
+    videoButton = UI_CreateText("Video", (SDL_Rect) {BUTTON_TEXT_STARTX + BUTTON_TEXT_SPACING * 2, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
+    audioButton = UI_CreateText("Audio", (SDL_Rect) {BUTTON_TEXT_STARTX + BUTTON_TEXT_SPACING * 3, BUTTON_TEXT_STARTY, 0, 0}, buttonTextColor, 1.0f, UI_TEXT_ALIGN_CENTER, app.resources.textFont);
+
+    // Initialize settings
+    InitializeSettings();
 
     // Gameplay settings
-    preventOverhealingLabel = UI_CreateText("Prevent Overhealing", (SDL_Rect) {50, 120, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    preventOverhealingButton = UI_CreateText("Off", (SDL_Rect) {300, 120, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
+        gameplaySettings[i].labelElement = CREATE_SETTING_LABEL(i, gameplaySettings[i].label);
+        gameplaySettings[i].buttonElement = CREATE_SETTING_BUTTON(i, gameplaySettings[i].toggleValue ? "On" : "Off");
+    }
 
-    damageNumbersLabel = UI_CreateText("Damage Numbers", (SDL_Rect) {50, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    damageNumbersButton = UI_CreateText("On", (SDL_Rect) {300, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-
-    flashRedLabel = UI_CreateText("Flash Red when Hurt", (SDL_Rect) {50, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    flashRedButton = UI_CreateText("On", (SDL_Rect) {300, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    // Audio settings
+    for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+        audioSettings[i].labelElement = CREATE_SETTING_LABEL(i, audioSettings[i].label);
+        audioSettings[i].sliderBar = (SDL_Rect) {
+            BUTTONS_ENDX - SLIDER_WIDTH - PERCENTAGE_TEXT_OFFSET - 30,  // Extra space for percentage text
+            SETTING_TAB_STARTY + i * SETTING_TAB_SPACING - 1,
+            SLIDER_WIDTH,
+            SLIDER_HEIGHT
+        };
+        
+        char percentText[8];
+        snprintf(percentText, sizeof(percentText), "%d%%", (int)(audioSettings[i].sliderValue * 100));
+        audioSettings[i].percentageText = UI_CreateText(
+            percentText,
+            (SDL_Rect) {
+                BUTTONS_ENDX - PERCENTAGE_TEXT_OFFSET,
+                SETTING_TAB_STARTY + i * SETTING_TAB_SPACING,
+                0,
+                0
+            },
+            textColor,
+            1.0f,
+            UI_TEXT_ALIGN_RIGHT,
+            app.resources.textFont
+        );
+    }
 }
 
 void Settings_Update() {
     // Handle tab switching
-    if (Input_MouseIsOnRect((SDL_Rect) {50, 80, 100, 20}) && Input->mouse.leftButton.pressed) {
+    if (Input_MouseIsOnRect((SDL_Rect) {GAMEPLAY_RECT}) && Input->mouse.leftButton.pressed) {
         currentTab = SETTINGS_TAB_GAMEPLAY;
-    } else if (Input_MouseIsOnRect((SDL_Rect) {150, 80, 100, 20}) && Input->mouse.leftButton.pressed) {
+    } else if (Input_MouseIsOnRect((SDL_Rect) {CONTROLS_RECT}) && Input->mouse.leftButton.pressed) {
         currentTab = SETTINGS_TAB_CONTROLS;
-    } else if (Input_MouseIsOnRect((SDL_Rect) {250, 80, 100, 20}) && Input->mouse.leftButton.pressed) {
+    } else if (Input_MouseIsOnRect((SDL_Rect) {VIDEO_RECT}) && Input->mouse.leftButton.pressed) {
         currentTab = SETTINGS_TAB_VIDEO;
-    } else if (Input_MouseIsOnRect((SDL_Rect) {350, 80, 100, 20}) && Input->mouse.leftButton.pressed) {
+    } else if (Input_MouseIsOnRect((SDL_Rect) {AUDIO_RECT}) && Input->mouse.leftButton.pressed) {
         currentTab = SETTINGS_TAB_AUDIO;
     }
 
     // Handle gameplay settings toggles
     if (currentTab == SETTINGS_TAB_GAMEPLAY) {
-        if (Input_MouseIsOnRect((SDL_Rect) {300, 120, 50, 20}) && Input->mouse.leftButton.pressed) {
-            preventOverhealing = !preventOverhealing;
-            UI_ChangeText(preventOverhealingButton, preventOverhealing ? "On" : "Off");
+        for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
+            if (Input_MouseIsOnRect((SDL_Rect) {300, 120 + i * 40, 50, 20}) && Input->mouse.leftButton.pressed) {
+                gameplaySettings[i].toggleValue = !gameplaySettings[i].toggleValue;
+                UI_ChangeText(gameplaySettings[i].buttonElement, gameplaySettings[i].toggleValue ? "On" : "Off");
+            }
         }
-        if (Input_MouseIsOnRect((SDL_Rect) {300, 160, 50, 20}) && Input->mouse.leftButton.pressed) {
-            damageNumbers = !damageNumbers;
-            UI_ChangeText(damageNumbersButton, damageNumbers ? "On" : "Off");
-        }
-        if (Input_MouseIsOnRect((SDL_Rect) {300, 200, 50, 20}) && Input->mouse.leftButton.pressed) {
-            flashRed = !flashRed;
-            UI_ChangeText(flashRedButton, flashRed ? "On" : "Off");
+    }
+
+    // Handle audio settings sliders
+    if (currentTab == SETTINGS_TAB_AUDIO) {
+        for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+            SDL_Rect sliderClickArea = audioSettings[i].sliderBar;
+            if (Input_MouseIsOnRect(sliderClickArea)) {
+                if (Input->mouse.leftButton.held) {
+                    UpdateSliderValue(&audioSettings[i], Input->mouse.position.x);
+                }
+            }
         }
     }
 
@@ -110,41 +245,116 @@ void Settings_Render() {
     // Render title
     UI_RenderText(settingsTitle);
 
-    // Calculate button positions to center them around the screen
-    int totalWidth = (BUTTON_WIDTH * 4) + (BUTTON_SPACING * 3);
-    int startX = (app.config.screen_width - totalWidth) / 2;
-
     SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255); // White color
 
     // Render Gameplay button
-    SDL_Rect gameplayRect = {startX, 80, BUTTON_WIDTH, BUTTON_HEIGHT};
+    SDL_Rect gameplayRect = {GAMEPLAY_RECT};
     SDL_RenderFillRect(app.resources.renderer, &gameplayRect);
     UI_RenderText(gameplayButton);
 
     // Render Controls button
-    SDL_Rect controlsRect = {startX + BUTTON_WIDTH + BUTTON_SPACING, 80, BUTTON_WIDTH, BUTTON_HEIGHT};
+    SDL_Rect controlsRect = {CONTROLS_RECT};
     SDL_RenderFillRect(app.resources.renderer, &controlsRect);
     UI_RenderText(controlsButton);
 
     // Render Video button
-    SDL_Rect videoRect = {startX + 2 * (BUTTON_WIDTH + BUTTON_SPACING), 80, BUTTON_WIDTH, BUTTON_HEIGHT};
+    SDL_Rect videoRect = {VIDEO_RECT};
     SDL_RenderFillRect(app.resources.renderer, &videoRect);
     UI_RenderText(videoButton);
 
     // Render Audio button
-    SDL_Rect audioRect = {startX + 3 * (BUTTON_WIDTH + BUTTON_SPACING), 80, BUTTON_WIDTH, BUTTON_HEIGHT};
+    SDL_Rect audioRect = {AUDIO_RECT};
     SDL_RenderFillRect(app.resources.renderer, &audioRect);
     UI_RenderText(audioButton);
 
     // Render gameplay settings if active
     if (currentTab == SETTINGS_TAB_GAMEPLAY) {
-        UI_RenderText(preventOverhealingLabel);
-        UI_RenderText(preventOverhealingButton);
+        for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
+            UI_RenderText(gameplaySettings[i].labelElement);
+            UI_RenderText(gameplaySettings[i].buttonElement);
+        }
+    }
 
-        UI_RenderText(damageNumbersLabel);
-        UI_RenderText(damageNumbersButton);
+    // Render audio settings if active
+    if (currentTab == SETTINGS_TAB_AUDIO) {
+        for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+            UI_RenderText(audioSettings[i].labelElement);
+            UI_RenderText(audioSettings[i].percentageText);
+            
+            SDL_Rect sliderBar = audioSettings[i].sliderBar;
+            
+            // Draw white border
+            SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+            SDL_RenderDrawRect(app.resources.renderer, &sliderBar);
+            
+            // Draw filled portion
+            SDL_Rect fillRect = sliderBar;
+            fillRect.x += SLIDER_BORDER;
+            fillRect.y += SLIDER_BORDER;
+            fillRect.w = (sliderBar.w - 2 * SLIDER_BORDER) * audioSettings[i].sliderValue;
+            fillRect.h -= 2 * SLIDER_BORDER;
+            SDL_RenderFillRect(app.resources.renderer, &fillRect);
+        }
+    }
+}
 
-        UI_RenderText(flashRedLabel);
-        UI_RenderText(flashRedButton);
+bool Settings_GetPreventOverhealing() {
+    return gameplaySettings[SETTING_PREVENT_OVERHEALING].toggleValue;
+}
+
+bool Settings_GetDamageNumbers() {
+    return gameplaySettings[SETTING_DAMAGE_NUMBERS].toggleValue;
+}
+
+bool Settings_GetFlashRed() {
+    return gameplaySettings[SETTING_FLASH_RED].toggleValue;
+}
+
+float Settings_GetMasterVolume() {
+    return audioSettings[SETTING_MASTER_VOLUME].sliderValue;
+}
+
+float Settings_GetMusicVolume() {
+    return audioSettings[SETTING_MUSIC_VOLUME].sliderValue;
+}
+
+float Settings_GetSoundVolume() {
+    return audioSettings[SETTING_SOUND_VOLUME].sliderValue;
+}
+
+void Settings_Save() {
+    FILE* file = fopen("settings.dat", "wb");
+    if (file) {
+        for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
+            fwrite(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
+        }
+        for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+            fwrite(&audioSettings[i].sliderValue, sizeof(float), 1, file);
+        }
+        fclose(file);
+    }
+}
+
+void Settings_Load() {
+    FILE* file = fopen("settings.dat", "rb");
+    if (file) {
+        for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
+            if (fread(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file) == 1) {
+                if (gameplaySettings[i].buttonElement) {
+                    UI_ChangeText(gameplaySettings[i].buttonElement, 
+                                gameplaySettings[i].toggleValue ? "On" : "Off");
+                }
+            }
+        }
+        for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+            if (fread(&audioSettings[i].sliderValue, sizeof(float), 1, file) == 1) {
+                char percentText[8];
+                snprintf(percentText, sizeof(percentText), "%d%%", (int)(audioSettings[i].sliderValue * 100));
+                if (audioSettings[i].percentageText) {
+                    UI_ChangeText(audioSettings[i].percentageText, percentText);
+                }
+            }
+        }
+        fclose(file);
     }
 }
