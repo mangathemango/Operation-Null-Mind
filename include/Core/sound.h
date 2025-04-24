@@ -99,5 +99,6 @@ bool Sound_Queue_Next_Song(const char* path);
 void Sound_Clear_Queue();
 void Music_Finished_Callback();
 void Sound_Set_Max_Channels(int numChannels);
+void Sound_UpdateVolume();
 
 #endif
