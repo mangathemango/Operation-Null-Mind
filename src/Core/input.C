@@ -294,10 +294,21 @@ void Input_SaveBindings(FILE* file) {
 
 // Helper function to load bindings data  
 void Input_LoadBindings(FILE* file) {
-    return;
     if (file) {
+        // Store the original labels
+        const char* labels[ACTION_COUNT];
+        for (int i = 0; i < ACTION_COUNT; i++) {
+            labels[i] = _input.bindings[i].label;
+        }
+        
+        // Load the bindings
         if (fread(_input.bindings, sizeof(ActionBinding), ACTION_COUNT, file) != ACTION_COUNT) {
             SDL_Log("Failed to read key bindings");
+        }
+        
+        // Restore the original labels
+        for (int i = 0; i < ACTION_COUNT; i++) {
+            _input.bindings[i].label = labels[i];
         }
     }
 }
