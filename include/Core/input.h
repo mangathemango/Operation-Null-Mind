@@ -20,6 +20,25 @@
 #include <SDL.h>
 #include <vec2.h>
 #include <stdbool.h>
+#include <stdio.h>
+
+// Game actions that can be bound to keys
+typedef enum {
+    ACTION_MOVE_UP,
+    ACTION_MOVE_LEFT,
+    ACTION_MOVE_DOWN,
+    ACTION_MOVE_RIGHT,
+    ACTION_DASH,
+    ACTION_CRASH_OUT,
+    ACTION_SWITCH_GUN,
+    ACTION_SHOOT,        // Mouse left button
+    ACTION_PARRY,        // Mouse right button
+    ACTION_INTERACT,     // E key
+    ACTION_TOGGLE_HUD,   // Tab key
+    ACTION_TOGGLE_FULLSCREEN, // F11
+    ACTION_PAUSE,        // Escape key
+    ACTION_COUNT
+} GameAction;
 
 typedef struct ButtonState {
     bool pressed;   // Value is True on the FIRST frame the button is pressed
@@ -41,16 +60,38 @@ typedef struct KeyboardState {
     ButtonState keys[SDL_NUM_SCANCODES];
 } KeyboardState;
 
+typedef struct ActionBinding {
+    const char* label;        // Display name of the action
+    SDL_Scancode primary;     // Key binding
+    bool isMouse;            // Whether this is a mouse button binding
+    int mouseButton;         // SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT etc if isMouse is true
+} ActionBinding;
+
 typedef struct InputEvent {
     MouseState mouse;       // State of the mouse
     KeyboardState keyboard; // State of the keyboard
     ButtonState anyKey;     // State of any key - pressed, released, or held
+    const ButtonState* actions[ACTION_COUNT];  // Pointers to button states for each action
+    ActionBinding bindings[ACTION_COUNT]; // Key bindings for each action
 } InputEvent;
 
 extern const InputEvent * const Input;
 
+void Input_Init();
 void Input_PreUpdate();
 void Input_Event_Handler(SDL_Event *event);
-
 bool Input_MouseIsOnRect(SDL_Rect rect);
+
+// Action state getters
+bool Input_IsActionPressed(GameAction action);
+bool Input_IsActionHeld(GameAction action);
+bool Input_IsActionReleased(GameAction action);
+
+// Binding management
+void Input_SetBinding(GameAction action, SDL_Scancode key);
+SDL_Scancode Input_GetBinding(GameAction action);
+const char* Input_GetActionName(GameAction action);
+void Input_SaveBindings(FILE* file);
+void Input_LoadBindings(FILE* file);
+
 #endif

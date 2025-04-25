@@ -116,6 +116,17 @@ static UIElement* audioButton = NULL;
 // Add tracking for active slider
 static int activeSliderIndex = -1;
 
+// Add scroll state for controls tab
+static float controlsScrollOffset = 0;
+static bool isCapturingKey = false;
+static int capturingBindIndex = -1;
+
+// Add UI elements array for keybinds
+static struct {
+    UIElement* actionLabel;
+    UIElement* primaryLabel;
+} keybindLabels[ACTION_COUNT] = {0};
+
 // Initialize the settings arrays
 void InitializeSettings() {
     // Initialize gameplay settings
@@ -179,6 +190,64 @@ static void UpdateSliderValue(SettingData* setting, int mouseX) {
     UI_ChangeText(setting->percentageText, percentText);
 }
 
+// Helper function to get key name
+static const char* GetKeyName(SDL_Scancode key) {
+    // For normal keyboard keys
+    if (key != SDL_SCANCODE_UNKNOWN) {
+        const char* keyName = SDL_GetScancodeName(key);
+        return keyName && keyName[0] ? keyName : "???";
+    }
+    
+    return "---";
+}
+
+// Helper function to cleanup keybind UI
+static void CleanupKeybindUI() {
+    for (int i = 0; i < ACTION_COUNT; i++) {
+        if (keybindLabels[i].actionLabel) {
+            UI_DestroyText(keybindLabels[i].actionLabel);
+            keybindLabels[i].actionLabel = NULL;
+        }
+        if (keybindLabels[i].primaryLabel) {
+            UI_DestroyText(keybindLabels[i].primaryLabel);
+            keybindLabels[i].primaryLabel = NULL;
+        }
+    }
+}
+
+// Helper function to initialize keybind UI
+static void InitializeKeybindUI() {
+    SDL_Color textColor = {255, 255, 255, 255};
+    
+    for (int i = 0; i < ACTION_COUNT; i++) {
+        const char* actionName = Input_GetActionName(i);
+        if (!actionName) actionName = "Unknown";
+        SDL_Log("Keybind %d: %s", i, actionName);
+        
+        keybindLabels[i].actionLabel = UI_CreateText(
+            actionName,
+            (SDL_Rect){BUTTONS_STARTX, SETTING_TAB_STARTY + i * SETTING_TAB_SPACING, 0, 0},
+            textColor,
+            1.0f,
+            UI_TEXT_ALIGN_LEFT,
+            app.resources.textFont
+        );
+
+        SDL_Scancode binding = Input_GetBinding(i);
+        const char* keyName = GetKeyName(binding);
+        if (!keyName) keyName = "---";
+        
+        keybindLabels[i].primaryLabel = UI_CreateText(
+            keyName,
+            (SDL_Rect){BUTTONS_ENDX - 80, SETTING_TAB_STARTY + i * SETTING_TAB_SPACING + 2, 0, 0},
+            textColor,
+            1.0f,
+            UI_TEXT_ALIGN_CENTER,
+            app.resources.textFont
+        );
+    }
+}
+
 void Settings_Start() {
     SDL_Color textColor = {255, 255, 255, 255};
     SDL_Color buttonTextColor = {0, 0, 0, 255}; // Black color for button text
@@ -238,18 +307,93 @@ void Settings_Start() {
         videoSettings[i].buttonElement = CREATE_SETTING_BUTTON(i, videoSettings[i].toggleValue ? "On" : "Off");
     }
 
+    InitializeKeybindUI();
+    
 }
 
 void Settings_Update() {
+    if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed && !isCapturingKey) {
+        app.state.currentScene = settingsLastScene;
+    }
+
     // Handle tab switching
-    if (Input_MouseIsOnRect((SDL_Rect) {GAMEPLAY_RECT}) && Input->mouse.leftButton.pressed) {
-        currentTab = SETTINGS_TAB_GAMEPLAY;
-    } else if (Input_MouseIsOnRect((SDL_Rect) {CONTROLS_RECT}) && Input->mouse.leftButton.pressed) {
-        currentTab = SETTINGS_TAB_CONTROLS;
-    } else if (Input_MouseIsOnRect((SDL_Rect) {VIDEO_RECT}) && Input->mouse.leftButton.pressed) {
-        currentTab = SETTINGS_TAB_VIDEO;
-    } else if (Input_MouseIsOnRect((SDL_Rect) {AUDIO_RECT}) && Input->mouse.leftButton.pressed) {
-        currentTab = SETTINGS_TAB_AUDIO;
+    if (Input->mouse.leftButton.pressed) {
+        SettingsTab newTab = currentTab;
+        if (Input_MouseIsOnRect((SDL_Rect) {GAMEPLAY_RECT})) {
+            newTab = SETTINGS_TAB_GAMEPLAY;
+        } else if (Input_MouseIsOnRect((SDL_Rect) {CONTROLS_RECT})) {
+            newTab = SETTINGS_TAB_CONTROLS;
+            Settings_Start(); // Initialize all UI elements when switching to Controls tab
+        } else if (Input_MouseIsOnRect((SDL_Rect) {VIDEO_RECT})) {
+            newTab = SETTINGS_TAB_VIDEO;
+        } else if (Input_MouseIsOnRect((SDL_Rect) {AUDIO_RECT})) {
+            newTab = SETTINGS_TAB_AUDIO;
+        }
+        
+        if (newTab != currentTab) {
+            currentTab = newTab;
+        }
+    }
+
+    // Handle controls settings
+    if (currentTab == SETTINGS_TAB_CONTROLS) {
+        // Handle scrolling
+        if (Input->mouse.scrollUp) {
+            controlsScrollOffset = fmaxf(0, controlsScrollOffset - SETTING_TAB_SPACING);
+        }
+        if (Input->mouse.scrollDown) {
+            float maxScroll = ACTION_COUNT * SETTING_TAB_SPACING - (app.config.screen_height - SETTING_TAB_STARTY - 40);
+            controlsScrollOffset = fminf(maxScroll, controlsScrollOffset + SETTING_TAB_SPACING);
+        }
+
+        // Update UI positions based on scroll
+        for (int i = 0; i < ACTION_COUNT; i++) {
+            float y = SETTING_TAB_STARTY + i * SETTING_TAB_SPACING - controlsScrollOffset;
+            if (keybindLabels[i].actionLabel) {
+                keybindLabels[i].actionLabel->rect.y = y;
+            }
+            if (keybindLabels[i].primaryLabel) {
+                keybindLabels[i].primaryLabel->rect.y = y + 2;
+            }
+        }
+
+        if (isCapturingKey) {
+            // Capture any key press for rebinding
+            for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
+                if (Input->keyboard.keys[i].pressed && i != SDL_SCANCODE_ESCAPE) {
+                    Input_SetBinding(capturingBindIndex, i);
+                    isCapturingKey = false;
+                    break;
+                }
+            }
+            // Cancel with escape
+            if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
+                isCapturingKey = false;
+            }
+        } else {
+            // Check for clicking on keybind buttons
+            for (int i = 0; i < ACTION_COUNT; i++) {
+                if (
+                    i == ACTION_PAUSE ||
+                    i == ACTION_SHOOT ||
+                    i == ACTION_PARRY
+                ) {
+                    continue;
+                }
+                float y = SETTING_TAB_STARTY + i * SETTING_TAB_SPACING - controlsScrollOffset;
+                if (y < SETTING_TAB_STARTY - SETTING_TAB_SPACING || y > app.config.screen_height - 40) continue;
+
+                SDL_Rect primaryRect = {BUTTONS_ENDX - 140, y, 120, SETTING_TAB_SPACING};
+
+                if (Input_MouseIsOnRect(primaryRect) && Input->mouse.leftButton.pressed) {
+                    isCapturingKey = true;
+                    capturingBindIndex = i;
+                }
+            }
+        }
+    } else {
+        // Reset scroll when leaving controls tab
+        controlsScrollOffset = 0;
     }
 
     // Handle gameplay settings toggles
@@ -258,6 +402,7 @@ void Settings_Update() {
             if (Input_MouseIsOnRect((SDL_Rect) {SETTING_BUTTON_HITBOX(i)}) && Input->mouse.leftButton.pressed) {
                 gameplaySettings[i].toggleValue = !gameplaySettings[i].toggleValue;
                 UI_ChangeText(gameplaySettings[i].buttonElement, gameplaySettings[i].toggleValue ? "On" : "Off");
+                UI_UpdateText(gameplaySettings[i].buttonElement);
             }
         }
     }
@@ -279,6 +424,8 @@ void Settings_Update() {
         if (activeSliderIndex != -1) {
             if (Input->mouse.leftButton.held) {
                 UpdateSliderValue(&audioSettings[activeSliderIndex], Input->mouse.position.x);
+                // Make sure to update the percentage text UI
+                UI_UpdateText(audioSettings[activeSliderIndex].percentageText);
             } else {
                 // Release the active slider when mouse button is released
                 activeSliderIndex = -1;
@@ -295,6 +442,7 @@ void Settings_Update() {
             if (Input_MouseIsOnRect((SDL_Rect) {SETTING_BUTTON_HITBOX(i)}) && Input->mouse.leftButton.pressed) {
                 videoSettings[i].toggleValue = !videoSettings[i].toggleValue;
                 UI_ChangeText(videoSettings[i].buttonElement, videoSettings[i].toggleValue ? "On" : "Off");
+                UI_UpdateText(videoSettings[i].buttonElement);
                 
                 // Handle fullscreen toggle immediately
                 if (i == SETTING_FULLSCREEN) {
@@ -306,10 +454,6 @@ void Settings_Update() {
                 }
             }
         }
-    }
-
-    if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed) {
-        app.state.currentScene = settingsLastScene;
     }
 }
 
@@ -374,6 +518,57 @@ void Settings_Render() {
         for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
             UI_RenderText(videoSettings[i].labelElement);
             UI_RenderText(videoSettings[i].buttonElement);
+        }
+    }
+
+    // Render controls settings if active
+    if (currentTab == SETTINGS_TAB_CONTROLS) {
+        SDL_SetRenderDrawColor(app.resources.renderer, 100, 100, 100, 255);
+        
+        for (int i = 0; i < ACTION_COUNT; i++) {
+            float y = SETTING_TAB_STARTY + i * SETTING_TAB_SPACING - controlsScrollOffset;
+            if (y < SETTING_TAB_STARTY - SETTING_TAB_SPACING || y > app.config.screen_height - 40) continue;
+
+            // Draw action name
+            if (keybindLabels[i].actionLabel) {
+                UI_UpdateText(keybindLabels[i].actionLabel);
+                UI_RenderText(keybindLabels[i].actionLabel);
+            }
+
+            // Draw key binding box (now wider since we only have one)
+            SDL_Rect primaryRect = {BUTTONS_ENDX - 140, y, 120, SETTING_TAB_SPACING - 4};
+            
+            SDL_SetRenderDrawColor(app.resources.renderer, 50, 50, 50, 255);
+            // If the keybind is mouse or esc, draw black
+            if (
+                i == ACTION_PAUSE ||
+                i == ACTION_SHOOT ||
+                i == ACTION_PARRY
+            ) {
+                SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 255);
+            }
+            SDL_RenderFillRect(app.resources.renderer, &primaryRect);
+            
+            SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+            SDL_RenderDrawRect(app.resources.renderer, &primaryRect);
+
+            // Draw key name
+            if (keybindLabels[i].primaryLabel) {
+                UI_ChangeText(keybindLabels[i].primaryLabel, GetKeyName(Input_GetBinding(i)));
+                if (i == ACTION_SHOOT) {
+                    UI_ChangeText(keybindLabels[i].primaryLabel, "Left Click");
+                } else if (i == ACTION_PARRY) {
+                    UI_ChangeText(keybindLabels[i].primaryLabel, "Right Click");
+                }
+                UI_UpdateText(keybindLabels[i].primaryLabel);
+                UI_RenderText(keybindLabels[i].primaryLabel);
+            }
+
+            // Highlight active capture box
+            if (isCapturingKey && capturingBindIndex == i) {
+                SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 0, 255);
+                SDL_RenderDrawRect(app.resources.renderer, &primaryRect);
+            }
         }
     }
 }
@@ -444,6 +639,7 @@ void Settings_Save() {
 
     FILE* file = fopen(settingsPath, "wb");
     if (file) {
+        // Save all settings
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
             fwrite(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
         }
@@ -453,6 +649,8 @@ void Settings_Save() {
         for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
             fwrite(&videoSettings[i].toggleValue, sizeof(bool), 1, file);
         }
+        // Save key bindings using the helper
+        Input_SaveBindings(file);
         fclose(file);
     }
     free(settingsPath);
@@ -467,32 +665,55 @@ void Settings_Load() {
 
     FILE* file = fopen(settingsPath, "rb");
     if (file) {
+        // Load all settings values only, don't update UI
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
-            if (fread(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file) == 1) {
-                if (gameplaySettings[i].buttonElement) {
-                    UI_ChangeText(gameplaySettings[i].buttonElement, 
-                                gameplaySettings[i].toggleValue ? "On" : "Off");
-                }
-            }
+            fread(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
         }
         for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
-            if (fread(&audioSettings[i].sliderValue, sizeof(float), 1, file) == 1) {
-                char percentText[8];
-                snprintf(percentText, sizeof(percentText), "%d%%", (int)(audioSettings[i].sliderValue * 100));
-                if (audioSettings[i].percentageText) {
-                    UI_ChangeText(audioSettings[i].percentageText, percentText);
-                }
-            }
+            fread(&audioSettings[i].sliderValue, sizeof(float), 1, file);
         }
         for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
-            if (fread(&videoSettings[i].toggleValue, sizeof(bool), 1, file) == 1) {
-                if (videoSettings[i].buttonElement) {
-                    UI_ChangeText(videoSettings[i].buttonElement,
-                                videoSettings[i].toggleValue ? "On" : "Off");
-                }
-            }
+            fread(&videoSettings[i].toggleValue, sizeof(bool), 1, file);
         }
+        // Load key bindings using the helper
+        Input_LoadBindings(file);
         fclose(file);
     }
     free(settingsPath);
+}
+
+void Settings_End() {
+    // Clean up title and tab buttons
+    UI_DestroyText(settingsTitle);
+    UI_DestroyText(gameplayButton);
+    UI_DestroyText(controlsButton);
+    UI_DestroyText(videoButton);
+    UI_DestroyText(audioButton);
+
+    // Clean up gameplay settings
+    for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
+        UI_DestroyText(gameplaySettings[i].labelElement);
+        UI_DestroyText(gameplaySettings[i].buttonElement);
+    }
+
+    // Clean up audio settings
+    for (int i = 0; i < AUDIO_SETTINGS_COUNT; i++) {
+        UI_DestroyText(audioSettings[i].labelElement);
+        UI_DestroyText(audioSettings[i].percentageText);
+    }
+
+    // Clean up video settings
+    for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
+        UI_DestroyText(videoSettings[i].labelElement);
+        UI_DestroyText(videoSettings[i].buttonElement);
+    }
+
+    // Clean up keybind UI if it exists
+    CleanupKeybindUI();
+
+    // Reset states
+    controlsScrollOffset = 0;
+    isCapturingKey = false;
+    capturingBindIndex = -1;
+    activeSliderIndex = -1;
 }

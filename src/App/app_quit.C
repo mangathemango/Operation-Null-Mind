@@ -13,6 +13,7 @@
 #include <particles.h>
 #include <particle_emitterpresets.h>
 #include <sound.h>
+#include <input.h>
 #include <settings.h>
 
 /* 
@@ -21,7 +22,9 @@
 ?   Updated by Darren on 07/03/2025
 */
 int App_Quit() {
+    // Save settings and bindings
     Settings_Save();
+    
     Sound_System_Cleanup();
     SDL_DestroyTexture(app.resources.screenTexture);
     SDL_DestroyRenderer(app.resources.renderer);

@@ -20,6 +20,7 @@
 #include <controls.h>
 #include <win.h> // Added for Win_Start function
 #include <settings.h>
+#include <input.h>
 
 /*
 *   [Start] This function is called at the start of the program.
@@ -30,9 +31,13 @@
 int App_Start() {
     RandomInit();
     Collider_Start();
-    // Initialize settings
+    // Initialize settings and input
+    Input_Init();
     InitializeSettings();
-    Settings_Load();
+    
+    // Load settings and input bindings from the same file
+    Settings_Load();  // This now loads both settings and input bindings
+    
     if (Initialize_SDL()) return 1;
     Gun_Start();
     Bullet_Start();
@@ -52,6 +57,7 @@ int App_Start() {
         SDL_Log("Failed to load sound resources!\n");
         return 1;
     }
+    Settings_Start();
     Sound_UpdateVolume();
     Menu_PrepareTextures();
     Pause_Start();
@@ -63,7 +69,6 @@ int App_Start() {
     LevelTransition_Start();
     Mission_Start();
     Controls_Start();
-    Settings_Start();
     app.resources.cursorTexture = IMG_LoadTexture(app.resources.renderer, "Assets/Images/crosshair.png");
     return 0;
 }
