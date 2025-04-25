@@ -97,9 +97,9 @@ Congratulations, you have installed MinGW successfully!
 
 Finally, go back to the Environment Variables tab from earlier, Under **System Variables**, (NOT INSIDE PATH BTW), add 2 variables as follows:
 
-`CC` - `C:\MinGW\bin\cc.exe`
+`CC` - `C:\MinGW\bin\gcc.exe`
 
-`CXX` - `C:\MinGW\bin\cpp.exe`
+`CXX` - `C:\MinGW\bin\g++.exe`
 
 ![cc-cxx-variables](doc/Readme/cc_cxx_variables.png)
 
