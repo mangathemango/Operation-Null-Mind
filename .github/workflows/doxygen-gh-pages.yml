@@ -12,26 +12,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GH_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          # Using the default GITHUB_TOKEN for authentication
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Set up Git
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-    - name: Install Doxygen
-      run: sudo apt-get install -y doxygen graphviz
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen graphviz
 
-    - name: Generate Doxygen documentation
-      run: doxygen Doxyfile
+      - name: Generate Doxygen documentation
+        run: doxygen Doxyfile
 
-    - name: Deploy to GitHub Pages
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: |
-        git add .
-        git commit -m "Deploying to gh-pages from @ ${{ github.repository }}@${{ github.sha }} 🚀" --quiet --no-verify
-        git push --force https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:gh-pages
+      - name: Deploy to GitHub Pages
+        env:
+          # Using the default GITHUB_TOKEN for authentication
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Initialize a clean branch for GitHub Pages deployment
+          git add .
+          git commit -m "Deploying to gh-pages from @ ${{ github.repository }}@${{ github.sha }} 🚀" --quiet --no-verify
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:gh-pages
