@@ -61,6 +61,7 @@ void Game_Restart()
     player.state.currentHealth = player.stats.maxHealth;
     player.state.gunSlots[0] = GUN_PISTOL;
     player.state.gunSlots[1] = -1;
+    player.state.skillState = (SkillState) {false};
     Map_Generate(); 
     player.state.position = Chunk_GetChunkCenter(&testMap.chunks[3][3]);
     player.state.position.y += 20;
