@@ -114,7 +114,7 @@ void Sabot_UpdateParticles() {
         if (!bullet->alive) continue;
 
 
-        if (bullet->timeAlive <= 1) {
+        if (bullet->timeAlive <= 1 && (bullet->collider->layer & COLLISION_LAYER_PLAYER)) {
             Vec2 targetDirection = Vec2_Normalize(
                 Vec2_Subtract(player.state.position, bullet->position)
             );

@@ -233,7 +233,7 @@ void HUD_RenderSkillIcons() {
         player.state.skillState.scavenger
     };
 
-    //The offset starts at -1 because when it offset++, it can start at 0, yes its 4:03 am and my brain is shit
+    // The offset starts at -1 so that when it increments, it begins at 0. This ensures proper indexing for active skills.
     //Offset basically is just the integer that tells how many skills is actually active
     int Offset = -1;
     for(int i = 0; i < TOTAL_SKILLS; i++) {
