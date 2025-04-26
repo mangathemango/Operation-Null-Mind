@@ -151,6 +151,7 @@ void Player_PickUpGun(void* data, int interactableIndex) {
 
 void Player_PickUpHealth(void* data, int interactableIndex)
 {
+    if (Settings_GetPreventOverhealing() && player.state.currentHealth == player.stats.maxHealth) return;
     int* healAmount = data;
     Player_TakeDamage(-*healAmount);
     Interactable_Deactivate(interactableIndex);
