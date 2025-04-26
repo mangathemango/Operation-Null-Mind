@@ -47,6 +47,7 @@ typedef enum {
     SETTING_DEBUG_MODE,
     SETTING_SCREEN_SHAKE,
     SETTING_CAMERA_SMOOTHING,
+    SETTING_HIDE_PARTICLES,
     VIDEO_SETTINGS_COUNT
 } VideoSetting;
 
@@ -190,6 +191,11 @@ void InitializeSettings() {
         .label = "Camera Smoothing",
         .type = SETTING_TYPE_TOGGLE,
         .toggleValue = true
+    };
+    videoSettings[SETTING_HIDE_PARTICLES] = (SettingData){
+        .label = "Hide Particles",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = false
     };
 }
 
@@ -630,6 +636,25 @@ bool Settings_GetCameraSmoothing() {
     return videoSettings[SETTING_CAMERA_SMOOTHING].toggleValue;
 }
 
+bool Settings_GetHideParticles() {
+    return videoSettings[SETTING_HIDE_PARTICLES].toggleValue;
+}
+
+void Settings_Migrate(int oldVersion) {
+    // When adding new settings, add migration code here
+    switch(oldVersion) {
+        case 0:
+            // Example: If migrating from version 0, no settings file existed
+            InitializeSettings();
+            break;
+            
+        // Add more cases as you add new settings versions
+        // case 1:
+        //     // Migrate from version 1 to 2
+        //     break;
+    }
+}
+
 static char* GetSettingsPath() {
     char* prefPath = SDL_GetPrefPath("Operation-Null-Mind", "Settings");
     if (prefPath == NULL) {
@@ -659,6 +684,10 @@ void Settings_Save() {
 
     FILE* file = fopen(settingsPath, "wb");
     if (file) {
+        // Write version number first
+        int version = SETTINGS_VERSION;
+        fwrite(&version, sizeof(int), 1, file);
+        
         // Save all settings
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
             fwrite(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
@@ -677,6 +706,9 @@ void Settings_Save() {
 }
 
 void Settings_Load() {
+    // Initialize with defaults first
+    InitializeSettings();
+    
     char* settingsPath = GetSettingsPath();
     if (settingsPath == NULL) {
         SDL_Log("Failed to get settings path");
@@ -685,7 +717,24 @@ void Settings_Load() {
 
     FILE* file = fopen(settingsPath, "rb");
     if (file) {
-        // Load all settings values only, don't update UI
+        // Read version number
+        int version;
+        if (fread(&version, sizeof(int), 1, file) != 1) {
+            SDL_Log("Failed to read settings version");
+            fclose(file);
+            free(settingsPath);
+            return;
+        }
+
+        if (version != SETTINGS_VERSION) {
+            // Version mismatch - close file and migrate
+            fclose(file);
+            Settings_Migrate(version);
+            free(settingsPath);
+            return;
+        }
+
+        // Load all settings values
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
             fread(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
         }
@@ -698,6 +747,9 @@ void Settings_Load() {
         // Load key bindings using the helper
         Input_LoadBindings(file);
         fclose(file);
+    } else {
+        // No settings file exists - treat as version 0
+        Settings_Migrate(0);
     }
     free(settingsPath);
 }

@@ -17,6 +17,7 @@
 #include <time_system.h>
 #include <timer.h>
 #include <random.h>
+#include <settings.h>
 
 /**
  * @brief [Start] Creates a particle emitter from a preset
@@ -107,7 +108,7 @@ void ParticleEmitter_Render(ParticleEmitter* emitter) {
     for (int i = 0; i < emitter->maxParticles; i++) {
         Particle* particle = &emitter->particles[i];
         if (!emitter->particles[i].alive || particle->color.a <= 0) continue;
-        
+        if (!emitter->useCollider && Settings_GetHideParticles()) continue; 
         SDL_Rect rect = Vec2_ToRect(particle->position, particle->size);
         if (!particle->cameraLock) {
             rect = Vec2_ToRect(
