@@ -90,7 +90,7 @@ void Juggernaut_Update(EnemyData* data) {
     JuggernautConfig* config = (JuggernautConfig*)data->config;
     GunData* gun = &config->gun;
     float effectiveCooldown = 0.1f / data->state.tacticianBuff;
-    float effectiveProjectileSpeed = 300 * data->state.tacticianBuff;
+    float effectiveProjectileSpeed = 200 * data->state.tacticianBuff;
 
     if (data->state.currentHealth <= 0) {
         GunData* gun = &config->gun;
@@ -157,12 +157,11 @@ void Juggernaut_Update(EnemyData* data) {
         break;
 
     case JUGGERNAUT_STATE_ENRAGED:
-        // Handle enraged state logic here
-        gun->state.angle += config->spinSpeedDegrees * Time->deltaTimeSeconds;
         config->shootTimer += Time->deltaTimeSeconds;
         if (config->shootTimer >= effectiveCooldown) {
             config->shootTimer = 0;
             config->gun.resources.bulletPreset->particleSpeed = effectiveProjectileSpeed;
+            config->gun.resources.bulletPreset->angleRange = 60;
             ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
             ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);
