@@ -246,7 +246,7 @@ void Player_TakeDamage(int damage) {
 }
 
 void Player_RenderDamageEffect() {
-    if (Settings_GetFlashRed()) return;
+    if (!Settings_GetFlashRed()) return;
     SDL_Rect dest = {
         0,
         0,
