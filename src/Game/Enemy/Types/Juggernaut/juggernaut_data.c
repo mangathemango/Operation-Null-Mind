@@ -54,9 +54,9 @@ JuggernautConfig JuggernautConfigData = {
     },
     .gunOffset = {0, -3},
     .timer = 0,
-    .walkDuration = 3,
+    .walkDuration = 2,
     .chargeDuration = 0.5,
-    .enragedDuration = 5,
+    .enragedDuration = 2.5,
     .spinSpeedDegrees = 360,
 };
 
@@ -84,7 +84,7 @@ EnemyData JuggernautData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 10,
+        .damage = 25,
         .maxHealth = 600,
         .maxSpeed = 200.0f,      // Slow but powerful
         .acceleration = 2500.0f,
