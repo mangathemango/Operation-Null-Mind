@@ -151,7 +151,7 @@ void Radius_Update(EnemyData* data) {
 
 void Radius_UpdateParticles() {
     if (!RadiusBulletEmitter) return;
-    
+    RadiusBulletEmitter->particleLifetime = 1.0f;
     for (int i = 0; i < RadiusBulletEmitter->maxParticles; i++) {
         Particle* bullet = &RadiusBulletEmitter->particles[i];
         if (!bullet->alive) continue;
