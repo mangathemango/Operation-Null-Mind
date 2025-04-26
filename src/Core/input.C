@@ -232,11 +232,6 @@ void Input_Init() {
         .primary = SDL_SCANCODE_LSHIFT,
         .isMouse = false
     };
-    _input.bindings[ACTION_CRASH_OUT] = (ActionBinding){
-        .label = "Crash Out",
-        .primary = SDL_SCANCODE_LCTRL,
-        .isMouse = false
-    };
     _input.bindings[ACTION_SWITCH_GUN] = (ActionBinding){
         .label = "Switch Gun",
         .primary = SDL_SCANCODE_Q,

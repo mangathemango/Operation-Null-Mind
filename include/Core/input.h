@@ -29,7 +29,6 @@ typedef enum {
     ACTION_MOVE_DOWN,
     ACTION_MOVE_RIGHT,
     ACTION_DASH,
-    ACTION_CRASH_OUT,
     ACTION_SWITCH_GUN,
     ACTION_SHOOT,        // Mouse left button
     ACTION_PARRY,        // Mouse right button

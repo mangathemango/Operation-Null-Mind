@@ -216,17 +216,6 @@ void Player_Dash();
  */
 void Player_HandleDash();
 
-/**
- * @brief Activates crashout ability
- * @return Status code
- */
-int Player_CrashOut();
-
-/**
- * @brief Handles ongoing crashout state
- * @return Status code
- */
-int Player_HandleCrashOut();
 
 
 /**

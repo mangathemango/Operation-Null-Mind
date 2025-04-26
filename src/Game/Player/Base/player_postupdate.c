@@ -41,9 +41,6 @@ int Player_PostUpdate() {
     // Handles when the player is in dashing state
     if(player.state.dashing) Player_HandleDash();
 
-    //Handle when the player is in crashout state
-    if(player.state.skillState.crashOut) Player_HandleCrashOut();
-
     if(player.state.skillState.parryActive) {
         Player_HandleParry();
     }

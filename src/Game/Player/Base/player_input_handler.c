@@ -48,7 +48,6 @@ void Player_Input_Handler() {
 
     // Actions
     if (Input_IsActionPressed(ACTION_DASH)) Player_Dash();
-    if (Input_IsActionPressed(ACTION_CRASH_OUT)) Player_CrashOut();
     if (Input_IsActionPressed(ACTION_SWITCH_GUN)) Player_SwitchGun(0);
 
     // Shooting based on fire mode
