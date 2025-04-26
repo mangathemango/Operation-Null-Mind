@@ -25,14 +25,6 @@
  * movement, dashing, weapon switching, and shooting.
  */
 void Player_Input_Handler() {
-    if (Input_IsActionPressed(ACTION_TOGGLE_FULLSCREEN)) {
-        app.config.window_fullscreen = !app.config.window_fullscreen;
-        SDL_SetWindowFullscreen(app.resources.window, 
-            app.config.window_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
-        SDL_SetWindowSize(app.resources.window, app.config.window_width, app.config.window_height);
-        SDL_SetWindowPosition(app.resources.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-    }
-
     if (game.viewingLog >= 0) {
         if (Input->anyKey.pressed || Input->mouse.leftButton.pressed) {
             game.viewingLog = -1;

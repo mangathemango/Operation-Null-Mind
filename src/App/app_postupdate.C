@@ -90,6 +90,12 @@ int App_PostUpdate() {
         default:
             break;
     }
-    
+    if (Input_IsActionPressed(ACTION_TOGGLE_FULLSCREEN)) {
+        app.config.window_fullscreen = !app.config.window_fullscreen;
+        SDL_SetWindowFullscreen(app.resources.window, 
+            app.config.window_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+        SDL_SetWindowSize(app.resources.window, app.config.window_width, app.config.window_height);
+        SDL_SetWindowPosition(app.resources.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    }
     return 0;
 }
