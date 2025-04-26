@@ -12,7 +12,7 @@ void Interactable_Update() {
         if (SDL_HasIntersection(&player.state.collider.hitbox, &hitbox)) {
             hasInteraction = true;
             interactables[i].interactable = true;
-            if (Input->keyboard.keys[SDL_SCANCODE_E].pressed) {
+            if (Input_IsActionPressed(ACTION_INTERACT)) {
                 interactables[i].callback(interactables[i].data, i);
             }
             break;

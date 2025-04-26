@@ -12,6 +12,7 @@
 // Written by Mango on 28/02/2025
 
 #include <initialize_SDL.h>
+#include <settings.h>
 
 /**
  * [Start] Initializes SDL library and creates window and renderer
@@ -28,6 +29,7 @@ int Initialize_SDL() {
     TTF_Init();
 
     // Set up window
+    app.config.window_fullscreen = Settings_GetFullscreen();
     app.resources.window = SDL_CreateWindow(
         app.config.window_title,                                                // Set window title
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,                         // Centers the window

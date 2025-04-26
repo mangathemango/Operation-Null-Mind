@@ -20,6 +20,7 @@
 #include <enemy_libet.h>
 #include <controls.h>
 #include <win.h> // Added for Win_Render function
+#include <settings.h>
 
 /**
  * @brief [Render] Handles the main rendering of the game, like players, game environments, etc.

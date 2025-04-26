@@ -12,9 +12,10 @@
 #include <enemy.h>
 #include <player.h>
 #include <stdio.h>
+#include <settings.h>
+#include <player.h>
 
 UIElement* EnemyHealthTexts[ENEMY_MAX * 10] = {NULL};
-#include <player.h>
 
 /**
  * @brief [Utility] Applies damage to an enemy
@@ -110,6 +111,7 @@ void Enemy_UpdateHealthTexts() {
 }
 
 void Enemy_RenderHealthTexts() {
+    if (Settings_GetDamageNumbers() == false) return;
     for (int i = 0; i < ENEMY_MAX * 10; i++) {
         if (EnemyHealthTexts[i] == NULL) continue;
         UI_RenderText(EnemyHealthTexts[i]);

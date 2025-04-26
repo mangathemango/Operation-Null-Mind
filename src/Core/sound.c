@@ -17,6 +17,7 @@
 #include <stdlib.h>  
 #include <string.h>
 #include <SDL.h> 
+#include <settings.h>
 
 /**
  * @brief Sets the maximum number of sound effect channels.
@@ -252,4 +253,11 @@ void Sound_Play_Music(const char* path, int loops) {
     }
     
     Mix_PlayMusic(soundResources.backgroundMusic, loops);
+}
+
+void Sound_UpdateVolume() {
+    float musicVolume = Settings_GetMusicVolume() * Settings_GetMasterVolume();
+    float soundVolume = Settings_GetSoundVolume() * Settings_GetMasterVolume();
+    Mix_VolumeMusic((int)(MIX_MAX_VOLUME * musicVolume));
+    Mix_Volume(-1, (int)(MIX_MAX_VOLUME * soundVolume)); // Set volume for all channels
 }

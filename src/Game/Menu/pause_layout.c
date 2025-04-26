@@ -14,6 +14,7 @@
 #include <input.h>
 #include <app.h>
 #include <controls.h>
+#include <settings.h>
 
 static UIElement* pauseTextElement = NULL;
 static UIElement* continueButtonElement = NULL;
@@ -64,7 +65,7 @@ void Pause_Start() {
     );
     
     controlsButtonElement = UI_CreateText(
-        "Controls", 
+        "Settings", 
         (SDL_Rect) {
             35, 
             160, 
@@ -128,8 +129,8 @@ void Pause_Update() {
             UI_SetHovered(controlsButtonElement, true);
         }
         if (Input->mouse.leftButton.pressed) {
-            app.state.currentScene = SCENE_CONTROLS;
-            controlLastScene = SCENE_PAUSE;
+            app.state.currentScene = SCENE_SETTINGS;
+            settingsLastScene = SCENE_PAUSE;
         }
     } else {
         UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);

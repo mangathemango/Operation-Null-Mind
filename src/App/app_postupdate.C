@@ -18,6 +18,7 @@
 #include <enemy_types.h>
 #include <controls.h>
 #include <win.h> // Added for Win_Update function
+#include <settings.h>
 
 /**
  * @brief [PostUpdate] Main game update routine
@@ -28,11 +29,6 @@
  * @return int Status code (0 for success)
  */
 int App_PostUpdate() {
-
-    if (Input->keyboard.keys[SDL_SCANCODE_F5].pressed) {
-        app.config.debug = !app.config.debug;
-    }
-
     switch (app.state.currentScene) 
     {
         case SCENE_MENU:
@@ -94,5 +90,6 @@ int App_PostUpdate() {
         default:
             break;
     }
+    
     return 0;
 }
