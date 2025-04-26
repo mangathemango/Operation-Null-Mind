@@ -163,14 +163,29 @@ void Radius_UpdateParticles() {
             RadiusExplosionEmitter->position = bullet->position;
             ParticleEmitter_ActivateOnce(RadiusExplosionEmitter);
             Sound_Play_Effect(SOUND_EXPLOSION);
-            if (IsRectOverlappingCircle(
-                player.state.collider.hitbox,
-                bullet->position, 
-                RadiusConfigData.explosionRadius
-                 
-            )) {
-                Player_TakeDamage(RadiusData.stats.damage);
+            if (bullet->collider->collidesWith & COLLISION_LAYER_PLAYER) {
+                if (IsRectOverlappingCircle(
+                    player.state.collider.hitbox,
+                    bullet->position, 
+                    RadiusConfigData.explosionRadius
+                     
+                )) {
+                    Player_TakeDamage(RadiusData.stats.damage);
+                }
+            } else if (bullet->collider->collidesWith & COLLISION_LAYER_ENEMY) {
+                for (int j = 0; j < ENEMY_MAX; j++) {
+                    EnemyData* enemy = &enemies[j];
+                    if (enemy->state.isDead) continue;
+                    if (IsRectOverlappingCircle(
+                        enemy->state.collider.hitbox,
+                        bullet->position, 
+                        RadiusConfigData.explosionRadius
+                    )) {
+                        Enemy_TakeDamage(enemy, RadiusData.stats.damage);
+                    }
+                }
             }
+
         }
     }
 

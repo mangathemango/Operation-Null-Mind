@@ -114,7 +114,7 @@ void Sabot_UpdateParticles() {
         if (!bullet->alive) continue;
 
 
-        if (bullet->timeAlive <= 1 && (bullet->collider->layer & COLLISION_LAYER_PLAYER)) {
+        if (bullet->timeAlive <= 1 && (bullet->collider->collidesWith & COLLISION_LAYER_PLAYER)) {
             Vec2 targetDirection = Vec2_Normalize(
                 Vec2_Subtract(player.state.position, bullet->position)
             );
@@ -129,12 +129,28 @@ void Sabot_UpdateParticles() {
             ParticleEmitter_ActivateOnce(SabotExplosionEmitter);
             
             Sound_Play_Effect(SOUND_EXPLOSION);
-            if (IsRectOverlappingCircle(
-                player.state.collider.hitbox,
-                bullet->position, 
-                SabotConfigData.explosionRadius
-            )) {
-                Player_TakeDamage(SabotData.stats.damage);
+            if (bullet->collider->collidesWith & COLLISION_LAYER_PLAYER) {
+                // Check if the player is within the explosion radius
+                if (IsRectOverlappingCircle(
+                    player.state.collider.hitbox,
+                    bullet->position, 
+                    SabotConfigData.explosionRadius
+                )) {
+                    Player_TakeDamage(SabotData.stats.damage);
+                }
+            } else if (bullet->collider->collidesWith & COLLISION_LAYER_ENEMY) {
+                for (int j = 0; j < ENEMY_MAX; j++) {
+                    EnemyData* enemy = &enemies[j];
+                    if (enemy->state.isDead) continue;
+                    if (IsRectOverlappingCircle(
+                        enemy->state.collider.hitbox,
+                        bullet->position,
+                        SabotConfigData.explosionRadius
+                    )) {
+                        Enemy_TakeDamage(enemy, SabotData.stats.damage);
+                        break;
+                    }
+                }
             }
             bullet->alive = false;
         }
