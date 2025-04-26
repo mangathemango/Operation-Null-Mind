@@ -231,11 +231,23 @@ SDL_Texture* CreateCircleTexture(int radius, SDL_Color color) {
         diameter
     );
     
+    if (!texture) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to create circle texture: %s", SDL_GetError());
+        return NULL;
+    }
+    
     // Enable alpha blending on the texture
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     
+    // Store current render target
+    SDL_Texture* prevTarget = SDL_GetRenderTarget(app.resources.renderer);
+    
     // Set the render target to our texture
-    SDL_SetRenderTarget(app.resources.renderer, texture);
+    if (SDL_SetRenderTarget(app.resources.renderer, texture) < 0) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to set render target: %s", SDL_GetError());
+        SDL_DestroyTexture(texture);
+        return NULL;
+    }
     
     // Clear the texture with transparent background
     SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 0);
@@ -255,8 +267,8 @@ SDL_Texture* CreateCircleTexture(int radius, SDL_Color color) {
         }
     }
     
-    // Reset render target back to the default
-    SDL_SetRenderTarget(app.resources.renderer, app.resources.screenTexture);
+    // Reset render target back to the previous target
+    SDL_SetRenderTarget(app.resources.renderer, prevTarget);
     
     return texture;
 }

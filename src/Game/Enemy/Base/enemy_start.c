@@ -108,7 +108,7 @@ void Enemy_Init() {
     RadiusCasingEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_PistolSMGCasing);
     RadiusBulletFragmentsEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_BulletFragments);
     RadiusExplosionIndicator = CreateCircleTexture(
-        KamikazeConfigData.explosionRadius,
+        RadiusConfigData.explosionRadius,
         (SDL_Color){255, 0, 0, 255}
     );
     RadiusExplosionEmitter = ParticleEmitter_CreateFromPreset(ParticleEmitter_Explosion);

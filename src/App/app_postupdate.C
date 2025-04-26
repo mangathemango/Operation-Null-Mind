@@ -23,7 +23,7 @@
 /**
  * @brief [PostUpdate] Main game update routine
  * 
- * This function is called every frame of the program AFTER App_Event_Handler().
+ * This function is called every frame of the program AFTER App_Event_Handler(). 
  * This is suitable for rendering and updating the game.
  * 
  * @return int Status code (0 for success)
@@ -91,11 +91,37 @@ int App_PostUpdate() {
             break;
     }
     if (Input_IsActionPressed(ACTION_TOGGLE_FULLSCREEN)) {
+        // Store current render target
+        SDL_Texture* currentTarget = SDL_GetRenderTarget(app.resources.renderer);
+        
         app.config.window_fullscreen = !app.config.window_fullscreen;
         SDL_SetWindowFullscreen(app.resources.window, 
             app.config.window_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
-        SDL_SetWindowSize(app.resources.window, app.config.window_width, app.config.window_height);
-        SDL_SetWindowPosition(app.resources.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        
+        // Get the new window size after fullscreen change
+        int windowWidth, windowHeight;
+        SDL_GetWindowSize(app.resources.window, &windowWidth, &windowHeight);
+        
+        // Update viewport to match new window size
+        SDL_Rect viewport = {0, 0, windowWidth, windowHeight};
+        SDL_RenderSetViewport(app.resources.renderer, &viewport);
+        
+        // Update logical size to maintain proper scaling
+        SDL_RenderSetLogicalSize(app.resources.renderer, app.config.screen_width, app.config.screen_height);
+        
+        
+        // Restore the render target
+        SDL_SetRenderTarget(app.resources.renderer, currentTarget);
+        
+        // Center the window if going back to windowed mode
+        if (!app.config.window_fullscreen) {
+            SDL_SetWindowSize(app.resources.window, app.config.window_width, app.config.window_height);
+            SDL_SetWindowPosition(app.resources.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        }
+        RadiusExplosionIndicator = CreateCircleTexture(
+            RadiusConfigData.explosionRadius,
+            (SDL_Color){255, 0, 0, 255}
+        );
     }
     return 0;
 }

@@ -63,6 +63,5 @@ void Radius_RenderParticles() {
             NULL, 
             &dest
         );
-
     }
 }
