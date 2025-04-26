@@ -115,13 +115,11 @@ void Player_HandleOverpressuredActive()
 {
     if(player.state.skillState.overPressured == true)
     {
-        player.resources.skillResources.overPressuredBulletConsumptionMultipler = player.stats.skillStat.overPressuredOriginalMultipler;
         player.resources.skillResources.overPressuredFireRate = player.stats.skillStat.overPressuredOriginalFireRate;
         player.resources.skillResources.overPressuredProjectileSpeed = player.stats.skillStat.overPressuredOriginalProjectileSpeed;
     }
     else 
     {
-        player.resources.skillResources.overPressuredBulletConsumptionMultipler = 1;
         player.resources.skillResources.overPressuredFireRate = 1;
         player.resources.skillResources.overPressuredProjectileSpeed = 1;
     }
