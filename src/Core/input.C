@@ -296,6 +296,22 @@ void Input_LoadBindings(FILE* file) {
             labels[i] = _input.bindings[i].label;
         }
         
+        // Get current file position and remaining bytes
+        long currentPos = ftell(file);
+        fseek(file, 0, SEEK_END);
+        long fileSize = ftell(file);
+        fseek(file, currentPos, SEEK_SET);
+
+        long remainingBytes = fileSize - currentPos;
+        long requiredBytes = sizeof(ActionBinding) * ACTION_COUNT;
+
+        if (remainingBytes < requiredBytes) {
+            SDL_Log("Not enough data to read key bindings (expected %ld bytes, only %ld remaining)", 
+                   requiredBytes, remainingBytes);
+            SDL_Log("Resetting to default bindings");
+            return;
+        }
+        
         // Load the bindings
         if (fread(_input.bindings, sizeof(ActionBinding), ACTION_COUNT, file) != ACTION_COUNT) {
             SDL_Log("Failed to read key bindings");

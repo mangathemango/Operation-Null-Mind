@@ -734,6 +734,30 @@ void Settings_Load() {
             return;
         }
 
+        // Calculate expected file size
+        long expectedSize = sizeof(int) + // Version number
+                          (GAMEPLAY_SETTINGS_COUNT * sizeof(bool)) +  // Gameplay settings
+                          (AUDIO_SETTINGS_COUNT * sizeof(float)) +    // Audio settings
+                          (VIDEO_SETTINGS_COUNT * sizeof(bool)) +     // Video settings
+                          (ACTION_COUNT * sizeof(ActionBinding));      // Key bindings
+
+        // Get actual file size
+        fseek(file, 0, SEEK_END);
+        long fileSize = ftell(file);
+        rewind(file);
+        
+        // Skip version number as we already read it
+        fseek(file, sizeof(int), SEEK_SET);
+
+        if (fileSize < expectedSize) {
+            SDL_Log("Settings file is incomplete or corrupted (expected %ld bytes, got %ld bytes)", expectedSize, fileSize);
+            SDL_Log("Resetting to default settings");
+            fclose(file);
+            Settings_Migrate(0); // Treat as version 0 and reset to defaults
+            free(settingsPath);
+            return;
+        }
+
         // Load all settings values
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
             fread(&gameplaySettings[i].toggleValue, sizeof(bool), 1, file);
