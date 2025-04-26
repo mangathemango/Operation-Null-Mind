@@ -45,6 +45,8 @@ typedef enum {
     SETTING_FULLSCREEN,
     SETTING_FPS_COUNTER,
     SETTING_DEBUG_MODE,
+    SETTING_SCREEN_SHAKE,
+    SETTING_CAMERA_SMOOTHING,
     VIDEO_SETTINGS_COUNT
 } VideoSetting;
 
@@ -178,6 +180,16 @@ void InitializeSettings() {
         .label = "Debug Mode",
         .type = SETTING_TYPE_TOGGLE,
         .toggleValue = false
+    };
+    videoSettings[SETTING_SCREEN_SHAKE] = (SettingData){
+        .label = "Screen Shake",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = true
+    };
+    videoSettings[SETTING_CAMERA_SMOOTHING] = (SettingData){
+        .label = "Camera Smoothing",
+        .type = SETTING_TYPE_TOGGLE,
+        .toggleValue = true
     };
 }
 
@@ -608,6 +620,14 @@ bool Settings_GetFPSCounter() {
 
 bool Settings_GetDebugMode() {
     return videoSettings[SETTING_DEBUG_MODE].toggleValue;
+}
+
+bool Settings_GetScreenShake() {
+    return videoSettings[SETTING_SCREEN_SHAKE].toggleValue;
+}
+
+bool Settings_GetCameraSmoothing() {
+    return videoSettings[SETTING_CAMERA_SMOOTHING].toggleValue;
 }
 
 static char* GetSettingsPath() {

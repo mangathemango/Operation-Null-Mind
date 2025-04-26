@@ -13,6 +13,7 @@
 #include <camera.h>
 #include <app.h>
 #include <input.h>
+#include <settings.h>
 
 CameraSystem camera = {
     .position = {4200, 4200}
@@ -22,28 +23,34 @@ CameraSystem camera = {
  * [PostUpdate] Updates the camera position based on player position and mouse input
  */
 void Camera_UpdatePosition() {
-    float smoothTime = 3;
-    // Linearly interpolate the position of the camera towards the player
-    // This basically means the camera moves smoothly towards the position of the player
-    
-    Vec2 mouseToScreenCenter = Vec2_Subtract(
-        Input->mouse.position,
-        (Vec2) {
-            app.config.screen_width / 2, 
-            app.config.screen_height / 2
-        }
-    );
-    Vec2 targetPosition = player.state.position;
-    if (!player.state.movementLocked) {
-        Vec2_Increment(&targetPosition, Vec2_Multiply(mouseToScreenCenter, 0.2f));
-    }
 
-    camera.position = Vec2_Lerp(
-        camera.position, 
-        targetPosition, 
-        // Smooth time
-        smoothTime * Time->deltaTimeSeconds
-    );
+
+    if (!Settings_GetCameraSmoothing()) {
+        // Without smoothing, camera just snaps to the player's position
+        camera.position = player.state.position;
+    } else {
+        float smoothTime = 3;
+        // Linearly interpolate the position of the camera towards the player
+        // This basically means the camera moves smoothly towards the position of the player
+        
+        Vec2 mouseToScreenCenter = Vec2_Subtract(
+            Input->mouse.position,
+            (Vec2) {
+                app.config.screen_width / 2, 
+                app.config.screen_height / 2
+            }
+        );
+        Vec2 targetPosition = player.state.position;
+        if (!player.state.movementLocked) {
+            Vec2_Increment(&targetPosition, Vec2_Multiply(mouseToScreenCenter, 0.2f));
+        }
+        camera.position = Vec2_Lerp(
+            camera.position, 
+            targetPosition, 
+            // Smooth time
+            smoothTime * Time->deltaTimeSeconds
+        );
+    }   
 
 
 }

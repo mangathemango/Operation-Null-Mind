@@ -23,6 +23,8 @@ float Settings_GetSoundVolume();
 bool Settings_GetFullscreen();
 bool Settings_GetFPSCounter();
 bool Settings_GetDebugMode();
+bool Settings_GetScreenShake();
+bool Settings_GetCameraSmoothing();
 
 // Function to save settings
 void Settings_Save();

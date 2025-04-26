@@ -81,13 +81,16 @@ void Player_Shoot() {
 
     player.resources.skillResources.ammoShoot++;
 
-    Vec2_Increment(
-        &camera.position, 
-        Vec2_Multiply(
-            gun->resources.muzzleFlashEmitter->direction,
-            -2
-        )
-    );
+    if (Settings_GetScreenShake()) {
+        int shakeIntensity = 2;
+        Vec2_Increment(
+            &camera.position, 
+            Vec2_Multiply(
+                gun->resources.muzzleFlashEmitter->direction,
+                -shakeIntensity
+            )
+        );
+    }
 
     if(Player_GhostLoadGunJammed()) {
         Sound_Play_Effect(SOUND_GUN_JAM);
