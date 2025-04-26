@@ -56,7 +56,7 @@ JuggernautConfig JuggernautConfigData = {
     .timer = 0,
     .walkDuration = 2,
     .chargeDuration = 0.5,
-    .enragedDuration = 2.5,
+    .enragedDuration = 2,
     .spinSpeedDegrees = 360,
 };
 
