@@ -333,7 +333,6 @@ void Settings_Update() {
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed && !isCapturingKey) {
         app.state.currentScene = settingsLastScene;
     }
-
     // Handle tab switching
     if (Input->mouse.leftButton.pressed) {
         SettingsTab newTab = currentTab;
@@ -456,12 +455,14 @@ void Settings_Update() {
 
     // Handle video settings toggles
     if (currentTab == SETTINGS_TAB_VIDEO) {
+        videoSettings[SETTING_FULLSCREEN].toggleValue = app.config.window_fullscreen;
+        UI_ChangeText(videoSettings[SETTING_FULLSCREEN].buttonElement, videoSettings[SETTING_FULLSCREEN].toggleValue ? "On" : "Off");
+        UI_UpdateText(videoSettings[SETTING_FULLSCREEN].buttonElement);
         for (int i = 0; i < VIDEO_SETTINGS_COUNT; i++) {
             if (Input_MouseIsOnRect((SDL_Rect) {SETTING_BUTTON_HITBOX(i)}) && Input->mouse.leftButton.pressed) {
                 videoSettings[i].toggleValue = !videoSettings[i].toggleValue;
                 UI_ChangeText(videoSettings[i].buttonElement, videoSettings[i].toggleValue ? "On" : "Off");
                 UI_UpdateText(videoSettings[i].buttonElement);
-                
                 // Handle fullscreen toggle immediately
                 if (i == SETTING_FULLSCREEN) {
                     app.config.window_fullscreen = videoSettings[i].toggleValue;
@@ -676,6 +677,7 @@ static char* GetSettingsPath() {
 }
 
 void Settings_Save() {
+    videoSettings[SETTING_FULLSCREEN].toggleValue = app.config.window_fullscreen;
     char* settingsPath = GetSettingsPath();
     if (settingsPath == NULL) {
         SDL_Log("Failed to get settings path");
