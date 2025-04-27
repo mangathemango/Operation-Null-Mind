@@ -152,7 +152,6 @@ void Juggernaut_Update(EnemyData* data) {
             config->timer = 0;
             config->shootTimer = 0;
             config->state = JUGGERNAUT_STATE_ENRAGED;
-            config->enragedDuration = RandFloat(3.0f, 5.0f);
         }
         break;
 
