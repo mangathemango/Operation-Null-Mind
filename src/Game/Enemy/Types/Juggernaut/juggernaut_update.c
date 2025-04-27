@@ -161,7 +161,7 @@ void Juggernaut_Update(EnemyData* data) {
         if (config->shootTimer >= effectiveCooldown) {
             config->shootTimer = 0;
             config->gun.resources.bulletPreset->particleSpeed = effectiveProjectileSpeed;
-            config->gun.resources.bulletPreset->angleRange = 45;
+            config->gun.resources.bulletPreset->angleRange = 75;
             ParticleEmitter_ActivateOnce(config->gun.resources.bulletPreset);
             ParticleEmitter_ActivateOnce(config->gun.resources.muzzleFlashEmitter);
             ParticleEmitter_ActivateOnce(config->gun.resources.casingParticleEmitter);

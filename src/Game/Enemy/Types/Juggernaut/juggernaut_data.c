@@ -54,9 +54,9 @@ JuggernautConfig JuggernautConfigData = {
     },
     .gunOffset = {0, -3},
     .timer = 0,
-    .walkDuration = 2,
-    .chargeDuration = 0.5,
-    .enragedDuration = 2,
+    .walkDuration = 1,
+    .chargeDuration = 0.25,
+    .enragedDuration = 1.5,
     .spinSpeedDegrees = 360,
 };
 
