@@ -144,7 +144,7 @@ void InitializeSettings() {
         .toggleValue = true
     };
     gameplaySettings[SETTING_FLASH_RED] = (SettingData){
-        .label = "Flash red when hurt",
+        .label = "Flash Red When Hurt",
         .type = SETTING_TYPE_TOGGLE,
         .toggleValue = true
     };
@@ -161,7 +161,7 @@ void InitializeSettings() {
         .sliderValue = 1.0f
     };
     audioSettings[SETTING_SOUND_VOLUME] = (SettingData){
-        .label = "Sound Volume",
+        .label = "Effects Volume",
         .type = SETTING_TYPE_SLIDER,
         .sliderValue = 1.0f
     };
