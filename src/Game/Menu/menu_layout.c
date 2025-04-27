@@ -20,12 +20,10 @@
 
 static UIElement* startButtonElement = NULL;
 SDL_Rect startButtonRect = {27, 140, 200, 15};
-static UIElement* controlsButtonElement = NULL;
-SDL_Rect controlsButtonRect = {27, 160, 200, 15};
 static UIElement* settingsButtonElement = NULL;
-SDL_Rect settingsButtonRect = {27, 180, 200, 15};
+SDL_Rect settingsButtonRect = {27, 160, 200, 15};
 static UIElement* exitButtonElement = NULL;
-SDL_Rect exitButtonRect = {27, 200, 200, 15};
+SDL_Rect exitButtonRect = {27, 180, 200, 15};
 static SDL_Texture* title = NULL;
 static SDL_Texture* background = NULL;
 Vec2 backgroundSize = {0, 0};
@@ -49,9 +47,8 @@ void Menu_PrepareTextures() {
     backgroundSize.y = backgroundHeight;
     title = IMG_LoadTexture(app.resources.renderer, "Assets/Images/title.png");
     startButtonElement = UI_CreateText("Start",(SDL_Rect) {35, 140, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    controlsButtonElement = UI_CreateText("Controls", (SDL_Rect) {35, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    settingsButtonElement = UI_CreateText("Settings", (SDL_Rect) {35, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
-    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {35, 200, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    settingsButtonElement = UI_CreateText("Settings", (SDL_Rect) {35, 160, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
+    exitButtonElement = UI_CreateText("Exit",  (SDL_Rect) {35, 180, 0, 0}, textColor, 1.0f, UI_TEXT_ALIGN_LEFT, app.resources.textFont);
     Sound_Play_Music("Assets/Audio/Music/mainMenu.wav", -1);
 }
 
@@ -86,22 +83,6 @@ void Menu_Update() {
     } else {
         UI_ChangeTextColor(startButtonElement, defaultButtonColor);
         startButtonHovered = false;
-    }
-
-    if (Input_MouseIsOnRect(controlsButtonRect)) {
-        UI_ChangeTextColor(controlsButtonElement, hoverButtonColor);
-        if (!controlsButtonHovered) {
-            Sound_Play_Effect(SOUND_HOVER);
-            controlsButtonHovered = true;
-        }
-        if (Input->mouse.leftButton.pressed) {
-            app.state.currentScene = SCENE_CONTROLS;
-            controlLastScene = SCENE_MENU;
-            Sound_Play_Effect(SOUND_SELECT);
-        }
-    } else {
-        UI_ChangeTextColor(controlsButtonElement, defaultButtonColor);
-        controlsButtonHovered = false;
     }
 
     if (Input_MouseIsOnRect(settingsButtonRect)) {
@@ -166,12 +147,6 @@ void Menu_Render() {
         SDL_RenderFillRect(app.resources.renderer, &startButtonRect);
     }
     UI_RenderText(startButtonElement);
-
-    if (Input_MouseIsOnRect(controlsButtonRect)) {
-        SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(app.resources.renderer, &controlsButtonRect);
-    }
-    UI_RenderText(controlsButtonElement);
 
 
     if (Input_MouseIsOnRect(settingsButtonRect)) {
