@@ -83,6 +83,8 @@ static UIElement* gameplayButton = NULL;
 static UIElement* controlsButton = NULL;
 static UIElement* videoButton = NULL;
 static UIElement* audioButton = NULL;
+static UIElement* backButton = NULL;
+static SDL_Rect backButtonRect;
 
 // Define constants for button dimensions and spacing
 #define BUTTON_WIDTH 70
@@ -327,12 +329,49 @@ void Settings_Start() {
 
     InitializeKeybindUI();
     
+    // Create back button
+    backButtonRect = (SDL_Rect) {
+        app.config.screen_width - 120,
+        app.config.screen_height - 44,
+        100,
+        30
+    };
+    
+    backButton = UI_CreateText(
+        "Back",
+        (SDL_Rect) {
+            app.config.screen_width - 70,
+            app.config.screen_height - 35,
+            0,
+            0
+        },
+        textColor,
+        1.0f,
+        UI_TEXT_ALIGN_CENTER,
+        app.resources.textFont
+    );
 }
 
 void Settings_Update() {
     if (Input->keyboard.keys[SDL_SCANCODE_ESCAPE].pressed && !isCapturingKey) {
         app.state.currentScene = settingsLastScene;
     }
+
+    // Handle back button
+    if (Input_MouseIsOnRect(backButtonRect)) {
+        UI_ChangeTextColor(backButton, (SDL_Color){0, 0, 0, 255});
+        if (!UI_IsHovered(backButton)) {
+            Sound_Play_Effect(SOUND_HOVER);
+            UI_SetHovered(backButton, true);
+        }
+        if (Input->mouse.leftButton.pressed) {
+            app.state.currentScene = settingsLastScene;
+        }
+    } else {
+        UI_ChangeTextColor(backButton, (SDL_Color){255, 255, 255, 255});
+        UI_SetHovered(backButton, false);
+    }
+
     // Handle tab switching
     if (Input->mouse.leftButton.pressed) {
         SettingsTab newTab = currentTab;
@@ -480,28 +519,6 @@ void Settings_Render() {
     // Render title
     UI_RenderText(settingsTitle);
 
-    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255); // White color
-
-    // Render Gameplay button
-    SDL_Rect gameplayRect = {GAMEPLAY_RECT};
-    SDL_RenderFillRect(app.resources.renderer, &gameplayRect);
-    UI_RenderText(gameplayButton);
-
-    // Render Controls button
-    SDL_Rect controlsRect = {CONTROLS_RECT};
-    SDL_RenderFillRect(app.resources.renderer, &controlsRect);
-    UI_RenderText(controlsButton);
-
-    // Render Video button
-    SDL_Rect videoRect = {VIDEO_RECT};
-    SDL_RenderFillRect(app.resources.renderer, &videoRect);
-    UI_RenderText(videoButton);
-
-    // Render Audio button
-    SDL_Rect audioRect = {AUDIO_RECT};
-    SDL_RenderFillRect(app.resources.renderer, &audioRect);
-    UI_RenderText(audioButton);
-
     // Render gameplay settings if active
     if (currentTab == SETTINGS_TAB_GAMEPLAY) {
         for (int i = 0; i < GAMEPLAY_SETTINGS_COUNT; i++) {
@@ -543,6 +560,34 @@ void Settings_Render() {
     // Render controls settings if active
     if (currentTab == SETTINGS_TAB_CONTROLS) {
         SDL_SetRenderDrawColor(app.resources.renderer, 100, 100, 100, 255);
+        
+        // Calculate scroll indicator metrics
+        float maxScroll = ACTION_COUNT * SETTING_TAB_SPACING - (app.config.screen_height - SETTING_TAB_STARTY - 40);
+        if (maxScroll > 0) {
+            float viewportHeight = app.config.screen_height - SETTING_TAB_STARTY - 40;
+            float scrollBarHeight = (viewportHeight / (ACTION_COUNT * SETTING_TAB_SPACING)) * viewportHeight;
+            float scrollBarY = SETTING_TAB_STARTY + (controlsScrollOffset / maxScroll) * (viewportHeight - scrollBarHeight);
+            
+            // Draw scroll track
+            SDL_Rect scrollTrack = {
+                BUTTONS_ENDX,
+                SETTING_TAB_STARTY,
+                4,
+                viewportHeight
+            };
+            SDL_SetRenderDrawColor(app.resources.renderer, 50, 50, 50, 255);
+            SDL_RenderFillRect(app.resources.renderer, &scrollTrack);
+            
+            // Draw scroll handle
+            SDL_Rect scrollHandle = {
+                BUTTONS_ENDX,
+                scrollBarY,
+                4,
+                scrollBarHeight
+            };
+            SDL_SetRenderDrawColor(app.resources.renderer, 200, 200, 200, 255);
+            SDL_RenderFillRect(app.resources.renderer, &scrollHandle);
+        }
         
         for (int i = 0; i < ACTION_COUNT; i++) {
             float y = SETTING_TAB_STARTY + i * SETTING_TAB_SPACING - controlsScrollOffset;
@@ -590,6 +635,54 @@ void Settings_Render() {
             }
         }
     }
+
+    SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 255); // Reset to black for other elements
+    SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {
+        BUTTONS_STARTX, 
+        BUTTONS_STARTY, 
+        BUTTONS_TOTAL_WIDTH, 
+        BUTTON_HEIGHT + 20
+    }); // Clear screen
+
+    SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {
+        BUTTONS_STARTX, 
+        BUTTONS_STARTY + 170, 
+        BUTTONS_TOTAL_WIDTH, 
+        BUTTON_HEIGHT + 20
+    }); // Clear screen
+
+
+    SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255); // White color
+
+    // Render Gameplay button
+    SDL_Rect gameplayRect = {GAMEPLAY_RECT};
+    SDL_RenderFillRect(app.resources.renderer, &gameplayRect);
+    UI_RenderText(gameplayButton);
+
+    // Render Controls button
+    SDL_Rect controlsRect = {CONTROLS_RECT};
+    SDL_RenderFillRect(app.resources.renderer, &controlsRect);
+    UI_RenderText(controlsButton);
+
+    // Render Video button
+    SDL_Rect videoRect = {VIDEO_RECT};
+    SDL_RenderFillRect(app.resources.renderer, &videoRect);
+    UI_RenderText(videoButton);
+
+    // Render Audio button
+    SDL_Rect audioRect = {AUDIO_RECT};
+    SDL_RenderFillRect(app.resources.renderer, &audioRect);
+    UI_RenderText(audioButton);
+
+    // Render back button
+    if (UI_IsHovered(backButton)) {
+        SDL_SetRenderDrawColor(app.resources.renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(app.resources.renderer, &backButtonRect);
+    } else {
+        SDL_SetRenderDrawColor(app.resources.renderer, 0, 0, 0, 255);
+        SDL_RenderFillRect(app.resources.renderer, &backButtonRect);
+    }
+    UI_RenderText(backButton);
 }
 
 bool Settings_GetPreventOverhealing() {
@@ -806,8 +899,13 @@ void Settings_End() {
         UI_DestroyText(videoSettings[i].buttonElement);
     }
 
-    // Clean up keybind UI if it exists
+    // Clean up keybind UI
     CleanupKeybindUI();
+
+    // Clean up back button
+    if (backButton) {
+        UI_DestroyText(backButton);
+    }
 
     // Reset states
     controlsScrollOffset = 0;
