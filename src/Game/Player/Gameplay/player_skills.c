@@ -207,6 +207,7 @@ bool Player_GhostLoadGunJammed()
         {
             if(randomizer == 1)
             {
+                Sound_Play_Effect(SOUND_GUN_JAM);
                 player.resources.skillResources.ghostLoadRandomizer = player.stats.skillStat.ghostLoadRandomizer;
             }
             else

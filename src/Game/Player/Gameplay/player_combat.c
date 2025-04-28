@@ -93,7 +93,7 @@ void Player_Shoot() {
     }
 
     if(Player_GhostLoadGunJammed()) {
-        Sound_Play_Effect(SOUND_GUN_JAM);
+        
         player.state.currentAmmo += ammoComsumption;
     }
 

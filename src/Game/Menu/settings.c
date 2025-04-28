@@ -332,7 +332,7 @@ void Settings_Start() {
     // Create back button
     backButtonRect = (SDL_Rect) {
         app.config.screen_width - 120,
-        app.config.screen_height - 44,
+        app.config.screen_height - 34,
         100,
         30
     };
@@ -341,7 +341,7 @@ void Settings_Start() {
         "Back",
         (SDL_Rect) {
             app.config.screen_width - 70,
-            app.config.screen_height - 35,
+            app.config.screen_height - 25,
             0,
             0
         },
@@ -641,7 +641,7 @@ void Settings_Render() {
         BUTTONS_STARTX, 
         BUTTONS_STARTY, 
         BUTTONS_TOTAL_WIDTH, 
-        BUTTON_HEIGHT + 20
+        BUTTON_HEIGHT + 17
     }); // Clear screen
 
     SDL_RenderFillRect(app.resources.renderer, &(SDL_Rect) {
