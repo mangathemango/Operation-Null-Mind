@@ -222,7 +222,7 @@ void Libet_Update(EnemyData* data) {
             config->state = LIBET_FLOATING;
             config->timer = 0;
             phase++;
-            Player_TakeDamage(-50);
+            Player_TakeDamage(-100);
             Animation_Play(data->resources.animation, "[INVINCIBLE]");
             data->state.collider.layer = COLLISION_LAYER_NONE;
 
@@ -377,7 +377,7 @@ void Libet_Update(EnemyData* data) {
             Collider_Check(bullet->collider, &result);
             for (int j = 0; j < result.count; j++) {
                 if (result.objects[j]->layer & COLLISION_LAYER_PLAYER) {
-                    Player_TakeDamage(10);
+                    Player_TakeDamage(20);
                 }
                 if (result.objects[j]->layer & COLLISION_LAYER_ENEMY) {
                     EnemyData* enemy = (EnemyData*) result.objects[j]->owner;

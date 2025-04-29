@@ -30,7 +30,7 @@ EnemyData LibetData = {
         .isDead = true,
     },
     .stats = {
-        .damage = 20,
+        .damage = 30,
         .maxHealth = 10000,
         .maxSpeed = 80.0f,
         .acceleration = 300.0f,
