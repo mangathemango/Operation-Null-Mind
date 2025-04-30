@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['hallways_0',['hallways',['../structEnvironmentChunk.html#a747252f4ea617564db987b67ac266d10',1,'EnvironmentChunk']]],
+  ['hasinteraction_1',['hasinteraction',['../interactable_8h.html#afd8b07c3e4eeefbded7b1f6b1aa633d6',1,'hasInteraction:&#160;interactable_start.c'],['../interactable__start_8c.html#afd8b07c3e4eeefbded7b1f6b1aa633d6',1,'hasInteraction:&#160;interactable_start.c']]],
+  ['hasnextsong_2',['hasNextSong',['../structSimpleQueue.html#a1df2009d63bae22d52ec2c608dde381f',1,'SimpleQueue']]],
+  ['healamount_3',['healAmount',['../structRechargeConfig.html#a139ab8798de01596b960642412be8682',1,'RechargeConfig']]],
+  ['healingitemslabelelement_4',['healingItemsLabelElement',['../win__layout_8c.html#a2dd56cdfe84e13a98d93ad49c18fa81d',1,'win_layout.c']]],
+  ['healingitemsused_5',['healingItemsUsed',['../structGameData.html#af16ac7e40c4006e901224305c2709ab3',1,'GameData']]],
+  ['healingitemsvalueelement_6',['healingItemsValueElement',['../win__layout_8c.html#ab5bce798c3b39140a6fa819732310a2c',1,'win_layout.c']]],
+  ['healthamount_7',['healthAmount',['../structHealthData.html#aa82fa8c0cd79fb1d734f1466b72feb93',1,'HealthData']]],
+  ['healthdata_8',['healthdata',['../interactable_8h.html#aafb4f43b285e6a7d80fb628bb399d68a',1,'healthData:&#160;interactable_data.c'],['../interactable__data_8c.html#aafb4f43b285e6a7d80fb628bb399d68a',1,'healthData:&#160;interactable_data.c']]],
+  ['held_9',['held',['../structButtonState.html#a8c46ec92fdf5a4d38673f72b904b1f63',1,'ButtonState']]],
+  ['hemocycle_10',['hemoCycle',['../structSkillState.html#a647722fad9ad88d8af776931f0382076',1,'SkillState']]],
+  ['hemocyclehealthgained_11',['hemocycleHealthGained',['../structSkillStat.html#ac06742e243f6cb2e49a86865935176fe',1,'SkillStat']]],
+  ['hemocyclemultipler_12',['hemocyclemultipler',['../structSkillResources.html#a582a4e1ef529e45a025fe79ed99e27b3',1,'SkillResources::hemocycleMultipler'],['../structSkillStat.html#a37a41fe3db4d411e48fd22d1a3f527c6',1,'SkillStat::hemocycleMultipler']]],
+  ['hitbox_13',['hitbox',['../structCollider.html#a906f532961a3a69949e0dbaa3a0f8914',1,'Collider']]],
+  ['hitboxsize_14',['hitboxSize',['../structInteractable.html#a829b473e9d209e7c9cfe2bdb8eaef465',1,'Interactable']]],
+  ['hitstaken_15',['hitsTaken',['../structGameData.html#abce9fe1df57ce57648146a5d293fab5c',1,'GameData']]],
+  ['hitstakenlabelelement_16',['hitsTakenLabelElement',['../win__layout_8c.html#aa796e55bf40327d3f95222a048db2185',1,'win_layout.c']]],
+  ['hitstakenvalueelement_17',['hitsTakenValueElement',['../win__layout_8c.html#aad3de85435f0c2a588d11e800fa1d810',1,'win_layout.c']]],
+  ['hovered_18',['hovered',['../structUIElement.html#a3eda6d8e694766d4b385cf9d7b5aa835',1,'UIElement']]],
+  ['hovertexture_19',['hoverTexture',['../structUI__ButtonData.html#a075101a19646c5af142fdb572cdbb7ad',1,'UI_ButtonData']]],
+  ['hud_5fgun_20',['HUD_gun',['../hud_8c.html#a1b19e7847c0d3d5ba165668364b701a0',1,'hud.c']]],
+  ['hudtoggled_21',['hudToggled',['../structGameData.html#a2319501a75f58f99ca01f7cebbadfae9',1,'GameData']]]
+];

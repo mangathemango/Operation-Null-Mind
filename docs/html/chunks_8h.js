@@ -1,0 +1,55 @@
+var chunks_8h =
+[
+    [ "EnvironmentChunk", "structEnvironmentChunk.html", "structEnvironmentChunk" ],
+    [ "CHUNK_SIZE_PIXEL", "chunks_8h.html#aec5a36c411d776075c030d92f8dd4d18", null ],
+    [ "CHUNK_SIZE_TILE", "chunks_8h.html#a87cf726dd3d225f26a9e7885ef7d762b", null ],
+    [ "HALLWAY_END", "chunks_8h.html#ae68419b2b8a3c03b7919348ff23b64af", null ],
+    [ "HALLWAY_SIZE_TILE", "chunks_8h.html#a7c8cb26d62e0cbc0ef7a1addf138c15a", null ],
+    [ "HALLWAY_START", "chunks_8h.html#aae50d199c212cf7486e395a1772663aa", null ],
+    [ "ROOM_ENDX", "chunks_8h.html#a7b8fa9135dfa4909739e806b3b38b51d", null ],
+    [ "ROOM_ENDY", "chunks_8h.html#ad2df96d6835601b060cd2aff514aef29", null ],
+    [ "ROOM_STARTX", "chunks_8h.html#ada5a96657ea3bca134e87e31993953ef", null ],
+    [ "ROOM_STARTY", "chunks_8h.html#a37a6c5e26b4bbc9da16490a13ccd9373", null ],
+    [ "RoomFloorPattern", "chunks_8h.html#a7756deba2db32c5a4465fbdd7370701b", [
+      [ "ROOM_FLOOR_PATTERN_1", "chunks_8h.html#a7756deba2db32c5a4465fbdd7370701bac3ca54cee201f0293565fbe4c099457a", null ],
+      [ "ROOM_FLOOR_PATTERN_RANDOM", "chunks_8h.html#a7756deba2db32c5a4465fbdd7370701bab339c3ef8c8988f0ddaf0221f3c7140e", null ]
+    ] ],
+    [ "RoomHallways", "chunks_8h.html#a55136de375c6c813554189471deff2be", [
+      [ "HALLWAY_NONE", "chunks_8h.html#a55136de375c6c813554189471deff2bea36126dfc1dcf4ca2cb3d787ae40006de", null ],
+      [ "HALLWAY_UP", "chunks_8h.html#a55136de375c6c813554189471deff2beafab07a9e97dad5e64d044c914b0002ed", null ],
+      [ "HALLWAY_DOWN", "chunks_8h.html#a55136de375c6c813554189471deff2beadd37deab9d1b150241b9bcf2fc0e2df0", null ],
+      [ "HALLWAY_LEFT", "chunks_8h.html#a55136de375c6c813554189471deff2bea2377a450092951aafd00c701384fc2de", null ],
+      [ "HALLWAY_RIGHT", "chunks_8h.html#a55136de375c6c813554189471deff2bea8ec8422ea355cf9ba8a103dc12b16107", null ]
+    ] ],
+    [ "RoomType", "chunks_8h.html#ab540f7414f306325d92272bcef1e34e1", [
+      [ "ROOM_TYPE_START", "chunks_8h.html#ab540f7414f306325d92272bcef1e34e1acb3eb1b1651d3ce2de54b96c76ddb4aa", null ],
+      [ "ROOM_TYPE_NORMAL", "chunks_8h.html#ab540f7414f306325d92272bcef1e34e1a3d522d7dff3ab55f9e68c237fd47073b", null ],
+      [ "ROOM_TYPE_BOSS", "chunks_8h.html#ab540f7414f306325d92272bcef1e34e1a07907cd17eb2c72ba9e8b515080294f9", null ],
+      [ "ROOM_TYPE_END", "chunks_8h.html#ab540f7414f306325d92272bcef1e34e1af68a5b54c692fc30754e2c354f2274ff", null ],
+      [ "ROOM_TYPE_CRATE", "chunks_8h.html#ab540f7414f306325d92272bcef1e34e1afc4f64693fcaeb0cdb629febdd13c975", null ]
+    ] ],
+    [ "Chunk_AddEndTrigger", "chunks_8h.html#ad1f56da42692d556689b81d807718b88", null ],
+    [ "Chunk_AddHallwayTrigger", "chunks_8h.html#af47be364cc7dbc4dfd3ab7e3a8bbcc37", null ],
+    [ "Chunk_AddRoomTrigger", "chunks_8h.html#a886eda59a58d8701e583e00ca8d965ae", null ],
+    [ "Chunk_AddWallCollider", "chunks_8h.html#ad74767df2c3ae4ff1785984aea5fae3e", null ],
+    [ "Chunk_GenerateColliders", "chunks_8h.html#abc9a97d4c1b46cecfc4ded089379160f", null ],
+    [ "Chunk_GenerateFloorTiles", "chunks_8h.html#a3c8ed3c9577620174709daac4245bbb0", null ],
+    [ "Chunk_GenerateHallways", "chunks_8h.html#a7678efa189ea27b0a6d33203c6bfe07b", null ],
+    [ "Chunk_GenerateHallwayWallTiles", "chunks_8h.html#a9ffa947c08a085e172f08a23474486e5", null ],
+    [ "Chunk_GenerateTiles", "chunks_8h.html#a43cff188f7819836156b2e232e2445e1", null ],
+    [ "Chunk_GenerateTilesButVoid", "chunks_8h.html#a7edd47b0cddb88cb06d1b2fbc0326b21", null ],
+    [ "Chunk_GenerateWallTiles", "chunks_8h.html#ae5cb680afbe72e3b84f4cec4c4ec6d94", null ],
+    [ "Chunk_GetChunkCenter", "chunks_8h.html#a090037e166b2bfc9691436a4d2d13f29", null ],
+    [ "Chunk_GetCurrentChunk", "chunks_8h.html#a976c0963b1674932bca8fd8f21c1f97b", null ],
+    [ "Chunk_GetRandomTileCenterInRoom", "chunks_8h.html#a433a4562c2acf703e90fcf21ab8ed6c1", null ],
+    [ "Chunk_GetRandomTileInRoom", "chunks_8h.html#a49a732062411b3a092e515b11f6336a3", null ],
+    [ "Chunk_GetRoomBottomRight", "chunks_8h.html#afa1f122b562f52820f4dd21966990390", null ],
+    [ "Chunk_GetRoomTopLeft", "chunks_8h.html#a48dae7c549c4abda0f3b52b44672ee73", null ],
+    [ "Chunk_HandlePlayerInsideEnd", "chunks_8h.html#ae84388d52a27806ac2e9e522bb2c9baf", null ],
+    [ "Chunk_HandlePlayerInsideHallway", "chunks_8h.html#a32981cdd3c79f2077b8cc18f0647b164", null ],
+    [ "Chunk_HandlePlayerInsideRoom", "chunks_8h.html#abd632f93a31b99cb258056811ae7253a", null ],
+    [ "Chunk_IsOnMainPath", "chunks_8h.html#a07978256a1c820d6c940abdbaf02015d", null ],
+    [ "Chunk_IsValid", "chunks_8h.html#a377d9ac3774d6b0f9060fc285e7c4670", null ],
+    [ "Chunk_Render", "chunks_8h.html#a199e3fed5cec3a5e779195d02176eac6", null ],
+    [ "Chunk_Start", "chunks_8h.html#a772ef6da418a8e4562badc672d71c1ac", null ]
+];
