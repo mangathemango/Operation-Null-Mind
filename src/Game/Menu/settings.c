@@ -242,7 +242,6 @@ static void InitializeKeybindUI() {
     for (int i = 0; i < ACTION_COUNT; i++) {
         const char* actionName = Input_GetActionName(i);
         if (!actionName) actionName = "Unknown";
-        SDL_Log("Keybind %d: %s", i, actionName);
         
         keybindLabels[i].actionLabel = UI_CreateText(
             actionName,

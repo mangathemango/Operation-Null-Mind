@@ -49,7 +49,6 @@ void Player_Dash() {
     if (Vec2_Magnitude(player.state.direction) == 0) return;
     if (player.state.movementLocked) return;
     if (!Timer_IsFinished(player.resources.dashCooldownTimer)) return;
-    SDL_Log("Dashing\n");   
     Sound_Play_Effect(SOUND_DASH); // Play dash sound effect
     player.state.dashing = true; 
     player.state.directionLocked = true; // Player can't control movement during dash

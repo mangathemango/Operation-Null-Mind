@@ -327,7 +327,6 @@ void Input_LoadBindings(FILE* file) {
 bool Input_IsActionPressed(GameAction action) {
     const ButtonState* state = _input.actions[action];
     if (state && state->pressed) {
-        SDL_Log("Action %s pressed", _input.bindings[action].label);
         return true;
     }
     return false;

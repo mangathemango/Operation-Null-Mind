@@ -533,7 +533,6 @@ void Chunk_AddEndTrigger(Vec2 startTile, Vec2 endTile, EnvironmentChunk* chunk) 
         tilePosition, 
         chunkPosition
     );
-    SDL_Log("Creating end wall collider at: (%d, %d)", (int)pixelPoint.x, (int)pixelPoint.y);
     Chunk_AddWallCollider(
         Vec2_Subtract(tilePosition, (Vec2) {3, 3}),
         Vec2_Add(tilePosition, (Vec2) {2, -1}),

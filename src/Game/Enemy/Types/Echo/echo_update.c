@@ -199,7 +199,6 @@ void Echo_UpdateParticles() {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 
                 int totalDamage = EchoData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
-                SDL_Log("Enemy took damage %d, remaining health %d",totalDamage, enemy->state.currentHealth);
                 Enemy_TakeDamage(enemy, totalDamage);
                 EchoBulletFragmentsEmitter->position = bullet->position;
                 EchoBulletFragmentsEmitter->direction = EchoBulletEmitter->direction;

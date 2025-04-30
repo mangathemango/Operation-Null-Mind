@@ -125,7 +125,6 @@ void Tactician_Update(EnemyData* data) {
 
                 enemies[i].state.tacticianBuff = config->buffStrength;
                 enemies[i].state.tacticianBuffTimeLeft = 3.0f;
-                SDL_Log("Tactician buff applied to enemy %d", i);
             }
         }
     }
@@ -165,7 +164,6 @@ void Tactician_UpdateParticles() {
                 EnemyData* enemy = (EnemyData*) result.objects[j]->owner;
                 
                 int totalDamage = TacticianData.stats.damage * player.stats.skillStat.crashOutCurrentMultipler;
-                SDL_Log("Enemy took damage %d, remaining health %d", totalDamage, enemy->state.currentHealth);
                 Enemy_TakeDamage(enemy, totalDamage);
                 
                 TacticianBulletFragmentsEmitter->position = bullet->position;
